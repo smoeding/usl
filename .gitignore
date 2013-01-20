@@ -1,5 +1,9 @@
-# History files
+# Exclude R and RStudio files
+.RData
 .Rhistory
-
-# Example code in package build process
+.Rbuildignore
+.Rproj.user
+*.Rproj
 *-Ex.R
+
+
