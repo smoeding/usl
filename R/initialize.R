@@ -24,61 +24,63 @@
 
 
 ##############################################################################
-#' Generate an object from the SummaryUSL class
+#' Generate an object from the "\code{SummaryUSL}" or "\code{USL}" class
 #'
 #' Initialize the object.
-#' 
-#' @param .Object The SummaryUSL object to initialize.
-#' 
+#'
+#' @param .Object The object to initialize.
 #' @param call The formula used to create the USL model.
-#' 
 #' @param coefficients A vector containing the coefficients of the USL model.
 #'
-#' @name initialize
-#' @aliases initialize,SummaryUSL-method 
+#' @return An object of the specific type.
+#'
+#' @keywords internal
+#' @aliases initialize,SummaryUSL-method
 #' @docType methods
 #' @rdname initialize-methods
-#' 
+#'
 setMethod(
   f = "initialize",
   signature = "SummaryUSL",
   definition = function(.Object, call, coefficients) {
     if (!missing(call))         .Object@call         <- call
     if (!missing(coefficients)) .Object@coefficients <- coefficients
-    
+
     return(.Object)
   }
 )
 
-#' Generate an object from the USL class
-#' 
-#' Initialize the object.
-#' 
-#' @param .Object The SummaryUSL object to initialize.
-#' 
-#' @param call The formula used to create the USL model.
-#' 
-#' @name initialize
-#' @aliases initialize,USL-method 
+
+#' @param frame The model frame containing the variables in the model.
+#' @param regr The name of the regressor variable in the model.
+#' @param resp The name of the response variable in the model.
+#' @param scale.factor A numeric value for the scale of the model. This is the factor
+#'     by which the model values have been reduced to get a normalized model.
+#' @param sigma The contention parameter of the model.
+#' @param kappa The coherency delay parameter of the model.
+#'
+#' @keywords internal
+#' @aliases initialize,USL-method
 #' @docType methods
 #' @rdname initialize-methods
-#' 
+#'
 setMethod(
   f = "initialize",
   signature = "USL",
   definition = function(.Object, call, frame, regr, resp, scale.factor, sigma, kappa) {
     coefficients <- c(sigma, kappa)
     names(coefficients) <- c("sigma", "kappa")
-    
+
     .Object <- callNextMethod(.Object, call, coefficients)
-    
+
     .Object@frame        <- frame
     .Object@regr         <- regr
     .Object@resp         <- resp
     .Object@scale.factor <- scale.factor
-    
+
     # Call inspector
     validObject(.Object)
+
     return(.Object)
   }
 )

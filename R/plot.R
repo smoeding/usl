@@ -25,33 +25,63 @@
 
 ##############################################################################
 #' Plot the result from an Universal Scalability Law model
-#' 
-#' Draw a line plot for an Universal Scalability Law model.
-#' 
-#' @param x The USL object
-#' @param ... Other graphical parameters (see \code{\link{par}})
-#' 
-#' @name plot
-#' @aliases plot,USL-method
+#'
+#' Create a line plot for an Universal Scalability Law model.
+#'
+#' \code{plot} creates a plot of the scalability function for the model
+#' represented by the argument \code{x}.
+#'
+#' If \code{from} is not specified then the range starts at the minimum value
+#' given to define the model. An unspecified value for \code{to} will lead
+#' to plot ending at the maximum value from the model. For \code{add = TRUE}
+#' the defaults are taken from the limits of the previous plot.
+#'
+#' \code{xlab} and \code{ylab} can be used to set the axis titles. The defaults
+#' are the names of the regressor and response variables used in the model.
+#'
+#' @param x The USL object to plot.
+#' @param from The start of the range over which the scalability function
+#'   will be plotted.
+#' @param to The end of the range over which the scalability function
+#'   will be plotted.
+#' @param xlab A title for the x axis: see \code{\link{title}}.
+#' @param ylab A title for the y axis: see \code{\link{title}}.
+#' @param ... Other graphical parameters passed to plot
+#'   (see \code{\link{par}}, \code{\link{plot.function}}).
+#'
+#' @seealso \code{\link{usl}}, \code{\link{plot.function}}
+#'
 #' @docType methods
-#' @rdname plot-methods
+#' 
+#' @examples
+#' \dontrun{
+#' ## load demo data
+#' data(raytracer)
+#' ## build model
+#' usl.model <- usl(throughput ~ processors, raytracer)
+#' ## plot scalability function
+#' plot(usl.model)
+#' }
+#'
 #' @export
+#' @aliases plot,USL-method
+#' @rdname plot-methods
 setMethod(
   f = "plot",
   signature = "USL",
-  definition = function(x, y = NULL, from = NULL, to = NULL, xlab = NULL, ylab = NULL, ...) {
+  definition = function(x, from = NULL, to = NULL, xlab = NULL, ylab = NULL, ...) {
     # Get the function to calculate scalability for the model
     .func <- scalability(x)
-    
+
     # Take range from the model if not specified
     if (missing(from)) from <- min(x@frame[, x@regr])
     if (missing(to)) to <- max(x@frame[, x@regr])
-    
-    # Titles for axis
+
+    # Set titles for axis
     if (missing(xlab)) xlab <- x@regr
     if (missing(ylab)) ylab <- x@resp
-    
+
     # Plot the scalability function
-    plot(x=.func, from=from, to=to, xlab=xlab, ylab=ylab, ...)
+    plot(x = .func, from = from, to = to, xlab = xlab, ylab = ylab, ...)
   }
 )

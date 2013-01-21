@@ -1,3 +1,4 @@
+\docType{class}
 \name{SummaryUSL-class}
 \alias{SummaryUSL-class}
 \title{Class "\code{SummaryUSL}" for summaries of class "\code{USL-class}"}
@@ -6,8 +7,8 @@
   \code{\link{USL-class}}.
 }
 \section{Slots}{
-  \describe{ \item{\code{call}:}{The call to calculate the
-  model} \item{\code{coefficients}:}{The coefficients sigma
-  and kappa of the model} }
+  \describe{ \item{\code{call}:}{The call used to create
+  the model.} \item{\code{coefficients}:}{The coefficients
+  sigma and kappa of the model.} }
 }
 

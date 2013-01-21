@@ -24,15 +24,29 @@
 
 
 ##############################################################################
-#' Extract parts of an \code{SummaryUSL} or \code{USL} object
+#' Extract parts of an "\code{SummaryUSL}" or "\code{USL}" object
+#'
+#' The operator extracts a part of an \code{\link{SummaryUSL-class}} or
+#' \code{\link{USL-class}} object.
 #' 
-#' The operator extracts a part of an object.
+#' This is a generic method for the two classes used in the usl package.
 #' 
+#' The operator is used internally by functions like \code{\link{coef}}, so it
+#' is necessary to have a working implementation of the \code{coef} function.
+#'
 #' @param x Object from which to extract elements.
-#'   
 #' @param name A literal character string or a \link{name} (possibly quoted).
-#'   
-#' @name $
+#' 
+#' @examples
+#' \dontrun{
+#' ## get coefficients from usl model
+#' usl.model$coefficients
+#' }
+#'
+#' @seealso \code{\link{SummaryUSL-class}}, \code{\link{USL-class}},
+#'     \code{\link{Extract}}
+#'
+#' @keywords internal
 #' @aliases $,SummaryUSL-method
 #' @docType methods
 #' @rdname extract-methods
@@ -40,9 +54,11 @@
 setMethod(
   f = "$",
   signature = "SummaryUSL",
-  definition = function(x, name) slot(x, name)
+  definition = function(x, name) { slot(x, name) }
 )
 
+
+#' @keywords internal
 #' @aliases $,USL-method
 #' @docType methods
 #' @rdname extract-methods
@@ -50,5 +66,5 @@ setMethod(
 setMethod(
   f = "$",
   signature = "USL",
-  definition = function(x, name) slot(x, name)
+  definition = function(x, name) { slot(x, name) }
 )

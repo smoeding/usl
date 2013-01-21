@@ -2,6 +2,7 @@
 
 library(usl)
 
+# Load the SPEC SDM91 dataset
 data(specsdm91)
 
 # Show the data from the SPEC SDM91 benchmark
