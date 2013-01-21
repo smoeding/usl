@@ -45,4 +45,4 @@ Coefficients:
 
 The following image shows the plotted output:
 
-![SPEC SDM91 scalability function](http://download.moeding.net/diagrams/usl/specsdm91.png "SPEC SDM91 scalability function")
+![SPEC SDM91 scalability function](http://download.moeding.net/gfx/usl-package/specsdm91.png "SPEC SDM91 scalability function")
