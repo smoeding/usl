@@ -1,17 +1,19 @@
 Package: usl
 Type: Package
-Title: Analyze system scalability with the Universal Scalability Law
-Version: 0.0.1
-Date: 2013-01-20
+Title: Analyze system scalability with the Universal
+    Scalability Law
+Version: 0.0.2
+Date: 2013-01-22
 Author: Stefan Moeding, Neil J. Gunther
 Maintainer: Stefan Moeding <stm@moeding.net>
 Depends:
     R (>= 2.15.0),
     methods
-Description: The Universal Scalability Law is a model to predict hardware
-    and software scalability. It uses system capacity as a function of
-    load to forecast the scalability for the system.
-    It has been developed by Dr. Neil J. Gunther.
+Description: The Universal Scalability Law is a model to
+    predict hardware and software scalability. It uses
+    system capacity as a function of load to forecast the
+    scalability for the system. It has been developed by
+    Dr. Neil J. Gunther.
 License: BSD
 Collate:
     'AllClasses.R'

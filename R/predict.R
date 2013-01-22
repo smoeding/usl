@@ -24,22 +24,39 @@
 
 
 ##############################################################################
-#' Universal Scalability Law model predictions
+#' Predict method for Universal Scalability Law models
 #'
-#' \code{predict} is a function for predictions from the result of the
-#' Universal Scalability Law.
-#' 
-#' @param object An USL model object for which prediction is desired.
+#' \code{predict} is a function for predictions of the scalability of a
+#' system modeled with the Universal Scalability Law.
+#'
+#' \code{predict} internally uses the function returned by
+#' \code{\link{scalability}} to calculate the result.
+#'
+#' @usage \S4method{predict}{USL}(object, newdata)
+#' @param object A USL model object for which prediction is desired.
 #' @param newdata An optional data frame in which to look for variables
 #'   with which to predict. If omitted, the fitted values are used.
 #'   
-#' @return An object of class \code{\link{SummaryUSL-class}}
+#' @return \code{predict} produces a vector of predictions.
 #'
-#' @name predict
+#' @seealso \code{\link{usl}}, \code{\link{scalability}}
+#'
+#' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
+#'   Heidelberg, Germany, 2007.
+#'
+#' @examples
+#' require(usl)
+#'
+#' data(raytracer)
+#'
+#' ## Print predicted result from USL model for demo dataset
+#' predict(usl(throughput ~ processors, raytracer))
+#'
 #' @aliases predict,USL-method
 #' @docType methods
 #' @rdname predict-methods
 #' @export
+#'
 setMethod(
   f = "predict",
   signature = "USL",

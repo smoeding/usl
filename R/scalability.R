@@ -24,20 +24,44 @@
 
 
 ##############################################################################
-#' Scalability function of the USL model
+#' Scalability function of a USL model
 #'
-#' Return a function to calculate the scalability for a specific model.
-#'  
-#' @param object An USL object
+#' \code{scalability} is a higher order function and returns a function to
+#' calculate the scalability for the specific USL model.
+#'
+#' The returned function can be used to look at specific values once the
+#' model for a specific system has been created.
+#'
+#' @usage \S4method{scalability}{USL}(object)
+#' @param object A USL object.
+#'
+#' @return A function with parameter \code{x} that calculates the
+#'   scalability value of the specific model.
+#'
+#' @seealso \code{\link{usl}}, \code{\link{peak.scalability}}
+#'
+#' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
+#'   Heidelberg, Germany, 2007.
+#'
+#' @examples
+#' require(usl)
+#'
+#' data(raytracer)
 #' 
-#' @return A function with parameter \code{x} that calculates the value
-#'   of the specific model.
+#' ## Compute the scalability function
+#' s <- scalability(usl(throughput ~ processors, raytracer))
 #'
-#' @name scalability
+#' ## Print scalability for 32 CPUs for the demo dataset
+#' print(s(32))
+#'
+#' ## Plot scalability for the range from 1 to 64 CPUs
+#' plot(s, from=1, to=64)
+#'
 #' @aliases scalability,USL-method
 #' @docType methods
 #' @rdname scalability-methods
 #' @export
+#'
 setMethod(
   f = "scalability",
   signature = "USL",
@@ -57,23 +81,42 @@ setMethod(
 
 
 ##############################################################################
-#' Peak scalability value
-#' 
-#' Calculate the point of peak scalability for a specific model. 
-#' See formula (4.33) in "Guerilla Capacity Planing".
+#' Peak scalability value of a USL model
 #'
-#' @param object An USL object for the model
+#' Calculate the point of peak scalability for a specific model.
 #' 
-#' @return A numeric value for the point where peak scalability is reached.
+#' The peak scalability is the point where the throughput of the system goes
+#' retrograde (i.e., decreases with increasing load).
+#' See formula (4.33) in \emph{Guerilla Capacity Planning}.
 #'
-#' @name peak.scalability
+#' @usage \S4method{peak.scalability}{USL}(object)
+#' @param object A USL object.
+#'
+#' @return A numeric value for the point where peak scalability will be
+#'   reached.
+#'
+#' @seealso \code{\link{usl}}, \code{\link{scalability}}
+#'
+#' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
+#'   Heidelberg, Germany, 2007.
+#'
+#' @examples
+#' require(usl)
+#'
+#' data(raytracer)
+#'
+#' peak.scalability(usl(throughput ~ processors, raytracer))
+#' ## Peak scalability will be reached just below 450 processors
+#'
 #' @aliases peak.scalability,USL-method
 #' @docType methods
 #' @rdname peak.scalability-methods
 #' @export
+#'
 setMethod(
   f = "peak.scalability",
   signature = "USL",
-  definition = function(object) 
+  definition = function(object) {
     sqrt((1 - coef(object)[['sigma']]) / coef(object)[['kappa']])
+  }
 )

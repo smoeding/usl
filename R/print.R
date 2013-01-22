@@ -24,20 +24,29 @@
 
 
 ##############################################################################
-#' Print objects of class \code{SummaryUSL} or \code{USL}
+#' Print objects of class "\code{SummaryUSL}" or "\code{USL}"
 #' 
 #' \code{print} prints its argument and returns is invisibly (via 
 #' \code{\link{invisible}(x)}).
-#' 
-#' @param x An object.
-#'   
-#' @param digits Minimal number of significant digits, see \link{print.default}.
-#'   
-#' @param ... further arguments passed to other methods.
+#'
+#' @usage \S4method{print}{SummaryUSL}(x, digits, ...)
+#' @param x An object from class \code{SummaryUSL} or \code{USL}.
+#' @param digits Minimal number of \emph{significant} digits, see
+#'   \link{print.default}.
+#' @param ... Other arguments passed to other methods.
 #'
 #' @return \code{print} returns the object \code{x} invisibly.
+#'
+#' @seealso \code{\link{usl}}, \code{\link{print}}
 #' 
-#' @name print
+#' @examples
+#' require(usl)
+#' 
+#' data(raytracer)
+#'
+#' ## Print result from USL model for demo dataset
+#' print(usl(throughput ~ processors, raytracer))
+#' 
 #' @aliases print,SummaryUSL-method
 #' @docType methods
 #' @rdname print-methods
@@ -60,6 +69,7 @@ setMethod(
 )
 
 
+#' @usage \S4method{print}{USL}(x, digits, ...)
 #' @aliases print,USL-method
 #' @docType methods
 #' @rdname print-methods

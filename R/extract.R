@@ -34,6 +34,7 @@
 #' The operator is used internally by functions like \code{\link{coef}}, so it
 #' is necessary to have a working implementation of the \code{coef} function.
 #'
+#' @usage \S4method{$}{SummaryUSL}(x, name)
 #' @param x Object from which to extract elements.
 #' @param name A literal character string or a \link{name} (possibly quoted).
 #' 
@@ -46,11 +47,11 @@
 #' @seealso \code{\link{SummaryUSL-class}}, \code{\link{USL-class}},
 #'     \code{\link{Extract}}
 #'
-#' @keywords internal
 #' @aliases $,SummaryUSL-method
 #' @docType methods
 #' @rdname extract-methods
-#' @export
+#' @keywords internal
+#'
 setMethod(
   f = "$",
   signature = "SummaryUSL",
@@ -58,11 +59,12 @@ setMethod(
 )
 
 
-#' @keywords internal
+#' @usage \S4method{$}{USL}(x, name)
 #' @aliases $,USL-method
 #' @docType methods
 #' @rdname extract-methods
-#' @export
+#' @keywords internal
+#'
 setMethod(
   f = "$",
   signature = "USL",

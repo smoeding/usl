@@ -2,7 +2,10 @@
 \name{plot}
 \alias{plot}
 \alias{plot,USL-method}
-\title{Plot the result from an Universal Scalability Law model}
+\title{Plot the scalability function from a USL model}
+\usage{
+  \S4method{plot}{USL}(x, from, to, xlab, ylab, ...)
+}
 \arguments{
   \item{x}{The USL object to plot.}
 
@@ -22,8 +25,8 @@
   \code{\link{par}}, \code{\link{plot.function}}).}
 }
 \description{
-  Create a line plot for an Universal Scalability Law
-  model.
+  Create a line plot for the scalability functionh of a
+  Universal Scalability Law model.
 }
 \details{
   \code{plot} creates a plot of the scalability function
@@ -41,14 +44,12 @@
   response variables used in the model.
 }
 \examples{
-\dontrun{
-## load demo data
+require(usl)
+
 data(raytracer)
-## build model
-usl.model <- usl(throughput ~ processors, raytracer)
-## plot scalability function
-plot(usl.model)
-}
+
+## Plot result from USL model for demo dataset
+plot(usl(throughput ~ processors, raytracer))
 }
 \seealso{
   \code{\link{usl}}, \code{\link{plot.function}}

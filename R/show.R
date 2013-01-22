@@ -24,19 +24,30 @@
 
 
 ##############################################################################
-#' Show objects of class \code{SummaryUSL} or \code{USL}
+#' Show objects of class "\code{SummaryUSL}" or "\code{USL}"
 #'
 #' Display the object by printing it.
-#' 
+#'
+#' @usage \S4method{show}{SummaryUSL}(object)
 #' @param object The object to be printed.
 #' 
 #' @return \code{show} returns an invisible \code{NULL}.
+#'
+#' @seealso \code{\link{usl}}
+#'
+#' @examples
+#' require(usl)
 #' 
-#' @name show
+#' data(raytracer)
+#'
+#' ## Show USL model
+#' show(usl(throughput ~ processors, raytracer))
+#'
 #' @aliases show,SummaryUSL-method
 #' @docType methods
 #' @rdname show-methods
 #' @export
+#'
 setMethod(
   f = "show",
   signature = "SummaryUSL",
@@ -47,7 +58,7 @@ setMethod(
 )
 
 
-##############################################################################
+#' @usage \S4method{show}{USL}(object)
 #' @aliases show,USL-method
 #' @docType methods
 #' @rdname show-methods

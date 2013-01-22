@@ -28,16 +28,17 @@
 #'
 #' Initialize the object.
 #'
+#' @usage \S4method{initialize}{SummaryUSL}(.Object, call, coefficients)
 #' @param .Object The object to initialize.
 #' @param call The formula used to create the USL model.
 #' @param coefficients A vector containing the coefficients of the USL model.
 #'
 #' @return An object of the specific type.
 #'
-#' @keywords internal
 #' @aliases initialize,SummaryUSL-method
 #' @docType methods
 #' @rdname initialize-methods
+#' @keywords internal
 #'
 setMethod(
   f = "initialize",
@@ -51,6 +52,7 @@ setMethod(
 )
 
 
+#' @usage \S4method{initialize}{USL}(.Object, frame, regr, resp, scale.factor, sigma, kappa)
 #' @param frame The model frame containing the variables in the model.
 #' @param regr The name of the regressor variable in the model.
 #' @param resp The name of the response variable in the model.
@@ -59,10 +61,10 @@ setMethod(
 #' @param sigma The contention parameter of the model.
 #' @param kappa The coherency delay parameter of the model.
 #'
-#' @keywords internal
 #' @aliases initialize,USL-method
 #' @docType methods
 #' @rdname initialize-methods
+#' @keywords internal
 #'
 setMethod(
   f = "initialize",

@@ -24,9 +24,10 @@
 
 
 ##############################################################################
-#' Plot the result from an Universal Scalability Law model
+#' Plot the scalability function from a USL model
 #'
-#' Create a line plot for an Universal Scalability Law model.
+#' Create a line plot for the scalability functionh of a Universal
+#' Scalability Law model.
 #'
 #' \code{plot} creates a plot of the scalability function for the model
 #' represented by the argument \code{x}.
@@ -39,6 +40,7 @@
 #' \code{xlab} and \code{ylab} can be used to set the axis titles. The defaults
 #' are the names of the regressor and response variables used in the model.
 #'
+#' @usage \S4method{plot}{USL}(x, from, to, xlab, ylab, ...)
 #' @param x The USL object to plot.
 #' @param from The start of the range over which the scalability function
 #'   will be plotted.
@@ -50,22 +52,20 @@
 #'   (see \code{\link{par}}, \code{\link{plot.function}}).
 #'
 #' @seealso \code{\link{usl}}, \code{\link{plot.function}}
-#'
-#' @docType methods
 #' 
 #' @examples
-#' \dontrun{
-#' ## load demo data
-#' data(raytracer)
-#' ## build model
-#' usl.model <- usl(throughput ~ processors, raytracer)
-#' ## plot scalability function
-#' plot(usl.model)
-#' }
+#' require(usl)
 #'
-#' @export
+#' data(raytracer)
+#'
+#' ## Plot result from USL model for demo dataset
+#' plot(usl(throughput ~ processors, raytracer))
+#'
 #' @aliases plot,USL-method
+#' @docType methods
 #' @rdname plot-methods
+#' @export
+#'
 setMethod(
   f = "plot",
   signature = "USL",

@@ -7,7 +7,7 @@
 \arguments{
   \item{formula}{An object of class "\code{\link{formula}}"
   (or one that can be coerced to that class): a symbolic
-  description of the model to be analyzed.  The details of
+  description of the model to be analyzed. The details of
   model specification are given under 'Details'.}
 
   \item{data}{An optional data frame, list or environment
@@ -25,7 +25,49 @@
   either a hardware or a software system.
 }
 \details{
+  The USL model works with one independent variable (e.g.
+  virtual users, processes, threads, ...) and one dependent
+  variable (e.g. throughput). Therefore the model formula
+  must be in the simple "\code{response ~ regressor}"
+  format.
+
+  The Universal Scalability Law needs to transform the data
+  into a normalized form. Currently it is therefore
+  necessary to include one data item where the independent
+  variable equals 1. The value of the associated dependent
+  variable is used as scale factor for the normalization.
+
   The Universal Scalability Law has been created by Dr.
   Neil Gunther.
+}
+\examples{
+require(usl)
+
+data(raytracer)
+
+## Create USL model for "throughput" by "processors"
+usl.model <- usl(throughput ~ processors, raytracer)
+
+## Show summary of model parameters
+summary(usl.model)
+
+## Extract coefficients for model
+coef(usl.model)
+
+## Calculate point of peak scalability
+peak.scalability(usl.model)
+
+## Plot scalability function and original data
+plot(raytracer)
+plot(usl.model, add=TRUE)
+}
+\references{
+  N. J. Gunther. Guerrilla Capacity Planning.
+  Springer-Verlag, Heidelberg, Germany, 2007.
+}
+\seealso{
+  \code{\link{scalability}},
+  \code{\link{peak.scalability}}, \code{\link{summary}},
+  \code{\link{coef}}
 }
 

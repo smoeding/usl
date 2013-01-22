@@ -4,6 +4,13 @@
 \alias{initialize,SummaryUSL-method}
 \alias{initialize,USL-method}
 \title{Generate an object from the "\code{SummaryUSL}" or "\code{USL}" class}
+\usage{
+  \S4method{initialize}{SummaryUSL}(.Object, call,
+  coefficients)
+
+  \S4method{initialize}{USL}(.Object, frame, regr, resp,
+  scale.factor, sigma, kappa)
+}
 \arguments{
   \item{.Object}{The object to initialize.}
 

@@ -5,7 +5,7 @@
 \format{A data frame with 7 rows on 2 variables}
 \source{
   N. J. Gunther. Guerrilla Capacity Planning.
-  Springer-Verlag, Heidelberg, Germany, 2007.  Original
+  Springer-Verlag, Heidelberg, Germany, 2007. Original
   dataset from
   \url{http://www.spec.org/osg/sdm91/results/results.html}
 }
@@ -23,8 +23,8 @@
   given number of simulated users.
 
   \itemize{ \item \code{load} The number of simulated users
-  (1--216).  \item \code{throughput} The achieved
-  throughput in scripts per hour. }
+  (1--216). \item \code{throughput} The achieved throughput
+  in scripts per hour. }
 }
 \keyword{datasets}
 

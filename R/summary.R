@@ -24,17 +24,36 @@
 
 
 ##############################################################################
-#' Summary
+#' USL Object Summary
 #' 
-#' @param object object of class USL
+#' \code{summary} method for class "\code{USL}".
 #'
-#' @name summary
+#' @usage \S4method{summary}{USL}(object, ...)
+#' @param object A USL object.
+#' @param ... Other arguments passed to other methods.
+#' 
+#' @seealso \code{\link{usl}}, \code{\link{SummaryUSL-class}}
+#'
+#' @examples
+#' require(usl)
+#' 
+#' data(raytracer)
+#'
+#' ## Show summary for demo dataset
+#' summary(usl(throughput ~ processors, raytracer))
+#' 
+#' ## Extract model coefficients
+#' summary(usl(throughput ~ processors, raytracer))$coefficients
+#' 
 #' @aliases summary,USL-method
 #' @docType methods
 #' @rdname summary-methods
 #' @export
+#'
 setMethod(
   f = "summary",
   signature = "USL",
-  definition = function(object, ...) as(object, "SummaryUSL")
+  definition = function(object, ...) {
+    as(object, "SummaryUSL")
+  }
 )

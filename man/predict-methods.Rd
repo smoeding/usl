@@ -2,9 +2,12 @@
 \name{predict}
 \alias{predict}
 \alias{predict,USL-method}
-\title{Universal Scalability Law model predictions}
+\title{Predict method for Universal Scalability Law models}
+\usage{
+  \S4method{predict}{USL}(object, newdata)
+}
 \arguments{
-  \item{object}{An USL model object for which prediction is
+  \item{object}{A USL model object for which prediction is
   desired.}
 
   \item{newdata}{An optional data frame in which to look
@@ -12,10 +15,30 @@
   fitted values are used.}
 }
 \value{
-  An object of class \code{\link{SummaryUSL-class}}
+  \code{predict} produces a vector of predictions.
 }
 \description{
-  \code{predict} is a function for predictions from the
-  result of the Universal Scalability Law.
+  \code{predict} is a function for predictions of the
+  scalability of a system modeled with the Universal
+  Scalability Law.
+}
+\details{
+  \code{predict} internally uses the function returned by
+  \code{\link{scalability}} to calculate the result.
+}
+\examples{
+require(usl)
+
+data(raytracer)
+
+## Print predicted result from USL model for demo dataset
+predict(usl(throughput ~ processors, raytracer))
+}
+\references{
+  N. J. Gunther. Guerrilla Capacity Planning.
+  Springer-Verlag, Heidelberg, Germany, 2007.
+}
+\seealso{
+  \code{\link{usl}}, \code{\link{scalability}}
 }
 
