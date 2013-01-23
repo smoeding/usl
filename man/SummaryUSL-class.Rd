@@ -8,7 +8,8 @@
 }
 \section{Slots}{
   \describe{ \item{\code{call}:}{The call used to create
-  the model.} \item{\code{coefficients}:}{The coefficients
-  sigma and kappa of the model.} }
+  the model.} \item{\code{r.squared}:}{The coefficient of
+  determination.} \item{\code{coefficients}:}{The
+  coefficients sigma and kappa of the model.} }
 }
 
