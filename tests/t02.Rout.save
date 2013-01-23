@@ -1,0 +1,37 @@
+
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #
+> # Test function coef
+> #
+> 
+> library(usl)
+> 
+> d <- data.frame(load = c(1, 3, 4, 12, 24, 48), 
++                 tput = c(1, 1.090909, 1, 0.5217391, 0.2944785, 0.1566068))
+> 
+> u <- usl(tput ~ load, d)
+> 
+> signif(coef(u)[['sigma']], 4)
+[1] 0.5
+> signif(coef(u)[['kappa']], 4)
+[1] 0.125
+> 
+> proc.time()
+   user  system elapsed 
+   0.20    0.03    0.21 

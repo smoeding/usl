@@ -1,0 +1,35 @@
+
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #
+> # Test function peak.scalability
+> #
+> 
+> library(usl)
+> 
+> data(specsdm91)
+> 
+> u <- usl(throughput ~ load, specsdm91)
+> 
+> # Calculate where peak scalability is reached
+> signif(peak.scalability(u), 2)
+[1] 110
+> 
+> proc.time()
+   user  system elapsed 
+   0.24    0.00    0.23 
