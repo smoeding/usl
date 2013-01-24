@@ -31,11 +31,23 @@
   must be in the simple "\code{response ~ regressor}"
   format.
 
+  The the USL model produces two coefficients as result.
+  Parameter \code{sigma} models the contention and
+  \code{kappa} the coherency delay of the system.
+
   The Universal Scalability Law needs to transform the data
   into a normalized form. Currently it is therefore
   necessary to include one data item where the independent
   variable equals 1. The value of the associated dependent
   variable is used as scale factor for the normalization.
+
+  The model uses the following formula to predict the
+  relative capacity of the system for a given load
+  \code{N}:
+
+  \deqn{C(N) = \frac{N}{1 + (\sigma N) + (\kappa N (N -
+  1))}}{C(N) = N / (1 + (\sigma * N) + (\kappa * N * (N -
+  1)))}
 
   The Universal Scalability Law has been created by Dr.
   Neil Gunther.

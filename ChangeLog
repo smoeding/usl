@@ -1,3 +1,9 @@
+2013-01-24  Stefan Moeding  <stm@moeding.net>
+
+        * Added residuals, r-squared and adjusted r-squared to summary
+        output, methods scalability() and peak.scalability() take
+        optional parameters sigma and kappa
+
 2013-01-22  Stefan Moeding  <stm@moeding.net>
 
         * Documentation cleanup

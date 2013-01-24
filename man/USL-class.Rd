@@ -15,7 +15,8 @@
   \item{\code{regr}:}{The name of the regressor variable.}
   \item{\code{regr}:}{The name of the response variable.}
   \item{\code{scale.factor}:}{The scale factor of the
-  model.} }
+  model.} \item{\code{fitted.values}:}{The fitted values of
+  the model. This is a vector.} }
 }
 \references{
   N. J. Gunther. Guerrilla Capacity Planning.

@@ -38,9 +38,15 @@ The ```summary``` command returns the following output:
 Call:
 usl(formula = throughput ~ load, data = specsdm91)
 
+Residuals:
+   Min     1Q Median     3Q    Max 
+-70.89 -23.59  19.39  86.14 274.88 
+
 Coefficients:
-       sigma         kappa  
-1.704689e-02  7.892498e-05
+    sigma      kappa  
+1.705e-02  7.892e-05  
+
+Multiple R-squared: 0.9624,  Adjusted R-squared: 0.9549
 ```
 
 The following image shows the plotted output:
@@ -49,7 +55,7 @@ The following image shows the plotted output:
 
 ## Installation
 
-There is currently a private R repository available if you do not want to install the source version yourself. The repository contains a fairly recent version of the sources and binary versions for R on Windows and Mac OSX.
+There is currently a private R repository available if you do not want to install the source version yourself. The repository contains a fairly recent version of the sources and binary versions for Windows and Mac OSX.
 
 Use the following command to install the package from the repository:
 

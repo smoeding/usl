@@ -1,7 +1,7 @@
 # Copyright (c) 2013 Stefan Moeding
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
 # 1. Redistributions of source code must retain the above copyright
@@ -9,7 +9,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 #    notice, this list of conditions and the following disclaimer in the
 #    documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -25,8 +25,8 @@
 
 ##############################################################################
 #' Print objects of class "\code{SummaryUSL}" or "\code{USL}"
-#' 
-#' \code{print} prints its argument and returns is invisibly (via 
+#'
+#' \code{print} prints its argument and returns is invisibly (via
 #' \code{\link{invisible}(x)}).
 #'
 #' @usage \S4method{print}{SummaryUSL}(x, digits, ...)
@@ -38,15 +38,15 @@
 #' @return \code{print} returns the object \code{x} invisibly.
 #'
 #' @seealso \code{\link{usl}}, \code{\link{print}}
-#' 
+#'
 #' @examples
 #' require(usl)
-#' 
+#'
 #' data(raytracer)
 #'
 #' ## Print result from USL model for demo dataset
 #' print(usl(throughput ~ processors, raytracer))
-#' 
+#'
 #' @aliases print,SummaryUSL-method
 #' @docType methods
 #' @rdname print-methods
@@ -54,15 +54,24 @@
 setMethod(
   f = "print",
   signature = "SummaryUSL",
-  definition = function(x, digits = getOption("digits"), ...) {
+  definition = function(x, digits = max(3, getOption("digits") - 3), ...) {
     cat("\nCall:\n",
-        paste(deparse(x@call), sep="\n", collapse = "\n"), "\n\n", sep="")
-    
+        paste(deparse(x@call), sep = "\n", collapse = "\n"), "\n\n", sep = "")
+
+    cat("Residuals:\n")
+    zz <- zapsmall(quantile(x@residuals), digits + 1)
+    print(structure(zz, names = c("Min", "1Q", "Median", "3Q", "Max")),
+          digits = digits, ...)
+
     if(length(coef(x))) {
-      cat("Coefficients:\n")
-      print.default(format(coef(x), digits=digits), print.gap = 2, quote = FALSE)
+      cat("\nCoefficients:\n")
+      print.default(format(coef(x), digits = digits),
+                    print.gap = 2, quote = FALSE)
     } else cat("No coefficients\n")
-    
+
+    cat("\nMultiple R-squared:", formatC(x@r.squared, digits = digits))
+    cat(",\tAdjusted R-squared:",formatC(x@adj.r.squared, digits = digits))
+
     cat("\n")
     invisible(x)
   }
@@ -80,12 +89,12 @@ setMethod(
   definition = function(x, digits = getOption("digits"), ...) {
     cat("\nCall:\n",
         paste(deparse(x@call), sep="\n", collapse = "\n"), "\n\n", sep="")
-    
+
     if(length(coef(x))) {
       cat("Coefficients:\n")
       print.default(format(coef(x), digits=digits), print.gap = 2, quote = FALSE)
     } else cat("No coefficients\n")
-    
+
     cat("\n")
     invisible(x)
   }

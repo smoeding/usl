@@ -34,10 +34,19 @@
 #' Therefore the model formula must be in the simple
 #' "\code{response ~ regressor}" format.
 #'
+#' The the USL model produces two coefficients as result. Parameter
+#' \code{sigma} models the contention and \code{kappa} the coherency delay
+#' of the system.
+#'
 #' The Universal Scalability Law needs to transform the data into a
 #' normalized form. Currently it is therefore necessary to include one data
 #' item where the independent variable equals 1. The value of the associated
 #' dependent variable is used as scale factor for the normalization.
+#'
+#' The model uses the following formula to predict the relative capacity of
+#' the system for a given load \code{N}:
+#'
+#' \deqn{C(N) = \frac{N}{1 + (\sigma N) + (\kappa N (N - 1))}}{C(N) = N / (1 + (\sigma * N) + (\kappa * N * (N - 1)))}
 #'
 #' The Universal Scalability Law has been created by Dr. Neil Gunther.
 #'
@@ -154,12 +163,15 @@ usl <- function(formula, data) {
   }
 
   # Solve quadratic model without intercept
-  model.fit <- lm(y ~ I(x^2) + x - 1, data = model, na.action = "na.exclude")
+  model.fit <- lm(y ~ I(x^2) + x - 1, data = model, na.action="na.exclude")
 
   # Calculate coefficients sigma & kappa used by the USL model
   sigma <- coef(model.fit)[[2]] - coef(model.fit)[[1]]
   kappa <- coef(model.fit)[[1]]
 
-  # Create object for class USL and return it
-  new(Class="USL", call, frame, regr, resp, scale.factor, sigma, kappa)
+  # Create object for class USL
+  .Object <- new(Class="USL", call, frame, regr, resp, scale.factor, sigma, kappa)
+
+  # Finish the object and return it
+  return(finish(.Object))
 }

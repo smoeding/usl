@@ -23,15 +23,43 @@
 # SUCH DAMAGE.
 
 
-setGeneric("plot", function(x, y, ...) standardGeneric("plot"))
-setGeneric("print", function(x, ...) standardGeneric("print"))
-setGeneric("predict", function(object, ...) standardGeneric("predict"))
-setGeneric("summary", function(object, ...) standardGeneric("summary"))
+##############################################################################
+#' Finish USL object after initialize
+#'
+#' \code{finish} updates a USL object and sets additional parameters after
+#' the object has been initialized.
+#'
+#' This is a package internal function.
+#'
+#' @param .Object A USL model object returned from \code{new}.
+#'
+#' @return An object of class USL with updated model parameters.
+#'
+#' @seealso \code{\link{usl}}, \code{\link{initialize}}
+#'
+#' @keywords internal
+#'
+finish <- function(.Object) {
+  y.observed <- .Object@frame[, .Object@resp, drop=TRUE]
+  y.fitted <- predict(.Object)
 
-#
-# USL specific methods
-#
-setGeneric("scalability",
-           function(object, sigma, kappa) standardGeneric("scalability"))
-setGeneric("peak.scalability",
-           function(object, sigma, kappa) standardGeneric("peak.scalability"))
+  # Fill slot fitted.values
+  .Object@fitted.values <- y.fitted
+  names(.Object@fitted.values) <- row.names(.Object@frame)
+
+  # Fill slot residuals
+  .Object@residuals <- y.observed - y.fitted
+  names(.Object@residuals) <- row.names(.Object@frame)
+
+  # Fill slot r.squared
+  sos.error <- sum(.Object@residuals ^ 2)
+  sos.total <- sum((y.observed - mean(y.observed)) ^ 2)
+  .Object@r.squared <- 1 - (sos.error / sos.total)
+
+  # Fill slot adj.r.squared
+  n <- length(y.observed) # sample size
+  p <- 1                  # number of regressors
+  .Object@adj.r.squared <- 1 - (1 - .Object@r.squared) * ((n-1) / (n-p-1))
+
+  return(.Object)
+}
