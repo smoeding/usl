@@ -1,7 +1,7 @@
 # Copyright (c) 2013 Stefan Moeding
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
 # 1. Redistributions of source code must retain the above copyright
@@ -9,7 +9,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 #    notice, this list of conditions and the following disclaimer in the
 #    documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -30,10 +30,19 @@
 #' calculate the scalability for the specific USL model.
 #'
 #' The returned function can be used to look at specific values once the
-#' model for a specific system has been created.
+#' model for a system has been created.
 #'
-#' @usage \S4method{scalability}{USL}(object)
+#' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+#' analysis. Setting these parameters override the model parameters and show
+#' how the system would behave with a different contention or coherency delay
+#' parameter.
+#'
+#' @usage \S4method{scalability}{USL}(object, sigma, kappa)
 #' @param object A USL object.
+#' @param sigma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param kappa Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
 #'
 #' @return A function with parameter \code{x} that calculates the
 #'   scalability value of the specific model.
@@ -47,7 +56,7 @@
 #' require(usl)
 #'
 #' data(raytracer)
-#' 
+#'
 #' ## Compute the scalability function
 #' s <- scalability(usl(throughput ~ processors, raytracer))
 #'
@@ -65,15 +74,18 @@
 setMethod(
   f = "scalability",
   signature = "USL",
-  definition = function(object) {
+  definition = function(object, sigma, kappa) {
+    if (missing(sigma)) sigma <- coef(object)[['sigma']]
+    if (missing(kappa)) kappa <- coef(object)[['kappa']]
+
     .func <- function(x) {
       # Formula (4.31) on page 57 of GCaP:
-      cap <- x / (1 + (coef(object)[['sigma']] * (x-1)) + (coef(object)[['kappa']] * x * (x-1)))
-      
+      cap <- x / (1 + (sigma * (x-1)) + (kappa * x * (x-1)))
+
       # Scale it to the measurements
       return(object@scale.factor * cap)
     }
-    
+
     # Return the usl function
     return(.func)
   }
@@ -84,13 +96,23 @@ setMethod(
 #' Peak scalability value of a USL model
 #'
 #' Calculate the point of peak scalability for a specific model.
-#' 
+#'
 #' The peak scalability is the point where the throughput of the system goes
 #' retrograde (i.e., decreases with increasing load).
+#'
+#' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+#' analysis. Setting these parameters override the model parameters and show
+#' how the system would behave with a different contention or coherency delay
+#' parameter.
+#'
 #' See formula (4.33) in \emph{Guerilla Capacity Planning}.
 #'
-#' @usage \S4method{peak.scalability}{USL}(object)
+#' @usage \S4method{peak.scalability}{USL}(object, sigma, kappa)
 #' @param object A USL object.
+#' @param sigma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param kappa Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
 #'
 #' @return A numeric value for the point where peak scalability will be
 #'   reached.
@@ -116,7 +138,10 @@ setMethod(
 setMethod(
   f = "peak.scalability",
   signature = "USL",
-  definition = function(object) {
-    sqrt((1 - coef(object)[['sigma']]) / coef(object)[['kappa']])
+  definition = function(object, sigma, kappa) {
+    if (missing(sigma)) sigma <- coef(object)[['sigma']]
+    if (missing(kappa)) kappa <- coef(object)[['kappa']]
+
+    return(sqrt((1 - sigma) / kappa))
   }
 )

@@ -4,10 +4,16 @@
 \alias{scalability,USL-method}
 \title{Scalability function of a USL model}
 \usage{
-  \S4method{scalability}{USL}(object)
+  \S4method{scalability}{USL}(object, sigma, kappa)
 }
 \arguments{
   \item{object}{A USL object.}
+
+  \item{sigma}{Optional parameter to be used for evaluation
+  instead of the parameter computed for the model.}
+
+  \item{kappa}{Optional parameter to be used for evaluation
+  instead of the parameter computed for the model.}
 }
 \value{
   A function with parameter \code{x} that calculates the
@@ -20,8 +26,12 @@
 }
 \details{
   The returned function can be used to look at specific
-  values once the model for a specific system has been
-  created.
+  values once the model for a system has been created.
+
+  The parameters \code{sigma} or \code{kappa} are useful to
+  do a what-if analysis. Setting these parameters override
+  the model parameters and show how the system would behave
+  with a different contention or coherency delay parameter.
 }
 \examples{
 require(usl)

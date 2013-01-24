@@ -4,10 +4,16 @@
 \alias{peak.scalability,USL-method}
 \title{Peak scalability value of a USL model}
 \usage{
-  \S4method{peak.scalability}{USL}(object)
+  \S4method{peak.scalability}{USL}(object, sigma, kappa)
 }
 \arguments{
   \item{object}{A USL object.}
+
+  \item{sigma}{Optional parameter to be used for evaluation
+  instead of the parameter computed for the model.}
+
+  \item{kappa}{Optional parameter to be used for evaluation
+  instead of the parameter computed for the model.}
 }
 \value{
   A numeric value for the point where peak scalability will
@@ -20,8 +26,14 @@
 \details{
   The peak scalability is the point where the throughput of
   the system goes retrograde (i.e., decreases with
-  increasing load). See formula (4.33) in \emph{Guerilla
-  Capacity Planning}.
+  increasing load).
+
+  The parameters \code{sigma} or \code{kappa} are useful to
+  do a what-if analysis. Setting these parameters override
+  the model parameters and show how the system would behave
+  with a different contention or coherency delay parameter.
+
+  See formula (4.33) in \emph{Guerilla Capacity Planning}.
 }
 \examples{
 require(usl)
