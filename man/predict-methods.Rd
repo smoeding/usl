@@ -4,7 +4,7 @@
 \alias{predict,USL-method}
 \title{Predict method for Universal Scalability Law models}
 \usage{
-  \S4method{predict}{USL}(object, newdata, sigma, kappa)
+\S4method{predict}{USL}(object, newdata, sigma, kappa)
 }
 \arguments{
   \item{object}{A USL model object for which prediction is

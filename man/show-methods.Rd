@@ -5,9 +5,9 @@
 \alias{show,USL-method}
 \title{Show objects of class "\code{SummaryUSL}" or "\code{USL}"}
 \usage{
-  \S4method{show}{SummaryUSL}(object)
+\S4method{show}{SummaryUSL}(object)
 
-  \S4method{show}{USL}(object)
+\S4method{show}{USL}(object)
 }
 \arguments{
   \item{object}{The object to be printed.}

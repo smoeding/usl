@@ -4,7 +4,7 @@
 \alias{summary,USL-method}
 \title{USL Object Summary}
 \usage{
-  \S4method{summary}{USL}(object, ...)
+\S4method{summary}{USL}(object, ...)
 }
 \arguments{
   \item{object}{A USL object.}

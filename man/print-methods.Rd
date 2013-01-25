@@ -5,9 +5,9 @@
 \alias{print,USL-method}
 \title{Print objects of class "\code{SummaryUSL}" or "\code{USL}"}
 \usage{
-  \S4method{print}{SummaryUSL}(x, digits, ...)
+\S4method{print}{SummaryUSL}(x, digits, ...)
 
-  \S4method{print}{USL}(x, digits, ...)
+\S4method{print}{USL}(x, digits, ...)
 }
 \arguments{
   \item{x}{An object from class \code{SummaryUSL} or

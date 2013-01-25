@@ -4,7 +4,7 @@
 \alias{scalability,USL-method}
 \title{Scalability function of a USL model}
 \usage{
-  \S4method{scalability}{USL}(object, sigma, kappa)
+\S4method{scalability}{USL}(object, sigma, kappa)
 }
 \arguments{
   \item{object}{A USL object.}

@@ -2,7 +2,7 @@
 \alias{finish}
 \title{Finish USL object after initialize}
 \usage{
-  finish(.Object)
+finish(.Object)
 }
 \arguments{
   \item{.Object}{A USL model object returned from

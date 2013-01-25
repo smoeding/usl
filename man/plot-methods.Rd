@@ -4,8 +4,8 @@
 \alias{plot,USL-method}
 \title{Plot the scalability function from a USL model}
 \usage{
-  \S4method{plot}{USL}(x, from, to, xlab, ylab, sigma,
-  kappa, ...)
+\S4method{plot}{USL}(x, from, to, xlab, ylab, sigma, kappa,
+...)
 }
 \arguments{
   \item{x}{The USL object to plot.}

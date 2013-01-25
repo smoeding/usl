@@ -4,7 +4,7 @@
 \alias{peak.scalability,USL-method}
 \title{Peak scalability value of a USL model}
 \usage{
-  \S4method{peak.scalability}{USL}(object, sigma, kappa)
+\S4method{peak.scalability}{USL}(object, sigma, kappa)
 }
 \arguments{
   \item{object}{A USL object.}

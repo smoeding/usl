@@ -46,7 +46,7 @@
 #' The model uses the following formula to predict the relative capacity of
 #' the system for a given load \code{N}:
 #'
-#' \deqn{C(N) = \frac{N}{1 + (\sigma N) + (\kappa N (N - 1))}}{C(N) = N / (1 + (\sigma * N) + (\kappa * N * (N - 1)))}
+#' \deqn{C(N) = \frac{N}{1 + \sigma (N - 1) + \kappa N (N - 1)}}{C(N) = N / (1 + \sigma * (N - 1) + \kappa * N * (N - 1))}
 #'
 #' The Universal Scalability Law has been created by Dr. Neil Gunther.
 #'

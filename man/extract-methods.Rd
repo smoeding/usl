@@ -5,9 +5,9 @@
 \alias{$,USL-method}
 \title{Extract parts of an "\code{SummaryUSL}" or "\code{USL}" object}
 \usage{
-  \S4method{$}{SummaryUSL}(x, name)
+\S4method{$}{SummaryUSL}(x, name)
 
-  \S4method{$}{USL}(x, name)
+\S4method{$}{USL}(x, name)
 }
 \arguments{
   \item{x}{Object from which to extract elements.}
