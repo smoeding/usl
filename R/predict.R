@@ -29,13 +29,22 @@
 #' \code{predict} is a function for predictions of the scalability of a
 #' system modeled with the Universal Scalability Law.
 #'
+#' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+#' analysis. Setting these parameters override the model parameters and show
+#' how the system would behave with a different contention or coherency delay
+#' parameter.
+#'
 #' \code{predict} internally uses the function returned by
 #' \code{\link{scalability}} to calculate the result.
 #'
-#' @usage \S4method{predict}{USL}(object, newdata)
+#' @usage \S4method{predict}{USL}(object, newdata, sigma, kappa)
 #' @param object A USL model object for which prediction is desired.
 #' @param newdata An optional data frame in which to look for variables
 #'   with which to predict. If omitted, the fitted values are used.
+#' @param sigma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param kappa Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
 #'
 #' @return \code{predict} produces a vector of predictions.
 #'
@@ -60,17 +69,19 @@
 setMethod(
   f = "predict",
   signature = "USL",
-  definition = function(object, newdata) {
-    if (missing(newdata)) {
-      # Predict for the initial data used to create the model
-      newdata <- object@frame
-    }
+  definition = function(object, newdata, sigma, kappa) {
+    # Predict for the initial data used to create the model
+    # if no data frame 'newdata' is given as parameter
+    if (missing(newdata)) newdata <- object@frame
+
+    if (missing(sigma)) sigma <- coef(object)[['sigma']]
+    if (missing(kappa)) kappa <- coef(object)[['kappa']]
 
     # Extract regressor variable from data frame
     x <- na.omit(newdata[, object@regr, drop=TRUE])
 
     # Calculate values (ignore NA)
-    y <- scalability(object)(x)
+    y <- scalability(object, sigma, kappa)(x)
 
     return(structure(y, names=row.names(newdata)))
   }

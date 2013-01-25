@@ -1,7 +1,7 @@
 # Copyright (c) 2013 Stefan Moeding
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
 # 1. Redistributions of source code must retain the above copyright
@@ -9,7 +9,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 #    notice, this list of conditions and the following disclaimer in the
 #    documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,7 +40,12 @@
 #' \code{xlab} and \code{ylab} can be used to set the axis titles. The defaults
 #' are the names of the regressor and response variables used in the model.
 #'
-#' @usage \S4method{plot}{USL}(x, from, to, xlab, ylab, ...)
+#' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+#' analysis. Setting these parameters override the model parameters and show
+#' how the system would behave with a different contention or coherency delay
+#' parameter.
+#'
+#' @usage \S4method{plot}{USL}(x, from, to, xlab, ylab, sigma, kappa, ...)
 #' @param x The USL object to plot.
 #' @param from The start of the range over which the scalability function
 #'   will be plotted.
@@ -48,11 +53,15 @@
 #'   will be plotted.
 #' @param xlab A title for the x axis: see \code{\link{title}}.
 #' @param ylab A title for the y axis: see \code{\link{title}}.
+#' @param sigma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param kappa Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
 #' @param ... Other graphical parameters passed to plot
 #'   (see \code{\link{par}}, \code{\link{plot.function}}).
 #'
 #' @seealso \code{\link{usl}}, \code{\link{plot.function}}
-#' 
+#'
 #' @examples
 #' require(usl)
 #'
@@ -69,10 +78,8 @@
 setMethod(
   f = "plot",
   signature = "USL",
-  definition = function(x, from = NULL, to = NULL, xlab = NULL, ylab = NULL, ...) {
-    # Get the function to calculate scalability for the model
-    .func <- scalability(x)
-
+  definition = function(x, from = NULL, to = NULL, xlab = NULL, ylab = NULL,
+                        sigma, kappa, ...) {
     # Take range from the model if not specified
     if (missing(from)) from <- min(x@frame[, x@regr])
     if (missing(to)) to <- max(x@frame[, x@regr])
@@ -80,6 +87,13 @@ setMethod(
     # Set titles for axis
     if (missing(xlab)) xlab <- x@regr
     if (missing(ylab)) ylab <- x@resp
+
+    # Use explicitly specified coefficients
+    if (missing(sigma)) sigma <- coef(x)[['sigma']]
+    if (missing(kappa)) kappa <- coef(x)[['kappa']]
+
+    # Get the function to calculate scalability for the model
+    .func <- scalability(x, sigma, kappa)
 
     # Plot the scalability function
     plot(x = .func, from = from, to = to, xlab = xlab, ylab = ylab, ...)

@@ -4,7 +4,8 @@
 \alias{plot,USL-method}
 \title{Plot the scalability function from a USL model}
 \usage{
-  \S4method{plot}{USL}(x, from, to, xlab, ylab, ...)
+  \S4method{plot}{USL}(x, from, to, xlab, ylab, sigma,
+  kappa, ...)
 }
 \arguments{
   \item{x}{The USL object to plot.}
@@ -20,6 +21,12 @@
 
   \item{ylab}{A title for the y axis: see
   \code{\link{title}}.}
+
+  \item{sigma}{Optional parameter to be used for evaluation
+  instead of the parameter computed for the model.}
+
+  \item{kappa}{Optional parameter to be used for evaluation
+  instead of the parameter computed for the model.}
 
   \item{...}{Other graphical parameters passed to plot (see
   \code{\link{par}}, \code{\link{plot.function}}).}
@@ -42,6 +49,11 @@
   \code{xlab} and \code{ylab} can be used to set the axis
   titles. The defaults are the names of the regressor and
   response variables used in the model.
+
+  The parameters \code{sigma} or \code{kappa} are useful to
+  do a what-if analysis. Setting these parameters override
+  the model parameters and show how the system would behave
+  with a different contention or coherency delay parameter.
 }
 \examples{
 require(usl)
