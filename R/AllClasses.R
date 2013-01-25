@@ -107,7 +107,7 @@ setClass("SummaryUSL",
 #' \item{\code{regr}:}{The name of the regressor variable.}
 #' \item{\code{regr}:}{The name of the response variable.}
 #' \item{\code{scale.factor}:}{The scale factor of the model.}
-#' \item{\code{fitted.values}:}{The fitted values of the model. This is a vector.}
+#' \item{\code{fitted}:}{The fitted values of the model. This is a vector.}
 #' }
 #'
 #' @seealso \code{\link{SummaryUSL-class}}, \code{\link{usl}}
@@ -123,7 +123,10 @@ setClass("USL",
                         regr  = "character",
                         resp  = "character",
                         scale.factor  = "numeric",
-                        fitted.values = "vector"),
+                        deviance = "numeric",
+                        fitted = "vector",
+                        na.action = "character"),
+         prototype = (na.action = "na.omit"),
          validity = function(object) {
            err <- character()
 

@@ -50,18 +50,20 @@
 #'
 #' The Universal Scalability Law has been created by Dr. Neil Gunther.
 #'
-#' @param formula An object of class "\code{\link{formula}}" (or one that can be
-#'   coerced to that class): a symbolic description of the model to be analyzed.
-#'   The details of model specification are given under 'Details'.
-#' @param data An optional data frame, list or environment (or object coercible
-#'   by as.data.frame to a data frame) containing the variables in the model. If
-#'   not found in data, the variables are taken from environment(formula),
-#'   typically the environment from which usl is called.
+#' @param formula An object of class "\code{\link{formula}}" (or one that
+#'   can be coerced to that class): a symbolic description of the model to be
+#'   analyzed. The details of model specification are given under 'Details'.
+#' @param data An optional data frame, list or environment (or object
+#'   coercible by as.data.frame to a data frame) containing the variables in
+#'   the model. If not found in data, the variables are taken from
+#'   \code{environment(formula)}, typically the environment from which
+#'   \code{usl} is called.
 #'
 #' @return An object of class USL.
 #'
 #' @seealso \code{\link{scalability}}, \code{\link{peak.scalability}},
-#'   \code{\link{summary}}, \code{\link{coef}}
+#'   \code{\link{summary}}, \code{\link{coef}}, \code{\link{fitted}}
+#'   \code{\link{residuals}}, \code{\link{deviance}}
 #'
 #' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
 #'   Heidelberg, Germany, 2007.
@@ -113,6 +115,7 @@ usl <- function(formula, data) {
   frame <- match.call(expand.dots = FALSE)
   m <- match(c("formula", "data"), names(frame), 0)
   frame <- frame[c(1, m)]
+  frame$na.action <- "na.omit"
   frame$drop.unused.levels <- TRUE
   frame[[1]] <- as.name("model.frame")
   frame <- eval(frame, parent.frame())
@@ -126,7 +129,7 @@ usl <- function(formula, data) {
 
   # Create a copy of the model frame to perform the following calculations.
   # Remove entries where data is missing and set column names.
-  model <- na.omit(data.frame(frame[regr], frame[resp]))
+  model <- data.frame(frame[regr], frame[resp])
   names(model) <- c("load", "throughput")
 
   # Verify there are enough values to do the calculation
@@ -163,7 +166,7 @@ usl <- function(formula, data) {
   }
 
   # Solve quadratic model without intercept
-  model.fit <- lm(y ~ I(x^2) + x - 1, data = model, na.action="na.exclude")
+  model.fit <- lm(y ~ I(x^2) + x - 1, data = model)
 
   # Calculate coefficients sigma & kappa used by the USL model
   sigma <- coef(model.fit)[[2]] - coef(model.fit)[[1]]

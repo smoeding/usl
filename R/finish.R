@@ -40,23 +40,15 @@
 #' @keywords internal
 #'
 finish <- function(.Object) {
+  nam <- row.names(.Object@frame)
   y.observed <- .Object@frame[, .Object@resp, drop=TRUE]
-  y.fitted <- predict(.Object)
 
-  # Fill slot fitted.values
-  .Object@fitted.values <- y.fitted
-  names(.Object@fitted.values) <- row.names(.Object@frame)
+  .Object@fitted    <- structure(predict(.Object), names = nam)
+  .Object@residuals <- structure(y.observed - .Object@fitted, names = nam)
+  .Object@deviance  <- sum(.Object@residuals ^ 2)
 
-  # Fill slot residuals
-  .Object@residuals <- y.observed - y.fitted
-  names(.Object@residuals) <- row.names(.Object@frame)
+  .Object@r.squared <- 1 - (.Object@deviance / sum((y.observed - mean(y.observed)) ^ 2))
 
-  # Fill slot r.squared
-  sos.error <- sum(.Object@residuals ^ 2)
-  sos.total <- sum((y.observed - mean(y.observed)) ^ 2)
-  .Object@r.squared <- 1 - (sos.error / sos.total)
-
-  # Fill slot adj.r.squared
   n <- length(y.observed) # sample size
   p <- 1                  # number of regressors
   .Object@adj.r.squared <- 1 - (1 - .Object@r.squared) * ((n-1) / (n-p-1))

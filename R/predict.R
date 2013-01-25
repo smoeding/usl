@@ -78,7 +78,7 @@ setMethod(
     if (missing(kappa)) kappa <- coef(object)[['kappa']]
 
     # Extract regressor variable from data frame
-    x <- na.omit(newdata[, object@regr, drop=TRUE])
+    x <- newdata[, object@regr, drop=TRUE]
 
     # Calculate values (ignore NA)
     y <- scalability(object, sigma, kappa)(x)

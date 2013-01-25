@@ -1,0 +1,48 @@
+
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #
+> # Test functions coef, fitted, residuals, deviance
+> #
+> 
+> library(usl)
+> 
+> data(specsdm91)
+> 
+> options(digits=4)
+> 
+> u <- usl(throughput ~ load, specsdm91)
+> 
+> coef(u)
+    sigma     kappa 
+1.705e-02 7.892e-05 
+> 
+> fitted(u)
+     1      2      3      4      5      6      7 
+  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
+> 
+> residuals(u)
+     1      2      3      4      5      6      7 
+  0.00 106.82 274.88  65.45 -47.19 -70.89  19.39 
+> 
+> deviance(u)
+[1] 98880
+> 
+> proc.time()
+   user  system elapsed 
+  1.198   0.061   1.246 

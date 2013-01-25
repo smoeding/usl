@@ -13,8 +13,9 @@ usl(formula, data)
   \item{data}{An optional data frame, list or environment
   (or object coercible by as.data.frame to a data frame)
   containing the variables in the model. If not found in
-  data, the variables are taken from environment(formula),
-  typically the environment from which usl is called.}
+  data, the variables are taken from
+  \code{environment(formula)}, typically the environment
+  from which \code{usl} is called.}
 }
 \value{
   An object of class USL.
@@ -80,6 +81,7 @@ plot(usl.model, add=TRUE)
 \seealso{
   \code{\link{scalability}},
   \code{\link{peak.scalability}}, \code{\link{summary}},
-  \code{\link{coef}}
+  \code{\link{coef}}, \code{\link{fitted}}
+  \code{\link{residuals}}, \code{\link{deviance}}
 }
 
