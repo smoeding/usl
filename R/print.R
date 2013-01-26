@@ -95,6 +95,8 @@ setMethod(
       print.default(format(coef(x), digits=digits), print.gap = 2, quote = FALSE)
     } else cat("No coefficients\n")
 
+    cat("\nScale Factor:", formatC(x@scale.factor, digits = digits))
+    
     cat("\n")
     invisible(x)
   }
