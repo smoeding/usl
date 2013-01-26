@@ -38,13 +38,15 @@ The ```summary``` command returns the following output:
 Call:
 usl(formula = throughput ~ load, data = specsdm91)
 
+Scale Factor for normalization:  64.9
+
 Residuals:
-   Min     1Q Median     3Q    Max 
--70.89 -23.59  19.39  86.14 274.88 
+   Min     1Q Median     3Q    Max
+-70.89 -23.59  19.39  86.14 274.88
 
 Coefficients:
-    sigma      kappa  
-1.705e-02  7.892e-05  
+    sigma      kappa
+1.705e-02  7.892e-05
 
 Multiple R-squared: 0.9624,  Adjusted R-squared: 0.9549
 ```
@@ -62,4 +64,3 @@ Use the following command to install the package from the repository:
 ```R
 install.packages("usl", repos = "http://download.moeding.net/R")
 ```
-

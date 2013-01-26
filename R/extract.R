@@ -1,7 +1,7 @@
 # Copyright (c) 2013 Stefan Moeding
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
 # 1. Redistributions of source code must retain the above copyright
@@ -9,7 +9,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 #    notice, this list of conditions and the following disclaimer in the
 #    documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -24,42 +24,28 @@
 
 
 ##############################################################################
-#' Extract parts of an "\code{SummaryUSL}" or "\code{USL}" object
+#' Extract parts of a "\code{USL}" object
 #'
-#' The operator extracts a part of an \code{\link{SummaryUSL-class}} or
-#' \code{\link{USL-class}} object.
-#' 
-#' This is a generic method for the two classes used in the usl package.
-#' 
-#' The operator is used internally by functions like \code{\link{coef}}, so it
-#' is necessary to have a working implementation of the \code{coef} function.
+#' The operator extracts a part of a \code{\link{USL-class}} object.
 #'
-#' @usage \S4method{$}{SummaryUSL}(x, name)
+#' This is a generic method for the class used in the usl package.
+#'
+#' The operator is used internally by functions like \code{\link{coef}}, so
+#' it is necessary to have a working implementation of the \code{coef}
+#' function.
+#'
+#' @usage \S4method{$}{USL}(x, name)
 #' @param x Object from which to extract elements.
 #' @param name A literal character string or a \link{name} (possibly quoted).
-#' 
+#'
+#' @seealso \code{\link{USL-class}}, \code{\link{Extract}}
+#'
 #' @examples
 #' \dontrun{
-#' ## get coefficients from usl model
+#' ## get coefficients from a usl model
 #' usl.model$coefficients
 #' }
 #'
-#' @seealso \code{\link{SummaryUSL-class}}, \code{\link{USL-class}},
-#'     \code{\link{Extract}}
-#'
-#' @aliases $,SummaryUSL-method
-#' @docType methods
-#' @rdname extract-methods
-#' @keywords internal
-#'
-setMethod(
-  f = "$",
-  signature = "SummaryUSL",
-  definition = function(x, name) { slot(x, name) }
-)
-
-
-#' @usage \S4method{$}{USL}(x, name)
 #' @aliases $,USL-method
 #' @docType methods
 #' @rdname extract-methods

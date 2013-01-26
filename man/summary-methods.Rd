@@ -26,6 +26,6 @@ summary(usl(throughput ~ processors, raytracer))
 summary(usl(throughput ~ processors, raytracer))$coefficients
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{SummaryUSL-class}}
+  \code{\link{usl}}, \code{\link{USL-class}}
 }
 

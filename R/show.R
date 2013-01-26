@@ -1,7 +1,7 @@
 # Copyright (c) 2013 Stefan Moeding
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
 # 1. Redistributions of source code must retain the above copyright
@@ -9,7 +9,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 #    notice, this list of conditions and the following disclaimer in the
 #    documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -24,41 +24,25 @@
 
 
 ##############################################################################
-#' Show objects of class "\code{SummaryUSL}" or "\code{USL}"
+#' Show objects of class "\code{USL}"
 #'
 #' Display the object by printing it.
 #'
-#' @usage \S4method{show}{SummaryUSL}(object)
+#' @usage \S4method{show}{USL}(object)
 #' @param object The object to be printed.
-#' 
+#'
 #' @return \code{show} returns an invisible \code{NULL}.
 #'
-#' @seealso \code{\link{usl}}
+#' @seealso \code{\link{usl}}, \code{\link{USL-class}}
 #'
 #' @examples
 #' require(usl)
-#' 
+#'
 #' data(raytracer)
 #'
 #' ## Show USL model
 #' show(usl(throughput ~ processors, raytracer))
 #'
-#' @aliases show,SummaryUSL-method
-#' @docType methods
-#' @rdname show-methods
-#' @export
-#'
-setMethod(
-  f = "show",
-  signature = "SummaryUSL",
-  definition = function(object) {
-    print(as(object, "SummaryUSL"))
-    invisible(NULL)
-  }
-)
-
-
-#' @usage \S4method{show}{USL}(object)
 #' @aliases show,USL-method
 #' @docType methods
 #' @rdname show-methods

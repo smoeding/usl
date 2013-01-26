@@ -1,12 +1,9 @@
 \docType{methods}
 \name{$}
 \alias{$}
-\alias{$,SummaryUSL-method}
 \alias{$,USL-method}
-\title{Extract parts of an "\code{SummaryUSL}" or "\code{USL}" object}
+\title{Extract parts of a "\code{USL}" object}
 \usage{
-\S4method{$}{SummaryUSL}(x, name)
-
 \S4method{$}{USL}(x, name)
 }
 \arguments{
@@ -16,13 +13,12 @@
   (possibly quoted).}
 }
 \description{
-  The operator extracts a part of an
-  \code{\link{SummaryUSL-class}} or \code{\link{USL-class}}
+  The operator extracts a part of a \code{\link{USL-class}}
   object.
 }
 \details{
-  This is a generic method for the two classes used in the
-  usl package.
+  This is a generic method for the class used in the usl
+  package.
 
   The operator is used internally by functions like
   \code{\link{coef}}, so it is necessary to have a working
@@ -30,13 +26,12 @@
 }
 \examples{
 \dontrun{
-## get coefficients from usl model
+## get coefficients from a usl model
 usl.model$coefficients
 }
 }
 \seealso{
-  \code{\link{SummaryUSL-class}}, \code{\link{USL-class}},
-  \code{\link{Extract}}
+  \code{\link{USL-class}}, \code{\link{Extract}}
 }
 \keyword{internal}
 

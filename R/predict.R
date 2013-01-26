@@ -48,7 +48,8 @@
 #'
 #' @return \code{predict} produces a vector of predictions.
 #'
-#' @seealso \code{\link{usl}}, \code{\link{scalability}}
+#' @seealso \code{\link{usl}}, \code{\link{scalability}},
+#'   \code{\link{USL-class}}
 #'
 #' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
 #'   Heidelberg, Germany, 2007.

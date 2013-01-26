@@ -50,6 +50,7 @@ predict(usl(throughput ~ processors, raytracer))
   Springer-Verlag, Heidelberg, Germany, 2007.
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{scalability}}
+  \code{\link{usl}}, \code{\link{scalability}},
+  \code{\link{USL-class}}
 }
 

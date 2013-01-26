@@ -24,35 +24,13 @@
 
 
 ##############################################################################
-#' Generate an object from the "\code{SummaryUSL}" or "\code{USL}" class
+#' Generate an object from the "\code{USL}" class
 #'
 #' Initialize the object.
 #'
-#' @usage \S4method{initialize}{SummaryUSL}(.Object, call, coefficients)
+#' @usage \S4method{initialize}{USL}(.Object, call, frame, regr, resp, scale.factor, sigma, kappa)
 #' @param .Object The object to initialize.
 #' @param call The formula used to create the USL model.
-#' @param coefficients A vector containing the coefficients of the USL model.
-#'
-#' @return An object of the specific type.
-#'
-#' @aliases initialize,SummaryUSL-method
-#' @docType methods
-#' @rdname initialize-methods
-#' @keywords internal
-#'
-setMethod(
-  f = "initialize",
-  signature = "SummaryUSL",
-  definition = function(.Object, call, coefficients) {
-    if (!missing(call))         .Object@call         <- call
-    if (!missing(coefficients)) .Object@coefficients <- coefficients
-
-    return(.Object)
-  }
-)
-
-
-#' @usage \S4method{initialize}{USL}(.Object, frame, regr, resp, scale.factor, sigma, kappa)
 #' @param frame The model frame containing the variables in the model.
 #' @param regr The name of the regressor variable in the model.
 #' @param resp The name of the response variable in the model.
@@ -60,6 +38,8 @@ setMethod(
 #'     by which the model values have been reduced to get a normalized model.
 #' @param sigma The contention parameter of the model.
 #' @param kappa The coherency delay parameter of the model.
+#'
+#' @return An object of the specific type.
 #'
 #' @aliases initialize,USL-method
 #' @docType methods
@@ -70,10 +50,8 @@ setMethod(
   f = "initialize",
   signature = "USL",
   definition = function(.Object, call, frame, regr, resp, scale.factor, sigma, kappa) {
-    coefficients <- structure(c(sigma, kappa), names = c("sigma", "kappa"))
-
-    .Object <- callNextMethod(.Object, call, coefficients)
-
+    .Object@call         <- call
+    .Object@coefficients <- structure(c(sigma, kappa), names = c("sigma", "kappa"))
     .Object@frame        <- frame
     .Object@regr         <- regr
     .Object@resp         <- resp

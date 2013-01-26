@@ -1,3 +1,7 @@
+2013-01-26  Stefan Moeding  <stm@moeding.net>
+
+        * Streamlined code by removing class SummaryUSL
+
 2013-01-24  Stefan Moeding  <stm@moeding.net>
 
         * Added residuals, r-squared and adjusted r-squared to summary

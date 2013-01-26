@@ -6,23 +6,25 @@
   Use the function \code{\link{usl}} to create new objects
   from this class.
 }
-\details{
-  The class contains the class
-  "\code{\link{SummaryUSL-class}}".
-}
 \section{Slots}{
   \describe{ \item{\code{frame}:}{The model frame.}
+  \item{\code{call}:}{The call used to create the model.}
   \item{\code{regr}:}{The name of the regressor variable.}
   \item{\code{regr}:}{The name of the response variable.}
-  \item{\code{scale.factor}:}{The scale factor of the
-  model.} \item{\code{fitted}:}{The fitted values of the
-  model. This is a vector.} }
-}
-\references{
-  N. J. Gunther. Guerrilla Capacity Planning.
-  Springer-Verlag, Heidelberg, Germany, 2007.
+  \item{\code{scale.factor}:}{The scale factor used to
+  create the model.} \item{\code{coefficients}:}{The
+  coefficients sigma and kappa of the model.}
+  \item{\code{deviance}:}{The deviance (residual sum of
+  squares).} \item{\code{fitted}:}{The fitted values of the
+  model. This is a vector.} \item{\code{residuals}:}{The
+  residuals of the model. This is a vector.}
+  \item{\code{r.squared}:}{Coefficient of determination of
+  the model.} \item{\code{adj.r.squared}:}{Adjusted
+  coefficient of determination.}
+  \item{\code{na.action}:}{The \code{na.action} used by the
+  model.} }
 }
 \seealso{
-  \code{\link{SummaryUSL-class}}, \code{\link{usl}}
+  \code{\link{usl}}
 }
 

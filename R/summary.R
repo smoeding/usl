@@ -1,7 +1,7 @@
 # Copyright (c) 2013 Stefan Moeding
 # All rights reserved.
-# 
-# Redistribution and use in source and binary forms, with or without 
+#
+# Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
 # 1. Redistributions of source code must retain the above copyright
@@ -9,7 +9,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 #    notice, this list of conditions and the following disclaimer in the
 #    documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -25,26 +25,26 @@
 
 ##############################################################################
 #' USL Object Summary
-#' 
+#'
 #' \code{summary} method for class "\code{USL}".
 #'
 #' @usage \S4method{summary}{USL}(object, ...)
 #' @param object A USL object.
 #' @param ... Other arguments passed to other methods.
-#' 
-#' @seealso \code{\link{usl}}, \code{\link{SummaryUSL-class}}
+#'
+#' @seealso \code{\link{usl}}, \code{\link{USL-class}}
 #'
 #' @examples
 #' require(usl)
-#' 
+#'
 #' data(raytracer)
 #'
 #' ## Show summary for demo dataset
 #' summary(usl(throughput ~ processors, raytracer))
-#' 
+#'
 #' ## Extract model coefficients
 #' summary(usl(throughput ~ processors, raytracer))$coefficients
-#' 
+#'
 #' @aliases summary,USL-method
 #' @docType methods
 #' @rdname summary-methods
@@ -54,6 +54,6 @@ setMethod(
   f = "summary",
   signature = "USL",
   definition = function(object, ...) {
-    as(object, "SummaryUSL")
+    return(object)
   }
 )

@@ -1,5 +1,4 @@
 export(usl)
-exportClasses(SummaryUSL)
 exportClasses(USL)
 exportMethods(peak.scalability)
 exportMethods(plot)

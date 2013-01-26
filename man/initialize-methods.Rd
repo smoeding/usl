@@ -1,23 +1,16 @@
 \docType{methods}
 \name{initialize}
 \alias{initialize}
-\alias{initialize,SummaryUSL-method}
 \alias{initialize,USL-method}
-\title{Generate an object from the "\code{SummaryUSL}" or "\code{USL}" class}
+\title{Generate an object from the "\code{USL}" class}
 \usage{
-\S4method{initialize}{SummaryUSL}(.Object, call,
-coefficients)
-
-\S4method{initialize}{USL}(.Object, frame, regr, resp,
-scale.factor, sigma, kappa)
+\S4method{initialize}{USL}(.Object, call, frame, regr,
+resp, scale.factor, sigma, kappa)
 }
 \arguments{
   \item{.Object}{The object to initialize.}
 
   \item{call}{The formula used to create the USL model.}
-
-  \item{coefficients}{A vector containing the coefficients
-  of the USL model.}
 
   \item{frame}{The model frame containing the variables in
   the model.}
