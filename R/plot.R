@@ -40,12 +40,17 @@
 #' \code{xlab} and \code{ylab} can be used to set the axis titles. The defaults
 #' are the names of the regressor and response variables used in the model.
 #'
+#' If the parameter \code{bounds} is set to \code{TRUE} then the plot also
+#' shows dotted lines for the theoretical bounds of scalability. These are
+#' the linear scalability for small loads and Amdahl's asymptote for the
+#' limit of scalability as load approaches infinity. 
+#' 
 #' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show
 #' how the system would behave with a different contention or coherency delay
 #' parameter.
 #'
-#' @usage \S4method{plot}{USL}(x, from, to, xlab, ylab, sigma, kappa, ...)
+#' @usage \S4method{plot}{USL}(x, from, to, xlab, ylab, bounds, sigma, kappa, ...)
 #' @param x The USL object to plot.
 #' @param from The start of the range over which the scalability function
 #'   will be plotted.
@@ -53,6 +58,7 @@
 #'   will be plotted.
 #' @param xlab A title for the x axis: see \code{\link{title}}.
 #' @param ylab A title for the y axis: see \code{\link{title}}.
+#' @param bounds Add the bounds of scalability to the plot. 
 #' @param sigma Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
 #' @param kappa Optional parameter to be used for evaluation instead of the
@@ -79,7 +85,7 @@ setMethod(
   f = "plot",
   signature = "USL",
   definition = function(x, from = NULL, to = NULL, xlab = NULL, ylab = NULL,
-                        sigma, kappa, ...) {
+                        bounds = FALSE, sigma, kappa, ...) {
     # Take range from the model if not specified
     if (missing(from)) from <- min(x@frame[, x@regr])
     if (missing(to)) to <- max(x@frame[, x@regr])
@@ -97,5 +103,14 @@ setMethod(
 
     # Plot the scalability function
     plot(x = .func, from = from, to = to, xlab = xlab, ylab = ylab, ...)
+    
+    # Add theoretical bounds of scalability to the plot
+    if (bounds) {
+      # Bound 1: linear scalability
+      abline(a = 0, b = x@scale.factor, lty = "dotted")
+      
+      # Bound 2: Amdahl's asymptote
+      abline(a = 1/sigma * x@scale.factor, b = 0, lty = "dotted")
+    }
   }
 )

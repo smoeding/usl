@@ -4,8 +4,8 @@
 \alias{plot,USL-method}
 \title{Plot the scalability function from a USL model}
 \usage{
-\S4method{plot}{USL}(x, from, to, xlab, ylab, sigma, kappa,
-...)
+\S4method{plot}{USL}(x, from, to, xlab, ylab, bounds,
+sigma, kappa, ...)
 }
 \arguments{
   \item{x}{The USL object to plot.}
@@ -21,6 +21,8 @@
 
   \item{ylab}{A title for the y axis: see
   \code{\link{title}}.}
+
+  \item{bounds}{Add the bounds of scalability to the plot.}
 
   \item{sigma}{Optional parameter to be used for evaluation
   instead of the parameter computed for the model.}
@@ -49,6 +51,12 @@
   \code{xlab} and \code{ylab} can be used to set the axis
   titles. The defaults are the names of the regressor and
   response variables used in the model.
+
+  If the parameter \code{bounds} is set to \code{TRUE} then
+  the plot also shows dotted lines for the theoretical
+  bounds of scalability. These are the linear scalability
+  for small loads and Amdahl's asymptote for the limit of
+  scalability as load approaches infinity.
 
   The parameters \code{sigma} or \code{kappa} are useful to
   do a what-if analysis. Setting these parameters override
