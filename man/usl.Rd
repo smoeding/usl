@@ -29,7 +29,7 @@ usl(formula, data)
   The USL model works with one independent variable (e.g.
   virtual users, processes, threads, ...) and one dependent
   variable (e.g. throughput). Therefore the model formula
-  must be in the simple "\code{response ~ regressor}"
+  must be in the simple "\code{response ~ predictor}"
   format.
 
   The the USL model produces two coefficients as result.
