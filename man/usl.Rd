@@ -2,7 +2,7 @@
 \alias{usl}
 \title{Create a model for the Universal Scalability Law}
 \usage{
-usl(formula, data)
+usl(formula, data, method = 1)
 }
 \arguments{
   \item{formula}{An object of class "\code{\link{formula}}"
@@ -16,6 +16,11 @@ usl(formula, data)
   data, the variables are taken from
   \code{environment(formula)}, typically the environment
   from which \code{usl} is called.}
+
+  \item{method}{Numeric value specifying the method to use.
+  The default method "\code{1}" transforms the model into a
+  2nd degree polynom. Other possible values are "\code{2}"
+  to use non linear regression.}
 }
 \value{
   An object of class USL.
@@ -31,6 +36,11 @@ usl(formula, data)
   variable (e.g. throughput). Therefore the model formula
   must be in the simple "\code{response ~ predictor}"
   format.
+
+  \code{method} selects the method which is used to solve
+  the model. The default method can only be used if the
+  model frame contains a value for the normalization where
+  the predictor equals "\code{1}".
 
   The the USL model produces two coefficients as result.
   Parameter \code{sigma} models the contention and

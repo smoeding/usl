@@ -24,13 +24,14 @@
 
 
 ##############################################################################
-#' Solve a USL model by transformation to a 2nd degree polynom
+#' Solve a USL model using a transformation to a 2nd degree polynom
 #'
 #' This function solves a USL model using the transformation introduced in
 #' sections 5.5.1 - 5.5.3 of GCaP.
 #'
-#' @param predictor A vector containing the values of the predictor variable.
-#' @param response A vector containing the values of the response variable.
+#' @param model A data frame with two columns containing the values of the
+#'   predictor variable in column "\code{load}" and the values of the
+#'   response variable in clumn "\code{throughput}".
 #'
 #' @return A list containing three elements: the scale.factor of the model,
 #'   the model coefficients sigma and kappa.
@@ -38,36 +39,25 @@
 #' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
 #'   Heidelberg, Germany, 2007.
 #'
-usl.solve.lm <- function(predictor, response) {
-  # Create the model frame
-  model <- data.frame(predictor, response)
-  names(model) <- c("predictor", "response")
-
+#' @keywords internal
+#'
+usl.solve.lm <- function(model) {
   # Verify that the scale factor for normalization is in the dataframe
-  if (all(model$predictor != 1)) {
-    stop(paste0("'data' must contain one row where '",
-                names(predictor), "' = 1"))
+  if (all(model$load != 1)) {
+    stop(paste0("'data' must contain a row where '", names(load), "' = 1"))
   }
 
   # Calculate scale factor: get throughput for entry where load=1
-  scale.factor <- model[match(1, model$predictor), ]$response
+  scale.factor <- model[match(1, model$load), ]$throughput
 
   model <- within(model, {
     # normalize data (cf. GCaP chapter 5.4)
-    capacity   <- response / scale.factor
-
-    # compute efficiency (cf. GCaP chapter 5.5.1)
-    efficiency <- capacity / predictor
+    capacity   <- throughput / scale.factor
 
     # compute deviations from linearity (cf. GCaP chapter 5.5.2)
-    x <- predictor - 1
-    y <- (predictor / capacity) - 1
+    x <- load - 1
+    y <- (load / capacity) - 1
   })
-
-  # Capacity grows more than load: can this really be?
-  if (any(model$efficiency > 1)) {
-    warning("'data' shows efficiency > 1; this looks almost too good to be true")
-  }
 
   # Solve quadratic model without intercept
   model.fit <- lm(y ~ I(x^2) + x - 1, data = model)
@@ -80,24 +70,38 @@ usl.solve.lm <- function(predictor, response) {
 }
 
 
-usl.solve.nls <- function(predictor, response) {
-  # Create the model frame
-  model <- data.frame(predictor, response)
+##############################################################################
+#' Solve a USL model using non linear regression
+#'
+#' This function solves a USL model using non linear regression with least
+#' squares.
+#'
+#' @param model A data frame with two columns containing the values of the
+#'   predictor variable in column "\code{load}" and the values of the
+#'   response variable in clumn "\code{throughput}".
+#'
+#' @return A list containing three elements: the scale.factor of the model,
+#'   the model coefficients sigma and kappa.
+#'
+#' @keywords internal
+#'
+usl.solve.nls <- function(model) {
   names(model) <- c("x", "y")
 
-  model.fit <- nls(y ~ scale.factor * x/(1 + sigma * (x-1) + kappa * x * (x-1)) - 1,
+  model.fit <- nls(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)) - 1,
                    data = model,
-                   start = c(scale.factor = 1, sigma = 0.1, kappa = 0.01),
+                   start = list(X1 = 1, sigma = 0.1, kappa = 0.01),
                    algorithm = "port",
                    lower = c(0, 0, 0),
                    upper = c(Inf, 1, 1))
 
-  scale.factor = coef(model.fit)[['scale.factor']]
+  scale.factor = coef(model.fit)[['X1']]
   sigma = coef(model.fit)[['sigma']]
   kappa = coef(model.fit)[['kappa']]
 
   return(list(scale.factor = scale.factor, sigma = sigma, kappa = kappa))
 }
+
 
 ##############################################################################
 #' Create a model for the Universal Scalability Law
@@ -109,6 +113,10 @@ usl.solve.nls <- function(predictor, response) {
 #' processes, threads, ...) and one dependent variable (e.g. throughput).
 #' Therefore the model formula must be in the simple
 #' "\code{response ~ predictor}" format.
+#'
+#' \code{method} selects the method which is used to solve the model. The
+#' default method can only be used if the model frame contains a value for
+#' the normalization where the predictor equals "\code{1}".
 #'
 #' The the USL model produces two coefficients as result. Parameter
 #' \code{sigma} models the contention and \code{kappa} the coherency delay
@@ -134,6 +142,9 @@ usl.solve.nls <- function(predictor, response) {
 #'   the model. If not found in data, the variables are taken from
 #'   \code{environment(formula)}, typically the environment from which
 #'   \code{usl} is called.
+#' @param method Numeric value specifying the method to use. The default
+#'   method "\code{1}" transforms the model into a 2nd degree polynom. Other
+#'   possible values are "\code{2}" to use non linear regression.
 #'
 #' @return An object of class USL.
 #'
@@ -167,7 +178,7 @@ usl.solve.nls <- function(predictor, response) {
 #'
 #' @export
 #'
-usl <- function(formula, data) {
+usl <- function(formula, data, method = 1) {
   ## canonicalize the arguments
   formula <- as.formula(formula)
 
@@ -208,13 +219,26 @@ usl <- function(formula, data) {
   regr <- var.names[-attr(mt, "response")] # predictor
   resp <- var.names[attr(mt, "response")]  # response
 
-  result <- usl.solve.lm(frame[regr], frame[resp])
-  #result <- usl.solve.nls(frame[regr], frame[resp])
+  # Create the model frame
+  model <- data.frame(frame[regr], frame[resp])
+  names(model) <- c("load", "throughput")
+
+  model.result <- switch(method,
+                         usl.solve.lm(model),
+                         usl.solve.nls(model))
+
+  # Cross check model
+  efficiency <- model$throughput / model.result[['scale.factor']] / model$load
+
+  if (any(efficiency > 1)) {
+    # Capacity grows more than load: can this really be?
+    warning("'data' shows efficiency > 1; this looks almost too good to be true")
+  }
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
-                 result[['scale.factor']],
-                 result[['sigma']], result[['kappa']])
+                 model.result[['scale.factor']],
+                 model.result[['sigma']], model.result[['kappa']])
 
   # Finish the object and return it
   return(finish(.Object))
