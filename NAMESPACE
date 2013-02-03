@@ -1,5 +1,6 @@
 export(usl)
 exportClasses(USL)
+exportMethods(efficiency)
 exportMethods(peak.scalability)
 exportMethods(plot)
 exportMethods(predict)

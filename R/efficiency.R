@@ -24,43 +24,38 @@
 
 
 ##############################################################################
-#' Generate an object from the "\code{USL}" class
+#' Efficiency of the system
 #'
-#' Initialize the object.
+#' The efficiency of a system is a vector that contains for every measurement
+#' the deviation from linear scalability.
 #'
-#' @usage \S4method{initialize}{USL}(.Object, call, frame, regr, resp, scale.factor, sigma, kappa)
-#' @param .Object The object to initialize.
-#' @param call The formula used to create the USL model.
-#' @param frame The model frame containing the variables in the model.
-#' @param regr The name of the regressor variable in the model.
-#' @param resp The name of the response variable in the model.
-#' @param scale.factor A numeric value for the scale of the model. This is the factor
-#'     by which the model values have been reduced to get a normalized model.
-#' @param sigma The contention parameter of the model.
-#' @param kappa The coherency delay parameter of the model.
+#' A value of \code{1} indicates linear scalability while values less than
+#' \code{1} correspond to the fraction compared to linear scalability.
 #'
-#' @return An object of the specific type.
+#' @usage \S4method{efficiency}{USL}(object)
+#' @param object A USL object.
 #'
-#' @aliases initialize,USL-method
+#' @return A vector of numeric values.
+#'
+#' @seealso \code{\link{usl}}
+#'
+#' @examples
+#' require(usl)
+#'
+#' data(raytracer)
+#'
+#' ## Show the efficiency
+#' efficiency(usl(throughput ~ processors, raytracer))
+#'
+#' @aliases efficiency,USL-method
 #' @docType methods
-#' @rdname initialize-methods
-#' @keywords internal
+#' @rdname efficiency-methods
+#' @export
 #'
 setMethod(
-  f = "initialize",
+  f = "efficiency",
   signature = "USL",
-  definition = function(.Object, call, frame, regr, resp, scale.factor, sigma, kappa) {
-    .Object@call         <- call
-    .Object@coefficients <- structure(c(sigma, kappa), names = c("sigma", "kappa"))
-    .Object@frame        <- frame
-    .Object@regr         <- regr
-    .Object@resp         <- resp
-    .Object@scale.factor <- scale.factor
-    .Object@efficiency   <- frame[[resp]] / scale.factor / frame[[regr]]
-
-    # Call inspector
-    validObject(.Object)
-
-    return(.Object)
+  definition = function(object) {
+    return(object@efficiency)
   }
 )

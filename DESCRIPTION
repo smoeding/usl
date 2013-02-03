@@ -2,8 +2,8 @@ Package: usl
 Type: Package
 Title: Analyze system scalability with the Universal
     Scalability Law
-Version: 0.0-4
-Date: 2013-01-22
+Version: 0.0-5
+Date: 2013-02-03
 Author: Stefan Moeding, Neil J. Gunther
 Maintainer: Stefan Moeding <stm@moeding.net>
 BugReports: https://github.com/smoeding/usl/issues
@@ -19,13 +19,14 @@ Collate:
     'AllClasses.R'
     'AllGenerics.R'
     'initialize.R'
+    'finish.R'
     'extract.R'
     'print.R'
     'show.R'
     'summary.R'
     'scalability.R'
+    'efficiency.R'
     'predict.R'
     'plot.R'
     'usl.R'
     'datasets.R'
-    'finish.R'
