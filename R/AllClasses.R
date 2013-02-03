@@ -42,6 +42,7 @@
 #' \item{\code{residuals}:}{The residuals of the model. This is a vector.}
 #' \item{\code{r.squared}:}{Coefficient of determination of the model.}
 #' \item{\code{adj.r.squared}:}{Adjusted coefficient of determination.}
+#' \item{\code{efficiency}:}{The efficiency, e.g. speedup per processor.}
 #' \item{\code{na.action}:}{The \code{na.action} used by the model.}
 #' }
 #'
@@ -62,6 +63,7 @@ setClass("USL",
                         residuals     = "vector",
                         r.squared     = "numeric",
                         adj.r.squared = "numeric",
+                        efficiency    = "vector",
                         na.action     = "character"),
          prototype(r.squared     = 0,
                    adj.r.squared = 0,
@@ -118,6 +120,11 @@ setClass("USL",
            if (sigma + kappa >= kappa + 1) {
              msg <- "illegal coefficients: sigma + kappa >= kappa + 1"
              err <- c(err, msg)
+           }
+
+           if (any(object@efficiency > 1)) {
+             # Capacity grows more than load: can this really be?
+             warning("'data' shows efficiency > 1; this looks almost too good to be true")
            }
 
            if (length(err) == 0) return(TRUE) else return(err)

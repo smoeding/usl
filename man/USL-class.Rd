@@ -21,8 +21,9 @@
   \item{\code{r.squared}:}{Coefficient of determination of
   the model.} \item{\code{adj.r.squared}:}{Adjusted
   coefficient of determination.}
-  \item{\code{na.action}:}{The \code{na.action} used by the
-  model.} }
+  \item{\code{efficiency}:}{The efficiency, e.g. speedup
+  per processor.} \item{\code{na.action}:}{The
+  \code{na.action} used by the model.} }
 }
 \seealso{
   \code{\link{usl}}

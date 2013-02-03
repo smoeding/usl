@@ -227,14 +227,6 @@ usl <- function(formula, data, method = 1) {
                          usl.solve.lm(model),
                          usl.solve.nls(model))
 
-  # Cross check model
-  efficiency <- model$throughput / model.result[['scale.factor']] / model$load
-
-  if (any(efficiency > 1)) {
-    # Capacity grows more than load: can this really be?
-    warning("'data' shows efficiency > 1; this looks almost too good to be true")
-  }
-
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
                  model.result[['scale.factor']],
