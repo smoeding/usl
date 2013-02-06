@@ -110,7 +110,9 @@ setMethod(
       abline(a = 0, b = x@scale.factor, lty = "dotted")
       
       # Bound 2: Amdahl's asymptote
-      abline(a = 1/sigma * x@scale.factor, b = 0, lty = "dotted")
+      if (sigma > 0) {
+        abline(h = 1/sigma * x@scale.factor, lty = "dotted")
+      }
     }
   }
 )
