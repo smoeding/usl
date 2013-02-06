@@ -40,6 +40,10 @@ usl(formula = throughput ~ load, data = specsdm91)
 
 Scale Factor for normalization:  64.9
 
+Efficiency:
+   Min     1Q Median     3Q    Max
+0.1214 0.2254 0.3966 0.7799 1.0000
+
 Residuals:
    Min     1Q Median     3Q    Max
 -70.89 -23.59  19.39  86.14 274.88

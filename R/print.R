@@ -56,16 +56,21 @@ setMethod(
   f = "print",
   signature = "USL",
   definition = function(x, digits = max(3, getOption("digits") - 3), ...) {
+    qnames <- c("Min", "1Q", "Median", "3Q", "Max")
+
     cat("\nCall:\n",
         paste(deparse(x@call), sep = "\n", collapse = "\n"), "\n", sep = "")
 
     cat("\nScale Factor for normalization:",
         formatC(x@scale.factor, digits = digits), "\n")
 
+    cat("\nEfficiency:\n")
+    zz <- zapsmall(quantile(x@efficiency), digits + 1)
+    print(structure(zz, names = qnames), digits = digits, ...)
+
     cat("\nResiduals:\n")
     zz <- zapsmall(quantile(x@residuals), digits + 1)
-    print(structure(zz, names = c("Min", "1Q", "Median", "3Q", "Max")),
-          digits = digits, ...)
+    print(structure(zz, names = qnames), digits = digits, ...)
 
     if(length(coef(x))) {
       cat("\nCoefficients:\n")
