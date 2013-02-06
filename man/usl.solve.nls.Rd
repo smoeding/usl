@@ -6,9 +6,9 @@ usl.solve.nls(model)
 }
 \arguments{
   \item{model}{A data frame with two columns containing the
-  values of the predictor variable in column "\code{load}"
-  and the values of the response variable in clumn
-  "\code{throughput}".}
+  values of the predictor variable in the first column and
+  the values of the response variable in the second
+  column.}
 }
 \value{
   A list containing three elements: the scale.factor of the
@@ -16,7 +16,13 @@ usl.solve.nls(model)
 }
 \description{
   This function solves a USL model using non linear
-  regression with least squares.
+  regression with least squares. It uses the function
+  \code{\link{nls}} with the \code{"port"} algorithm to
+  perform the calculation. All restrictions of the
+  algorithm apply.
+}
+\seealso{
+  \code{\link{usl}}
 }
 \keyword{internal}
 

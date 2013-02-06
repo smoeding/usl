@@ -20,7 +20,9 @@ usl(formula, data, method = 1)
   \item{method}{Numeric value specifying the method to use.
   The default method "\code{1}" transforms the model into a
   2nd degree polynom. Other possible values are "\code{2}"
-  to use non linear regression.}
+  to use non linear regression (\code{\link{nls}} with the
+  \code{"port"} algorithm) or "\code{3}" for the
+  \code{\link{nlmrt}} package.}
 }
 \value{
   An object of class USL.
@@ -40,7 +42,7 @@ usl(formula, data, method = 1)
   \code{method} selects the method which is used to solve
   the model. The default method can only be used if the
   model frame contains a value for the normalization where
-  the predictor equals "\code{1}".
+  the predictor equals "\code{1}" for one measurement.
 
   The the USL model produces two coefficients as result.
   Parameter \code{sigma} models the contention and
@@ -80,7 +82,7 @@ coef(usl.model)
 ## Calculate point of peak scalability
 peak.scalability(usl.model)
 
-## Plot scalability function and original data
+## Plot original data and scalability function
 plot(raytracer)
 plot(usl.model, add=TRUE)
 }
@@ -90,8 +92,9 @@ plot(usl.model, add=TRUE)
 }
 \seealso{
   \code{\link{scalability}},
-  \code{\link{peak.scalability}}, \code{\link{summary}},
-  \code{\link{coef}}, \code{\link{fitted}}
-  \code{\link{residuals}}, \code{\link{deviance}}
+  \code{\link{peak.scalability}}, \code{\link{efficiency}},
+  \code{\link{summary}}, \code{\link{coef}},
+  \code{\link{fitted}}, \code{\link{residuals}},
+  \code{\link{deviance}}
 }
 

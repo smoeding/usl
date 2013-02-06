@@ -1,8 +1,8 @@
-\name{usl.solve.lm}
-\alias{usl.solve.lm}
-\title{Solve a USL model using a transformation to a 2nd degree polynom}
+\name{usl.solve.nlxb}
+\alias{usl.solve.nlxb}
+\title{Solve a USL model using non linear regression}
 \usage{
-usl.solve.lm(model)
+usl.solve.nlxb(model)
 }
 \arguments{
   \item{model}{A data frame with two columns containing the
@@ -15,12 +15,9 @@ usl.solve.lm(model)
   model, the model coefficients sigma and kappa.
 }
 \description{
-  This function solves a USL model using the transformation
-  introduced in sections 5.5.1 - 5.5.3 of GCaP.
-}
-\references{
-  N. J. Gunther. Guerrilla Capacity Planning.
-  Springer-Verlag, Heidelberg, Germany, 2007.
+  This function solves a USL model using non linear
+  regression with least squares. It uses the function
+  \code{\link{nlxb}} to perform the calculation.
 }
 \seealso{
   \code{\link{usl}}

@@ -30,11 +30,13 @@
 #' sections 5.5.1 - 5.5.3 of GCaP.
 #'
 #' @param model A data frame with two columns containing the values of the
-#'   predictor variable in column "\code{load}" and the values of the
-#'   response variable in clumn "\code{throughput}".
+#'   predictor variable in the first column and the values of the response
+#'   variable in the second column.
 #'
 #' @return A list containing three elements: the scale.factor of the model,
 #'   the model coefficients sigma and kappa.
+#'
+#' @seealso \code{\link{usl}}
 #'
 #' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
 #'   Heidelberg, Germany, 2007.
@@ -43,21 +45,22 @@
 #'
 usl.solve.lm <- function(model) {
   # Verify that the scale factor for normalization is in the dataframe
-  if (all(model$load != 1)) {
-    stop(paste0("'data' must contain a row where '", names(load), "' = 1"))
+  if (all(model[1, ] != 1)) {
+    stop(paste0("'data' must contain a row where '", names(model[1, ]), "' = 1"))
   }
 
   # Calculate scale factor: get throughput for entry where load=1
-  scale.factor <- model[match(1, model$load), ]$throughput
+  scale.factor <- model[match(1, model[1, ]), 2]
 
-  model <- within(model, {
-    # normalize data (cf. GCaP chapter 5.4)
-    capacity   <- throughput / scale.factor
+  # Rename columns
+  names(model) <- c("load", "throughput")
 
-    # compute deviations from linearity (cf. GCaP chapter 5.5.2)
-    x <- load - 1
-    y <- (load / capacity) - 1
-  })
+  # normalize data (cf. GCaP chapter 5.4)
+  model$capacity <- model$throughput / scale.factor
+
+  # compute deviations from linearity (cf. GCaP chapter 5.5.2)
+  model$x <- model$load - 1
+  model$y <- (model$load / model$capacity) - 1
 
   # Solve quadratic model without intercept
   model.fit <- lm(y ~ I(x^2) + x - 1, data = model)
@@ -74,30 +77,75 @@ usl.solve.lm <- function(model) {
 #' Solve a USL model using non linear regression
 #'
 #' This function solves a USL model using non linear regression with least
-#' squares.
+#' squares. It uses the function \code{\link{nls}} with the \code{"port"}
+#' algorithm to perform the calculation. All restrictions of the algorithm
+#' apply.
 #'
 #' @param model A data frame with two columns containing the values of the
-#'   predictor variable in column "\code{load}" and the values of the
-#'   response variable in clumn "\code{throughput}".
+#'   predictor variable in the first column and the values of the response
+#'   variable in the second column.
 #'
 #' @return A list containing three elements: the scale.factor of the model,
 #'   the model coefficients sigma and kappa.
 #'
+#' @seealso \code{\link{usl}}
 #' @keywords internal
 #'
 usl.solve.nls <- function(model) {
   names(model) <- c("x", "y")
 
-  model.fit <- nls(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)) - 1,
+  # Lower bound for scale.factor?
+  sf.max <- max(model$y / model$x)
+
+  model.fit <- nls(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)),
                    data = model,
-                   start = list(X1 = 1, sigma = 0.1, kappa = 0.01),
+                   start = c(X1 = sf.max, sigma = 0.1, kappa = 0.01),
                    algorithm = "port",
-                   lower = c(0, 0, 0),
-                   upper = c(Inf, 1, 1))
+                   lower = c(X1 = 0, sigma = 0, kappa = 0),
+                   upper = c(X1 = Inf, sigma = 1, kappa = 1))
 
   scale.factor = coef(model.fit)[['X1']]
   sigma = coef(model.fit)[['sigma']]
   kappa = coef(model.fit)[['kappa']]
+
+  return(list(scale.factor = scale.factor, sigma = sigma, kappa = kappa))
+}
+
+
+##############################################################################
+#' Solve a USL model using non linear regression
+#'
+#' This function solves a USL model using non linear regression with least
+#' squares. It uses the function \code{\link{nlxb}} to perform the
+#' calculation.
+#'
+#' @param model A data frame with two columns containing the values of the
+#'   predictor variable in the first column and the values of the response
+#'   variable in the second column.
+#'
+#' @return A list containing three elements: the scale.factor of the model,
+#'   the model coefficients sigma and kappa.
+#'
+#' @seealso \code{\link{usl}}
+#' @keywords internal
+#'
+usl.solve.nlxb <- function(model) {
+  require(nlmrt)
+
+  names(model) <- c("x", "y")
+
+  # Lower bound for scale.factor?
+  sf.max <- max(model$y / model$x)
+
+  model.fit <- nlxb(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)),
+                    data = model,
+                    start = c(X1 = sf.max, sigma = 0.1, kappa = 0.01),
+                    lower = c(X1 = 0, sigma = 0, kappa = 0),
+                    upper = c(X1 = Inf, sigma = 1, kappa = 1))
+
+  scale.factor = model.fit$coeffs[['X1']]
+  sigma = model.fit$coeffs[['sigma']]
+  kappa = model.fit$coeffs[['kappa']]
 
   return(list(scale.factor = scale.factor, sigma = sigma, kappa = kappa))
 }
@@ -116,7 +164,8 @@ usl.solve.nls <- function(model) {
 #'
 #' \code{method} selects the method which is used to solve the model. The
 #' default method can only be used if the model frame contains a value for
-#' the normalization where the predictor equals "\code{1}".
+#' the normalization where the predictor equals "\code{1}" for one
+#' measurement.
 #'
 #' The the USL model produces two coefficients as result. Parameter
 #' \code{sigma} models the contention and \code{kappa} the coherency delay
@@ -144,13 +193,15 @@ usl.solve.nls <- function(model) {
 #'   \code{usl} is called.
 #' @param method Numeric value specifying the method to use. The default
 #'   method "\code{1}" transforms the model into a 2nd degree polynom. Other
-#'   possible values are "\code{2}" to use non linear regression.
+#'   possible values are "\code{2}" to use non linear regression
+#'   (\code{\link{nls}} with the \code{"port"} algorithm) or "\code{3}" for
+#'   the \code{\link{nlmrt}} package.
 #'
 #' @return An object of class USL.
 #'
 #' @seealso \code{\link{scalability}}, \code{\link{peak.scalability}},
-#'   \code{\link{summary}}, \code{\link{coef}}, \code{\link{fitted}}
-#'   \code{\link{residuals}}, \code{\link{deviance}}
+#'   \code{\link{efficiency}}, \code{\link{summary}}, \code{\link{coef}},
+#'   \code{\link{fitted}}, \code{\link{residuals}}, \code{\link{deviance}}
 #'
 #' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
 #'   Heidelberg, Germany, 2007.
@@ -172,7 +223,7 @@ usl.solve.nls <- function(model) {
 #' ## Calculate point of peak scalability
 #' peak.scalability(usl.model)
 #'
-#' ## Plot scalability function and original data
+#' ## Plot original data and scalability function
 #' plot(raytracer)
 #' plot(usl.model, add=TRUE)
 #'
@@ -183,7 +234,7 @@ usl <- function(formula, data, method = 1) {
   formula <- as.formula(formula)
 
   if (length(formula) < 3L) {
-    stop("formula must be a 3-part formula")
+    stop("'formula' must be a 3-part formula")
   }
 
   if(!is.data.frame(data) && !is.environment(data)) {
@@ -225,7 +276,8 @@ usl <- function(formula, data, method = 1) {
 
   model.result <- switch(method,
                          usl.solve.lm(model),
-                         usl.solve.nls(model))
+                         usl.solve.nls(model),
+                         usl.solve.nlxb(model))
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
