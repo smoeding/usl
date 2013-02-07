@@ -17,36 +17,17 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > #
-> # Test functions coef, fitted, residuals, deviance, efficiency
+> # Test failure when normalization is not possible
 > #
 > 
 > library(usl)
 Loading required package: nlmrt
 > 
-> data(specsdm91)
-> 
-> options(digits=3)
-> 
-> u <- usl(throughput ~ load, specsdm91)
-> 
-> coef(u)
-   sigma    kappa 
-1.70e-02 7.89e-05 
-> 
-> fitted(u)
-     1      2      3      4      5      6      7 
-  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
-> 
-> residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
-> 
-> deviance(u)
-[1] 98880
-> 
-> efficiency(u)
-[1] 1.000 0.853 0.707 0.397 0.261 0.190 0.121
+> try(usl(throughput ~ load,
++         data.frame(load=seq(2,8), throughput=2*seq(2,8))))
+Error in usl.solve(data.frame(frame[regr], frame[resp])) :
+  'data' must contain a row where 'load' = 1
 > 
 > proc.time()
    user  system elapsed 
-   0.24    0.07    0.31 
+   0.20    0.07    0.26 
