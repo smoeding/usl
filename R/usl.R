@@ -46,7 +46,7 @@
 usl.solve.lm <- function(model) {
   # Verify that the scale factor for normalization is in the dataframe
   if (all(model[1, ] != 1)) {
-    stop(paste0("'data' must contain a row where '", names(model[1, ]), "' = 1"))
+    stop(paste0("'data' must contain a row where '", names(model[1]), "' = 1"))
   }
 
   # Calculate scale factor: get throughput for entry where load=1
@@ -77,7 +77,7 @@ usl.solve.lm <- function(model) {
 #' Solve a USL model using non linear regression
 #'
 #' This function solves a USL model using non linear regression with least
-#' squares. It uses the function \code{\link{nls}} with the \code{"port"}
+#' squares. It uses the function \code{\link{nls}} with the "\code{port}"
 #' algorithm to perform the calculation. All restrictions of the algorithm
 #' apply.
 #'
@@ -154,54 +154,62 @@ usl.solve.nlxb <- function(model) {
 ##############################################################################
 #' Create a model for the Universal Scalability Law
 #'
-#' \code{usl} is used to create Universal Scalability Law models. It can be
-#' used to forcast the scalability of either a hardware or a software system.
+#' \code{usl} is used to create a model for the Universal Scalability Law.
+#'
+#' The Universal Scalability Law is used to forcast the scalability of
+#' either a hardware or a software system.
 #'
 #' The USL model works with one independent variable (e.g. virtual users,
-#' processes, threads, ...) and one dependent variable (e.g. throughput).
+#' processes, threads, ...) and one dependent variable (e.g. throughput, ...).
 #' Therefore the model formula must be in the simple
 #' "\code{response ~ predictor}" format.
 #'
-#' \code{method} selects the method which is used to solve the model. The
-#' default method can only be used if the model frame contains a value for
-#' the normalization where the predictor equals "\code{1}" for one
-#' measurement.
+#' The model produces two coefficients as result: \code{sigma} models the
+#' contention and \code{kappa} the coherency delay of the system.
 #'
-#' The the USL model produces two coefficients as result. Parameter
-#' \code{sigma} models the contention and \code{kappa} the coherency delay
-#' of the system.
+#' The argument \code{method} selects the method which is used to solve the
+#' model:
 #'
-#' The Universal Scalability Law needs to transform the data into a
-#' normalized form. Currently it is therefore necessary to include one data
-#' item where the independent variable equals 1. The value of the associated
-#' dependent variable is used as scale factor for the normalization.
+#' \itemize{
+#'   \item "\code{default}" for the default method using a transformation
+#'     into a 2nd degree polynom. It can only be used if the model frame
+#'     contains a value for the normalization where the predictor equals
+#'     "\code{1}" for one measurement. This is the algorithm introduced by
+#'     Dr. Neil J. Gunther in the book \emph{Guerrilla Capacity Planning}.
+#'   \item "\code{nls}" for a nonlinear regression model. This method
+#'     estimates not only the coefficients \code{sigma} and \code{kappa} but
+#'     also the \code{scale.factor} for the normalization. \code{\link{nls}}
+#'     with the "\code{port}" algorithm is used internally to solve the
+#'     model. So all restrictions of the "\code{port}" algorithm apply.
+#'   \item "\code{nlxb}" for a nonliner regression model using the function
+#'     \code{\link{nlxb}} from the \code{\link{nlmrt}} package. This method
+#'     also estimates both coefficients and the normalization factor. It is
+#'     expected to be more robust than the method used by the \code{nls}
+#'     function.
+#' }
 #'
-#' The model uses the following formula to predict the relative capacity of
-#' the system for a given load \code{N}:
+#' The Universal Scalability Law uses the following formula to predict the
+#' relative capacity of the system for a given load \code{N}:
 #'
 #' \deqn{C(N) = \frac{N}{1 + \sigma (N - 1) + \kappa N (N - 1)}}{C(N) = N / (1 + \sigma * (N - 1) + \kappa * N * (N - 1))}
-#'
-#' The Universal Scalability Law has been created by Dr. Neil Gunther.
 #'
 #' @param formula An object of class "\code{\link{formula}}" (or one that
 #'   can be coerced to that class): a symbolic description of the model to be
 #'   analyzed. The details of model specification are given under 'Details'.
-#' @param data An optional data frame, list or environment (or object
-#'   coercible by as.data.frame to a data frame) containing the variables in
-#'   the model. If not found in data, the variables are taken from
+#' @param data A data frame, list or environment (or object coercible by
+#'   as.data.frame to a data frame) containing the variables in the model.
+#'   If not found in data, the variables are taken from
 #'   \code{environment(formula)}, typically the environment from which
 #'   \code{usl} is called.
-#' @param method Numeric value specifying the method to use. The default
-#'   method "\code{1}" transforms the model into a 2nd degree polynom. Other
-#'   possible values are "\code{2}" to use non linear regression
-#'   (\code{\link{nls}} with the \code{"port"} algorithm) or "\code{3}" for
-#'   the \code{\link{nlmrt}} package.
+#' @param method Character value specifying the method to use. The possible
+#'   values are described unter 'Details'.
 #'
 #' @return An object of class USL.
 #'
-#' @seealso \code{\link{scalability}}, \code{\link{peak.scalability}},
-#'   \code{\link{efficiency}}, \code{\link{summary}}, \code{\link{coef}},
-#'   \code{\link{fitted}}, \code{\link{residuals}}, \code{\link{deviance}}
+#' @seealso \code{\link{efficiency}}, \code{\link{scalability}},
+#'   \code{\link{peak.scalability}}, \code{\link{summary}},
+#'   \code{\link{coef}}, \code{\link{fitted}}, \code{\link{residuals}},
+#'   \code{\link{deviance}}
 #'
 #' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
 #'   Heidelberg, Germany, 2007.
@@ -217,6 +225,9 @@ usl.solve.nlxb <- function(model) {
 #' ## Show summary of model parameters
 #' summary(usl.model)
 #'
+#' ## Show complete list of efficiency parameters
+#' efficiency(usl.model)
+#'
 #' ## Extract coefficients for model
 #' coef(usl.model)
 #'
@@ -229,7 +240,7 @@ usl.solve.nlxb <- function(model) {
 #'
 #' @export
 #'
-usl <- function(formula, data, method = 1) {
+usl <- function(formula, data, method = "default") {
   ## canonicalize the arguments
   formula <- as.formula(formula)
 
@@ -270,14 +281,12 @@ usl <- function(formula, data, method = 1) {
   regr <- var.names[-attr(mt, "response")] # predictor
   resp <- var.names[attr(mt, "response")]  # response
 
-  # Create the model frame
-  model <- data.frame(frame[regr], frame[resp])
-  names(model) <- c("load", "throughput")
+  # Choose solver function
+  sel <- switch(method, nls=2, nlxb=3, 1)
+  usl.solve <- switch(sel, usl.solve.lm, usl.solve.nls, usl.solve.nlxb)
 
-  model.result <- switch(method,
-                         usl.solve.lm(model),
-                         usl.solve.nls(model),
-                         usl.solve.nlxb(model))
+  # Solve the model for the model frame
+  model.result <- usl.solve(data.frame(frame[regr], frame[resp]))
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,

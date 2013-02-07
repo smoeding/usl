@@ -17,7 +17,7 @@ usl.solve.nls(model)
 \description{
   This function solves a USL model using non linear
   regression with least squares. It uses the function
-  \code{\link{nls}} with the \code{"port"} algorithm to
+  \code{\link{nls}} with the "\code{port}" algorithm to
   perform the calculation. All restrictions of the
   algorithm apply.
 }
