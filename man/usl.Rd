@@ -39,10 +39,12 @@ usl(formula, data, method = "default")
 
   The model produces two coefficients as result:
   \code{sigma} models the contention and \code{kappa} the
-  coherency delay of the system.
+  coherency delay of the system. The function
+  \code{\link{coef}} extracts the coefficients from the
+  model object.
 
-  The argument \code{method} selects the method which is
-  used to solve the model:
+  The argument \code{method} selects which solver is used
+  to solve the model:
 
   \itemize{ \item "\code{default}" for the default method
   using a transformation into a 2nd degree polynom. It can
@@ -61,11 +63,11 @@ usl(formula, data, method = "default")
   \code{\link{nlxb}} from the \code{\link{nlmrt}} package.
   This method also estimates both coefficients and the
   normalization factor. It is expected to be more robust
-  than the method used by the \code{nls} function. }
+  than the \code{nls} method. }
 
-  The Universal Scalability Law uses the following formula
-  to predict the relative capacity of the system for a
-  given load \code{N}:
+  The Universal Scalability Law can be expressed with
+  following formula. \code{C(N)} predicts the relative
+  capacity of the system for a given load \code{N}:
 
   \deqn{C(N) = \frac{N}{1 + \sigma (N - 1) + \kappa N (N -
   1)}}{C(N) = N / (1 + \sigma * (N - 1) + \kappa * N * (N -
