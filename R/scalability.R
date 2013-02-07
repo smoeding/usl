@@ -29,7 +29,7 @@
 #' \code{scalability} is a higher order function and returns a function to
 #' calculate the scalability for the specific USL model.
 #'
-#' The returned function can be used to look at specific values once the
+#' The returned function can be used to calculate specific values once the
 #' model for a system has been created.
 #'
 #' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
@@ -97,8 +97,9 @@ setMethod(
 #'
 #' Calculate the point of peak scalability for a specific model.
 #'
-#' The peak scalability is the point where the throughput of the system goes
-#' retrograde (i.e., decreases with increasing load).
+#' The peak scalability is the point where the throughput of the
+#' system starts to go retrograde, i.e., starts to decrease with
+#' increasing load.
 #'
 #' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show

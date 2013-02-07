@@ -25,8 +25,8 @@
 }
 \details{
   The peak scalability is the point where the throughput of
-  the system goes retrograde (i.e., decreases with
-  increasing load).
+  the system starts to go retrograde, i.e., starts to
+  decrease with increasing load.
 
   The parameters \code{sigma} or \code{kappa} are useful to
   do a what-if analysis. Setting these parameters override

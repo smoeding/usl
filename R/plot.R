@@ -50,7 +50,7 @@
 #' how the system would behave with a different contention or coherency delay
 #' parameter.
 #'
-#' @usage \S4method{plot}{USL}(x, from, to, xlab, ylab, bounds, sigma, kappa, ...)
+#' @usage \S4method{plot}{USL}(x, from=NULL, to=NULL, xlab=NULL, ylab=NULL, bounds=FALSE, sigma, kappa, ...)
 #' @param x The USL object to plot.
 #' @param from The start of the range over which the scalability function
 #'   will be plotted.

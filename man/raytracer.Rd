@@ -18,6 +18,7 @@
   intersections per second. The data was gathered on an SGI
   Origin 2000 with 64 R12000 processors running at 300 MHz.
 
+  The data frame contains the following variables:
   \itemize{ \item \code{processors} The number of CPUs used
   for the benchmark (1--64). \item \code{throughput} The
   number of operations per second. }

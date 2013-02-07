@@ -25,7 +25,7 @@
   USL model.
 }
 \details{
-  The returned function can be used to look at specific
+  The returned function can be used to calculate specific
   values once the model for a system has been created.
 
   The parameters \code{sigma} or \code{kappa} are useful to

@@ -14,14 +14,12 @@
   SPARCcenter 2000 (16 CPUs)
 }
 \details{
-  The SPEC SDM91 benchmark has been run on a
+  A Sun SPARCcenter 2000 with 16 CPUs was used for the SPEC
+  SDM91 benchmark in October 1994. The benchmark simulates
+  a number of users working on the UNIX server and measures
+  the number of script executions per hour.
 
-  In October 1994 a Sun SPARCcenter 2000 (16 CPUs) was used
-  for the SPEC SDM91 benchmark. The benchmark simulates a
-  certain number of users working on a UNIX server. It
-  measures the number of script executions per hour for a
-  given number of simulated users.
-
+  The data frame contains the following variables:
   \itemize{ \item \code{load} The number of simulated users
   (1--216). \item \code{throughput} The achieved throughput
   in scripts per hour. }

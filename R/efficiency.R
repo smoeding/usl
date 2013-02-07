@@ -26,11 +26,13 @@
 ##############################################################################
 #' Efficiency of the system
 #'
-#' The efficiency of a system is a vector that contains for every measurement
-#' the deviation from linear scalability.
+#' The efficiency of a system expressed in terms of the deviation from
+#' linear scalability.
 #'
-#' A value of \code{1} indicates linear scalability while values less than
-#' \code{1} correspond to the fraction compared to linear scalability.
+#' The function returns a vector which contains the deviation from linearity
+#' for every measurement of the model input.  A value of \code{1} indicates
+#' linear scalability while values less than \code{1} correspond to the
+#' fraction of the measurement compared to linear scalability.
 #'
 #' @usage \S4method{efficiency}{USL}(object)
 #' @param object A USL object.
