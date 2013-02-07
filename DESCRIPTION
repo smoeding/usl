@@ -33,3 +33,4 @@ Collate:
     'plot.R'
     'usl.R'
     'datasets.R'
+    'usl-package.R'
