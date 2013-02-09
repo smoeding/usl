@@ -51,8 +51,9 @@
 #' @seealso \code{\link{usl}}, \code{\link{scalability}},
 #'   \code{\link{USL-class}}
 #'
-#' @references N. J. Gunther. Guerrilla Capacity Planning. Springer-Verlag,
-#'   Heidelberg, Germany, 2007.
+#' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+#'   Approach to Planning for Highly Scalable Applications and Services.
+#'   Springer, Heidelberg, Germany, 1st edition, 2007.
 #'
 #' @examples
 #' require(usl)

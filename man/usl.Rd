@@ -98,8 +98,10 @@ plot(raytracer)
 plot(usl.model, add=TRUE)
 }
 \references{
-  N. J. Gunther. Guerrilla Capacity Planning.
-  Springer-Verlag, Heidelberg, Germany, 2007.
+  Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+  Approach to Planning for Highly Scalable Applications and
+  Services. Springer, Heidelberg, Germany, 1st edition,
+  2007.
 }
 \seealso{
   \code{\link{efficiency}}, \code{\link{scalability}},

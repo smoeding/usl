@@ -16,11 +16,14 @@ usl.solve.lm(model)
 }
 \description{
   This function solves a USL model using the transformation
-  introduced in sections 5.5.1 - 5.5.3 of GCaP.
+  introduced in sections 5.5.1 - 5.5.3 of \emph{Guerrilla
+  Capacity Planning}.
 }
 \references{
-  N. J. Gunther. Guerrilla Capacity Planning.
-  Springer-Verlag, Heidelberg, Germany, 2007.
+  Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+  Approach to Planning for Highly Scalable Applications and
+  Services. Springer, Heidelberg, Germany, 1st edition,
+  2007.
 }
 \seealso{
   \code{\link{usl}}
