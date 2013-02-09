@@ -2,12 +2,11 @@ Package: usl
 Type: Package
 Title: Analyze system scalability with the Universal
     Scalability Law
-Version: 0.0-6
+Version: 0.0.6
 Date: 2013-02-06
-Authors@R: c(person(given="Stefan", family="Moeding", role
-    = c("aut", "cre"), email = "stm@moeding.net"),
-    person(given="Neil J.", family="Gunther", role =
-    "aut"))
+Authors@R: c(person(given="Neil J.", family="Gunther", role
+    = "aut"), person(given="Stefan", family="Moeding", role
+    = c("aut", "cre"), email = "stm@moeding.net"))
 BugReports: https://github.com/smoeding/usl/issues
 Depends:
     R (>= 2.15.0),
