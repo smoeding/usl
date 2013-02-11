@@ -61,10 +61,8 @@ The following image shows the plotted output:
 
 ## Installation
 
-There is currently a private R repository available if you do not want to install the source version yourself. The repository contains a fairly recent version of the sources and binary versions for Windows and Mac OSX.
-
-Use the following command to install the package from the repository:
+The package is available from CRAN. Use the following command to install the package from the repository:
 
 ```R
-install.packages("usl", repos = "http://download.moeding.net/R")
+install.packages("usl")
 ```
