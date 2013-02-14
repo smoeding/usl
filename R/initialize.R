@@ -56,7 +56,8 @@ setMethod(
     .Object@regr         <- regr
     .Object@resp         <- resp
     .Object@scale.factor <- scale.factor
-    .Object@efficiency   <- frame[[resp]] / scale.factor / frame[[regr]]
+    .Object@efficiency   <- structure(frame[[resp]] / scale.factor / frame[[regr]],
+                                      names = frame[, regr])
 
     # Call inspector
     validObject(.Object)
