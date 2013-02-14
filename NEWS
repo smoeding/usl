@@ -1,5 +1,7 @@
 CHANGES in `usl' VERSION 1.1.0 (2013-02-14)
 
+* Added first version of vignette.
+
 * Import from package `nlmrt', don't require it.
 
 * Function efficiency() now returns a named vector. The names are the

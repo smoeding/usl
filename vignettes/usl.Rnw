@@ -1,0 +1,446 @@
+\documentclass[fontsize=12pt,pagesize=auto,parskip=half,toc=bib]{scrartcl}
+%\VignetteIndexEntry{Using the usl package to analyze system scalability}
+%\VignetteDepends{usl}
+%\VignetteKeyword{usl}
+%\VignettePackage{usl}
+
+\subject{Using the usl package}
+\title{Analyze system scalability in R with the Universal Scalability Law}
+\author{Stefan M\"oding}
+
+\usepackage{fixltx2e}
+\usepackage{microtype}
+\usepackage{cmap}
+
+\usepackage{Sweave}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{fourier}
+
+\usepackage[pdfusetitle,hidelinks]{hyperref}
+
+\newcommand{\R}{{\normalfont\textsf{R}}{}}
+\newcommand{\usl}{{\normalfont\textsf{usl}}{}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE}
+<<options, echo=FALSE>>=
+options(prompt="R> ", digits=4, width=70, show.signif.stars=FALSE)
+@
+
+\maketitle
+
+\begin{abstract}\noindent
+The Universal Scalability Law is used to quantify the scalability of hardware
+or software systems. It uses measurements from an existing system to predict
+the throughput for different loads and can be used to learn more about the
+scalability limitations of the system. This document shows how the \R{}
+package `\usl' can be used to perform the relevant calculations.
+\end{abstract}
+
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Version}
+
+This document describes version \Sexpr{packageVersion("usl")} of the `\usl'
+package.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+
+Every system architect faces the challenge to deliver an application system
+that meets the business requirements. A critical point during the design is
+the scalability of the system. Scalability can informally be defined as the
+ability to support a growing amount of work. This can have two facets with
+respect to a computer system.
+
+On one hand there is software scalability where the focus is about how the
+system behaves when the demand increases, i.e., when more users are using it
+or more requests have to be handled. On the other hand there is hardware
+scalability where the behavior of an application system running on larger
+hardware configurations is investigated.
+
+A system is said to scale if it handles the changed demand or hardware
+environment in a reasonable efficient and practical way.
+
+The Universal Scalability Law (USL) has been developed by Dr.~Neil~J.~Gunther
+to allow the quantification of scalability for the purpose of capacity
+planning. It provides an analytic model for the scalability of a computer
+system. A comprehensive introduction to the Universal Scalability Law
+including the mathematical grounding has been published in \cite{Gun07}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementation}
+
+Dr.~Gunther shows in \cite{Gun07} how the scalability of every computer
+system can be described by a common rational function. This function is
+\emph{universal} in the sense that it does not assume any specific type
+of software, hardware or system architecture.
+
+\autoref{eqn:usl} has the Universal Scalability Law where $C(N) = X(N) / X(1)$
+is the relative capacity given by the ratio of the measured throughput $X(N)$
+for load $N$ to the throughput $X(1)$ for load $1$.
+
+\begin{equation}\label{eqn:usl}
+C(N) = \frac{N}{1 + \sigma (N - 1) + \kappa N (N - 1)}
+\end{equation}
+
+The denominator consists of three terms that all have a specific physical
+interpretation:
+
+\begin{labeling}{Concurrency:}
+\item[Concurrency:] The first term models the linear scalability that would
+  exist when the different parts of the system (processors, threads \dots)
+  could work without any interaction.
+\item[Contention:] The second term of the denominator refers to the contention
+  between different parts of the system. Most common are issues caused by
+  serialization or queueing effects.
+\item[Coherency:] The last term represents the delay induced by keeping the
+  system in a coherent and consistent state. This is necessary when writable
+  data is shared in different parts of the system. Predominant factors for
+  such a delay are caches implemented in software and hardware.
+\end{labeling}
+
+In other words: $\sigma$ and $\kappa$ represent two concrete physical issues
+that limit the achievable speedup for parallel execution. Note that the
+contention and coherency terms grow linearly respectively quadratically with
+$N$ and therefore their influence becomes larger with an increasing $N$.
+
+Due to the quadratic characteristic of the coherency term there will be a
+point where the throughput of the system will start to go retrograde, i.e.,
+will start to decrease with further increasing load.
+
+In \cite{Gun07} Dr.~Gunther also proves that \autoref{eqn:usl} is reduced to
+Amdahl's Law for $\kappa = 0$. Therefore the Universal Scalability Law can be
+seen as a generalization of Amdahl's Law for speedup in parallel computing.
+
+Using a set of measurements for the throughput $X_i$ at different loads $N_i$
+we can solve this nonlinear equation to estimate the coefficients $\sigma$
+and $\kappa$.
+
+The computations used to solve the equation for the measured values are
+discussed in \cite{Gun07}. The `\usl' package has been created to subsume the
+steps into one simple function call. This greatly reduces the manual work that
+previously was needed to perform the scalability analysis.
+
+The function provided by the package also includes some sanity checks to help
+the analyst with the data quality of the measurements.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Examples of Scalability Analysis}
+
+The following sections present some examples of how the `\usl' package can
+be used when performing a scalability analysis. They also explain typical
+function calls and their arguments.
+
+\subsection{Hardware Scalability}
+
+The `\usl' package contains a demo dataset with benchmark measurements from a
+raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}. The
+data was gathered on an SGI~Origin~2000 with 64 R12000 processors running at
+300~MHz.
+
+For the benchmark the software computed a number of reference images with
+different levels of complexity. The measurements contain the average number
+of calculated ray-geometry intersections per second for the number of used
+processors.
+
+It is important to note that with changing hardware configurations the relative
+number of \emph{homogeneous} application processes per processor is to be held
+constant. So when $k$ application processes were used for the $N$ processor
+benchmark then $2k$ processes must be used to get the result for $2N$
+processors.
+
+Start the analysis by loading the `\usl' package and look at the supplied
+dataset.
+
+<<>>=
+library(usl)
+data(raytracer)
+raytracer
+@
+
+The data shows the throughput for different hardware configurations covering
+the available range from one to 64 processors. We can easily see that the
+benefit for switching from one processor to four processors is much larger than
+the gain for upgrading from 48 to 64 processors.
+
+To get a grip on the data we create a simple scatterplot.
+
+<<rtplot1>>=
+plot(throughput ~ processors, data=raytracer, pch=16)
+@
+
+\autoref{fig:rtplot1} shows the throughput of the system for the different
+number of processors. This plot is a typical example for the effects of
+\emph{diminishing returns} as it clearly shows how the benefit of adding
+more processors to the system gets smaller for higher numbers of processors.
+
+\begin{figure*}[hbt]
+\centering
+<<fig=TRUE, echo=FALSE>>=
+<<rtplot1>>
+@
+\caption{Measured throughput of a raytracing software in relation to the number of available processors}
+\label{fig:rtplot1}
+\end{figure*}
+
+Our next step builds the USL model from the dataset. The \texttt{usl()}
+function creates an S4 object that encapsulates the computation.
+
+The first argument is a formula with a symbolic description of the model
+we want to analyze. In this case we would like to analyze how the
+``throughput'' changes with regard to the number of ``processors'' in the
+system. The second argument is the dataset with the measured values.
+
+<<>>=
+usl.model <- usl(throughput ~ processors, data=raytracer)
+@
+
+The model object can be investigated with the \texttt{summary()} function.
+
+<<>>=
+summary(usl.model)
+@
+
+The output of the \texttt{summary()} function shows different types of
+information.
+
+\begin{itemize}
+\item First of all it includes the call we used to create the model.
+\item It also includes the scale factor used for normalization. The scale
+  factor is used internally to adjust the measured values to a common scale.
+  It is equal to the value $X(1)$ of the measurements.
+\item The efficiency tells us something about the work that is performed per
+  processor. Intuition tells us that two processors could be able to handle
+  double the work of one processor but not more. Calculating the ratio of the
+  workload per processor should therefore always be less or equal to $1$. In
+  order to verify this we can use the distribution of the efficiency values
+  in the summary.
+\item We are performing a regression on the data to calculate the coefficients
+  and therefore we determine the residuals for the fitted values. The
+  distribution of the residuals is also given as part of the summary.
+\item The coefficients $\sigma$ and $\kappa$ are the result that we are
+  essentially interested in. They tell us the magnitude of the contention and
+  coherency effects within the system.
+\item Finally $R^2$ estimates how well the model fits the data. We can see that
+  the model is able to explain more than
+  \Sexpr{floor(100*summary(usl.model)$r.squared)} percent of the data.
+\end{itemize}
+
+The function \texttt{efficiency()} extracts the specific values so we can
+have a closer look at the specific efficiencies of the different processor
+configurations.
+
+<<>>=
+efficiency(usl.model)
+@
+
+A bar plot is useful to visually compare the decreasing efficiencies for the
+configurations with an increasing number of processors. \autoref{fig:rtbarplot}
+shows the output diagram.
+
+<<rtbarplot, height=4>>=
+barplot(efficiency(usl.model))
+@
+
+\begin{figure*}[hbt]
+\centering
+<<fig=TRUE, echo=FALSE, height=4>>=
+<<rtbarplot>>
+@
+\caption{Rate of efficiency for an increasing number of processors running the raytracing software}
+\label{fig:rtbarplot}
+\end{figure*}
+
+The values for the model coefficients $\sigma$ and $\kappa$ can be retrieved
+with the \texttt{coef()} function.
+
+<<>>=
+coef(usl.model)
+@
+
+To get an impression of the scalability function we can use the \texttt{plot()}
+function and create a combined graph with the original data as dots and the
+calculated scalability function as solid line.
+
+<<rtplot2>>=
+plot(throughput ~ processors, data=raytracer, pch=16)
+plot(usl.model, add=TRUE)
+@
+
+\autoref{fig:rtplot2} has the result of that plot.
+
+\begin{figure*}[hbt]
+\centering
+<<fig=TRUE, echo=FALSE>>=
+<<rtplot2>>
+@
+\caption{Throughput of a raytracing software using different numbers of processors}
+\label{fig:rtplot2}
+\end{figure*}
+
+Imagine that SGI would have built the server with up to 128 processors.
+We also assume that that system architecture would have no other
+scalability limitation than the ones already part of the USL model. Then
+we can use the existing model and predict the system throughput for maybe
+96 and 128 and processors.
+
+<<>>=
+predict(usl.model, data.frame(processors=c(96, 128)))
+@
+
+We can see from the prediction that there is still an increase in throughput
+achievable with such a large number of processors. Therefore we now use the
+\texttt{peak.scalability()} function to determine the point where the maximum
+throughput is reached.
+
+<<>>=
+peak.scalability(usl.model)
+@
+
+According to the model the system would achieve its best throughput with
+\Sexpr{floor(peak.scalability(usl.model))} processors. This is certainly a
+result that could not easily be deduced from the original dataset.
+
+\subsection{Software Scalability}
+
+In this section we will perform an analysis of a SPEC benchmark. A Sun
+SPARCcenter 2000 with 16 CPUs was used in October 1994 for the SDM91
+benchmark\footnote{\url{http://www.spec.org/osg/sdm91/results/results.html}}.
+The benchmark simulates a number of users working on a UNIX server (editing
+files, compiling \dots) and measures the number of script executions per hour.
+
+First select the demo dataset with the data from the SPEC SDM91 benchmark.
+
+<<>>=
+library(usl)
+data(specsdm91)
+specsdm91
+@
+
+The data provides the measurements made during the benchmark. The column
+``load'' shows the number of virtual users that were simulated by the
+benchmark and the column ``throughput'' has the measured number of script
+executions per hour for that load.
+
+Next we create the USL model for this dataset by calling the \texttt{usl()}
+function. Again we specify a symbolic description of the model and the
+dataset with the measurements. But this time we choose a different method for
+the analysis.
+
+<<>>=
+usl.model <- usl(throughput ~ load, specsdm91, method = "nlxb")
+@
+
+There are currently three possible values for the \texttt{method} parameter:
+
+\begin{labeling}{\texttt{default}:}
+\item[\texttt{default}:] The default method uses a transformation into a 2nd
+  degree polynom. It can only be used if the data set contains a value for
+  the normalization where the ``throughput'' equals $1$ for one measurement.
+  This is the algorithm introduced in \cite{Gun07}.
+\item[\texttt{nls}:] This method uses then \texttt{nls()} function of the
+  \R{} stats package for a nonlinear regression model. It estimates not only
+  the coefficients $\sigma$ and $\kappa$ but also the scale factor for the
+  normalization. The nonlinear regression uses constraints for its parameters
+  which means the ``port'' algorithm is used internally to solve the model.
+  So all restrictions of the ``port'' algorithm apply.
+\item[\texttt{nlxb}:] A nonlinear regression model is also used for this case.
+  Instead of the \texttt{nls()} function it uses the \texttt{nlxb()} function
+  from the nlmrt package (see \cite{R:nlmrt}). This method also estimates both
+  coefficients and the normalization factor. It is expected to be more robust
+  than the \texttt{nls} method.
+\end{labeling}
+
+If there is no measurement where ``load'' equals $1$ then the default method
+does not work and one of the remaining methods must be used.
+
+We also use the \texttt{summary()} function to look at the details for the
+analysis.
+
+<<>>=
+summary(usl.model)
+@
+
+Looking at the coefficients we notice that $\sigma$ is about
+\Sexpr{signif(100*coef(usl.model)[['sigma']], 2)} percent and $\kappa$ is
+about \Sexpr{signif(100*coef(usl.model)[['kappa']], 1)} percent. We
+hypothesize that a change to the system --- maybe by redesigning a cache
+algorithm --- could reduce $\kappa$ by half and want to know how the
+scalability of the system would change.
+
+We can calculate the point of maximum scalability for the current system and
+for the hypothetical system with the \texttt{peak.scalability()} function.
+
+<<>>=
+peak.scalability(usl.model)
+peak.scalability(usl.model, kappa=0.00005)
+@
+
+The function accepts two optional arguments \texttt{sigma} and \texttt{kappa}.
+They are useful to do a what-if analysis. Setting these parameters override
+the calculated model parameters and show how the system would behave with a
+different contention or coherency coefficient.
+
+In this case we learn that the point of peak scalability would move from
+around \Sexpr{signif(peak.scalability(usl.model), 3)} to about
+\Sexpr{signif(peak.scalability(usl.model, kappa=0.00005), 3)} if we would
+be able to actually build the system with the assumed optimization.
+
+Both calculated scalability functions can be plotted using the \texttt{plot()}
+or \texttt{curve()} functions. The following commands create a graph of the
+original data points and the derived scalability functions. To fully show the
+scalability of the hypothetical system we have to increase the range of the
+plotted values with the first command.
+
+<<spplot1>>=
+plot(specsdm91, pch=16, ylim=c(0,2500))
+plot(usl.model, add=TRUE)
+cache.scale <- scalability(usl.model, kappa=0.00005)
+curve(cache.scale, lty=2, add=TRUE)
+@
+
+We used the function \texttt{scalability()} here. This function is a higher
+order function that does not return a specific value but another function.
+This makes it possible to use the \texttt{curve()} function to plot the
+values over the specific range.
+
+\autoref{fig:spplot1} shows the measured throughput in scripts per hour for a
+given load, i.e., the number of simulated users. The solid line indicates the
+derived USL model while the dashed line resembles our hypothetical system using
+the optimized cache algorithm.
+
+\begin{figure*}[hbtp]
+\centering
+<<fig=TRUE, echo=FALSE>>=
+<<spplot1>>
+@
+\caption{The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)}
+\label{fig:spplot1}
+\end{figure*}
+
+From the figure we can see that the scalability really peaks at one point.
+Increasing the load beyond that point leads to retrograde behavior, i.e.,
+the throughput decreases again. As we have calculated earlier, the measured
+system will reach this point sooner than the hypothetical system.
+
+This illustrates how the Universal Scalability Law can help to decide if the
+system currently is more limited by contention or by coherency issues and
+also what impact a proposed change would have.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{alpha}
+\bibliography{usl}{}
+
+\end{document}
