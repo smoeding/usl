@@ -128,11 +128,10 @@ usl.solve.nls <- function(model) {
 #'   the model coefficients sigma and kappa.
 #'
 #' @seealso \code{\link{usl}}
+#' @importFrom nlmrt nlxb
 #' @keywords internal
 #'
 usl.solve.nlxb <- function(model) {
-  require(nlmrt)
-
   names(model) <- c("x", "y")
 
   # Lower bound for scale.factor?
