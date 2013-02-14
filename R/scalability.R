@@ -87,7 +87,7 @@ setMethod(
       return(object@scale.factor * cap)
     }
 
-    # Return the usl function
+    # Return the usl function (lexically scoped)
     return(.func)
   }
 )
