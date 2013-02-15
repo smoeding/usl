@@ -36,10 +36,11 @@ options(prompt="R> ", digits=4, width=70, show.signif.stars=FALSE)
 
 \begin{abstract}\noindent
 The Universal Scalability Law is used to quantify the scalability of hardware
-or software systems. It uses measurements from an existing system to predict
-the throughput for different loads and can be used to learn more about the
-scalability limitations of the system. This document shows how the \R{}
-package `\usl' can be used to perform the relevant calculations.
+or software systems. It uses sparse measurements from an existing system to
+predict the throughput for different loads and can be used to learn more about
+the scalability limitations of the system. This document introduces the `\usl'
+package for \R{} and shows how easily it can be used to perform the relevant
+calculations.
 \end{abstract}
 
 \tableofcontents
@@ -78,7 +79,7 @@ including the mathematical grounding has been published in \cite{Gun07}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Implementation}
+\section{Background}
 
 Dr.~Gunther shows in \cite{Gun07} how the scalability of every computer
 system can be described by a common rational function. This function is
@@ -98,8 +99,8 @@ interpretation:
 
 \begin{labeling}{Concurrency:}
 \item[Concurrency:] The first term models the linear scalability that would
-  exist when the different parts of the system (processors, threads \dots)
-  could work without any interaction.
+  exist if the different parts of the system (processors, threads \dots)
+  could work without any interference caused by interaction.
 \item[Contention:] The second term of the denominator refers to the contention
   between different parts of the system. Most common are issues caused by
   serialization or queueing effects.
@@ -142,7 +143,7 @@ The following sections present some examples of how the `\usl' package can
 be used when performing a scalability analysis. They also explain typical
 function calls and their arguments.
 
-\subsection{Hardware Scalability}
+\subsection{Case Study: Hardware Scalability}
 
 The `\usl' package contains a demo dataset with benchmark measurements from a
 raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}. The
@@ -312,7 +313,7 @@ According to the model the system would achieve its best throughput with
 \Sexpr{floor(peak.scalability(usl.model))} processors. This is certainly a
 result that could not easily be deduced from the original dataset.
 
-\subsection{Software Scalability}
+\subsection{Case Study: Software Scalability}
 
 In this section we will perform an analysis of a SPEC benchmark. A Sun
 SPARCcenter 2000 with 16 CPUs was used in October 1994 for the SDM91
@@ -375,9 +376,9 @@ summary(usl.model)
 Looking at the coefficients we notice that $\sigma$ is about
 \Sexpr{signif(100*coef(usl.model)[['sigma']], 2)} percent and $\kappa$ is
 about \Sexpr{signif(100*coef(usl.model)[['kappa']], 1)} percent. We
-hypothesize that a change to the system --- maybe by redesigning a cache
-algorithm --- could reduce $\kappa$ by half and want to know how the
-scalability of the system would change.
+hypothesize that a proposed change to the system --- maybe a redesign of
+the cache architecture --- could reduce $\kappa$ by half and want to know
+how the scalability of the system would change.
 
 We can calculate the point of maximum scalability for the current system and
 for the hypothetical system with the \texttt{peak.scalability()} function.
@@ -418,14 +419,14 @@ values over the specific range.
 \autoref{fig:spplot1} shows the measured throughput in scripts per hour for a
 given load, i.e., the number of simulated users. The solid line indicates the
 derived USL model while the dashed line resembles our hypothetical system using
-the optimized cache algorithm.
+the optimized cache.
 
 \begin{figure*}[hbtp]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<spplot1>>
 @
-\caption{The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)}
+\caption{The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 (dots) together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)}
 \label{fig:spplot1}
 \end{figure*}
 
