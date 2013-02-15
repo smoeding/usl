@@ -3,15 +3,17 @@ Type: Package
 Title: Analyze system scalability with the Universal
     Scalability Law
 Version: 1.1.0
-Date: 2013-02-14
+Date: 2013-02-15
 Authors@R: c(person(given="Neil J.", family="Gunther", role
     = "aut"), person(given="Stefan", family="Moeding", role
     = c("aut", "cre"), email = "stm@moeding.net"))
 BugReports: https://github.com/smoeding/usl/issues
 Depends:
-    R (>= 2.15.0),
-    methods
+    R (>= 2.15.0)
 Imports:
+    methods,
+    graphics,
+    stats,
     nlmrt
 Description: The Universal Scalability Law is a model to
     predict hardware and software scalability. It uses

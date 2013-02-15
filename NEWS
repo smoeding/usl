@@ -1,8 +1,8 @@
-CHANGES in `usl' VERSION 1.1.0 (2013-02-14)
+CHANGES in `usl' VERSION 1.1.0 (2013-02-15)
 
 * Added first version of vignette.
 
-* Import from package `nlmrt', don't require it.
+* Import package `nlmrt' plus standard packages.
 
 * Function efficiency() now returns a named vector. The names are the
   values of the independent variable, cf. fitted() or residuals().

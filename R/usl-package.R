@@ -47,5 +47,8 @@
 #' @name usl-package
 #' @aliases usl-package
 #' @docType package
+#' @import methods
+#' @import graphics
+#' @import stats
 #'
 NULL
