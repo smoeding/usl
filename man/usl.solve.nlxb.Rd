@@ -19,6 +19,10 @@ usl.solve.nlxb(model)
   regression with least squares. It uses the function
   \code{\link{nlxb}} to perform the calculation.
 }
+\references{
+  John C. Nash. nlmrt: Functions for nonlinear least
+  squares solutions, 2012. R package version 2012-12.16.
+}
 \seealso{
   \code{\link{usl}}
 }

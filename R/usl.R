@@ -128,6 +128,10 @@ usl.solve.nls <- function(model) {
 #'   the model coefficients sigma and kappa.
 #'
 #' @seealso \code{\link{usl}}
+#'
+#' @references John C. Nash. nlmrt: Functions for nonlinear least squares
+#'   solutions, 2012. R package version 2012-12.16.
+#'
 #' @importFrom nlmrt nlxb
 #' @keywords internal
 #'
@@ -216,6 +220,9 @@ usl.solve.nlxb <- function(model) {
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
 #'   Springer, Heidelberg, Germany, 1st edition, 2007.
+#'
+#' @references John C. Nash. nlmrt: Functions for nonlinear least squares
+#'   solutions, 2012. R package version 2012-12.16.
 #'
 #' @examples
 #' require(usl)

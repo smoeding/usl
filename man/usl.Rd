@@ -102,6 +102,9 @@ plot(usl.model, add=TRUE)
   Approach to Planning for Highly Scalable Applications and
   Services. Springer, Heidelberg, Germany, 1st edition,
   2007.
+
+  John C. Nash. nlmrt: Functions for nonlinear least
+  squares solutions, 2012. R package version 2012-12.16.
 }
 \seealso{
   \code{\link{efficiency}}, \code{\link{scalability}},
