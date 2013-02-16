@@ -57,18 +57,18 @@ package.
 \section{Introduction}
 
 Every system architect faces the challenge to deliver an application system
-that meets the business requirements. A critical point during the design is
-the scalability of the system. Scalability can informally be defined as the
+that meets the requirements. A critical point during the design is the
+scalability of the system. Scalability can informally be defined as the
 ability to support a growing amount of work. This can have two facets with
 respect to a computer system.
 
-On one hand there is software scalability where the focus is about how the
-system behaves when the demand increases, i.e., when more users are using it
-or more requests have to be handled. On the other hand there is hardware
+On the one hand, there is software scalability where the focus is about how
+the system behaves when the demand increases, i.e., when more users are using
+it or more requests have to be handled. On the other hand, there is hardware
 scalability where the behavior of an application system running on larger
 hardware configurations is investigated.
 
-A system is said to scale if it handles the changed demand or hardware
+A system is said to scale if it handles the changing demand or hardware
 environment in a reasonable efficient and practical way.
 
 The Universal Scalability Law (USL) has been developed by Dr.~Neil~J.~Gunther
@@ -113,7 +113,7 @@ interpretation:
 In other words: $\sigma$ and $\kappa$ represent two concrete physical issues
 that limit the achievable speedup for parallel execution. Note that the
 contention and coherency terms grow linearly respectively quadratically with
-$N$ and therefore their influence becomes larger with an increasing $N$.
+$N$. As a consequence their influence becomes larger with an increasing $N$.
 
 Due to the quadratic characteristic of the coherency term there will be a
 point where the throughput of the system will start to go retrograde, i.e.,
@@ -123,9 +123,9 @@ In \cite{Gun07} Dr.~Gunther also proves that \autoref{eqn:usl} is reduced to
 Amdahl's Law for $\kappa = 0$. Therefore the Universal Scalability Law can be
 seen as a generalization of Amdahl's Law for speedup in parallel computing.
 
-Using a set of measurements for the throughput $X_i$ at different loads $N_i$
-we can solve this nonlinear equation to estimate the coefficients $\sigma$
-and $\kappa$.
+We can solve this nonlinear equation to estimate the coefficients $\sigma$
+and $\kappa$ using a sparse set of measurements for the throughput $X_i$ at
+different loads $N_i$.
 
 The computations used to solve the equation for the measured values are
 discussed in \cite{Gun07}. The `\usl' package has been created to subsume the
@@ -146,14 +146,14 @@ function calls and their arguments.
 \subsection{Case Study: Hardware Scalability}
 
 The `\usl' package contains a demo dataset with benchmark measurements from a
-raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}. The
-data was gathered on an SGI~Origin~2000 with 64 R12000 processors running at
-300~MHz.
+raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}.
+The data was gathered on an SGI~Origin~2000 with 64 R12000 processors running
+at 300~MHz.
 
-For the benchmark the software computed a number of reference images with
-different levels of complexity. The measurements contain the average number
-of calculated ray-geometry intersections per second for the number of used
-processors.
+For the benchmark a number of reference images with different levels of
+complexity were computed by the software. The measurements contain the
+average number of calculated ray-geometry intersections per second for the
+number of used processors.
 
 It is important to note that with changing hardware configurations the relative
 number of \emph{homogeneous} application processes per processor is to be held
@@ -178,12 +178,12 @@ the gain for upgrading from 48 to 64 processors.
 To get a grip on the data we create a simple scatterplot.
 
 <<rtplot1>>=
-plot(throughput ~ processors, data=raytracer, pch=16)
+plot(throughput ~ processors, data=raytracer)
 @
 
 \autoref{fig:rtplot1} shows the throughput of the system for the different
 number of processors. This plot is a typical example for the effects of
-\emph{diminishing returns} as it clearly shows how the benefit of adding
+\emph{diminishing returns}, because it clearly shows how the benefit of adding
 more processors to the system gets smaller for higher numbers of processors.
 
 \begin{figure*}[hbt]
@@ -233,14 +233,14 @@ information.
 \item The coefficients $\sigma$ and $\kappa$ are the result that we are
   essentially interested in. They tell us the magnitude of the contention and
   coherency effects within the system.
-\item Finally $R^2$ estimates how well the model fits the data. We can see that
-  the model is able to explain more than
+\item Finally $R^2$ estimates how well the model fits the data. We can see
+  that the model is able to explain more than
   \Sexpr{floor(100*summary(usl.model)$r.squared)} percent of the data.
 \end{itemize}
 
-The function \texttt{efficiency()} extracts the specific values so we can
-have a closer look at the specific efficiencies of the different processor
-configurations.
+The function \texttt{efficiency()} extracts the specific efficiency values
+and so we can have a closer look at the specific efficiencies of the different
+processor configurations.
 
 <<>>=
 efficiency(usl.model)
@@ -272,7 +272,7 @@ coef(usl.model)
 
 To get an impression of the scalability function we can use the \texttt{plot()}
 function and create a combined graph with the original data as dots and the
-calculated scalability function as solid line.
+calculated scalability function as a solid line.
 
 <<rtplot2>>=
 plot(throughput ~ processors, data=raytracer, pch=16)
@@ -290,9 +290,9 @@ plot(usl.model, add=TRUE)
 \label{fig:rtplot2}
 \end{figure*}
 
-Imagine that SGI would have built the server with up to 128 processors.
-We also assume that that system architecture would have no other
-scalability limitation than the ones already part of the USL model. Then
+Now imagine that SGI would have built the server with up to 128 processors.
+Let's also assume that that system architecture would have no other
+scalability limitations than the ones already part of the USL model. Then
 we can use the existing model and predict the system throughput for maybe
 96 and 128 and processors.
 
@@ -301,15 +301,15 @@ predict(usl.model, data.frame(processors=c(96, 128)))
 @
 
 We can see from the prediction that there is still an increase in throughput
-achievable with such a large number of processors. Therefore we now use the
-\texttt{peak.scalability()} function to determine the point where the maximum
-throughput is reached.
+achievable with that number of processors. So we use the
+\texttt{peak.scalability()} function now to determine the point where the
+maximum throughput is reached.
 
 <<>>=
 peak.scalability(usl.model)
 @
 
-According to the model the system would achieve its best throughput with
+According to the model, the system would achieve its best throughput with
 \Sexpr{floor(peak.scalability(usl.model))} processors. This is certainly a
 result that could not easily be deduced from the original dataset.
 
@@ -321,7 +321,7 @@ benchmark\footnote{\url{http://www.spec.org/osg/sdm91/results/results.html}}.
 The benchmark simulates a number of users working on a UNIX server (editing
 files, compiling \dots) and measures the number of script executions per hour.
 
-First select the demo dataset with the data from the SPEC SDM91 benchmark.
+First, select the demo dataset with the data from the SPEC SDM91 benchmark.
 
 <<>>=
 library(usl)
@@ -388,7 +388,7 @@ peak.scalability(usl.model)
 peak.scalability(usl.model, kappa=0.00005)
 @
 
-The function accepts two optional arguments \texttt{sigma} and \texttt{kappa}.
+The function accepts the optional arguments \texttt{sigma} and \texttt{kappa}.
 They are useful to do a what-if analysis. Setting these parameters override
 the calculated model parameters and show how the system would behave with a
 different contention or coherency coefficient.
