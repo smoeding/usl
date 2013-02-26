@@ -20,9 +20,10 @@
 \usepackage{fourier}
 
 \usepackage[pdfusetitle,hidelinks]{hyperref}
+\usepackage[all]{hypcap}
 
-\newcommand{\R}{{\normalfont\textsf{R}}{}}
-\newcommand{\usl}{{\normalfont\textsf{usl}}{}}
+\newcommand{\R}{{\normalfont\textsf{R}}}
+\newcommand{\usl}{{\normalfont\textsf{usl}}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,23 +59,25 @@ package.
 
 Every system architect faces the challenge to deliver an application system
 that meets the requirements. A critical point during the design is the
-scalability of the system. Scalability can informally be defined as the
-ability to support a growing amount of work. This can have two facets with
-respect to a computer system.
+scalability of the system.
 
-On the one hand, there is software scalability where the focus is about how
-the system behaves when the demand increases, i.e., when more users are using
-it or more requests have to be handled. On the other hand, there is hardware
-scalability where the behavior of an application system running on larger
-hardware configurations is investigated.
+Informally scalability can be defined as the ability to support a growing
+amount of work. A system is said to scale if it handles the changing demand or
+hardware environment in a reasonable efficient and practical way.
 
-A system is said to scale if it handles the changing demand or hardware
-environment in a reasonable efficient and practical way.
+Scalability can have two facets with respect to a computer system. On the one
+hand, there is software scalability where the focus is about how the system
+behaves when the demand increases, i.e., when more users are using it or more
+requests need to be handled. On the other hand, there is hardware scalability
+where the behavior of an application system running on larger hardware
+configurations is investigated.
 
 The Universal Scalability Law (USL) has been developed by Dr.~Neil~J.~Gunther
 to allow the quantification of scalability for the purpose of capacity
 planning. It provides an analytic model for the scalability of a computer
-system. A comprehensive introduction to the Universal Scalability Law
+system.
+
+A comprehensive introduction to the Universal Scalability Law
 including the mathematical grounding has been published in \cite{Gun07}.
 
 
@@ -98,9 +101,9 @@ The denominator consists of three terms that all have a specific physical
 interpretation:
 
 \begin{labeling}{Concurrency:}
-\item[Concurrency:] The first term models the linear scalability that would
+\item[Concurrency:] The first term models linear scalability that would
   exist if the different parts of the system (processors, threads \dots)
-  could work without any interference caused by interaction.
+  could work without any interference caused by their interaction.
 \item[Contention:] The second term of the denominator refers to the contention
   between different parts of the system. Most common are issues caused by
   serialization or queueing effects.
@@ -119,21 +122,26 @@ Due to the quadratic characteristic of the coherency term there will be a
 point where the throughput of the system will start to go retrograde, i.e.,
 will start to decrease with further increasing load.
 
-In \cite{Gun07} Dr.~Gunther also proves that \autoref{eqn:usl} is reduced to
+In \cite{Gun07} Dr.~Gunther proves that \autoref{eqn:usl} is reduced to
 Amdahl's Law for $\kappa = 0$. Therefore the Universal Scalability Law can be
 seen as a generalization of Amdahl's Law for speedup in parallel computing.
 
-We can solve this nonlinear equation to estimate the coefficients $\sigma$
+We could solve this nonlinear equation to estimate the coefficients $\sigma$
 and $\kappa$ using a sparse set of measurements for the throughput $X_i$ at
-different loads $N_i$.
+different loads $N_i$. The computations used to solve the equation for the
+measured values are discussed in \cite{Gun07}.
 
-The computations used to solve the equation for the measured values are
-discussed in \cite{Gun07}. The `\usl' package has been created to subsume the
-steps into one simple function call. This greatly reduces the manual work that
-previously was needed to perform the scalability analysis.
+The `\usl' package has been created to subsume the computation into one simple
+function call. This greatly reduces the manual work that previously was needed
+to perform the scalability analysis.
 
 The function provided by the package also includes some sanity checks to help
 the analyst with the data quality of the measurements.
+
+Note that in\cite{Gun07} the coefficients are called $\sigma$ and $\kappa$
+when hardware scalability is evaluated but $\alpha$ and $\beta$ when software
+scalability is analyzed. The `\usl' package only uses $\sigma$ and $\kappa$
+as names of the coefficients.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -150,10 +158,9 @@ raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}.
 The data was gathered on an SGI~Origin~2000 with 64 R12000 processors running
 at 300~MHz.
 
-For the benchmark a number of reference images with different levels of
-complexity were computed by the software. The measurements contain the
-average number of calculated ray-geometry intersections per second for the
-number of used processors.
+A number of reference images with different levels of complexity were computed
+for the benchmark. The measurements contain the average number of calculated
+ray-geometry intersections per second for the number of used processors.
 
 It is important to note that with changing hardware configurations the relative
 number of \emph{homogeneous} application processes per processor is to be held
@@ -175,7 +182,7 @@ the available range from one to 64 processors. We can easily see that the
 benefit for switching from one processor to four processors is much larger than
 the gain for upgrading from 48 to 64 processors.
 
-To get a grip on the data we create a simple scatterplot.
+Create a simple scatterplot to get a grip on the data.
 
 <<rtplot1>>=
 plot(throughput ~ processors, data=raytracer)
@@ -221,12 +228,12 @@ information.
 \item It also includes the scale factor used for normalization. The scale
   factor is used internally to adjust the measured values to a common scale.
   It is equal to the value $X(1)$ of the measurements.
-\item The efficiency tells us something about the work that is performed per
-  processor. Intuition tells us that two processors could be able to handle
-  double the work of one processor but not more. Calculating the ratio of the
-  workload per processor should therefore always be less or equal to $1$. In
-  order to verify this we can use the distribution of the efficiency values
-  in the summary.
+\item The efficiency tells us something about the ratio of useful work that is
+  performed per processor. It is obvious that two processors might be able to
+  handle twice the work of one processor but not more. Calculating the ratio of
+  the workload per processor should therefore always be less or equal to $1$.
+  In order to verify this, we can use the distribution of the efficiency values
+  shown in the summary.
 \item We are performing a regression on the data to calculate the coefficients
   and therefore we determine the residuals for the fitted values. The
   distribution of the residuals is also given as part of the summary.
@@ -238,9 +245,9 @@ information.
   \Sexpr{floor(100*summary(usl.model)$r.squared)} percent of the data.
 \end{itemize}
 
-The function \texttt{efficiency()} extracts the specific efficiency values
-and so we can have a closer look at the specific efficiencies of the different
-processor configurations.
+The function \texttt{efficiency()} extracts the efficiency values from the
+model and allows us to have a closer look at the specific efficiencies of the
+different processor configurations.
 
 <<>>=
 efficiency(usl.model)
@@ -272,14 +279,13 @@ coef(usl.model)
 
 To get an impression of the scalability function we can use the \texttt{plot()}
 function and create a combined graph with the original data as dots and the
-calculated scalability function as a solid line.
+calculated scalability function as a solid line. \autoref{fig:rtplot2} has the
+result of that plot.
 
 <<rtplot2>>=
 plot(throughput ~ processors, data=raytracer, pch=16)
 plot(usl.model, add=TRUE)
 @
-
-\autoref{fig:rtplot2} has the result of that plot.
 
 \begin{figure*}[hbt]
 \centering
@@ -290,11 +296,11 @@ plot(usl.model, add=TRUE)
 \label{fig:rtplot2}
 \end{figure*}
 
-Now imagine that SGI would have built the server with up to 128 processors.
-Let's also assume that that system architecture would have no other
-scalability limitations than the ones already part of the USL model. Then
-we can use the existing model and predict the system throughput for maybe
-96 and 128 and processors.
+SGI marketed the Origin 2000 with up to 128 processors. Let's assume that
+going from 64 to 128 processors does not introduce any additional limitations
+to the system architecture. Then we can use the existing model and forecast
+the system throughput for other numbers like 96 and 128 processors using the
+\texttt{predict()} function.
 
 <<>>=
 predict(usl.model, data.frame(processors=c(96, 128)))
@@ -309,7 +315,7 @@ maximum throughput is reached.
 peak.scalability(usl.model)
 @
 
-According to the model, the system would achieve its best throughput with
+According to the model, the system would achieve its highest throughput with
 \Sexpr{floor(peak.scalability(usl.model))} processors. This is certainly a
 result that could not easily be deduced from the original dataset.
 
@@ -347,24 +353,25 @@ There are currently three possible values for the \texttt{method} parameter:
 
 \begin{labeling}{\texttt{default}:}
 \item[\texttt{default}:] The default method uses a transformation into a 2nd
-  degree polynom. It can only be used if the data set contains a value for
+  degree polynomial. It can only be used if the data set contains a value for
   the normalization where the ``throughput'' equals $1$ for one measurement.
-  This is the algorithm introduced in \cite{Gun07}.
-\item[\texttt{nls}:] This method uses then \texttt{nls()} function of the
-  \R{} stats package for a nonlinear regression model. It estimates not only
+  This is the original procedure introduced in chapter 5.2.3 of \cite{Gun07}.
+\item[\texttt{nls}:] This method uses the \texttt{nls()} function of the
+  stats package for a nonlinear regression model. It estimates not only
   the coefficients $\sigma$ and $\kappa$ but also the scale factor for the
   normalization. The nonlinear regression uses constraints for its parameters
   which means the ``port'' algorithm is used internally to solve the model.
   So all restrictions of the ``port'' algorithm apply.
-\item[\texttt{nlxb}:] A nonlinear regression model is also used for this case.
+\item[\texttt{nlxb}:] A nonlinear regression model is also used in this case.
   Instead of the \texttt{nls()} function it uses the \texttt{nlxb()} function
   from the nlmrt package (see \cite{R:nlmrt}). This method also estimates both
   coefficients and the normalization factor. It is expected to be more robust
   than the \texttt{nls} method.
 \end{labeling}
 
-If there is no measurement where ``load'' equals $1$ then the default method
-does not work and one of the remaining methods must be used.
+Keep in mind that if there is no measurement where ``load'' equals $1$ then the
+default method does not work and an error message will be printed. In this case
+one of the remaining methods must be used.
 
 We also use the \texttt{summary()} function to look at the details for the
 analysis.
@@ -400,9 +407,9 @@ be able to actually build the system with the assumed optimization.
 
 Both calculated scalability functions can be plotted using the \texttt{plot()}
 or \texttt{curve()} functions. The following commands create a graph of the
-original data points and the derived scalability functions. To fully show the
-scalability of the hypothetical system we have to increase the range of the
-plotted values with the first command.
+original data points and the derived scalability functions. To completely
+include the scalability of the hypothetical system, we have to increase the
+range of the plotted values with the first command.
 
 <<spplot1>>=
 plot(specsdm91, pch=16, ylim=c(0,2500))
@@ -412,16 +419,16 @@ curve(cache.scale, lty=2, add=TRUE)
 @
 
 We used the function \texttt{scalability()} here. This function is a higher
-order function that does not return a specific value but another function.
-This makes it possible to use the \texttt{curve()} function to plot the
-values over the specific range.
+order function returning a function and not just a single value. That makes
+it possible to use the \texttt{curve()} function to plot the values over the
+specific range.
 
 \autoref{fig:spplot1} shows the measured throughput in scripts per hour for a
 given load, i.e., the number of simulated users. The solid line indicates the
 derived USL model while the dashed line resembles our hypothetical system using
 the optimized cache.
 
-\begin{figure*}[hbtp]
+\begin{figure*}[hbt]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<spplot1>>
@@ -435,13 +442,28 @@ Increasing the load beyond that point leads to retrograde behavior, i.e.,
 the throughput decreases again. As we have calculated earlier, the measured
 system will reach this point sooner than the hypothetical system.
 
+To get the predicted throughput values for the peak values we can combine the
+\texttt{scalability()} and the \texttt{peak.scalability()} functions.
+
+<<>>=
+scalability(usl.model)(peak.scalability(usl.model))
+scalability(usl.model, kappa=0.00005)(peak.scalability(usl.model, kappa=0.00005))
+@
+
 This illustrates how the Universal Scalability Law can help to decide if the
 system currently is more limited by contention or by coherency issues and
 also what impact a proposed change would have.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Case Study: Multivalued Data}
+
+%TODO
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{alpha}
-\bibliography{usl}{}
+\bibliography{usl}
 
 \end{document}
