@@ -5,5 +5,8 @@
 .Rproj.user
 *.Rproj
 *-Ex.R
-
-
+# Exclude LaTeX files
+vignettes/*.pdf
+vignettes/*.log
+vignettes/*.toc
+vignettes/*.tex
