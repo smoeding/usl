@@ -74,3 +74,5 @@ In addition to the package documentation there is also a package vignette availa
 ```R
 vignette("usl")
 ```
+
+The vignette is also available from CRAN: ![http://cran.r-mirror.de/web/packages/usl/vignettes/usl.pdf](http://cran.r-mirror.de/web/packages/usl/vignettes/usl.pdf)
