@@ -28,16 +28,19 @@
 #'
 #' Initialize the object.
 #'
-#' @usage \S4method{initialize}{USL}(.Object, call, frame, regr, resp, scale.factor, sigma, kappa)
+#' @usage \S4method{initialize}{USL}(.Object, call, frame, regr, resp, scale.factor, sigma, kappa, boot)
 #' @param .Object The object to initialize.
 #' @param call The formula used to create the USL model.
 #' @param frame The model frame containing the variables in the model.
 #' @param regr The name of the regressor variable in the model.
 #' @param resp The name of the response variable in the model.
-#' @param scale.factor A numeric value for the scale of the model. This is the factor
-#'     by which the model values have been reduced to get a normalized model.
+#' @param scale.factor A numeric value for the scale of the model. This is the
+#'     factor by which the model values have been reduced to get a normalized
+#'     model.
 #' @param sigma The contention parameter of the model.
 #' @param kappa The coherency delay parameter of the model.
+#' @param boot A bootstrap object used to estimate confidence intervals for
+#'     the parameters sigma and kappa.
 #'
 #' @return An object of the specific type.
 #'
@@ -49,7 +52,7 @@
 setMethod(
   f = "initialize",
   signature = "USL",
-  definition = function(.Object, call, frame, regr, resp, scale.factor, sigma, kappa) {
+  definition = function(.Object, call, frame, regr, resp, scale.factor, sigma, kappa, boot) {
     .Object@call         <- call
     .Object@coefficients <- structure(c(sigma, kappa), names = c("sigma", "kappa"))
     .Object@frame        <- frame
@@ -58,6 +61,7 @@ setMethod(
     .Object@scale.factor <- scale.factor
     .Object@efficiency   <- structure(frame[[resp]] / scale.factor / frame[[regr]],
                                       names = frame[, regr])
+    .Object@boot         <- boot
 
     # Call inspector
     validObject(.Object)

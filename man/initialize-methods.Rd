@@ -5,7 +5,7 @@
 \title{Generate an object from the "\code{USL}" class}
 \usage{
 \S4method{initialize}{USL}(.Object, call, frame, regr,
-resp, scale.factor, sigma, kappa)
+resp, scale.factor, sigma, kappa, boot)
 }
 \arguments{
   \item{.Object}{The object to initialize.}
@@ -28,6 +28,9 @@ resp, scale.factor, sigma, kappa)
   \item{sigma}{The contention parameter of the model.}
 
   \item{kappa}{The coherency delay parameter of the model.}
+
+  \item{boot}{A bootstrap object used to estimate
+  confidence intervals for the parameters sigma and kappa.}
 }
 \value{
   An object of the specific type.

@@ -248,6 +248,7 @@ usl.solve.nlxb <- function(model) {
 #' plot(raytracer)
 #' plot(usl.model, add=TRUE)
 #'
+#' @importFrom boot boot
 #' @export
 #'
 usl <- function(formula, data, method = "default") {
@@ -291,17 +292,36 @@ usl <- function(formula, data, method = "default") {
   regr <- var.names[-attr(mt, "response")] # predictor
   resp <- var.names[attr(mt, "response")]  # response
 
+  model.input <- data.frame(frame[regr], frame[resp])
+
   # Choose solver function
   sel <- switch(method, nls=2, nlxb=3, 1)
   usl.solve <- switch(sel, usl.solve.lm, usl.solve.nls, usl.solve.nlxb)
 
   # Solve the model for the model frame
-  model.result <- usl.solve(data.frame(frame[regr], frame[resp]))
+  model.result <- usl.solve(model.input)
+
+  # Bootstrap confidence intervals for sigma & kappa
+  boot.func <- function(model.input, indices) {
+    # Use tryCatch to ignore all errors when solving the model
+    result <- tryCatch(usl.solve(model.input[indices, ]),
+                       error = function(err) list(sigma = NA, kappa = NA))
+
+    # Coefficients must not be negative
+    if (any(result < 0, na.rm = TRUE)) result <- list(sigma = NA, kappa = NA)
+
+    return(c(result[['sigma']], result[['kappa']]))
+  }
+
+  boot.obj <- boot(data = model.input, statistic = boot.func, R = 30)
+  #print(boot.ci(boot.obj, index = 1, conf = 0.95, type = "bca"))
+  #print(boot.ci(boot.obj, index = 2, conf = 0.95, type = "bca"))
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
                  model.result[['scale.factor']],
-                 model.result[['sigma']], model.result[['kappa']])
+                 model.result[['sigma']], model.result[['kappa']],
+                 boot.obj)
 
   # Finish the object and return it
   return(finish(.Object))

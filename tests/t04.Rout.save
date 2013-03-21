@@ -25,7 +25,7 @@ Loading required package: nlmrt
 > 
 > try(usl(throughput ~ load,
 +         data.frame(load=seq(2,8), throughput=2*seq(2,8))))
-Error in usl.solve(data.frame(frame[regr], frame[resp])) :
+Error in usl.solve(model.input) :
   'data' must contain a row where 'load' = 1
 > 
 > proc.time()

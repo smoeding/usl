@@ -24,6 +24,12 @@
 
 
 ##############################################################################
+# Enable class "boot" to be used as a formal class
+#
+setOldClass("boot")
+
+
+##############################################################################
 #' Class "\code{USL}" for Universal Scalability Law models
 #'
 #' This class encapsulates the Universal Scalability Law. Use the function
@@ -37,6 +43,7 @@
 #' \item{\code{regr}:}{The name of the response variable.}
 #' \item{\code{scale.factor}:}{The scale factor used to create the model.}
 #' \item{\code{coefficients}:}{The coefficients sigma and kappa of the model.}
+#' \item{\code{boot}:}{A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.}
 #' \item{\code{deviance}:}{The deviance (residual sum of squares).}
 #' \item{\code{fitted}:}{The fitted values of the model. This is a vector.}
 #' \item{\code{residuals}:}{The residuals of the model. This is a vector.}
@@ -58,6 +65,7 @@ setClass("USL",
                         resp          = "character",
                         scale.factor  = "numeric",
                         coefficients  = "vector",
+                        boot          = "boot",
                         deviance      = "numeric",
                         fitted        = "vector",
                         residuals     = "vector",
