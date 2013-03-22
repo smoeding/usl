@@ -301,7 +301,7 @@ usl <- function(formula, data, method = "default") {
   # Solve the model for the model frame
   model.result <- usl.solve(model.input)
 
-  # Bootstrap confidence intervals for sigma & kappa
+  # Bootstrap confidence intervals for model parameters sigma & kappa
   boot.func <- function(model.input, indices) {
     # Use tryCatch to ignore all errors when solving the model
     result <- tryCatch(usl.solve(model.input[indices, ]),
@@ -314,8 +314,6 @@ usl <- function(formula, data, method = "default") {
   }
 
   boot.obj <- boot(data = model.input, statistic = boot.func, R = 30)
-  #print(boot.ci(boot.obj, index = 1, conf = 0.95, type = "bca"))
-  #print(boot.ci(boot.obj, index = 2, conf = 0.95, type = "bca"))
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,

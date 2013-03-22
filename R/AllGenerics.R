@@ -27,6 +27,7 @@ setGeneric("plot", function(x, y, ...) standardGeneric("plot"))
 setGeneric("print", function(x, ...) standardGeneric("print"))
 setGeneric("predict", function(object, ...) standardGeneric("predict"))
 setGeneric("summary", function(object, ...) standardGeneric("summary"))
+setGeneric("confint", function(object, parm, level) standardGeneric("confint"))
 
 #
 # USL specific methods
