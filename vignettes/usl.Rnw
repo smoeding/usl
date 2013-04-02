@@ -17,13 +17,15 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
-\usepackage{fourier}
+\usepackage[utopia]{mathdesign}
+\usepackage{beramono}
 
 \usepackage[pdfusetitle,hidelinks]{hyperref}
 \usepackage[all]{hypcap}
 
 \newcommand{\R}{{\normalfont\textsf{R}}}
 \newcommand{\usl}{{\normalfont\textsf{usl}}}
+\newcommand{\kbd}[1]{{\normalfont\textit{\texttt{#1}}}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -202,25 +204,25 @@ more processors to the system gets smaller for higher numbers of processors.
 \label{fig:rtplot1}
 \end{figure*}
 
-Our next step builds the USL model from the dataset. The \texttt{usl()}
+Our next step builds the USL model from the dataset. The \kbd{usl()}
 function creates an S4 object that encapsulates the computation.
 
-The first argument is a formula with a symbolic description of the model
-we want to analyze. In this case we would like to analyze how the
-``throughput'' changes with regard to the number of ``processors'' in the
-system. The second argument is the dataset with the measured values.
+The first argument is a formula with a symbolic description of the model we
+want to analyze. In this case we would like to analyze how the ``throughput''
+changes with regard to the number of ``processors'' in the system. The second
+argument is the dataset with the measured values.
 
 <<>>=
 usl.model <- usl(throughput ~ processors, data=raytracer)
 @
 
-The model object can be investigated with the \texttt{summary()} function.
+The model object can be investigated with the \kbd{summary()} function.
 
 <<>>=
 summary(usl.model)
 @
 
-The output of the \texttt{summary()} function shows different types of
+The output of the \kbd{summary()} function shows different types of
 information.
 
 \begin{itemize}
@@ -245,7 +247,7 @@ information.
   \Sexpr{floor(100*summary(usl.model)$r.squared)} percent of the data.
 \end{itemize}
 
-The function \texttt{efficiency()} extracts the efficiency values from the
+The function \kbd{efficiency()} extracts the efficiency values from the
 model and allows us to have a closer look at the specific efficiencies of the
 different processor configurations.
 
@@ -271,13 +273,13 @@ barplot(efficiency(usl.model))
 \end{figure*}
 
 The values for the model coefficients $\sigma$ and $\kappa$ can be retrieved
-with the \texttt{coef()} function.
+with the \kbd{coef()} function.
 
 <<>>=
 coef(usl.model)
 @
 
-To get an impression of the scalability function we can use the \texttt{plot()}
+To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the
 calculated scalability function as a solid line. \autoref{fig:rtplot2} has the
 result of that plot.
@@ -300,7 +302,7 @@ SGI marketed the Origin 2000 with up to 128 processors. Let's assume that
 going from 64 to 128 processors does not introduce any additional limitations
 to the system architecture. Then we can use the existing model and forecast
 the system throughput for other numbers like 96 and 128 processors using the
-\texttt{predict()} function.
+\kbd{predict()} function.
 
 <<>>=
 predict(usl.model, data.frame(processors=c(96, 128)))
@@ -308,7 +310,7 @@ predict(usl.model, data.frame(processors=c(96, 128)))
 
 We can see from the prediction that there is still an increase in throughput
 achievable with that number of processors. So we use the
-\texttt{peak.scalability()} function now to determine the point where the
+\kbd{peak.scalability()} function now to determine the point where the
 maximum throughput is reached.
 
 <<>>=
@@ -340,7 +342,7 @@ The data provides the measurements made during the benchmark. The column
 benchmark and the column ``throughput'' has the measured number of script
 executions per hour for that load.
 
-Next we create the USL model for this dataset by calling the \texttt{usl()}
+Next we create the USL model for this dataset by calling the \kbd{usl()}
 function. Again we specify a symbolic description of the model and the
 dataset with the measurements. But this time we choose a different method for
 the analysis.
@@ -356,14 +358,14 @@ There are currently three possible values for the \texttt{method} parameter:
   degree polynomial. It can only be used if the data set contains a value for
   the normalization where the ``throughput'' equals $1$ for one measurement.
   This is the original procedure introduced in chapter 5.2.3 of \cite{Gun07}.
-\item[\texttt{nls}:] This method uses the \texttt{nls()} function of the
+\item[\texttt{nls}:] This method uses the \kbd{nls()} function of the
   stats package for a nonlinear regression model. It estimates not only
   the coefficients $\sigma$ and $\kappa$ but also the scale factor for the
   normalization. The nonlinear regression uses constraints for its parameters
   which means the ``port'' algorithm is used internally to solve the model.
   So all restrictions of the ``port'' algorithm apply.
 \item[\texttt{nlxb}:] A nonlinear regression model is also used in this case.
-  Instead of the \texttt{nls()} function it uses the \texttt{nlxb()} function
+  But instead of the \kbd{nls()} function it uses the \kbd{nlxb()} function
   from the nlmrt package (see \cite{R:nlmrt}). This method also estimates both
   coefficients and the normalization factor. It is expected to be more robust
   than the \texttt{nls} method.
@@ -373,7 +375,7 @@ Keep in mind that if there is no measurement where ``load'' equals $1$ then the
 default method does not work and an error message will be printed. In this case
 one of the remaining methods must be used.
 
-We also use the \texttt{summary()} function to look at the details for the
+We also use the \kbd{summary()} function to look at the details for the
 analysis.
 
 <<>>=
@@ -388,7 +390,7 @@ the cache architecture --- could reduce $\kappa$ by half and want to know
 how the scalability of the system would change.
 
 We can calculate the point of maximum scalability for the current system and
-for the hypothetical system with the \texttt{peak.scalability()} function.
+for the hypothetical system with the \kbd{peak.scalability()} function.
 
 <<>>=
 peak.scalability(usl.model)
@@ -405,8 +407,8 @@ around \Sexpr{signif(peak.scalability(usl.model), 3)} to about
 \Sexpr{signif(peak.scalability(usl.model, kappa=0.00005), 3)} if we would
 be able to actually build the system with the assumed optimization.
 
-Both calculated scalability functions can be plotted using the \texttt{plot()}
-or \texttt{curve()} functions. The following commands create a graph of the
+Both calculated scalability functions can be plotted using the \kbd{plot()}
+or \kbd{curve()} functions. The following commands create a graph of the
 original data points and the derived scalability functions. To completely
 include the scalability of the hypothetical system, we have to increase the
 range of the plotted values with the first command.
@@ -418,9 +420,9 @@ cache.scale <- scalability(usl.model, kappa=0.00005)
 curve(cache.scale, lty=2, add=TRUE)
 @
 
-We used the function \texttt{scalability()} here. This function is a higher
+We used the function \kbd{scalability()} here. This function is a higher
 order function returning a function and not just a single value. That makes
-it possible to use the \texttt{curve()} function to plot the values over the
+it possible to use the \kbd{curve()} function to plot the values over the
 specific range.
 
 \autoref{fig:spplot1} shows the measured throughput in scripts per hour for a
@@ -442,8 +444,8 @@ Increasing the load beyond that point leads to retrograde behavior, i.e.,
 the throughput decreases again. As we have calculated earlier, the measured
 system will reach this point sooner than the hypothetical system.
 
-To get the predicted throughput values for the peak values we can combine the
-\texttt{scalability()} and the \texttt{peak.scalability()} functions.
+We can combine the \kbd{scalability()} and the \kbd{peak.scalability()}
+functions to get the predicted throughput values for the peak values.
 
 <<>>=
 scalability(usl.model)(peak.scalability(usl.model))
