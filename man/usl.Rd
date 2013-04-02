@@ -2,7 +2,7 @@
 \alias{usl}
 \title{Create a model for the Universal Scalability Law}
 \usage{
-usl(formula, data, method = "default")
+usl(formula, data, method = "default", R = 30)
 }
 \arguments{
   \item{formula}{An object of class "\code{\link{formula}}"
@@ -19,6 +19,10 @@ usl(formula, data, method = "default")
 
   \item{method}{Character value specifying the method to
   use. The possible values are described unter 'Details'.}
+
+  \item{R}{The number of bootstrap replicate used to
+  estimate the confidence intervals for the parameters
+  \code{sigma} and \code{kappa}.}
 }
 \value{
   An object of class USL.
@@ -65,6 +69,12 @@ usl(formula, data, method = "default")
   normalization factor. It is expected to be more robust
   than the \code{nls} method. }
 
+  The parameter \code{R} defines the number of bootstrap
+  replicates used to estimate the parameter confidence
+  intervals. Depending on the number of observations the
+  default 30 may be too low to get reasonable results. See
+  \code{\link{boot}} and \code{\link{boot.ci}} for details.
+
   The Universal Scalability Law can be expressed with
   following formula. \code{C(N)} predicts the relative
   capacity of the system for a given load \code{N}:
@@ -110,6 +120,7 @@ plot(usl.model, add=TRUE)
   \code{\link{efficiency}}, \code{\link{scalability}},
   \code{\link{peak.scalability}}, \code{\link{summary}},
   \code{\link{coef}}, \code{\link{fitted}},
-  \code{\link{residuals}}, \code{\link{deviance}}
+  \code{\link{residuals}}, \code{\link{deviance}},
+  \code{\link{confint}}
 }
 

@@ -1,0 +1,53 @@
+
+R version 2.15.2 (2012-10-26) -- "Trick or Treat"
+Copyright (C) 2012 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> #
+> # Test function confint
+> #
+> 
+> library(usl)
+> 
+> data(specsdm91)
+> 
+> options(digits=3)
+> 
+> set.seed(1103, kind="default", normal.kind="default")
+> 
+> u <- usl(throughput ~ load, specsdm91)
+> 
+> confint(u, parm=1)
+       2.5 % 97.5 %
+sigma 0.0102 0.0319
+> confint(u, parm="sigma")
+       2.5 % 97.5 %
+sigma 0.0102 0.0319
+> 
+> confint(u, parm=2)
+          2.5 %   97.5 %
+kappa -4.04e-05 0.000132
+> confint(u, parm="kappa")
+          2.5 %   97.5 %
+kappa -4.04e-05 0.000132
+> 
+> confint(u, parm=3)
+     2.5 % 97.5 %
+<NA>    NA     NA
+> 
+> proc.time()
+   user  system elapsed 
+   0.35    0.03    0.39 

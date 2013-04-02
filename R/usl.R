@@ -193,6 +193,11 @@ usl.solve.nlxb <- function(model) {
 #'     expected to be more robust than the \code{nls} method.
 #' }
 #'
+#' The parameter \code{R} defines the number of bootstrap replicates used to
+#' estimate the parameter confidence intervals. Depending on the number of
+#' observations the default 30 may be too low to get reasonable results. See
+#' \code{\link{boot}} and \code{\link{boot.ci}} for details.
+#'
 #' The Universal Scalability Law can be expressed with following formula.
 #' \code{C(N)} predicts the relative capacity of the system for a given
 #' load \code{N}:
@@ -209,13 +214,15 @@ usl.solve.nlxb <- function(model) {
 #'   \code{usl} is called.
 #' @param method Character value specifying the method to use. The possible
 #'   values are described unter 'Details'.
+#' @param R The number of bootstrap replicate used to estimate the confidence
+#'   intervals for the parameters \code{sigma} and \code{kappa}.
 #'
 #' @return An object of class USL.
 #'
 #' @seealso \code{\link{efficiency}}, \code{\link{scalability}},
 #'   \code{\link{peak.scalability}}, \code{\link{summary}},
 #'   \code{\link{coef}}, \code{\link{fitted}}, \code{\link{residuals}},
-#'   \code{\link{deviance}}
+#'   \code{\link{deviance}}, \code{\link{confint}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
@@ -251,7 +258,7 @@ usl.solve.nlxb <- function(model) {
 #' @importFrom boot boot
 #' @export
 #'
-usl <- function(formula, data, method = "default") {
+usl <- function(formula, data, method = "default", R = 30) {
   ## canonicalize the arguments
   formula <- as.formula(formula)
 
@@ -313,7 +320,7 @@ usl <- function(formula, data, method = "default") {
     return(c(result[['sigma']], result[['kappa']]))
   }
 
-  boot.obj <- boot(data = model.input, statistic = boot.func, R = 30)
+  boot.obj <- boot(data = model.input, statistic = boot.func, R = R)
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
