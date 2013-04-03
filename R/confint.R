@@ -86,7 +86,7 @@ setMethod(
     ci.value <- NULL # vector with confidence interval values
     warn.msg <- NULL # warning messages thrown by boot.ci
 
-    type.all = c("norm", "basic", "stud", "perc", "bca")
+    type.all <- c("norm", "basic", "stud", "perc", "bca")
 
     # Verify argument 'type'
     if (!(type %in% type.all)) {
@@ -95,8 +95,8 @@ setMethod(
 
     # Map boot.ci input parameter to output object element name
     type.elem <- switch(type,
-                        norm="normal", basic="basic", stud="student",
-                        perc="percent", bca="bca")
+                        norm = "normal", basic = "basic", stud = "student",
+                        perc = "percent", bca = "bca")
 
     # Return confidence intervals for both parameters if 'parm' is unset
     if (missing(parm)) parm <- c(1, 2)
@@ -136,9 +136,7 @@ setMethod(
     }
 
     # Print all warnings
-    for(m in warn.msg) {
-      warning(m)
-    }
+    for(m in warn.msg) warning(m)
 
     # Use dummy matrix if no sensible parameters were requested
     if (length(row.name) < 1) {
