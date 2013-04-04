@@ -1,8 +1,7 @@
 
-R version 2.15.2 (2012-10-26) -- "Trick or Treat"
-Copyright (C) 2012 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
-Platform: x86_64-w64-mingw32/x64 (64-bit)
+R version 3.0.0 (2013-04-03) -- "Masked Marvel"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin10.8.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -21,7 +20,6 @@ Type 'q()' to quit R.
 > #
 > 
 > library(usl)
-Loading required package: nlmrt
 > 
 > data(specsdm91)
 > 
@@ -50,4 +48,4 @@ Loading required package: nlmrt
 > 
 > proc.time()
    user  system elapsed 
-   0.29    0.03    0.32 
+  0.556   0.057   0.597 
