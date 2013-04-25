@@ -195,8 +195,9 @@ usl.solve.nlxb <- function(model) {
 #'
 #' The parameter \code{R} defines the number of bootstrap replicates used to
 #' estimate the parameter confidence intervals. Depending on the number of
-#' observations the default 30 may be too low to get reasonable results. See
-#' \code{\link{boot}} and \code{\link{boot.ci}} for details.
+#' observations the default 50 may be too low to get reasonable results. See
+#' \code{\link{boot}} and \code{\link{boot.ci}} for details. The method
+#' \code{\link{confint}} is used to get confidence intervals for a model.
 #'
 #' The Universal Scalability Law can be expressed with following formula.
 #' \code{C(N)} predicts the relative capacity of the system for a given
@@ -258,7 +259,7 @@ usl.solve.nlxb <- function(model) {
 #' @importFrom boot boot
 #' @export
 #'
-usl <- function(formula, data, method = "default", R = 30) {
+usl <- function(formula, data, method = "default", R = 50) {
   ## canonicalize the arguments
   formula <- as.formula(formula)
 

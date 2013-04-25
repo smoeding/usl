@@ -8,9 +8,9 @@ data(specsdm91)
 
 options(digits=3)
 
-set.seed(1103, kind="default", normal.kind="default")
+set.seed(1103, kind = "default", normal.kind = "default")
 
-u <- usl(throughput ~ load, specsdm91)
+u <- usl(throughput ~ load, data = specsdm91, R = 50)
 
 confint(u, parm=1)
 confint(u, parm="sigma")

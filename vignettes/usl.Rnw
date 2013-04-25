@@ -33,6 +33,7 @@
 \SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE}
 <<options, echo=FALSE>>=
 options(prompt="R> ", scipen=4, digits=3, width=70, show.signif.stars=FALSE)
+set.seed(42, kind = "default", normal.kind = "default")
 @
 
 \maketitle
@@ -278,6 +279,19 @@ with the \kbd{coef()} function.
 <<>>=
 coef(usl.model)
 @
+
+The corresponding confidence intervals for the model coefficients are returned
+by calling the \kbd{confint()} function.
+
+<<>>=
+confint(usl.model, level = 0.95, type = "norm")
+@
+
+Bootstrapping is used to calculate the confidence intervals for the parameters.
+They must be taken with a grain of salt since the level of accuracy of the
+original measurements is usually unknown. Depending on the type of the
+requested bootstrap confidence interval the function might not be able to
+produce a result at all.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the

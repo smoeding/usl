@@ -33,20 +33,26 @@
   in a USL model.
 }
 \details{
-  Confidence intervals are estimated by using a bootstrap.
-  The bootstrap generates a series of random selections
-  with replacement for the original data and calculates the
-  model parameters sigma and kappa for every selection. The
-  set of parameters are used to estimate confidence
-  intervals.
+  Confidence intervals are estimated by using bootstrap
+  resampling (see \code{\link{boot}}). The bootstrap
+  generates a series of random selections with replacement
+  for the original data and calculates the model parameters
+  sigma and kappa for every selection. This set of
+  parameters is used to estimate confidence intervals.
 
   The parameter "\code{type}" determines the type of
-  interval that is calculated. See \code{\link{boot.ci}}
-  for details.
+  interval that is calculated. The values "\code{norm}",
+  "\code{basic}", "\code{stud}", "\code{perc}" or
+  "\code{bca}" are currently allowed. See
+  \code{\link{boot.ci}} for details.
 
   The bootstrap is computed once in the \code{\link{usl}}
   function so calling \code{confint} multiple times for a
   specific USL object will return identical results.
+  Creating multiple USL objects for a given set of input
+  values is almost certainly going to produce different
+  confidence intervals since random numbers are used to
+  bootstrap.
 
   Calculating confidence intervals for a small number of
   observations is unreliable. The function will print
@@ -65,6 +71,7 @@ usl.model <- usl(throughput ~ load, specsdm91)
 confint(usl.model, type = "norm")
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{boot.ci}}
+  \code{\link{usl}}, \code{\link{boot}},
+  \code{\link{boot.ci}}
 }
 
