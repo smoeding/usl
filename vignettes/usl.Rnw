@@ -13,16 +13,22 @@
 \usepackage{cmap}
 
 \usepackage{Sweave}
+\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE}
 
+% Encoding, fonts & language
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
 \usepackage[utopia]{mathdesign}
 \usepackage{beramono}
 
+% Package hyperref
 \usepackage[pdfusetitle,hidelinks]{hyperref}
 \usepackage[all]{hypcap}
 
+\hypersetup{pdfkeywords={Scalability,Universal Scalability Law,USL,R}}
+
+% Define shortcut commands
 \newcommand{\R}{{\normalfont\textsf{R}}}
 \newcommand{\usl}{{\normalfont\textsf{usl}}}
 \newcommand{\kbd}[1]{{\normalfont\textit{\texttt{#1}}}}
@@ -30,9 +36,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE}
 <<options, echo=FALSE>>=
-options(prompt="R> ", scipen=4, digits=3, width=70, show.signif.stars=FALSE)
+options(prompt="R> ", scipen=4, digits=3, width=68, show.signif.stars=FALSE)
+options(SweaveHooks=list(fig = function() par(mar = c(4.1, 4.1, 2.1, 2.1))))
 set.seed(42, kind = "default", normal.kind = "default")
 @
 
@@ -260,21 +266,25 @@ A bar plot is useful to visually compare the decreasing efficiencies for the
 configurations with an increasing number of processors. \autoref{fig:rtbarplot}
 shows the output diagram.
 
-<<rtbarplot, height=4>>=
-barplot(efficiency(usl.model))
+<<rtbarplot>>=
+barplot(efficiency(usl.model), ylab="efficiency / processor", xlab="processors")
 @
 
 \begin{figure*}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE, height=4>>=
+<<fig=TRUE, echo=FALSE, height=3.2>>=
 <<rtbarplot>>
 @
-\caption{Rate of efficiency for an increasing number of processors running the raytracing software}
+\caption{Rate of efficiency per processor for different numbers of processors running the raytracing software}
 \label{fig:rtbarplot}
 \end{figure*}
 
-The values for the model coefficients $\sigma$ and $\kappa$ can be retrieved
-with the \kbd{coef()} function.
+The efficiency can be used for a first validation and sanity check of the
+measured values. Values larger than $1.0$ usually need a closer investigation.
+It is also suspicious if the efficiency gets bigger when the load increases.
+
+The model coefficients $\sigma$ and $\kappa$ can be retrieved with the
+\kbd{coef()} function.
 
 <<>>=
 coef(usl.model)
@@ -291,7 +301,7 @@ Bootstrapping is used to calculate the confidence intervals for the parameters.
 They must be taken with a grain of salt since the level of accuracy of the
 original measurements is usually unknown. Depending on the type of the
 requested bootstrap confidence interval the function might not be able to
-produce a result at all.
+produce a valid result at all.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the
