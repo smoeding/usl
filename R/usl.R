@@ -130,7 +130,7 @@ usl.solve.nls <- function(model) {
 #' @seealso \code{\link{usl}}
 #'
 #' @references John C. Nash. nlmrt: Functions for nonlinear least squares
-#'   solutions, 2012. R package version 2012-12.16.
+#'   solutions, 2013. R package version 2013-8.10.
 #'
 #' @importFrom nlmrt nlxb
 #' @keywords internal
@@ -230,7 +230,7 @@ usl.solve.nlxb <- function(model) {
 #'   Springer, Heidelberg, Germany, 1st edition, 2007.
 #'
 #' @references John C. Nash. nlmrt: Functions for nonlinear least squares
-#'   solutions, 2012. R package version 2012-12.16.
+#'   solutions, 2013. R package version 2013-8.10.
 #'
 #' @examples
 #' require(usl)

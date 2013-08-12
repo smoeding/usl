@@ -21,7 +21,7 @@ usl.solve.nlxb(model)
 }
 \references{
   John C. Nash. nlmrt: Functions for nonlinear least
-  squares solutions, 2012. R package version 2012-12.16.
+  squares solutions, 2013. R package version 2013-8.10.
 }
 \seealso{
   \code{\link{usl}}
