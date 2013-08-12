@@ -2,8 +2,8 @@ Package: usl
 Type: Package
 Title: Analyze system scalability with the Universal
     Scalability Law
-Version: 1.2.0
-Date: 2013-04-29
+Version: 1.2.1
+Date: 2013-08-12
 Authors@R: c(person(given="Neil J.", family="Gunther", role
     = "aut"), person(given="Stefan", family="Moeding", role
     = c("aut", "cre"), email = "stm@moeding.net"))
