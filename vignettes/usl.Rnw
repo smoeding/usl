@@ -10,7 +10,6 @@
 
 \usepackage{fixltx2e}
 \usepackage{microtype}
-\usepackage{cmap}
 
 \usepackage{Sweave}
 \SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE}
