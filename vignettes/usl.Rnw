@@ -146,7 +146,7 @@ to perform the scalability analysis.
 The function provided by the package also includes some sanity checks to help
 the analyst with the data quality of the measurements.
 
-Note that in\cite{Gun07} the coefficients are called $\sigma$ and $\kappa$
+Note that in \cite{Gun07} the coefficients are called $\sigma$ and $\kappa$
 when hardware scalability is evaluated but $\alpha$ and $\beta$ when software
 scalability is analyzed. The `\usl' package only uses $\sigma$ and $\kappa$
 as names of the coefficients.
