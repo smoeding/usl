@@ -1,6 +1,5 @@
 \docType{methods}
-\name{scalability}
-\alias{scalability}
+\name{scalability,USL-method}
 \alias{scalability,USL-method}
 \title{Scalability function of a USL model}
 \usage{
@@ -16,22 +15,22 @@
   instead of the parameter computed for the model.}
 }
 \value{
-  A function with parameter \code{x} that calculates the
-  scalability value of the specific model.
+A function with parameter \code{x} that calculates the
+scalability value of the specific model.
 }
 \description{
-  \code{scalability} is a higher order function and returns
-  a function to calculate the scalability for the specific
-  USL model.
+\code{scalability} is a higher order function and returns a
+function to calculate the scalability for the specific USL
+model.
 }
 \details{
-  The returned function can be used to calculate specific
-  values once the model for a system has been created.
+The returned function can be used to calculate specific
+values once the model for a system has been created.
 
-  The parameters \code{sigma} or \code{kappa} are useful to
-  do a what-if analysis. Setting these parameters override
-  the model parameters and show how the system would behave
-  with a different contention or coherency delay parameter.
+The parameters \code{sigma} or \code{kappa} are useful to
+do a what-if analysis. Setting these parameters override
+the model parameters and show how the system would behave
+with a different contention or coherency delay parameter.
 }
 \examples{
 require(usl)
@@ -48,12 +47,13 @@ print(s(32))
 plot(s, from=1, to=64)
 }
 \references{
-  Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
-  Approach to Planning for Highly Scalable Applications and
-  Services. Springer, Heidelberg, Germany, 1st edition,
-  2007.
+Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+Approach to Planning for Highly Scalable Applications and
+Services.  Springer, Heidelberg, Germany, 1st edition,
+2007.
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{peak.scalability}}
+\code{\link{usl}},
+\code{\link{peak.scalability,USL-method}}
 }
 

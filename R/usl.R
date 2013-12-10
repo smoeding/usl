@@ -197,7 +197,8 @@ usl.solve.nlxb <- function(model) {
 #' estimate the parameter confidence intervals. Depending on the number of
 #' observations the default 50 may be too low to get reasonable results. See
 #' \code{\link{boot}} and \code{\link{boot.ci}} for details. The method
-#' \code{\link{confint}} is used to get confidence intervals for a model.
+#' \code{\link{confint,USL-method}} is used to get confidence intervals for a
+#' model.
 #'
 #' The Universal Scalability Law can be expressed with following formula.
 #' \code{C(N)} predicts the relative capacity of the system for a given
@@ -220,10 +221,15 @@ usl.solve.nlxb <- function(model) {
 #'
 #' @return An object of class USL.
 #'
-#' @seealso \code{\link{efficiency}}, \code{\link{scalability}},
-#'   \code{\link{peak.scalability}}, \code{\link{summary}},
-#'   \code{\link{coef}}, \code{\link{fitted}}, \code{\link{residuals}},
-#'   \code{\link{deviance}}, \code{\link{confint}}
+#' @seealso \code{\link{efficiency,USL-method}},
+#'   \code{\link{scalability,USL-method}},
+#'   \code{\link{peak.scalability,USL-method}},
+#'   \code{\link{summary,USL-method}},
+#'   \code{\link{confint,USL-method}},
+#'   \code{\link{coef}},
+#'   \code{\link{deviance}},
+#'   \code{\link{fitted}},
+#'   \code{\link{residuals}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.

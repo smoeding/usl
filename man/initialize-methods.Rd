@@ -1,11 +1,10 @@
 \docType{methods}
-\name{initialize}
-\alias{initialize}
+\name{initialize,USL-method}
 \alias{initialize,USL-method}
 \title{Generate an object from the "\code{USL}" class}
 \usage{
-\S4method{initialize}{USL}(.Object, call, frame, regr,
-resp, scale.factor, sigma, kappa, boot)
+\S4method{initialize}{USL}(.Object, call, frame, regr, resp, scale.factor,
+  sigma, kappa, boot)
 }
 \arguments{
   \item{.Object}{The object to initialize.}
@@ -33,10 +32,10 @@ resp, scale.factor, sigma, kappa, boot)
   confidence intervals for the parameters sigma and kappa.}
 }
 \value{
-  An object of the specific type.
+An object of the specific type.
 }
 \description{
-  Initialize the object.
+Initialize the object.
 }
 \keyword{internal}
 

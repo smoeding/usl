@@ -4,26 +4,26 @@
 \title{Performanced of a Sun SPARCcenter 2000 in the SPEC SDM91 benchmark}
 \format{A data frame with 7 rows on 2 variables}
 \source{
-  Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
-  Approach to Planning for Highly Scalable Applications and
-  Services. Springer, Heidelberg, Germany, 1st edition,
-  2007. Original dataset from
-  \url{http://www.spec.org/osg/sdm91/results/results.html}
+Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+Approach to Planning for Highly Scalable Applications and
+Services.  Springer, Heidelberg, Germany, 1st edition,
+2007.  Original dataset from
+\url{http://www.spec.org/osg/sdm91/results/results.html}
 }
 \description{
-  A dataset containing performance data for a Sun
-  SPARCcenter 2000 (16 CPUs)
+A dataset containing performance data for a Sun SPARCcenter
+2000 (16 CPUs)
 }
 \details{
-  A Sun SPARCcenter 2000 with 16 CPUs was used for the SPEC
-  SDM91 benchmark in October 1994. The benchmark simulates
-  a number of users working on the UNIX server and measures
-  the number of script executions per hour.
+A Sun SPARCcenter 2000 with 16 CPUs was used for the SPEC
+SDM91 benchmark in October 1994. The benchmark simulates a
+number of users working on the UNIX server and measures the
+number of script executions per hour.
 
-  The data frame contains the following variables:
-  \itemize{ \item \code{load} The number of simulated users
-  (1--216). \item \code{throughput} The achieved throughput
-  in scripts per hour. }
+The data frame contains the following variables: \itemize{
+\item \code{load} The number of simulated users (1--216).
+\item \code{throughput} The achieved throughput in scripts
+per hour. }
 }
 \keyword{datasets}
 

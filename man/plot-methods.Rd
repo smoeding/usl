@@ -1,11 +1,10 @@
 \docType{methods}
-\name{plot}
-\alias{plot}
+\name{plot,USL-method}
 \alias{plot,USL-method}
 \title{Plot the scalability function from a USL model}
 \usage{
-\S4method{plot}{USL}(x, from=NULL, to=NULL, xlab=NULL,
-ylab=NULL, bounds=FALSE, sigma, kappa, ...)
+\S4method{plot}{USL}(x, from = NULL, to = NULL, xlab = NULL,
+  ylab = NULL, bounds = FALSE, sigma, kappa, ...)
 }
 \arguments{
   \item{x}{The USL object to plot.}
@@ -34,34 +33,33 @@ ylab=NULL, bounds=FALSE, sigma, kappa, ...)
   \code{\link{par}}, \code{\link{plot.function}}).}
 }
 \description{
-  Create a line plot for the scalability functionh of a
-  Universal Scalability Law model.
+Create a line plot for the scalability functionh of a
+Universal Scalability Law model.
 }
 \details{
-  \code{plot} creates a plot of the scalability function
-  for the model represented by the argument \code{x}.
+\code{plot} creates a plot of the scalability function for
+the model represented by the argument \code{x}.
 
-  If \code{from} is not specified then the range starts at
-  the minimum value given to define the model. An
-  unspecified value for \code{to} will lead to plot ending
-  at the maximum value from the model. For \code{add =
-  TRUE} the defaults are taken from the limits of the
-  previous plot.
+If \code{from} is not specified then the range starts at
+the minimum value given to define the model. An unspecified
+value for \code{to} will lead to plot ending at the maximum
+value from the model. For \code{add = TRUE} the defaults
+are taken from the limits of the previous plot.
 
-  \code{xlab} and \code{ylab} can be used to set the axis
-  titles. The defaults are the names of the regressor and
-  response variables used in the model.
+\code{xlab} and \code{ylab} can be used to set the axis
+titles. The defaults are the names of the regressor and
+response variables used in the model.
 
-  If the parameter \code{bounds} is set to \code{TRUE} then
-  the plot also shows dotted lines for the theoretical
-  bounds of scalability. These are the linear scalability
-  for small loads and Amdahl's asymptote for the limit of
-  scalability as load approaches infinity.
+If the parameter \code{bounds} is set to \code{TRUE} then
+the plot also shows dotted lines for the theoretical bounds
+of scalability. These are the linear scalability for small
+loads and Amdahl's asymptote for the limit of scalability
+as load approaches infinity.
 
-  The parameters \code{sigma} or \code{kappa} are useful to
-  do a what-if analysis. Setting these parameters override
-  the model parameters and show how the system would behave
-  with a different contention or coherency delay parameter.
+The parameters \code{sigma} or \code{kappa} are useful to
+do a what-if analysis. Setting these parameters override
+the model parameters and show how the system would behave
+with a different contention or coherency delay parameter.
 }
 \examples{
 require(usl)
@@ -72,6 +70,6 @@ data(raytracer)
 plot(usl(throughput ~ processors, raytracer))
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{plot.function}}
+\code{\link{usl}}, \code{\link{plot.function}}
 }
 

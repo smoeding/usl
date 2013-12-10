@@ -1,6 +1,5 @@
 \docType{methods}
-\name{efficiency}
-\alias{efficiency}
+\name{efficiency,USL-method}
 \alias{efficiency,USL-method}
 \title{Efficiency of the system}
 \usage{
@@ -10,19 +9,18 @@
   \item{object}{A USL object.}
 }
 \value{
-  A vector of numeric values.
+A vector of numeric values.
 }
 \description{
-  The efficiency of a system expressed in terms of the
-  deviation from linear scalability.
+The efficiency of a system expressed in terms of the
+deviation from linear scalability.
 }
 \details{
-  The function returns a vector which contains the
-  deviation from linearity for every measurement of the
-  model input.  A value of \code{1} indicates linear
-  scalability while values less than \code{1} correspond to
-  the fraction of the measurement compared to linear
-  scalability.
+The function returns a vector which contains the deviation
+from linearity for every measurement of the model input.  A
+value of \code{1} indicates linear scalability while values
+less than \code{1} correspond to the fraction of the
+measurement compared to linear scalability.
 }
 \examples{
 require(usl)
@@ -33,12 +31,12 @@ data(raytracer)
 efficiency(usl(throughput ~ processors, raytracer))
 }
 \references{
-  Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
-  Approach to Planning for Highly Scalable Applications and
-  Services. Springer, Heidelberg, Germany, 1st edition,
-  2007.
+Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+Approach to Planning for Highly Scalable Applications and
+Services.  Springer, Heidelberg, Germany, 1st edition,
+2007.
 }
 \seealso{
-  \code{\link{usl}}
+\code{\link{usl}}
 }
 

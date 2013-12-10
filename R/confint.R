@@ -49,7 +49,6 @@
 #' unreliable. The function will print warning or error messages if the
 #' calculated intervals are dubious or the estimation is not possible.
 #'
-#' @usage \S4method{confint}{USL}(object, parm, level = 0.95, type = "norm")
 #' @param object A USL object.
 #' @param parm A specification of which parameters are to be given confidence
 #'   intervals, either a vector of numbers or a vector of names. If missing,
@@ -76,7 +75,6 @@
 #' ## Print normal confidence intervals
 #' confint(usl.model, type = "norm")
 #'
-#' @aliases confint,USL-method
 #' @docType methods
 #' @rdname confint-methods
 #' @importFrom boot boot.ci

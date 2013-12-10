@@ -1,6 +1,5 @@
 \docType{methods}
-\name{$}
-\alias{$}
+\name{$,USL-method}
 \alias{$,USL-method}
 \title{Extract parts of a "\code{USL}" object}
 \usage{
@@ -13,16 +12,16 @@
   (possibly quoted).}
 }
 \description{
-  The operator extracts a part of a \code{\link{USL-class}}
-  object.
+The operator extracts a part of a \code{\link{USL-class}}
+object.
 }
 \details{
-  This is a generic method for the class used in the usl
-  package.
+This is a generic method for the class used in the usl
+package.
 
-  The operator is used internally by functions like
-  \code{\link{coef}}, so it is necessary to have a working
-  implementation of the \code{coef} function.
+The operator is used internally by functions like
+\code{\link{coef}}, so it is necessary to have a working
+implementation of the \code{coef} function.
 }
 \examples{
 \dontrun{
@@ -31,7 +30,7 @@ usl.model$coefficients
 }
 }
 \seealso{
-  \code{\link{USL-class}}, \code{\link{Extract}}
+\code{\link{USL-class}}, \code{\link{Extract}}
 }
 \keyword{internal}
 

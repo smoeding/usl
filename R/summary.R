@@ -28,7 +28,6 @@
 #'
 #' \code{summary} method for class "\code{USL}".
 #'
-#' @usage \S4method{summary}{USL}(object, ...)
 #' @param object A USL object.
 #' @param ... Other arguments passed to other methods.
 #'
@@ -45,7 +44,6 @@
 #' ## Extract model coefficients
 #' summary(usl(throughput ~ processors, raytracer))$coefficients
 #'
-#' @aliases summary,USL-method
 #' @docType methods
 #' @rdname summary-methods
 #' @export

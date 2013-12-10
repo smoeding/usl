@@ -35,9 +35,8 @@
 #' parameter.
 #'
 #' \code{predict} internally uses the function returned by
-#' \code{\link{scalability}} to calculate the result.
+#' \code{\link{scalability,USL-method}} to calculate the result.
 #'
-#' @usage \S4method{predict}{USL}(object, newdata, sigma, kappa)
 #' @param object A USL model object for which prediction is desired.
 #' @param newdata An optional data frame in which to look for variables
 #'   with which to predict. If omitted, the fitted values are used.
@@ -48,7 +47,7 @@
 #'
 #' @return \code{predict} produces a vector of predictions.
 #'
-#' @seealso \code{\link{usl}}, \code{\link{scalability}},
+#' @seealso \code{\link{usl}}, \code{\link{scalability,USL-method}},
 #'   \code{\link{USL-class}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
@@ -63,7 +62,6 @@
 #' ## Print predicted result from USL model for demo dataset
 #' predict(usl(throughput ~ processors, raytracer))
 #'
-#' @aliases predict,USL-method
 #' @docType methods
 #' @rdname predict-methods
 #' @export

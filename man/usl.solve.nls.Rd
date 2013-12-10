@@ -11,18 +11,18 @@ usl.solve.nls(model)
   column.}
 }
 \value{
-  A list containing three elements: the scale.factor of the
-  model, the model coefficients sigma and kappa.
+A list containing three elements: the scale.factor of the
+model, the model coefficients sigma and kappa.
 }
 \description{
-  This function solves a USL model using non linear
-  regression with least squares. It uses the function
-  \code{\link{nls}} with the "\code{port}" algorithm to
-  perform the calculation. All restrictions of the
-  algorithm apply.
+This function solves a USL model using non linear
+regression with least squares. It uses the function
+\code{\link{nls}} with the "\code{port}" algorithm to
+perform the calculation. All restrictions of the algorithm
+apply.
 }
 \seealso{
-  \code{\link{usl}}
+\code{\link{usl}}
 }
 \keyword{internal}
 

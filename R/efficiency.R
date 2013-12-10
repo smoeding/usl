@@ -34,7 +34,6 @@
 #' linear scalability while values less than \code{1} correspond to the
 #' fraction of the measurement compared to linear scalability.
 #'
-#' @usage \S4method{efficiency}{USL}(object)
 #' @param object A USL object.
 #'
 #' @return A vector of numeric values.
@@ -53,7 +52,6 @@
 #' ## Show the efficiency
 #' efficiency(usl(throughput ~ processors, raytracer))
 #'
-#' @aliases efficiency,USL-method
 #' @docType methods
 #' @rdname efficiency-methods
 #' @export

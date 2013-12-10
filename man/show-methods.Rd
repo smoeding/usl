@@ -1,6 +1,5 @@
 \docType{methods}
-\name{show}
-\alias{show}
+\name{show,USL-method}
 \alias{show,USL-method}
 \title{Show objects of class "\code{USL}"}
 \usage{
@@ -10,10 +9,10 @@
   \item{object}{The object to be printed.}
 }
 \value{
-  \code{show} returns an invisible \code{NULL}.
+\code{show} returns an invisible \code{NULL}.
 }
 \description{
-  Display the object by printing it.
+Display the object by printing it.
 }
 \examples{
 require(usl)
@@ -24,6 +23,6 @@ data(raytracer)
 show(usl(throughput ~ processors, raytracer))
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{USL-class}}
+\code{\link{usl}}, \code{\link{USL-class}}
 }
 

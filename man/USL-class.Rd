@@ -1,10 +1,11 @@
+\docType{class}
 \name{USL-class}
 \alias{USL-class}
 \title{Class "\code{USL}" for Universal Scalability Law models}
 \description{
-  This class encapsulates the Universal Scalability Law.
-  Use the function \code{\link{usl}} to create new objects
-  from this class.
+This class encapsulates the Universal Scalability Law. Use
+the function \code{\link{usl}} to create new objects from
+this class.
 }
 \section{Slots}{
   \describe{ \item{\code{frame}:}{The model frame.}
@@ -28,6 +29,6 @@
   \code{na.action} used by the model.} }
 }
 \seealso{
-  \code{\link{usl}}
+\code{\link{usl}}
 }
 

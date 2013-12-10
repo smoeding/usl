@@ -11,22 +11,22 @@ usl.solve.lm(model)
   column.}
 }
 \value{
-  A list containing three elements: the scale.factor of the
-  model, the model coefficients sigma and kappa.
+A list containing three elements: the scale.factor of the
+model, the model coefficients sigma and kappa.
 }
 \description{
-  This function solves a USL model using the transformation
-  introduced in sections 5.5.1 - 5.5.3 of \emph{Guerrilla
-  Capacity Planning}.
+This function solves a USL model using the transformation
+introduced in sections 5.5.1 - 5.5.3 of \emph{Guerrilla
+Capacity Planning}.
 }
 \references{
-  Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
-  Approach to Planning for Highly Scalable Applications and
-  Services. Springer, Heidelberg, Germany, 1st edition,
-  2007.
+Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+Approach to Planning for Highly Scalable Applications and
+Services.  Springer, Heidelberg, Germany, 1st edition,
+2007.
 }
 \seealso{
-  \code{\link{usl}}
+\code{\link{usl}}
 }
 \keyword{internal}
 

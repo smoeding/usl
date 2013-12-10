@@ -1,6 +1,5 @@
 \docType{methods}
-\name{summary}
-\alias{summary}
+\name{summary,USL-method}
 \alias{summary,USL-method}
 \title{USL Object Summary}
 \usage{
@@ -12,7 +11,7 @@
   \item{...}{Other arguments passed to other methods.}
 }
 \description{
-  \code{summary} method for class "\code{USL}".
+\code{summary} method for class "\code{USL}".
 }
 \examples{
 require(usl)
@@ -26,6 +25,6 @@ summary(usl(throughput ~ processors, raytracer))
 summary(usl(throughput ~ processors, raytracer))$coefficients
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{USL-class}}
+\code{\link{usl}}, \code{\link{USL-class}}
 }
 

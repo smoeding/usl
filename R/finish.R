@@ -35,7 +35,7 @@
 #'
 #' @return An object of class USL with updated model parameters.
 #'
-#' @seealso \code{\link{usl}}, \code{\link{initialize}}
+#' @seealso \code{\link{usl}}, \code{\link{initialize,USL-method}}
 #'
 #' @keywords internal
 #'

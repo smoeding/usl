@@ -1,6 +1,5 @@
 \docType{methods}
-\name{predict}
-\alias{predict}
+\name{predict,USL-method}
 \alias{predict,USL-method}
 \title{Predict method for Universal Scalability Law models}
 \usage{
@@ -21,21 +20,22 @@
   instead of the parameter computed for the model.}
 }
 \value{
-  \code{predict} produces a vector of predictions.
+\code{predict} produces a vector of predictions.
 }
 \description{
-  \code{predict} is a function for predictions of the
-  scalability of a system modeled with the Universal
-  Scalability Law.
+\code{predict} is a function for predictions of the
+scalability of a system modeled with the Universal
+Scalability Law.
 }
 \details{
-  The parameters \code{sigma} or \code{kappa} are useful to
-  do a what-if analysis. Setting these parameters override
-  the model parameters and show how the system would behave
-  with a different contention or coherency delay parameter.
+The parameters \code{sigma} or \code{kappa} are useful to
+do a what-if analysis. Setting these parameters override
+the model parameters and show how the system would behave
+with a different contention or coherency delay parameter.
 
-  \code{predict} internally uses the function returned by
-  \code{\link{scalability}} to calculate the result.
+\code{predict} internally uses the function returned by
+\code{\link{scalability,USL-method}} to calculate the
+result.
 }
 \examples{
 require(usl)
@@ -46,13 +46,13 @@ data(raytracer)
 predict(usl(throughput ~ processors, raytracer))
 }
 \references{
-  Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
-  Approach to Planning for Highly Scalable Applications and
-  Services. Springer, Heidelberg, Germany, 1st edition,
-  2007.
+Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
+Approach to Planning for Highly Scalable Applications and
+Services.  Springer, Heidelberg, Germany, 1st edition,
+2007.
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{scalability}},
-  \code{\link{USL-class}}
+\code{\link{usl}}, \code{\link{scalability,USL-method}},
+\code{\link{USL-class}}
 }
 

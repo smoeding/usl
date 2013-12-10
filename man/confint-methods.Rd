@@ -1,11 +1,9 @@
 \docType{methods}
-\name{confint}
-\alias{confint}
+\name{confint,USL-method}
 \alias{confint,USL-method}
 \title{Confidence Intervals for USL model parameters}
 \usage{
-\S4method{confint}{USL}(object, parm, level = 0.95, type =
-"norm")
+\S4method{confint}{USL}(object, parm, level = 0.95, type = "norm")
 }
 \arguments{
   \item{object}{A USL object.}
@@ -18,46 +16,45 @@
   \item{level}{The confidence level required.}
 
   \item{type}{A character string representing the type of
-  interval required. The value must be one of
+  interval required.  The value must be one of
   "\code{norm}", "\code{basic}", "\code{stud}",
   "\code{perc}" or "\code{bca}".}
 }
 \value{
-  A matrix (or vector) with columns giving lower and upper
-  confidence limits for each parameter. These will be
-  labelled as (1-level)/2 and 1 - (1-level)/2 in \% (by
-  default 2.5\% and 97.5\%).
+A matrix (or vector) with columns giving lower and upper
+confidence limits for each parameter. These will be
+labelled as (1-level)/2 and 1 - (1-level)/2 in \% (by
+default 2.5\% and 97.5\%).
 }
 \description{
-  Estimate confidence intervals for one or more parameters
-  in a USL model.
+Estimate confidence intervals for one or more parameters in
+a USL model.
 }
 \details{
-  Confidence intervals are estimated by using bootstrap
-  resampling (see \code{\link{boot}}). The bootstrap
-  generates a series of random selections with replacement
-  for the original data and calculates the model parameters
-  sigma and kappa for every selection. This set of
-  parameters is used to estimate confidence intervals.
+Confidence intervals are estimated by using bootstrap
+resampling (see \code{\link{boot}}). The bootstrap
+generates a series of random selections with replacement
+for the original data and calculates the model parameters
+sigma and kappa for every selection. This set of parameters
+is used to estimate confidence intervals.
 
-  The parameter "\code{type}" determines the type of
-  interval that is calculated. The values "\code{norm}",
-  "\code{basic}", "\code{stud}", "\code{perc}" or
-  "\code{bca}" are currently allowed. See
-  \code{\link{boot.ci}} for details.
+The parameter "\code{type}" determines the type of interval
+that is calculated. The values "\code{norm}",
+"\code{basic}", "\code{stud}", "\code{perc}" or
+"\code{bca}" are currently allowed. See
+\code{\link{boot.ci}} for details.
 
-  The bootstrap is computed once in the \code{\link{usl}}
-  function so calling \code{confint} multiple times for a
-  specific USL object will return identical results.
-  Creating multiple USL objects for a given set of input
-  values is almost certainly going to produce different
-  confidence intervals since random numbers are used to
-  bootstrap.
+The bootstrap is computed once in the \code{\link{usl}}
+function so calling \code{confint} multiple times for a
+specific USL object will return identical results. Creating
+multiple USL objects for a given set of input values is
+almost certainly going to produce different confidence
+intervals since random numbers are used to bootstrap.
 
-  Calculating confidence intervals for a small number of
-  observations is unreliable. The function will print
-  warning or error messages if the calculated intervals are
-  dubious or the estimation is not possible.
+Calculating confidence intervals for a small number of
+observations is unreliable. The function will print warning
+or error messages if the calculated intervals are dubious
+or the estimation is not possible.
 }
 \examples{
 require(usl)
@@ -71,7 +68,7 @@ usl.model <- usl(throughput ~ load, specsdm91)
 confint(usl.model, type = "norm")
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{boot}},
-  \code{\link{boot.ci}}
+\code{\link{usl}}, \code{\link{boot}},
+\code{\link{boot.ci}}
 }
 

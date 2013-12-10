@@ -9,17 +9,17 @@ finish(.Object)
   \code{new}.}
 }
 \value{
-  An object of class USL with updated model parameters.
+An object of class USL with updated model parameters.
 }
 \description{
-  \code{finish} updates a USL object and sets additional
-  parameters after the object has been initialized.
+\code{finish} updates a USL object and sets additional
+parameters after the object has been initialized.
 }
 \details{
-  This is a package internal function.
+This is a package internal function.
 }
 \seealso{
-  \code{\link{usl}}, \code{\link{initialize}}
+\code{\link{usl}}, \code{\link{initialize,USL-method}}
 }
 \keyword{internal}
 

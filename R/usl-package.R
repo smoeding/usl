@@ -45,7 +45,6 @@
 #'   Springer, Heidelberg, Germany, 1st edition, 2007.
 #'
 #' @name usl-package
-#' @aliases usl-package
 #' @docType package
 #' @import methods
 #' @import graphics

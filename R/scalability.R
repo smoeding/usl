@@ -37,7 +37,6 @@
 #' how the system would behave with a different contention or coherency delay
 #' parameter.
 #'
-#' @usage \S4method{scalability}{USL}(object, sigma, kappa)
 #' @param object A USL object.
 #' @param sigma Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
@@ -47,7 +46,7 @@
 #' @return A function with parameter \code{x} that calculates the
 #'   scalability value of the specific model.
 #'
-#' @seealso \code{\link{usl}}, \code{\link{peak.scalability}}
+#' @seealso \code{\link{usl}}, \code{\link{peak.scalability,USL-method}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
@@ -67,7 +66,6 @@
 #' ## Plot scalability for the range from 1 to 64 CPUs
 #' plot(s, from=1, to=64)
 #'
-#' @aliases scalability,USL-method
 #' @docType methods
 #' @rdname scalability-methods
 #' @export
@@ -109,7 +107,6 @@ setMethod(
 #'
 #' See formula (4.33) in \emph{Guerilla Capacity Planning}.
 #'
-#' @usage \S4method{peak.scalability}{USL}(object, sigma, kappa)
 #' @param object A USL object.
 #' @param sigma Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
@@ -119,7 +116,7 @@ setMethod(
 #' @return A numeric value for the point where peak scalability will be
 #'   reached.
 #'
-#' @seealso \code{\link{usl}}, \code{\link{scalability}}
+#' @seealso \code{\link{usl}}, \code{\link{scalability,USL-method}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
