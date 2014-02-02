@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -75,8 +75,6 @@
 #' ## Plot result from USL model for demo dataset
 #' plot(usl(throughput ~ processors, raytracer))
 #'
-#' @docType methods
-#' @rdname plot-methods
 #' @export
 #'
 setMethod(

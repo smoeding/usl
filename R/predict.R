@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -62,8 +62,6 @@
 #' ## Print predicted result from USL model for demo dataset
 #' predict(usl(throughput ~ processors, raytracer))
 #'
-#' @docType methods
-#' @rdname predict-methods
 #' @export
 #'
 setMethod(

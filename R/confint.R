@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -75,8 +75,6 @@
 #' ## Print normal confidence intervals
 #' confint(usl.model, type = "norm")
 #'
-#' @docType methods
-#' @rdname confint-methods
 #' @importFrom boot boot.ci
 #' @export
 #'

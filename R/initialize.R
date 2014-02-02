@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -43,8 +43,6 @@
 #'
 #' @return An object of the specific type.
 #'
-#' @docType methods
-#' @rdname initialize-methods
 #' @keywords internal
 #'
 setMethod(

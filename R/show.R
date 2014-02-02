@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -42,8 +42,6 @@
 #' ## Show USL model
 #' show(usl(throughput ~ processors, raytracer))
 #'
-#' @docType methods
-#' @rdname show-methods
 #' @export
 setMethod(
   f = "show",

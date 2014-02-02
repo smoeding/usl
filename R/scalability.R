@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -66,8 +66,7 @@
 #' ## Plot scalability for the range from 1 to 64 CPUs
 #' plot(s, from=1, to=64)
 #'
-#' @docType methods
-#' @rdname scalability-methods
+#' @aliases scalability
 #' @export
 #'
 setMethod(
@@ -130,9 +129,7 @@ setMethod(
 #' peak.scalability(usl(throughput ~ processors, raytracer))
 #' ## Peak scalability will be reached just below 450 processors
 #'
-#' @aliases peak.scalability,USL-method
-#' @docType methods
-#' @rdname peak.scalability-methods
+#' @aliases peak.scalability
 #' @export
 #'
 setMethod(

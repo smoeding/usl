@@ -1,5 +1,6 @@
 \docType{methods}
 \name{peak.scalability,USL-method}
+\alias{peak.scalability}
 \alias{peak.scalability,USL-method}
 \title{Peak scalability value of a USL model}
 \usage{

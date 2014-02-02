@@ -1,5 +1,6 @@
 \docType{methods}
 \name{efficiency,USL-method}
+\alias{efficiency}
 \alias{efficiency,USL-method}
 \title{Efficiency of the system}
 \usage{

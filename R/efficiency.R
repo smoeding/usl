@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -52,8 +52,7 @@
 #' ## Show the efficiency
 #' efficiency(usl(throughput ~ processors, raytracer))
 #'
-#' @docType methods
-#' @rdname efficiency-methods
+#' @aliases efficiency
 #' @export
 #'
 setMethod(

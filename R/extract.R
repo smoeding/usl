@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -45,8 +45,6 @@
 #' usl.model$coefficients
 #' }
 #'
-#' @docType methods
-#' @rdname extract-methods
 #' @keywords internal
 #'
 setMethod(

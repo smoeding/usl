@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -44,8 +44,6 @@
 #' ## Extract model coefficients
 #' summary(usl(throughput ~ processors, raytracer))$coefficients
 #'
-#' @docType methods
-#' @rdname summary-methods
 #' @export
 #'
 setMethod(

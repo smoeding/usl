@@ -1,5 +1,6 @@
 \docType{methods}
 \name{scalability,USL-method}
+\alias{scalability}
 \alias{scalability,USL-method}
 \title{Scalability function of a USL model}
 \usage{
