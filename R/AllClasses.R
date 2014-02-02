@@ -38,7 +38,7 @@ setOldClass("boot")
 #' @slot frame The model frame.
 #' @slot call The call used to create the model.
 #' @slot regr The name of the regressor variable.
-#' @slot regr The name of the response variable.
+#' @slot resp The name of the response variable.
 #' @slot scale.factor The scale factor used to create the model.
 #' @slot coefficients The coefficients sigma and kappa of the model.
 #' @slot boot A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.

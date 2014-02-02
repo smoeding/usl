@@ -16,7 +16,7 @@ this class.
 
 \item{\code{regr}}{The name of the regressor variable.}
 
-\item{\code{regr}}{The name of the response variable.}
+\item{\code{resp}}{The name of the response variable.}
 
 \item{\code{scale.factor}}{The scale factor used to create the model.}
 
