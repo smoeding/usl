@@ -1,6 +1,6 @@
 
-R version 3.0.0 (2013-04-03) -- "Masked Marvel"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.0.3 (2014-03-06) -- "Warm Puppy"
+Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin10.8.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -49,4 +49,4 @@ kappa -2.73e-05 7.31e-05
 > 
 > proc.time()
    user  system elapsed 
-  0.594   0.057   0.647 
+  0.624   0.064   0.671 
