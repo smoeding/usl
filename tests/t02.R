@@ -4,10 +4,10 @@
 
 library(usl)
 
-d <- data.frame(load = c(1, 3, 4, 12, 24, 48),
-                tput = c(1, 1.090909, 1, 0.5217391, 0.2944785, 0.1566068))
+dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10), 
+                  tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
 
-u <- usl(tput ~ load, d)
+u <- usl(tput ~ load, dfr)
 
-signif(coef(u)[['sigma']], 4)
-signif(coef(u)[['kappa']], 4)
+signif(coef(u)[['sigma']], 3)
+signif(coef(u)[['kappa']], 3)

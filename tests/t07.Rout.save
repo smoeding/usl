@@ -16,7 +16,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > #
-> # Test function coef
+> # Test when data frame is not ordered
 > #
 > 
 > library(usl)
@@ -24,13 +24,29 @@ Type 'q()' to quit R.
 > dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10), 
 +                   tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
 > 
-> u <- usl(tput ~ load, dfr)
+> dfr <- dfr[order(-dfr[1]), ]
 > 
-> signif(coef(u)[['sigma']], 3)
-[1] 0.02
-> signif(coef(u)[['kappa']], 3)
-[1] 0.02
+> try(usl(tput ~ load, data=dfr))
+
+Call:
+usl(formula = tput ~ load, data = dfr)
+
+Scale Factor for normalization:     1 
+
+Efficiency:
+   Min     1Q Median     3Q    Max 
+0.3356 0.4789 0.6787 0.8999 1.0000 
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-8.878e-06 -4.683e-06  1.441e-06  6.142e-06  1.273e-05 
+
+Coefficients:
+sigma  kappa  
+ 0.02   0.02  
+
+Multiple R-squared:     1,	Adjusted R-squared:     1
 > 
 > proc.time()
    user  system elapsed 
-  0.617   0.061   0.686 
+  0.628   0.062   0.723 
