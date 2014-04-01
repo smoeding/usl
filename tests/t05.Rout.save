@@ -23,25 +23,29 @@ Type 'q()' to quit R.
 > 
 > data(specsdm91)
 > 
-> options(digits=3)
+> options(digits=3, scipen=6)
 > 
 > set.seed(1103, kind = "default", normal.kind = "default")
 > 
-> u <- usl(throughput ~ load, data = specsdm91, R = 50)
+> u <- usl(throughput ~ load, data = specsdm91, method="nlxb")
+> 
+> coef(u)
+   sigma    kappa 
+0.027728 0.000104 
 > 
 > confint(u, parm=1)
-       2.5 % 97.5 %
-sigma 0.0163 0.0297
+         2.5 % 97.5 %
+sigma -0.00403 0.0573
 > confint(u, parm="sigma")
-       2.5 % 97.5 %
-sigma 0.0163 0.0297
+         2.5 % 97.5 %
+sigma -0.00403 0.0573
 > 
 > confint(u, parm=2)
           2.5 %   97.5 %
-kappa -2.73e-05 7.31e-05
+kappa 0.0000442 0.000141
 > confint(u, parm="kappa")
           2.5 %   97.5 %
-kappa -2.73e-05 7.31e-05
+kappa 0.0000442 0.000141
 > 
 > confint(u, parm=3)
      2.5 % 97.5 %
@@ -49,4 +53,4 @@ kappa -2.73e-05 7.31e-05
 > 
 > proc.time()
    user  system elapsed 
-  0.624   0.064   0.671 
+  5.329   0.329   6.643 
