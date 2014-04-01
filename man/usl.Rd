@@ -72,8 +72,11 @@ replicates used to estimate the parameter confidence
 intervals. Depending on the number of observations the
 default 50 may be too low to get reasonable results. See
 \code{\link{boot}} and \code{\link{boot.ci}} for details.
-The method \code{\link{confint,USL-method}} is used to get
-confidence intervals for a model.
+Bootstrapping with \code{method="default"} can give overly
+bad results as the method only works when the normalization
+factor can be calculated from the sampled data. The method
+\code{\link{confint,USL-method}} is used to get the
+bootstrapped confidence intervals for a model.
 
 The Universal Scalability Law can be expressed with
 following formula. \code{C(N)} predicts the relative
