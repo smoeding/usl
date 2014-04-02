@@ -4,13 +4,13 @@
 
 library(usl)
 
-data(specsdm91)
+data(raytracer)
 
 options(digits=3, scipen=6)
 
 set.seed(1103, kind = "default", normal.kind = "default")
 
-u <- usl(throughput ~ load, data = specsdm91, method="nlxb")
+u <- usl(throughput ~ processors, data = raytracer)
 
 coef(u)
 

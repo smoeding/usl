@@ -21,31 +21,31 @@ Type 'q()' to quit R.
 > 
 > library(usl)
 > 
-> data(specsdm91)
+> data(raytracer)
 > 
 > options(digits=3, scipen=6)
 > 
 > set.seed(1103, kind = "default", normal.kind = "default")
 > 
-> u <- usl(throughput ~ load, data = specsdm91, method="nlxb")
+> u <- usl(throughput ~ processors, data = raytracer)
 > 
 > coef(u)
-   sigma    kappa 
-0.027728 0.000104 
+     sigma      kappa 
+0.05002394 0.00000471 
 > 
 > confint(u, parm=1)
-         2.5 % 97.5 %
-sigma -0.00403 0.0573
+       2.5 % 97.5 %
+sigma 0.0452  0.065
 > confint(u, parm="sigma")
-         2.5 % 97.5 %
-sigma -0.00403 0.0573
+       2.5 % 97.5 %
+sigma 0.0452  0.065
 > 
 > confint(u, parm=2)
           2.5 %   97.5 %
-kappa 0.0000442 0.000141
+kappa -0.000565 0.000272
 > confint(u, parm="kappa")
           2.5 %   97.5 %
-kappa 0.0000442 0.000141
+kappa -0.000565 0.000272
 > 
 > confint(u, parm=3)
      2.5 % 97.5 %
@@ -53,4 +53,4 @@ kappa 0.0000442 0.000141
 > 
 > proc.time()
    user  system elapsed 
-  5.329   0.329   6.643 
+  0.639   0.062   0.701 
