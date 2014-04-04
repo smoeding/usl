@@ -1,3 +1,9 @@
+CHANGES in `usl' VERSION 1.2.2 (2014-04-03)
+
+* Use roxygen2 3.1 to generate documentation
+* Fix handling of unsorted input data frame for method="default"
+
+
 CHANGES in `usl' VERSION 1.2.1 (2013-08-12)
 
 * Adapt to `nlmrt' version 2013-8.10
