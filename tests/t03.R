@@ -1,5 +1,5 @@
 #
-# Test functions coef, fitted, residuals, deviance, efficiency
+# Test functions coef, fitted, residuals, efficiency
 #
 
 library(usl)
@@ -15,7 +15,5 @@ coef(u)
 fitted(u)
 
 residuals(u)
-
-deviance(u)
 
 efficiency(u)

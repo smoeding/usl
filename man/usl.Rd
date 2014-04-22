@@ -125,7 +125,6 @@ solutions, 2013. R package version 2013-8.10.
 \code{\link{peak.scalability,USL-method}},
 \code{\link{summary,USL-method}},
 \code{\link{confint,USL-method}}, \code{\link{coef}},
-\code{\link{deviance}}, \code{\link{fitted}},
-\code{\link{residuals}}
+\code{\link{fitted}}, \code{\link{residuals}}
 }
 

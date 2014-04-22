@@ -229,7 +229,6 @@ usl.solve.nlxb <- function(model) {
 #'   \code{\link{summary,USL-method}},
 #'   \code{\link{confint,USL-method}},
 #'   \code{\link{coef}},
-#'   \code{\link{deviance}},
 #'   \code{\link{fitted}},
 #'   \code{\link{residuals}}
 #'

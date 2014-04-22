@@ -1,4 +1,4 @@
-# Copyright (c) 2013 Stefan Moeding
+# Copyright (c) 2013, 2014 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -45,9 +45,8 @@ finish <- function(.Object) {
 
   .Object@fitted    <- structure(predict(.Object), names = nam)
   .Object@residuals <- structure(y.observed - .Object@fitted, names = nam)
-  .Object@deviance  <- sum(.Object@residuals ^ 2)
 
-  .Object@r.squared <- 1 - (.Object@deviance / sum((y.observed - mean(y.observed)) ^ 2))
+  .Object@r.squared <- 1 - (sum(.Object@residuals ^ 2) / sum((y.observed - mean(y.observed)) ^ 2))
 
   n <- length(y.observed) # sample size
   p <- 1                  # number of regressors

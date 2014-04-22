@@ -24,8 +24,6 @@ this class.
 
 \item{\code{boot}}{A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.}
 
-\item{\code{deviance}}{The deviance (residual sum of squares).}
-
 \item{\code{fitted}}{The fitted values of the model. This is a vector.}
 
 \item{\code{residuals}}{The residuals of the model. This is a vector.}

@@ -1,7 +1,7 @@
 
-R version 3.0.3 (2014-03-06) -- "Warm Puppy"
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
 Copyright (C) 2014 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin10.8.0 (64-bit)
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -16,7 +16,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > #
-> # Test functions coef, fitted, residuals, deviance, efficiency
+> # Test functions coef, fitted, residuals, efficiency
 > #
 > 
 > library(usl)
@@ -39,13 +39,10 @@ Type 'q()' to quit R.
     1     2     3     4     5     6     7 
   0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
 > 
-> deviance(u)
-[1] 98880
-> 
 > efficiency(u)
     1    18    36    72   108   144   216 
 1.000 0.853 0.707 0.397 0.261 0.190 0.121 
 > 
 > proc.time()
    user  system elapsed 
-  0.607   0.064   0.654 
+  0.609   0.058   0.677 

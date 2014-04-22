@@ -42,7 +42,6 @@ setOldClass("boot")
 #' @slot scale.factor The scale factor used to create the model.
 #' @slot coefficients The coefficients sigma and kappa of the model.
 #' @slot boot A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.
-#' @slot deviance The deviance (residual sum of squares).
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
 #' @slot r.squared Coefficient of determination of the model.
@@ -62,7 +61,6 @@ setClass("USL",
                         scale.factor  = "numeric",
                         coefficients  = "vector",
                         boot          = "boot",
-                        deviance      = "numeric",
                         fitted        = "vector",
                         residuals     = "vector",
                         r.squared     = "numeric",
