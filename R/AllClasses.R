@@ -44,6 +44,7 @@ setOldClass("boot")
 #' @slot boot A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
+#' @slot df.residual The degrees of freedom of the model.
 #' @slot r.squared Coefficient of determination of the model.
 #' @slot adj.r.squared Adjusted coefficient of determination.
 #' @slot efficiency The efficiency, e.g. speedup per processor.
@@ -63,11 +64,13 @@ setClass("USL",
                         boot          = "boot",
                         fitted        = "vector",
                         residuals     = "vector",
+                        df.residual   = "integer",
                         r.squared     = "numeric",
                         adj.r.squared = "numeric",
                         efficiency    = "vector",
                         na.action     = "character"),
-         prototype(r.squared     = 0,
+         prototype(df.residual   = 0L,
+                   r.squared     = 0,
                    adj.r.squared = 0,
                    na.action     = "na.omit"),
          validity = function(object) {

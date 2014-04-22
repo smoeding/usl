@@ -28,6 +28,8 @@ this class.
 
 \item{\code{residuals}}{The residuals of the model. This is a vector.}
 
+\item{\code{df.residual}}{The degrees of freedom of the model.}
+
 \item{\code{r.squared}}{Coefficient of determination of the model.}
 
 \item{\code{adj.r.squared}}{Adjusted coefficient of determination.}

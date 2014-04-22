@@ -230,7 +230,8 @@ usl.solve.nlxb <- function(model) {
 #'   \code{\link{confint,USL-method}},
 #'   \code{\link{coef}},
 #'   \code{\link{fitted}},
-#'   \code{\link{residuals}}
+#'   \code{\link{residuals}},
+#'   \code{\link{df.residual}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
