@@ -45,7 +45,6 @@ finish <- function(.Object) {
 
   .Object@fitted    <- structure(predict(.Object), names = nam)
   .Object@residuals <- structure(y.observed - .Object@fitted, names = nam)
-  .Object@df.residual <- length(y.observed) - 2L
 
   .Object@r.squared <- 1 - (sum(.Object@residuals ^ 2) / sum((y.observed - mean(y.observed)) ^ 2))
 

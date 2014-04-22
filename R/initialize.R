@@ -58,6 +58,7 @@ setMethod(
     .Object@efficiency   <- structure(frame[[resp]] / scale.factor / frame[[regr]],
                                       names = frame[, regr])
     .Object@boot         <- boot
+    .Object@df.residual  <- length(frame[[resp]]) - 2L
 
     # Call inspector
     validObject(.Object)
