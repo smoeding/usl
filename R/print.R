@@ -58,7 +58,7 @@ setMethod(
         paste(deparse(x@call), sep = "\n", collapse = "\n"), "\n", sep = "")
 
     cat("\nScale Factor for normalization:",
-        formatC(x@scale.factor, digits = digits), "\n")
+        formatC(x@scale.factor, digits = digits, width = 1), "\n")
 
     cat("\nEfficiency:\n")
     zz <- zapsmall(quantile(x@efficiency), digits + 1)
@@ -74,6 +74,11 @@ setMethod(
                     print.gap = 2, quote = FALSE)
     } else cat("No coefficients\n")
 
+    se <- sqrt(sum(x@residuals ^ 2) / ifelse(x@df.residual>0, x@df.residual, NaN))
+    
+    cat("\nResidual standard error:", formatC(se, digits = digits, width = 1))
+    cat(" on", formatC(x@df.residual, width = 1), "degrees of freedom")
+    
     cat("\nMultiple R-squared:", formatC(x@r.squared, digits = digits))
     cat(",\tAdjusted R-squared:",formatC(x@adj.r.squared, digits = digits))
 
