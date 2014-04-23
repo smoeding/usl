@@ -16,24 +16,21 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > #
-> # Test when data frame is not ordered
+> # Test function predict
 > #
 > 
 > library(usl)
 > 
-> options(digits=3)
+> data(specsdm91)
 > 
-> dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10), 
-+                   tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
+> u <- usl(throughput ~ load, specsdm91)
 > 
-> dfr <- dfr[order(-dfr[1]), ]
+> new <- data.frame(load=c(24, 48, 90, 126, 180))
 > 
-> try(u <- usl(tput ~ load, data=dfr))
-> 
-> coef(u)
-sigma kappa 
- 0.02  0.02 
+> predict(u, new)
+       1        2        3        4        5 
+1084.948 1573.923 1854.661 1869.577 1771.515 
 > 
 > proc.time()
    user  system elapsed 
-  0.569   0.058   0.636 
+  0.599   0.057   0.660 
