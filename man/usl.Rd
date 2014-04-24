@@ -124,6 +124,7 @@ solutions, 2013. R package version 2013-8.10.
 \code{\link{scalability,USL-method}},
 \code{\link{peak.scalability,USL-method}},
 \code{\link{summary,USL-method}},
+\code{\link{predict,USL-method}},
 \code{\link{confint,USL-method}}, \code{\link{coef}},
 \code{\link{fitted}}, \code{\link{residuals}},
 \code{\link{df.residual}}

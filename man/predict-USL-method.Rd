@@ -3,7 +3,8 @@
 \alias{predict,USL-method}
 \title{Predict method for Universal Scalability Law models}
 \usage{
-\S4method{predict}{USL}(object, newdata, sigma, kappa)
+\S4method{predict}{USL}(object, newdata, sigma, kappa, interval = c("none",
+  "confidence"), level = 0.95)
 }
 \arguments{
   \item{object}{A USL model object for which prediction is
@@ -18,14 +19,25 @@
 
   \item{kappa}{Optional parameter to be used for evaluation
   instead of the parameter computed for the model.}
+
+  \item{interval}{Type of interval calculation.}
+
+  \item{level}{Tolerance/confidence level.}
 }
 \value{
-\code{predict} produces a vector of predictions.
+\code{predict} produces a vector of predictions or a matrix
+of predictions and bounds with column names \code{fit},
+\code{lwr}, and \code{upr} if \code{interval} is set to
+"\code{confidence}".
 }
 \description{
 \code{predict} is a function for predictions of the
 scalability of a system modeled with the Universal
-Scalability Law.
+Scalability Law. It evaluates the regression function in
+the frame \code{newdata} (which defaults to
+\code{model.frame(object)}). Setting \code{interval}
+specifies computation of confidence intervals at the
+specified \code{level}.
 }
 \details{
 The parameters \code{sigma} or \code{kappa} are useful to
