@@ -29,8 +29,9 @@
 #' \code{predict} is a function for predictions of the scalability of a system
 #' modeled with the Universal Scalability Law. It evaluates the regression
 #' function in the frame \code{newdata} (which defaults to
-#' \code{model.frame(object)}). Setting \code{interval} specifies computation
-#' of confidence intervals at the specified \code{level}.
+#' \code{model.frame(object)}). Setting \code{interval} to "\code{confidence}"
+#' requests the computation of confidence intervals at the specified
+#' \code{level}.
 #'
 #' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show
@@ -47,8 +48,9 @@
 #'   parameter computed for the model.
 #' @param kappa Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
-#' @param interval Type of interval calculation.
-#' @param level Tolerance/confidence level.
+#' @param interval Type of interval calculation. Default is to calculate no
+#'   confidence interval.
+#' @param level Confidence level. Default is 0.95.
 #'
 #' @return \code{predict} produces a vector of predictions or a matrix of
 #'   predictions and bounds with column names \code{fit}, \code{lwr}, and
@@ -60,7 +62,7 @@
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
 #'   Springer, Heidelberg, Germany, 1st edition, 2007.
-#'
+#'   
 #' @examples
 #' require(usl)
 #'
@@ -69,13 +71,18 @@
 #' ## Print predicted result from USL model for demo dataset
 #' predict(usl(throughput ~ processors, raytracer))
 #'
+#' ## The same prediction with confidence intervals at the 99% level
+#' predict(usl(throughput ~ processors, raytracer),
+#'         interval = "confidence", level = 0.99)
+#'
 #' @export
 #'
 setMethod(
   f = "predict",
   signature = "USL",
   definition = function(object, newdata, sigma, kappa,
-                        interval = c("none", "confidence"), level = 0.95) {
+                        interval = c("none", "confidence"),
+                        level = 0.95) {
     # Predict for the initial data used to create the model
     # if no data frame 'newdata' is given as parameter
     if (missing(newdata)) newdata <- object@frame
@@ -93,7 +100,7 @@ setMethod(
 
     fit <- structure(y, names=row.names(newdata))
 
-    # Return just the vector if confidence interval is not requested
+    # Return just the vector if the confidence interval is not required
     if (interval != "confidence") return(fit)
 
     # The following calculation is taken from

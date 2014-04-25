@@ -20,9 +20,10 @@
   \item{kappa}{Optional parameter to be used for evaluation
   instead of the parameter computed for the model.}
 
-  \item{interval}{Type of interval calculation.}
+  \item{interval}{Type of interval calculation. Default is
+  to calculate no confidence interval.}
 
-  \item{level}{Tolerance/confidence level.}
+  \item{level}{Confidence level. Default is 0.95.}
 }
 \value{
 \code{predict} produces a vector of predictions or a matrix
@@ -35,9 +36,9 @@ of predictions and bounds with column names \code{fit},
 scalability of a system modeled with the Universal
 Scalability Law. It evaluates the regression function in
 the frame \code{newdata} (which defaults to
-\code{model.frame(object)}). Setting \code{interval}
-specifies computation of confidence intervals at the
-specified \code{level}.
+\code{model.frame(object)}). Setting \code{interval} to
+"\code{confidence}" requests the computation of confidence
+intervals at the specified \code{level}.
 }
 \details{
 The parameters \code{sigma} or \code{kappa} are useful to
@@ -56,6 +57,10 @@ data(raytracer)
 
 ## Print predicted result from USL model for demo dataset
 predict(usl(throughput ~ processors, raytracer))
+
+## The same prediction with confidence intervals at the 99\% level
+predict(usl(throughput ~ processors, raytracer),
+        interval = "confidence", level = 0.99)
 }
 \references{
 Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
