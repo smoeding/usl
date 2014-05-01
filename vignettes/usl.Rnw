@@ -1,4 +1,4 @@
-\documentclass[fontsize=12pt,pagesize=auto,parskip=half,toc=bib]{scrartcl}
+\documentclass[pagesize=auto,parskip=half,toc=bib]{scrartcl}
 %\VignetteIndexEntry{Using the usl package to analyze system scalability}
 %\VignetteDepends{usl}
 %\VignetteKeyword{usl}
@@ -12,7 +12,13 @@
 \usepackage{microtype}
 
 \usepackage{Sweave}
-\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE}
+\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE, height=3.5}
+
+\DefineVerbatimEnvironment{Sinput}{Verbatim} {xleftmargin=2em}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=2em}
+\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em}
+\fvset{listparameters={\setlength{\topsep}{0pt}}}
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}}
 
 % Encoding, fonts & language
 \usepackage[utf8]{inputenc}
@@ -36,7 +42,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 <<options, echo=FALSE>>=
-options(prompt="R> ", scipen=4, digits=3, width=68, show.signif.stars=FALSE)
+options(prompt="R> ", scipen=4, digits=3, width=66, show.signif.stars=FALSE)
 options(SweaveHooks=list(fig = function() par(mar = c(4.1, 4.1, 2.1, 2.1))))
 set.seed(42, kind = "default", normal.kind = "default")
 @
@@ -148,8 +154,8 @@ the analyst with the data quality of the measurements.
 
 Note that in \cite{Gun07} the coefficients are called $\sigma$ and $\kappa$
 when hardware scalability is evaluated but $\alpha$ and $\beta$ when software
-scalability is analyzed. The `\usl' package only uses $\sigma$ and $\kappa$
-as names of the coefficients.
+scalability is analyzed. The `\usl' package only uses \texttt{sigma} and
+\texttt{kappa} as names of the coefficients.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -271,7 +277,7 @@ barplot(efficiency(usl.model), ylab="efficiency / processor", xlab="processors")
 
 \begin{figure*}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE, height=3.2>>=
+<<fig=TRUE, echo=FALSE>>=
 <<rtbarplot>>
 @
 \caption{Rate of efficiency per processor for different numbers of processors running the raytracing software}
@@ -479,6 +485,68 @@ This illustrates how the Universal Scalability Law can help to decide if the
 system currently is more limited by contention or by coherency issues and
 also what impact a proposed change would have.
 
+The \kbd{predict} function can also be used to calculate a confidence interval
+for the scalability function at a specified level. To get a smoother graph it
+is advisable to predict the values for a higher number of points. Let's start
+by creating a data frame with the required load values.
+
+<<>>=
+load <- with(specsdm91, expand.grid(load=seq(min(load), max(load))))
+@
+
+We use the data frame to determine the fitted values and also the upper and
+lower confidence bounds at the requested level. The result will be a matrix
+with column names \kbd{fit} for the fitted values, \kbd{lwr} for the lower
+and \kbd{upr} for the upper bounds.
+
+<<>>=
+fit <- predict(usl.model, newdata = load, interval = "confidence", level = 0.95)
+@
+
+The matrix is used to define the coordinates of a polygon containing the area
+between the lower and the upper bounds. The polygon connects the points of the
+lower bounds from lower to higher values and then back using the points of the
+upper bounds.
+
+<<>>=
+usl.polygon <- matrix(c(load[, 1], rev(load[, 1]),
+                        fit[, 'lwr'], rev(fit[, 'upr'])),
+                 nrow = 2 * nrow(load))
+@
+
+The plot is composed from multiple single plots. The first plot initializes the
+canvas and creates the axis. Then the polygon is plotted using a gray area. In
+the next step the measured values are added as points. Finally a solid line is
+plotted to indicate the fitted scalability function.
+
+<<ciplot1>>=
+# Create empty plot (define canvas size, axis, ...)
+plot(specsdm91,
+     ylim = c(0, 2000), 
+     xlab = names(specsdm91)[1],
+     ylab = names(specsdm91)[2], 
+     type = "n")
+
+# Plot gray polygon indicating the confidence interval
+polygon(usl.polygon, border = NA, col = "gray")
+
+# Plot the measured throughput
+points(specsdm91, pch = 16)
+
+# Plot the fit
+lines(load[, 1], fit[, 'fit'])
+@
+
+\autoref{fig:ciplot1} shows the final plot.
+
+\begin{figure*}[hbt]
+\centering
+<<fig=TRUE, echo=FALSE>>=
+<<ciplot1>>
+@
+\caption{The result of the SPEC SDM91 benchmark with confidence intervals for the scalability function at the 95\% level}
+\label{fig:ciplot1}
+\end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
