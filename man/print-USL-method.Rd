@@ -3,7 +3,7 @@
 \alias{print,USL-method}
 \title{Print objects of class "\code{USL}"}
 \usage{
-\S4method{print}{USL}(x, digits = max(3, getOption("digits") - 3), ...)
+\S4method{print}{USL}(x, digits = max(3L, getOption("digits") - 3L), ...)
 }
 \arguments{
   \item{x}{An object from class \code{USL}.}

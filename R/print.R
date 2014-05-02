@@ -51,7 +51,7 @@
 setMethod(
   f = "print",
   signature = "USL",
-  definition = function(x, digits = max(3, getOption("digits") - 3), ...) {
+  definition = function(x, digits = max(3L, getOption("digits") - 3L), ...) {
     qnames <- c("Min", "1Q", "Median", "3Q", "Max")
 
     cat("\nCall:\n",
@@ -74,10 +74,10 @@ setMethod(
                     print.gap = 2, quote = FALSE)
     } else cat("No coefficients\n")
 
-    se <- sqrt(sum(x@residuals ^ 2) / ifelse(x@df.residual>0, x@df.residual, NaN))
+    se <- if (x@df.residual <= 0) NaN else sqrt(sum(x@residuals ^ 2) / x@df.residual)
     
-    cat("\nResidual standard error:", formatC(se, digits = digits, width = 1))
-    cat(" on", formatC(x@df.residual, width = 1), "degrees of freedom")
+    cat("\nResidual standard error:",
+        format(signif(se, digits)), "on", x@df.residual, "degrees of freedom")
     
     cat("\nMultiple R-squared:", formatC(x@r.squared, digits = digits))
     cat(",\tAdjusted R-squared:",formatC(x@adj.r.squared, digits = digits))
