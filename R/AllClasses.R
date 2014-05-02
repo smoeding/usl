@@ -41,6 +41,7 @@ setOldClass("boot")
 #' @slot resp The name of the response variable.
 #' @slot scale.factor The scale factor used to create the model.
 #' @slot coefficients The coefficients sigma and kappa of the model.
+#' @slot coef.std.err The standard errors for the coefficients sigma and kappa.
 #' @slot boot A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
@@ -61,6 +62,7 @@ setClass("USL",
                         resp          = "character",
                         scale.factor  = "numeric",
                         coefficients  = "vector",
+                        coef.std.err  = "vector",
                         boot          = "boot",
                         fitted        = "vector",
                         residuals     = "vector",

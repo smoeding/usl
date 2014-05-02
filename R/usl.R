@@ -354,5 +354,20 @@ usl <- function(formula, data, method = "default", R = 50) {
   .Object@r.squared     <- 1 - (sum(y.res ^ 2) / sum((y.obs - mean(y.obs)) ^ 2))
   .Object@adj.r.squared <- 1 - (1 - .Object@r.squared) * ((n-1) / (n-p-1))
 
+  # residual variance
+  df <- df.residual(.Object)
+  resvar <- if(df <= 0) NaN else sum(y.res ^ 2) / df
+  
+  # Build gradient matrix
+  grad <- gradient.usl(sigma = model.result[['sigma']],
+                       kappa = model.result[['kappa']],
+                       scale.factor = model.result[['scale.factor']],
+                       n = y.obs)
+  
+  XtXinv <- solve(t(grad) %*% grad)
+  
+  # Standard error of coefficients
+  .Object@coef.std.err <- sqrt(diag(XtXinv) * resvar)
+
   return(.Object)
 }
