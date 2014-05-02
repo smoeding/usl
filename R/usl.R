@@ -338,6 +338,21 @@ usl <- function(formula, data, method = "default", R = 50) {
                  model.result[['sigma']], model.result[['kappa']],
                  boot.obj)
 
-  # Finish the object and return it
-  return(finish(.Object))
+  # Finish building the USL object
+  nam <- row.names(frame)
+
+  y.obs <- frame[, resp, drop=TRUE]
+  y.fit <- predict(.Object)
+  y.res <- y.obs - y.fit
+
+  .Object@fitted    <- structure(y.fit, names = nam)
+  .Object@residuals <- structure(y.res, names = nam)
+
+  n <- length(y.obs) # sample size
+  p <- 1             # number of regressors
+
+  .Object@r.squared     <- 1 - (sum(y.res ^ 2) / sum((y.obs - mean(y.obs)) ^ 2))
+  .Object@adj.r.squared <- 1 - (1 - .Object@r.squared) * ((n-1) / (n-p-1))
+
+  return(.Object)
 }
