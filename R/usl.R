@@ -341,7 +341,7 @@ usl <- function(formula, data, method = "default", R = 50) {
   # Finish building the USL object
   nam <- row.names(frame)
 
-  y.obs <- frame[, resp, drop=TRUE]
+  y.obs <- frame[, resp, drop = TRUE]
   y.fit <- predict(.Object)
   y.res <- y.obs - y.fit
 
@@ -362,10 +362,10 @@ usl <- function(formula, data, method = "default", R = 50) {
   grad <- gradient.usl(sigma = model.result[['sigma']],
                        kappa = model.result[['kappa']],
                        scale.factor = model.result[['scale.factor']],
-                       n = y.obs)
-  
+                       n = frame[, regr, drop = TRUE])
+
   XtXinv <- solve(t(grad) %*% grad)
-  
+
   # Standard error of coefficients
   .Object@coef.std.err <- sqrt(diag(XtXinv) * resvar)
 
