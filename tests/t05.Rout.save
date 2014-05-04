@@ -1,7 +1,7 @@
 
-R version 3.0.3 (2014-03-06) -- "Warm Puppy"
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
 Copyright (C) 2014 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin10.8.0 (64-bit)
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -35,22 +35,25 @@ Type 'q()' to quit R.
 > 
 > confint(u, parm=1)
        2.5 % 97.5 %
-sigma 0.0452  0.065
+sigma 0.0442 0.0558
 > confint(u, parm="sigma")
        2.5 % 97.5 %
-sigma 0.0452  0.065
+sigma 0.0442 0.0558
 > 
 > confint(u, parm=2)
-          2.5 %   97.5 %
-kappa -0.000565 0.000272
+          2.5 %  97.5 %
+kappa -0.000121 0.00013
 > confint(u, parm="kappa")
-          2.5 %   97.5 %
-kappa -0.000565 0.000272
+          2.5 %  97.5 %
+kappa -0.000121 0.00013
 > 
 > confint(u, parm=3)
+     2.5 % 97.5 %
+<NA>    NA     NA
+> confint(u, parm="none")
      2.5 % 97.5 %
 <NA>    NA     NA
 > 
 > proc.time()
    user  system elapsed 
-  0.639   0.062   0.701 
+  0.589   0.058   0.640 

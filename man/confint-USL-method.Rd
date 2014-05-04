@@ -3,7 +3,7 @@
 \alias{confint,USL-method}
 \title{Confidence Intervals for USL model parameters}
 \usage{
-\S4method{confint}{USL}(object, parm, level = 0.95, type = "norm")
+\S4method{confint}{USL}(object, parm, level = 0.95)
 }
 \arguments{
   \item{object}{A USL object.}
@@ -14,11 +14,6 @@
   considered.}
 
   \item{level}{The confidence level required.}
-
-  \item{type}{A character string representing the type of
-  interval required.  The value must be one of
-  "\code{norm}", "\code{basic}", "\code{stud}",
-  "\code{perc}" or "\code{bca}".}
 }
 \value{
 A matrix (or vector) with columns giving lower and upper
@@ -28,33 +23,13 @@ default 2.5\% and 97.5\%).
 }
 \description{
 Estimate confidence intervals for one or more parameters in
-a USL model.
+a USL model. The intervals are calculated from the
+parameter standard error using the Student t distribution
+at the given level.
 }
 \details{
-Confidence intervals are estimated by using bootstrap
-resampling (see \code{\link{boot}}). The bootstrap
-generates a series of random selections with replacement
-for the original data and calculates the model parameters
-sigma and kappa for every selection. This set of parameters
-is used to estimate confidence intervals.
-
-The parameter "\code{type}" determines the type of interval
-that is calculated. The values "\code{norm}",
-"\code{basic}", "\code{stud}", "\code{perc}" or
-"\code{bca}" are currently allowed. See
-\code{\link{boot.ci}} for details.
-
-The bootstrap is computed once in the \code{\link{usl}}
-function so calling \code{confint} multiple times for a
-specific USL object will return identical results. Creating
-multiple USL objects for a given set of input values is
-almost certainly going to produce different confidence
-intervals since random numbers are used to bootstrap.
-
-Calculating confidence intervals for a small number of
-observations is unreliable. The function will print warning
-or error messages if the calculated intervals are dubious
-or the estimation is not possible.
+Bootstrapping is no longer used to estimate confidence
+intervals.
 }
 \examples{
 require(usl)
@@ -64,11 +39,10 @@ data(specsdm91)
 ## Create USL model
 usl.model <- usl(throughput ~ load, specsdm91)
 
-## Print normal confidence intervals
-confint(usl.model, type = "norm")
+## Print confidence intervals
+confint(usl.model)
 }
 \seealso{
-\code{\link{usl}}, \code{\link{boot}},
-\code{\link{boot.ci}}
+\code{\link{usl}}
 }
 

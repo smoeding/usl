@@ -21,3 +21,4 @@ confint(u, parm=2)
 confint(u, parm="kappa")
 
 confint(u, parm=3)
+confint(u, parm="none")

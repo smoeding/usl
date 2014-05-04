@@ -299,7 +299,7 @@ The corresponding confidence intervals for the model coefficients are returned
 by calling the \kbd{confint()} function.
 
 <<>>=
-confint(usl.model, level = 0.95, type = "norm")
+confint(usl.model, level = 0.95)
 @
 
 Bootstrapping is used to calculate the confidence intervals for the parameters.
