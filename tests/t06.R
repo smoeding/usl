@@ -6,4 +6,4 @@ library(usl)
 
 data(specsdm91)
 
-u <- usl(throughput ~ load, specsdm91, method = "nlxb", R=3)
+u <- usl(throughput ~ load, specsdm91, method = "nlxb")

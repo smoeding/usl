@@ -22,19 +22,14 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+
 ##############################################################################
 #' Calculate gradient for the universal scalability function
 #'
 #' The implementation of this function has been adopted from the generated
 #' output of the \code{\link{deriv}} function.
 #'
-#' @param sigma The contention parameter of the model.
-#'
-#' @param kappa The coherency parameter of the model.
-#'
-#' @param scale.factor The scale factor used for normalization of the model.
-#'
-#' @param n A vector of values for which the partial derivatives are calculated.
+#' @param x The USL object.
 #' 
 #' @return The gradient matrix.
 #'
@@ -42,7 +37,12 @@
 #'
 #' @keywords internal
 #'
-gradient.usl <- function(sigma, kappa, scale.factor, n) {
+gradient.usl <- function(x) {
+  sigma = x@coefficients['sigma']
+  kappa = x@coefficients['kappa']
+  scale.factor = x@scale.factor
+  n = x@frame[, x@regr, drop = TRUE]
+  
   # Based on the output of:
   # deriv(~ X0 * n / (1 + (sigma * (n-1)) + (kappa * n * (n-1))), # rhs
   #       c('sigma', 'kappa'),                                    # params

@@ -199,7 +199,7 @@ the gain for upgrading from 48 to 64 processors.
 Create a simple scatterplot to get a grip on the data.
 
 <<rtplot1>>=
-plot(throughput ~ processors, data=raytracer)
+plot(throughput ~ processors, data = raytracer)
 @
 
 \autoref{fig:rtplot1} shows the throughput of the system for the different
@@ -225,7 +225,7 @@ changes with regard to the number of ``processors'' in the system. The second
 argument is the dataset with the measured values.
 
 <<>>=
-usl.model <- usl(throughput ~ processors, data=raytracer)
+usl.model <- usl(throughput ~ processors, data = raytracer)
 @
 
 The model object can be investigated with the \kbd{summary()} function.
@@ -272,7 +272,7 @@ configurations with an increasing number of processors. \autoref{fig:rtbarplot}
 shows the output diagram.
 
 <<rtbarplot>>=
-barplot(efficiency(usl.model), ylab="efficiency / processor", xlab="processors")
+barplot(efficiency(usl.model), ylab = "efficiency / processor", xlab = "processors")
 @
 
 \begin{figure*}[hbt]
@@ -302,11 +302,10 @@ by calling the \kbd{confint()} function.
 confint(usl.model, level = 0.95)
 @
 
-Bootstrapping is used to calculate the confidence intervals for the parameters.
-They must be taken with a grain of salt since the level of accuracy of the
-original measurements is usually unknown. Depending on the type of the
-requested bootstrap confidence interval the function might not be able to
-produce a valid result at all.
+Earlier releases of the `\usl' package used bootstrapping to estmate the
+confidence intervals. This has been changed since bootstrapping with a small
+sample size may not give the desired reliability. Currently the confidence
+intervals are calculated from the standard errors of the parameters.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the
@@ -314,8 +313,8 @@ calculated scalability function as a solid line. \autoref{fig:rtplot2} has the
 result of that plot.
 
 <<rtplot2>>=
-plot(throughput ~ processors, data=raytracer, pch=16)
-plot(usl.model, add=TRUE)
+plot(throughput ~ processors, data = raytracer, pch = 16)
+plot(usl.model, add = TRUE)
 @
 
 \begin{figure*}[hbt]
@@ -334,7 +333,7 @@ the system throughput for other numbers like 96 and 128 processors using the
 \kbd{predict()} function.
 
 <<>>=
-predict(usl.model, data.frame(processors=c(96, 128)))
+predict(usl.model, data.frame(processors = c(96, 128)))
 @
 
 We can see from the prediction that there is still an increase in throughput
@@ -423,7 +422,7 @@ for the hypothetical system with the \kbd{peak.scalability()} function.
 
 <<>>=
 peak.scalability(usl.model)
-peak.scalability(usl.model, kappa=0.00005)
+peak.scalability(usl.model, kappa = 0.00005)
 @
 
 The function accepts the optional arguments \texttt{sigma} and \texttt{kappa}.
@@ -443,10 +442,10 @@ include the scalability of the hypothetical system, we have to increase the
 range of the plotted values with the first command.
 
 <<spplot1>>=
-plot(specsdm91, pch=16, ylim=c(0,2500))
-plot(usl.model, add=TRUE)
-cache.scale <- scalability(usl.model, kappa=0.00005)
-curve(cache.scale, lty=2, add=TRUE)
+plot(specsdm91, pch = 16, ylim = c(0,2500))
+plot(usl.model, add = TRUE)
+cache.scale <- scalability(usl.model, kappa = 0.00005)
+curve(cache.scale, lty = 2, add = TRUE)
 @
 
 We used the function \kbd{scalability()} here. This function is a higher
@@ -478,7 +477,8 @@ functions to get the predicted throughput values for the peak values.
 
 <<>>=
 scalability(usl.model)(peak.scalability(usl.model))
-scalability(usl.model, kappa=0.00005)(peak.scalability(usl.model, kappa=0.00005))
+scf <- scalability(usl.model, kappa = 0.00005)
+scf(peak.scalability(usl.model, kappa = 0.00005))
 @
 
 This illustrates how the Universal Scalability Law can help to decide if the
@@ -491,7 +491,7 @@ is advisable to predict the values for a higher number of points. Let's start
 by creating a data frame with the required load values.
 
 <<>>=
-load <- with(specsdm91, expand.grid(load=seq(min(load), max(load))))
+load <- with(specsdm91, expand.grid(load = seq(min(load), max(load))))
 @
 
 We use the data frame to determine the fitted values and also the upper and

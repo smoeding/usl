@@ -24,12 +24,6 @@
 
 
 ##############################################################################
-# Enable class "boot" to be used as a formal class
-#
-setOldClass("boot")
-
-
-##############################################################################
 #' Class "\code{USL}" for Universal Scalability Law models
 #'
 #' This class encapsulates the Universal Scalability Law. Use the function
@@ -42,7 +36,6 @@ setOldClass("boot")
 #' @slot scale.factor The scale factor used to create the model.
 #' @slot coefficients The coefficients sigma and kappa of the model.
 #' @slot coef.std.err The standard errors for the coefficients sigma and kappa.
-#' @slot boot A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
 #' @slot df.residual The degrees of freedom of the model.
@@ -63,7 +56,6 @@ setClass("USL",
                         scale.factor  = "numeric",
                         coefficients  = "vector",
                         coef.std.err  = "vector",
-                        boot          = "boot",
                         fitted        = "vector",
                         residuals     = "vector",
                         df.residual   = "integer",

@@ -2,18 +2,10 @@
 \alias{gradient.usl}
 \title{Calculate gradient for the universal scalability function}
 \usage{
-gradient.usl(sigma, kappa, scale.factor, n)
+gradient.usl(x)
 }
 \arguments{
-  \item{sigma}{The contention parameter of the model.}
-
-  \item{kappa}{The coherency parameter of the model.}
-
-  \item{scale.factor}{The scale factor used for
-  normalization of the model.}
-
-  \item{n}{A vector of values for which the partial
-  derivatives are calculated.}
+  \item{x}{The USL object.}
 }
 \value{
 The gradient matrix.

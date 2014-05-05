@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > 
 > data(specsdm91)
 > 
-> u <- usl(throughput ~ load, specsdm91, method = "nlxb", R=3)
+> u <- usl(throughput ~ load, specsdm91, method = "nlxb")
 > 
 > proc.time()
    user  system elapsed 
