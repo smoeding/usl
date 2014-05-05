@@ -3,7 +3,7 @@
 \alias{confint,USL-method}
 \title{Confidence Intervals for USL model parameters}
 \usage{
-\S4method{confint}{USL}(object, parm, level = 0.95)
+\S4method{confint}{USL}(object, parm, level = 0.95, type)
 }
 \arguments{
   \item{object}{A USL object.}
@@ -14,6 +14,9 @@
   considered.}
 
   \item{level}{The confidence level required.}
+
+  \item{type}{This parameter is no longer used and will be
+  removed in the next version.}
 }
 \value{
 A matrix (or vector) with columns giving lower and upper

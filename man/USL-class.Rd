@@ -24,8 +24,6 @@ this class.
 
 \item{\code{coef.std.err}}{The standard errors for the coefficients sigma and kappa.}
 
-\item{\code{boot}}{A bootstrap object used to estimate confidence intervals for the parameters sigma and kappa.}
-
 \item{\code{fitted}}{The fitted values of the model. This is a vector.}
 
 \item{\code{residuals}}{The residuals of the model. This is a vector.}

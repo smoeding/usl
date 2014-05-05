@@ -2,7 +2,7 @@
 \alias{usl}
 \title{Create a model for the Universal Scalability Law}
 \usage{
-usl(formula, data, method = "default", R = 50)
+usl(formula, data, method = "default", R)
 }
 \arguments{
   \item{formula}{An object of class "\code{\link{formula}}"
@@ -20,9 +20,8 @@ usl(formula, data, method = "default", R = 50)
   \item{method}{Character value specifying the method to
   use. The possible values are described unter 'Details'.}
 
-  \item{R}{The number of bootstrap replicate used to
-  estimate the confidence intervals for the parameters
-  \code{sigma} and \code{kappa}.}
+  \item{R}{This parameter is no longer used and will be
+  removed in the next version.}
 }
 \value{
 An object of class USL.
@@ -66,17 +65,6 @@ function \code{\link{nlxb}} from the \code{\link{nlmrt}}
 package. This method also estimates both coefficients and
 the normalization factor. It is expected to be more robust
 than the \code{nls} method. }
-
-The parameter \code{R} defines the number of bootstrap
-replicates used to estimate the parameter confidence
-intervals. Depending on the number of observations the
-default 50 may be too low to get reasonable results. See
-\code{\link{boot}} and \code{\link{boot.ci}} for details.
-Bootstrapping with \code{method="default"} can give overly
-bad results as the method only works when the normalization
-factor can be calculated from the sampled data. The method
-\code{\link{confint,USL-method}} is used to get the
-bootstrapped confidence intervals for a model.
 
 The Universal Scalability Law can be expressed with
 following formula. \code{C(N)} predicts the relative
