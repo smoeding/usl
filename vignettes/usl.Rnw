@@ -14,9 +14,9 @@
 \usepackage{Sweave}
 \SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE, height=3.5}
 
-\DefineVerbatimEnvironment{Sinput}{Verbatim} {xleftmargin=2em}
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=2em}
 \DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em}
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{xleftmargin=2em}
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=2em}
 \fvset{listparameters={\setlength{\topsep}{0pt}}}
 \renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}}
 
@@ -304,7 +304,7 @@ confint(usl.model, level = 0.95)
 
 Earlier releases of the `\usl' package used bootstrapping to estmate the
 confidence intervals. This has been changed since bootstrapping with a small
-sample size may not give the desired reliability. Currently the confidence
+sample size may not give the desired accuracy. Currently the confidence
 intervals are calculated from the standard errors of the parameters.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
