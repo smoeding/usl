@@ -58,5 +58,5 @@ gradient.usl <- function(x) {
   
   matrix(c(grad.sigma, grad.kappa),
          nrow = length(n), 
-         dimnames = list(1:length(n), c("sigma", "kappa")))
+         dimnames = list(1:length(n), x@coef.names))
 }

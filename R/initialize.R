@@ -48,7 +48,7 @@ setMethod(
   signature = "USL",
   definition = function(.Object, call, frame, regr, resp, scale.factor, sigma, kappa) {
     .Object@call         <- call
-    .Object@coefficients <- structure(c(sigma, kappa), names = c("sigma", "kappa"))
+    .Object@coefficients <- structure(c(sigma, kappa), names = .Object@coef.names)
     .Object@frame        <- frame
     .Object@regr         <- regr
     .Object@resp         <- resp

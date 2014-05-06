@@ -36,6 +36,7 @@
 #' @slot scale.factor The scale factor used to create the model.
 #' @slot coefficients The coefficients sigma and kappa of the model.
 #' @slot coef.std.err The standard errors for the coefficients sigma and kappa.
+#' @slot coef.names A vector with the names of the coefficients.
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
 #' @slot df.residual The degrees of freedom of the model.
@@ -56,6 +57,7 @@ setClass("USL",
                         scale.factor  = "numeric",
                         coefficients  = "vector",
                         coef.std.err  = "vector",
+                        coef.names    = "vector",
                         fitted        = "vector",
                         residuals     = "vector",
                         df.residual   = "integer",
@@ -63,7 +65,8 @@ setClass("USL",
                         adj.r.squared = "numeric",
                         efficiency    = "vector",
                         na.action     = "character"),
-         prototype(df.residual   = 0L,
+         prototype(coef.names    = c("sigma", "kappa"),
+                   df.residual   = 0L,
                    r.squared     = 0,
                    adj.r.squared = 0,
                    na.action     = "na.omit"),

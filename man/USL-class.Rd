@@ -24,6 +24,8 @@ this class.
 
 \item{\code{coef.std.err}}{The standard errors for the coefficients sigma and kappa.}
 
+\item{\code{coef.names}}{A vector with the names of the coefficients.}
+
 \item{\code{fitted}}{The fitted values of the model. This is a vector.}
 
 \item{\code{residuals}}{The residuals of the model. This is a vector.}

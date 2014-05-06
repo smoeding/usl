@@ -78,7 +78,7 @@ setMethod(
     }
 
     # Return confidence intervals for both parameters if 'parm' is unset
-    if (missing(parm)) parm <- c("sigma", "kappa")
+    if (missing(parm)) parm <- object@coef.names
 
     # Replace numeric parameters with named parameters
     if (mode(parm) == "numeric") {
@@ -89,7 +89,7 @@ setMethod(
     }
 
     # Calculate confidence intervals for the given level
-    for (i in c("sigma", "kappa")) {
+    for (i in object@coef.names) {
       if (i %in% parm) {
         pa <- object@coefficients[i]
         se <- object@coef.std.err[i] * qt(level, df)
