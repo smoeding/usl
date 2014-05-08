@@ -38,7 +38,7 @@ The ```summary``` command returns the following output:
 Call:
 usl(formula = throughput ~ load, data = specsdm91)
 
-Scale Factor for normalization:  64.9
+Scale Factor for normalization: 64.9
 
 Efficiency:
    Min     1Q Median     3Q    Max
@@ -49,9 +49,11 @@ Residuals:
 -70.89 -23.59  19.39  86.14 274.88
 
 Coefficients:
-    sigma      kappa
-1.705e-02  7.892e-05
+       Estimate   Std. Error
+sigma  1.705e-02  3.318e-03
+kappa  7.892e-05  2.492e-05
 
+Residual standard error: 140.6 on 5 degrees of freedom
 Multiple R-squared: 0.9624,  Adjusted R-squared: 0.9549
 ```
 
