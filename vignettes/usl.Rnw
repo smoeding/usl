@@ -12,7 +12,7 @@
 \usepackage{microtype}
 
 \usepackage{Sweave}
-\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE, height=3.5}
+\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE, height=3.8}
 
 \DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em}
 \DefineVerbatimEnvironment{Sinput}{Verbatim}{xleftmargin=2em}
@@ -411,11 +411,16 @@ summary(usl.model)
 @
 
 Looking at the coefficients we notice that $\sigma$ is about
-\Sexpr{signif(100*coef(usl.model)[['sigma']], 2)} percent and $\kappa$ is
-about \Sexpr{signif(100*coef(usl.model)[['kappa']], 1)} percent. We
-hypothesize that a proposed change to the system --- maybe a redesign of
-the cache architecture --- could reduce $\kappa$ by half and want to know
-how the scalability of the system would change.
+\Sexpr{signif(coef(usl.model)[['sigma']], 2)} and $\kappa$ is about
+\Sexpr{signif(coef(usl.model)[['kappa']], 1)}. The parameter $\sigma$ indicates
+that about \Sexpr{signif(100*coef(usl.model)[['sigma']], 2)} percent of the
+execution time is strictly serial. Note that this serial fraction is also
+recognized in Amdahl's Law.
+
+We hypothesize that a proposed change to the system --- maybe a redesign of
+the cache architecture or the elimination of a point to point communication ---
+could reduce $\kappa$ by half and want to predict how the scalability of the
+system would change.
 
 We can calculate the point of maximum scalability for the current system and
 for the hypothetical system with the \kbd{peak.scalability()} function.
@@ -456,7 +461,7 @@ specific range.
 \autoref{fig:spplot1} shows the measured throughput in scripts per hour for a
 given load, i.e., the number of simulated users. The solid line indicates the
 derived USL model while the dashed line resembles our hypothetical system using
-the optimized cache.
+the proposed optimization.
 
 \begin{figure*}[hbt]
 \centering
@@ -485,7 +490,7 @@ This illustrates how the Universal Scalability Law can help to decide if the
 system currently is more limited by contention or by coherency issues and
 also what impact a proposed change would have.
 
-The \kbd{predict} function can also be used to calculate a confidence interval
+The \kbd{predict()} function can also be used to calculate a confidence bands
 for the scalability function at a specified level. To get a smoother graph it
 is advisable to predict the values for a higher number of points. Let's start
 by creating a data frame with the required load values.
@@ -537,14 +542,14 @@ points(specsdm91, pch = 16)
 lines(load[, 1], fit[, 'fit'])
 @
 
-\autoref{fig:ciplot1} shows the final plot.
+See \autoref{fig:ciplot1} for the entire plot.
 
 \begin{figure*}[hbt]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<ciplot1>>
 @
-\caption{The result of the SPEC SDM91 benchmark with confidence intervals for the scalability function at the 95\% level}
+\caption{The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\% level}
 \label{fig:ciplot1}
 \end{figure*}
 
