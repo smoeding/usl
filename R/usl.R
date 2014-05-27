@@ -117,8 +117,8 @@ usl.solve.nls <- function(model) {
 #' Solve a USL model using non linear regression
 #'
 #' This function solves a USL model using non linear regression with least
-#' squares. It uses the function \code{\link{nlxb}} to perform the
-#' calculation.
+#' squares. It uses the function \code{\link{nlxb}} from the \pkg{nlmrt}
+#' package to perform the calculation.
 #'
 #' @param model A data frame with two columns containing the values of the
 #'   predictor variable in the first column and the values of the response
