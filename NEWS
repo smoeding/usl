@@ -1,7 +1,27 @@
+CHANGES in `usl' VERSION 1.3.0 (2014-xx-xx)
+
+* The estimation of standard errors for the coefficients has been rewritten.
+  Bootstrapping is no longer used for the calculation. Therefore the argument
+  `R' for the `usl()' function and the argument `type' for the `confint()'
+  function have been deprecated. The arguments will be removed in the next
+  release. 
+
+* Added coefficient standard errors and residual standard error to the summary
+  output.
+
+* Added implementation for the df.residual() function to get the degrees of
+  freedom for the model.
+
+* Removed misleading calculation of deviance.
+
+* Used roxygen2 4.0.1 to generate the documentation.
+
+
 CHANGES in `usl' VERSION 1.2.2 (2014-04-03)
 
-* Use roxygen2 3.1 to generate documentation
-* Fix handling of unsorted input data frame for method="default"
+* Use roxygen2 3.1 to generate documentation.
+
+* Fix handling of unsorted input data frame for method="default".
 
 
 CHANGES in `usl' VERSION 1.2.1 (2013-08-12)
@@ -11,7 +31,7 @@ CHANGES in `usl' VERSION 1.2.1 (2013-08-12)
 
 CHANGES in `usl' VERSION 1.2.0 (2013-04-29)
 
-* Added function confint() to estimate parameter confidence intervals.
+* Added function `confint()' to estimate parameter confidence intervals.
 
 
 CHANGES in `usl' VERSION 1.1.0 (2013-02-26)
@@ -20,8 +40,8 @@ CHANGES in `usl' VERSION 1.1.0 (2013-02-26)
 
 * Use `Import' instead of `Depend' for the used packages.
 
-* Function efficiency() now returns a named vector. The names are the
-  values of the independent variable, cf. fitted() or residuals().
+* Function `efficiency()' now returns a named vector. The names are the
+  values of the independent variable, cf. `fitted()' or `residuals()'.
 
 
 CHANGES in `usl' VERSION 1.0.0 (2013-02-10)
