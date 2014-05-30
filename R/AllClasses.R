@@ -126,7 +126,9 @@ setClass("USL",
 
            if (any(object@efficiency > 1)) {
              # Capacity grows more than load: can this really be?
-             warning("'data' shows efficiency > 1; this looks almost too good to be true")
+             warning("'data' shows efficiency > 1; ",
+                     "this looks almost too good to be true",
+                     call. = FALSE)
            }
 
            if (length(err) == 0) return(TRUE) else return(err)
