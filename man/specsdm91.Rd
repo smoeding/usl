@@ -8,7 +8,8 @@
 Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
   Approach to Planning for Highly Scalable Applications and Services.
   Springer, Heidelberg, Germany, 1st edition, 2007.
-  Original dataset from \url{http://www.spec.org/osg/sdm91/results/results.html}
+  Original dataset from
+  \url{http://www.spec.org/osg/sdm91/results/results.html}
 }
 \description{
 A dataset containing performance data for a Sun SPARCcenter 2000 (16 CPUs)
