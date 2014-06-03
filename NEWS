@@ -1,4 +1,4 @@
-CHANGES in `usl' VERSION 1.3.0 (2014-xx-xx)
+CHANGES in `usl' VERSION 1.3.0 (2014-06-02)
 
 * The estimation of standard errors for the coefficients has been rewritten.
   Bootstrapping is no longer used for the calculation. Therefore the argument
