@@ -1,7 +1,7 @@
 
-R version 3.0.3 (2014-03-06) -- "Warm Puppy"
+R version 3.1.0 (2014-04-10) -- "Spring Dance"
 Copyright (C) 2014 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin10.8.0 (64-bit)
+Platform: x86_64-apple-darwin13.1.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,8 +23,29 @@ Type 'q()' to quit R.
 > 
 > data(specsdm91)
 > 
-> u <- usl(throughput ~ load, specsdm91, method = "nlxb")
+> usl(throughput ~ load, specsdm91, method = "nlxb")
+
+Call:
+usl(formula = throughput ~ load, data = specsdm91, method = "nlxb")
+
+Scale Factor for normalization: 90 
+
+Efficiency:
+    Min      1Q  Median      3Q     Max 
+0.08757 0.16257 0.28600 0.56240 0.72114 
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-81.66 -48.29 -25.10  29.52 111.10 
+
+Coefficients:
+       Estimate   Std. Error
+sigma  2.773e-02  2.183e-03 
+kappa  1.044e-04  1.724e-05 
+
+Residual standard error: 74.1 on 5 degrees of freedom
+Multiple R-squared: 0.9896,	Adjusted R-squared: 0.9875
 > 
 > proc.time()
    user  system elapsed 
-  1.009   0.083   1.076 
+  0.506   0.055   0.546 
