@@ -207,14 +207,14 @@ number of processors. This plot is a typical example for the effects of
 \emph{diminishing returns}, because it clearly shows how the benefit of adding
 more processors to the system gets smaller for higher numbers of processors.
 
-\begin{figure*}[hbt]
+\begin{figure}[hbt]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<rtplot1>>
 @
 \caption{Measured throughput of a raytracing software in relation to the number of available processors}
 \label{fig:rtplot1}
-\end{figure*}
+\end{figure}
 
 Our next step builds the USL model from the dataset. The \kbd{usl()}
 function creates an S4 object that encapsulates the computation.
@@ -275,14 +275,14 @@ shows the output diagram.
 barplot(efficiency(usl.model), ylab = "efficiency / processor", xlab = "processors")
 @
 
-\begin{figure*}[hbt]
+\begin{figure}[hbt]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<rtbarplot>>
 @
 \caption{Rate of efficiency per processor for different numbers of processors running the raytracing software}
 \label{fig:rtbarplot}
-\end{figure*}
+\end{figure}
 
 The efficiency can be used for a first validation and sanity check of the
 measured values. Values larger than $1.0$ usually need a closer investigation.
@@ -317,14 +317,14 @@ plot(throughput ~ processors, data = raytracer, pch = 16)
 plot(usl.model, add = TRUE)
 @
 
-\begin{figure*}[hbt]
+\begin{figure}[hbt]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<rtplot2>>
 @
 \caption{Throughput of a raytracing software using different numbers of processors}
 \label{fig:rtplot2}
-\end{figure*}
+\end{figure}
 
 SGI marketed the Origin 2000 with up to 128 processors. Let's assume that
 going from 64 to 128 processors does not introduce any additional limitations
@@ -463,14 +463,14 @@ given load, i.e., the number of simulated users. The solid line indicates the
 derived USL model while the dashed line resembles our hypothetical system using
 the proposed optimization.
 
-\begin{figure*}[hbt]
+\begin{figure}[hbt]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<spplot1>>
 @
 \caption{The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 (dots) together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)}
 \label{fig:spplot1}
-\end{figure*}
+\end{figure}
 
 From the figure we can see that the scalability really peaks at one point.
 Increasing the load beyond that point leads to retrograde behavior, i.e.,
@@ -544,14 +544,14 @@ lines(load[, 1], fit[, 'fit'])
 
 See \autoref{fig:ciplot1} for the entire plot.
 
-\begin{figure*}[hbt]
+\begin{figure}[hbt]
 \centering
 <<fig=TRUE, echo=FALSE>>=
 <<ciplot1>>
 @
 \caption{The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\% level}
 \label{fig:ciplot1}
-\end{figure*}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
