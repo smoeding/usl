@@ -341,8 +341,9 @@ usl <- function(formula, data, method = "default", R) {
   # Build gradient matrix
   grad <- gradient.usl(.Object)
 
-  XtXinv <- solve(t(grad) %*% grad)
-
+  # Changed from XtXinv <- solve(t(grad) %*% grad)
+  XtXinv <- solve(crossprod(grad))
+  
   # Standard error of coefficients
   .Object@coef.std.err <- sqrt(diag(XtXinv) * resvar)
 
