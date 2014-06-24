@@ -334,16 +334,23 @@ usl <- function(formula, data, method = "default", R) {
   .Object@r.squared     <- 1 - (sum(y.res ^ 2) / sum((y.obs - mean(y.obs)) ^ 2))
   .Object@adj.r.squared <- 1 - (1 - .Object@r.squared) * ((n-1) / (n-p-1))
 
+
+  # The following estimation of the standard errors is based on the
+  # source code of the nls() function in R base.
+  # See also: Nonlinear Regression and Nonlinear Least Squares,
+  # Appendix to An R and S-PLUS Companion to Applied Regression, John
+  # Fox, January 2002
+
   # residual variance
   df <- df.residual(.Object)
   resvar <- if(df <= 0) NaN else sum(y.res ^ 2) / df
-  
+
   # Build gradient matrix
   grad <- gradient.usl(.Object)
 
-  # Changed from XtXinv <- solve(t(grad) %*% grad)
+  # t(grad) %*% grad = crossprod(grad)
   XtXinv <- solve(crossprod(grad))
-  
+
   # Standard error of coefficients
   .Object@coef.std.err <- sqrt(diag(XtXinv) * resvar)
 
