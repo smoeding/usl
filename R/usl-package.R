@@ -36,7 +36,7 @@
 #' The USL model produces two coefficients as result: \code{sigma} models the
 #' contention and \code{kappa} the coherency delay of the system.
 #'
-#' The Universal Scalability Law has been created by Dr. Neil Gunther.
+#' The Universal Scalability Law has been created by Dr. Neil J. Gunther.
 #'
 #' @seealso \code{\link{usl}}
 #'
