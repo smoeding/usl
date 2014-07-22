@@ -219,6 +219,7 @@ usl.solve.nlxb <- function(model) {
 #'   \code{\link{peak.scalability,USL-method}},
 #'   \code{\link{summary,USL-method}},
 #'   \code{\link{predict,USL-method}},
+#'   \code{\link{overhead,USL-method}},
 #'   \code{\link{confint,USL-method}},
 #'   \code{\link{coef}},
 #'   \code{\link{fitted}},
@@ -348,8 +349,7 @@ usl <- function(formula, data, method = "default", R) {
   # Build gradient matrix
   grad <- gradient.usl(.Object)
 
-  # t(grad) %*% grad = crossprod(grad)
-  XtXinv <- solve(crossprod(grad))
+  XtXinv <- solve(t(grad) %*% grad)
 
   # Standard error of coefficients
   .Object@coef.std.err <- sqrt(diag(XtXinv) * resvar)

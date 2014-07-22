@@ -38,3 +38,5 @@ setGeneric("peak.scalability",
            function(object, sigma, kappa) standardGeneric("peak.scalability"))
 setGeneric("efficiency",
            function(object) standardGeneric("efficiency"))
+setGeneric("overhead",
+           function(object, newdata) standardGeneric("overhead"))
