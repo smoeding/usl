@@ -1,5 +1,5 @@
 
-R version 3.1.0 (2014-04-10) -- "Spring Dance"
+R version 3.1.1 (2014-07-10) -- "Sock it to Me"
 Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin13.1.0 (64-bit)
 
@@ -48,4 +48,4 @@ Multiple R-squared: 0.9896,	Adjusted R-squared: 0.9875
 > 
 > proc.time()
    user  system elapsed 
-  0.506   0.055   0.546 
+  0.511   0.055   0.570 
