@@ -93,10 +93,10 @@ setMethod(
     y.contention <- coef(object)[['sigma']] * (x - 1) / x
     y.coherency  <- coef(object)[['kappa']] * (1/2) * (x - 1)
 
-    col.names <-  c(object@regr, "ideal", "contention", "coherency")
+    col.names <-  c("ideal", "contention", "coherency")
 
     # Return the matrix
-    matrix(c(x, y.ideal, y.contention, y.coherency),
+    matrix(c(y.ideal, y.contention, y.coherency),
            nrow = length(x), dimnames = list(seq(x), col.names))
   }
 )
