@@ -27,6 +27,9 @@
 \usepackage[utopia]{mathdesign}
 \usepackage{beramono}
 
+\usepackage{amsmath}
+\usepackage{nicefrac}
+
 % Package hyperref
 \usepackage[pdfusetitle,hidelinks]{hyperref}
 \usepackage[all]{hypcap}
@@ -204,8 +207,9 @@ plot(throughput ~ processors, data = raytracer)
 
 \autoref{fig:rtplot1} shows the throughput of the system for the different
 number of processors. This plot is a typical example for the effects of
-\emph{diminishing returns}, because it clearly shows how the benefit of adding
-more processors to the system gets smaller for higher numbers of processors.
+\emph{diminishing returns}\label{dimret}, because it clearly shows how the
+benefit of adding more processors to the system gets smaller for higher
+numbers of processors.
 
 \begin{figure}[hbt]
 \centering
@@ -349,6 +353,8 @@ According to the model, the system would achieve its highest throughput with
 \Sexpr{floor(peak.scalability(usl.model))} processors. This is certainly a
 result that could not easily be deduced from the original dataset.
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Case Study: Software Scalability}
 
 In this section we will perform an analysis of a SPEC benchmark. A Sun
@@ -553,8 +559,92 @@ See \autoref{fig:ciplot1} for the entire plot.
 \label{fig:ciplot1}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Another way to illustrate the impact of the parameters $\sigma$ and $\kappa$ on
+the scalability is by looking at the achievable speedup when a fixed load is
+parallelized. A naive estimation would be that doubling the degree of 
+parallelization should cut the execution time in halve.
 
+Unfortunately it doesn't work this way. In general there is a range where
+doubling the parallelization will actually improve the execution time. But the
+improvement will get smaller and smaller when the degree of parallelism is
+increased further. Again this is an effect of \emph{diminishing returns} as
+already seen in \autoref{dimret}. The real execution time is in fact the sum
+of the ideal execution time and the overhead for dealing with contention and
+coherency delays.
+
+Dr.~Gunther shows in \cite{DBLP:journals/corr/abs-0808-1431} how the total
+execution time of a parallelized workload depends on the degree of parallelism
+$p$ and the coefficients $\sigma$ and $\kappa$ of the associated USL model.
+Equation 26 in his paper identifies the magnitude of the three components
+--- given as fractions of the serial execution time $T_1$ --- that account for
+the total execution time of the parallelized workload.
+
+\begin{align}
+T_{ideal}      &= \frac{1}{p} T_1\label{eqn:ideal}\\
+T_{contention} &= \sigma \left(\frac{p-1}{p}\right) T_1\label{eqn:contention}\\
+T_{coherency}  &= \kappa \frac{1}{2} (p-1) T_1\label{eqn:coherency}
+\end{align}
+
+The function \kbd{overhead()} can be used to calculate the correspondent
+fractions for a given model. The function has the same interface as the
+\kbd{predict()} function. Calling it with only the model as argument will
+calculate the overhead for the fitted values. It can also be called with a
+data frame as second argument. Then the data frame will be used to determine
+the values for the calculation.
+
+Let's use our current model to calculate the overhead for a load of $10$,
+$20$, $100$ and $200$ simulated users. We create a data frame with the number
+of users and use the \kbd{overhead()} function to estimate the overhead.
+
+<<>>=
+load <- data.frame(load = c(10, 20, 100, 200))
+ovhd <- overhead(usl.model, newdata = load)
+ovhd
+@
+
+We can see that the ideal execution time for running $10$ jobs in parallel is
+$\nicefrac{1}{10}$ of the execution time of running the jobs unparallelized.
+To get the total fraction we have to add the overhead for contention
+($\Sexpr{100*signif(ovhd[1,'contention'], 2)}\%$) and for coherency delays
+($\Sexpr{100*signif(ovhd[1,'coherency'], 2)}\%$). 
+This gives a total of $\Sexpr{100*signif(sum(ovhd[1,]), 4)}\%$. So with $10$
+jobs in parallel we are only about $\Sexpr{signif(1/sum(ovhd[1,]), 2)}$ times
+faster than running the same workload in a serial way.
+
+\autoref{eqn:contention} shows that the percentage of time spent on dealing
+with contention will converge to the value of $\sigma$. \autoref{eqn:coherency}
+explains that coherency delays will grow beyond any limit if the degree of
+parallelism is large enough. This corresponds to the observation that adding
+more parallelism will sometimes make performance worse.
+
+A stacked barplot can be used to visualize how the different effects change
+with an increasing degree of parallelism. Note that the result matrix must be
+transposed to match the format needed for for the \kbd{barplot()} command.
+
+<<ovplot1>>=
+barplot(height = t(ovhd), names.arg = load[, 1],
+        xlab = names(load), legend.text = TRUE)
+@
+
+\begin{figure}[hbt]
+\centering
+<<fig=TRUE, echo=FALSE>>=
+<<ovplot1>>
+@
+\caption{Components of the execution time for parallelized workloads of the SPECSDM91 benchmark. The time is measured as a fraction of the time needed for serial execution of the workload.}
+\label{fig:ovplot1}
+\end{figure}
+
+\autoref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease
+in ideal execution time when the degree of parallelism is increased. It also
+shows how initially almost only contention contributes to the total execution
+time. For higher degrees of parallelism the impact of coherency delays has a
+growing impact. Also observe that the big difference in ideal execution time
+between $100$ and $200$ parallel jobs effectively leads to no improvement in
+the total execution time.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Case Study: Multivalued Data}
 
 %TODO
