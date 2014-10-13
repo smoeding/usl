@@ -638,10 +638,9 @@ barplot(height = t(ovhd), names.arg = load[, 1],
 \autoref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease
 in ideal execution time when the degree of parallelism is increased. It also
 shows how initially almost only contention contributes to the total execution
-time. For higher degrees of parallelism the impact of coherency delays has a
-growing impact. Also observe that the big difference in ideal execution time
-between $100$ and $200$ parallel jobs effectively leads to no improvement in
-the total execution time.
+time. For higher degrees of parallelism the impact of coherency delays grows.
+Note how the big difference in ideal execution time between $100$ and $200$
+parallel jobs effectively has no effect on the total execution time.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
