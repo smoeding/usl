@@ -567,7 +567,7 @@ parallelization should cut the execution time in halve.
 Unfortunately it doesn't work this way. In general there is a range where
 doubling the parallelization will actually improve the execution time. But the
 improvement will get smaller and smaller when the degree of parallelism is
-increased further. Again this is an effect of \emph{diminishing returns} as
+increased further. This is also an effect of \emph{diminishing returns} as
 already seen in \autoref{dimret}. The real execution time is in fact the sum
 of the ideal execution time and the overhead for dealing with contention and
 coherency delays.
@@ -639,7 +639,7 @@ barplot(height = t(ovhd), names.arg = load[, 1],
 in ideal execution time when the degree of parallelism is increased. It also
 shows how initially almost only contention contributes to the total execution
 time. For higher degrees of parallelism the impact of coherency delays grows.
-Note how the big difference in ideal execution time between $100$ and $200$
+Note how the difference in ideal execution time between $100$ and $200$
 parallel jobs effectively has no effect on the total execution time.
 
 
