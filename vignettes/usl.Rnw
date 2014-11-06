@@ -5,7 +5,7 @@
 %\VignettePackage{usl}
 
 \subject{Using the usl package}
-\title{Analyze system scalability in R with the Universal Scalability Law}
+\title{Analyze System Scalability in R with the Universal Scalability Law}
 \author{Stefan M\"oding}
 
 \usepackage{fixltx2e}
