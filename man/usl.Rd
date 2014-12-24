@@ -18,7 +18,7 @@ If not found in data, the variables are taken from
 \code{usl} is called.}
 
 \item{method}{Character value specifying the method to use. The possible
-values are described unter 'Details'.}
+values are described under 'Details'.}
 
 \item{R}{This parameter is no longer used and will be removed in the next
   version.}

@@ -208,7 +208,7 @@ usl.solve.nlxb <- function(model) {
 #'   \code{environment(formula)}, typically the environment from which
 #'   \code{usl} is called.
 #' @param method Character value specifying the method to use. The possible
-#'   values are described unter 'Details'.
+#'   values are described under 'Details'.
 #' @param R This parameter is no longer used and will be removed in the next
 #'   version.
 #'
