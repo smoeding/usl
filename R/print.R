@@ -82,7 +82,7 @@ setMethod(
     print.default(format(para.mat[ ,1:2], digits = digits),
                   print.gap = 2, quote = FALSE)
 
-    se <- ifelse(x@df.residual <= 0, NaN, sqrt(sum(x@residuals ^ 2) / x@df.residual))
+    se <- if (x@df.residual > 0) sqrt(sum(x@residuals ^ 2) / x@df.residual) else NaN
 
     cat("\nResidual standard error:",
         format(signif(se, digits)), "on", x@df.residual, "degrees of freedom")
