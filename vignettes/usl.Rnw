@@ -1,5 +1,5 @@
 \documentclass[pagesize=auto,parskip=half,toc=bib]{scrartcl}
-%\VignetteIndexEntry{Using the usl package to analyze system scalability}
+%\VignetteIndexEntry{Using the USL Package to Analyze System Scalability}
 %\VignetteDepends{usl}
 %\VignetteKeyword{usl}
 %\VignettePackage{usl}
