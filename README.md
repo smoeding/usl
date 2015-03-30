@@ -1,5 +1,7 @@
 # Analyze system scalability with the Universal Scalability Law
 
+[![Build Status](https://travis-ci.org/smoeding/usl.svg?branch=master)](https://travis-ci.org/smoeding/usl)
+
 This is an R package to analyze system performance data with the Universal Scalability Law.
 
 The Universal Scalability Law (USL) was developed by Dr. Neil J. Gunther. It can be used to analyze system performance data in order to learn more about the scalability limitations of the system.
@@ -49,7 +51,7 @@ Residuals:
 -70.89 -23.59  19.39  86.14 274.88
 
 Coefficients:
-       Estimate   Std. Error
+	   Estimate   Std. Error
 sigma  1.705e-02  3.318e-03
 kappa  7.892e-05  2.492e-05
 
