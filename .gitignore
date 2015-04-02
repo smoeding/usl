@@ -1,7 +1,6 @@
 # Exclude R and RStudio files
 .RData
 .Rhistory
-.Rbuildignore
 .Rproj.user
 *.Rproj
 *-Ex.R
