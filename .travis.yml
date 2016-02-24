@@ -8,3 +8,4 @@ warnings_are_errors: false
 
 before_install:
   - tlmgr install mathdesign
+  - tlmgr install bera
