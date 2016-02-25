@@ -1,7 +1,7 @@
 
-R version 3.1.1 (2014-07-10) -- "Sock it to Me"
-Copyright (C) 2014 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.1.0 (64-bit)
+R version 3.2.2 (2015-08-14) -- "Fire Safety"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -48,4 +48,4 @@ Multiple R-squared: 0.9896,	Adjusted R-squared: 0.9875
 > 
 > proc.time()
    user  system elapsed 
-  0.511   0.055   0.570 
+  0.500   0.060   0.552 
