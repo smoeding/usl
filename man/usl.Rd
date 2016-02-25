@@ -63,6 +63,10 @@ model:
     expected to be more robust than the \code{nls} method.
 }
 
+The "\code{nlxb}" solver is used as fallback if the "\code{default}"
+method is selected and a predictor equal "\code{1}" is missing. A warning
+message will be printed in this case.
+
 The Universal Scalability Law can be expressed with following formula.
 \code{C(N)} predicts the relative capacity of the system for a given
 load \code{N}:

@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 Stefan Moeding
+# Copyright (c) 2013-2016 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -193,6 +193,10 @@ usl.solve.nlxb <- function(model) {
 #'     expected to be more robust than the \code{nls} method.
 #' }
 #'
+#' The "\code{nlxb}" solver is used as fallback if the "\code{default}"
+#' method is selected and a predictor equal "\code{1}" is missing. A warning
+#' message will be printed in this case.
+#'
 #' The Universal Scalability Law can be expressed with following formula.
 #' \code{C(N)} predicts the relative capacity of the system for a given
 #' load \code{N}:
@@ -305,6 +309,13 @@ usl <- function(formula, data, method = "default", R) {
   # Choose solver function
   sel <- switch(method, nls=2, nlxb=3, 1)
   usl.solve <- switch(sel, usl.solve.lm, usl.solve.nls, usl.solve.nlxb)
+  
+  # Use method 'nlxb' as fallback if scale factor is missing in data
+  if ((sel == 1)  && (all(frame[regr] != 1))) {
+    usl.solve <- usl.solve.nlxb
+    warning(paste0("'data' has no row where '", regr, "' = 1; ",
+                   "switching method from 'default' to 'nlxb'"))
+  }
 
   # Solve the model for the model frame
   model.result <- usl.solve(model.input)
