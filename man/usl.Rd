@@ -4,7 +4,7 @@
 \alias{usl}
 \title{Create a model for the Universal Scalability Law}
 \usage{
-usl(formula, data, method = "default", R)
+usl(formula, data, method = "default")
 }
 \arguments{
 \item{formula}{An object of class "\code{\link{formula}}" (or one that
@@ -19,9 +19,6 @@ If not found in data, the variables are taken from
 
 \item{method}{Character value specifying the method to use. The possible
 values are described under 'Details'.}
-
-\item{R}{This parameter is no longer used and will be removed in the next
-version.}
 }
 \value{
 An object of class USL.

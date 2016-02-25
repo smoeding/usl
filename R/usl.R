@@ -213,8 +213,6 @@ usl.solve.nlxb <- function(model) {
 #'   \code{usl} is called.
 #' @param method Character value specifying the method to use. The possible
 #'   values are described under 'Details'.
-#' @param R This parameter is no longer used and will be removed in the next
-#'   version.
 #'
 #' @return An object of class USL.
 #'
@@ -263,7 +261,7 @@ usl.solve.nlxb <- function(model) {
 #'
 #' @export
 #'
-usl <- function(formula, data, method = "default", R) {
+usl <- function(formula, data, method = "default") {
   ## canonicalize the arguments
   formula <- as.formula(formula)
 
@@ -319,11 +317,6 @@ usl <- function(formula, data, method = "default", R) {
 
   # Solve the model for the model frame
   model.result <- usl.solve(model.input)
-
-  # Warn about old parameter usage
-  if (!missing(R)) {
-    warning("parameter 'R' is no longer used")
-  }
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
