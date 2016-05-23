@@ -5,8 +5,8 @@ r:
   - oldrel
   - release
   - devel
-r_build_args: "--no-manual"
-r_check_args: "--no-manual --as-cran"
+r_build_args: "--no-build-vignettes --no-manual"
+r_check_args: "--no-build-vignettes --no-manual --as-cran"
 warnings_are_errors: false
 addons:
   apt:
