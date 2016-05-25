@@ -8,27 +8,20 @@
 \title{Analyze System Scalability in R with the Universal Scalability Law}
 \author{Stefan M\"oding}
 
-\usepackage{fixltx2e}
-\usepackage{microtype}
-
-\usepackage{Sweave}
-\SweaveOpts{engine=R, eps=FALSE, keep.source=FALSE, height=3.8}
-
-\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em}
-\DefineVerbatimEnvironment{Sinput}{Verbatim}{xleftmargin=2em}
-\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=2em}
-\fvset{listparameters={\setlength{\topsep}{0pt}}}
-\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}}
-
 % Encoding, fonts & language
-\usepackage[utf8]{inputenc}
+\usepackage[scaled=.88]{beramono}
+\usepackage[scaled=.86]{berasans}
+\usepackage{mathpazo}
+\linespread{1.05}\selectfont
+
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage[utopia]{mathdesign}
-\usepackage{beramono}
 
 \usepackage{amsmath}
+\usepackage{microtype}
 \usepackage{nicefrac}
+\usepackage[all]{nowidow}
 
 % Package hyperref
 \usepackage[pdfusetitle,hidelinks]{hyperref}
@@ -45,8 +38,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 <<options, echo=FALSE>>=
-options(prompt="R> ", scipen=4, digits=3, width=66, show.signif.stars=FALSE)
-options(SweaveHooks=list(fig = function() par(mar = c(4.1, 4.1, 2.1, 2.1))))
+library(knitr)
+
+# set global chunk options
+opts_knit$set(progress=FALSE, verbose=FALSE)
+opts_chunk$set(prompt=TRUE, comment=NA, tidy=FALSE, warning=FALSE)
+opts_chunk$set(size='footnotesize', out.width='0.97\\textwidth')
+opts_chunk$set(fig.width=7, fig.height=4.0, fig.align='center')
+
+knit_hooks$set(small.mar=function(before, options, envir) {
+if (before && options$fig.show != 'none')
+  par(mar=c(4.1, 4.1, 1.1, 2.1))
+})
+
+options(prompt="R> ", scipen=4, digits=4, width=78)
+options(str=strOptions(strict.width='cut'), show.signif.stars=FALSE)
+
 set.seed(42, kind = "default", normal.kind = "default")
 @
 
@@ -201,7 +208,7 @@ the gain for upgrading from 48 to 64 processors.
 
 Create a simple scatterplot to get a grip on the data.
 
-<<rtplot1>>=
+<<rtplot1,fig.keep='none'>>=
 plot(throughput ~ processors, data = raytracer)
 @
 
@@ -213,7 +220,7 @@ numbers of processors.
 
 \begin{figure}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE,small.mar=TRUE>>=
 <<rtplot1>>
 @
 \caption{Measured throughput of a raytracing software in relation to the number of available processors}
@@ -275,13 +282,13 @@ A bar plot is useful to visually compare the decreasing efficiencies for the
 configurations with an increasing number of processors. \autoref{fig:rtbarplot}
 shows the output diagram.
 
-<<rtbarplot>>=
+<<rtbarplot,fig.keep='none'>>=
 barplot(efficiency(usl.model), ylab = "efficiency / processor", xlab = "processors")
 @
 
 \begin{figure}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE,small.mar=TRUE>>=
 <<rtbarplot>>
 @
 \caption{Rate of efficiency per processor for different numbers of processors running the raytracing software}
@@ -316,14 +323,14 @@ function and create a combined graph with the original data as dots and the
 calculated scalability function as a solid line. \autoref{fig:rtplot2} has the
 result of that plot.
 
-<<rtplot2>>=
+<<rtplot2,fig.keep='none'>>=
 plot(throughput ~ processors, data = raytracer, pch = 16)
 plot(usl.model, add = TRUE)
 @
 
 \begin{figure}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE,small.mar=TRUE>>=
 <<rtplot2>>
 @
 \caption{Throughput of a raytracing software using different numbers of processors}
@@ -406,8 +413,8 @@ There are currently three possible values for the \texttt{method} parameter:
 \end{labeling}
 
 Keep in mind that if there is no measurement where ``load'' equals $1$ then the
-default method does not work and an error message will be printed. In this case
-one of the remaining methods must be used.
+default method does not work and a warning message will be printed. In this case
+the \kbd{usl()} function will automatically apply the \texttt{nlxb} method.
 
 We also use the \kbd{summary()} function to look at the details for the
 analysis.
@@ -452,7 +459,7 @@ original data points and the derived scalability functions. To completely
 include the scalability of the hypothetical system, we have to increase the
 range of the plotted values with the first command.
 
-<<spplot1>>=
+<<spplot1,fig.keep='none'>>=
 plot(specsdm91, pch = 16, ylim = c(0,2500))
 plot(usl.model, add = TRUE)
 cache.scale <- scalability(usl.model, kappa = 0.00005)
@@ -471,7 +478,7 @@ the proposed optimization.
 
 \begin{figure}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE,small.mar=TRUE>>=
 <<spplot1>>
 @
 \caption{The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 (dots) together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)}
@@ -520,9 +527,8 @@ lower bounds from lower to higher values and then back using the points of the
 upper bounds.
 
 <<>>=
-usl.polygon <- matrix(c(load[, 1], rev(load[, 1]),
-                        fit[, 'lwr'], rev(fit[, 'upr'])),
-                 nrow = 2 * nrow(load))
+usl.polygon <- matrix(c(load[, 1], rev(load[, 1]), fit[, 'lwr'], rev(fit[, 'upr'])),
+                       nrow = 2 * nrow(load))
 @
 
 The plot is composed from multiple single plots. The first plot initializes the
@@ -530,13 +536,10 @@ canvas and creates the axis. Then the polygon is plotted using a gray area. In
 the next step the measured values are added as points. Finally a solid line is
 plotted to indicate the fitted scalability function.
 
-<<ciplot1>>=
+<<ciplot1,fig.keep='none'>>=
 # Create empty plot (define canvas size, axis, ...)
-plot(specsdm91,
-     ylim = c(0, 2000), 
-     xlab = names(specsdm91)[1],
-     ylab = names(specsdm91)[2], 
-     type = "n")
+plot(specsdm91, xlab = names(specsdm91)[1], ylab = names(specsdm91)[2], 
+      ylim = c(0, 2000), type = "n")
 
 # Plot gray polygon indicating the confidence interval
 polygon(usl.polygon, border = NA, col = "gray")
@@ -552,7 +555,7 @@ See \autoref{fig:ciplot1} for the entire plot.
 
 \begin{figure}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE,small.mar=TRUE>>=
 <<ciplot1>>
 @
 \caption{The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\% level}
@@ -621,17 +624,17 @@ A stacked barplot can be used to visualize how the different effects change
 with an increasing degree of parallelism. Note that the result matrix must be
 transposed to match the format needed for for the \kbd{barplot()} command.
 
-<<ovplot1>>=
-barplot(height = t(ovhd), names.arg = load[, 1],
-        xlab = names(load), legend.text = TRUE)
+<<ovplot1,fig.keep='none'>>=
+barplot(height = t(ovhd), names.arg = load[, 1], xlab = names(load),
+         legend.text = TRUE)
 @
 
 \begin{figure}[hbt]
 \centering
-<<fig=TRUE, echo=FALSE>>=
+<<echo=FALSE,small.mar=TRUE>>=
 <<ovplot1>>
 @
-\caption{Components of the execution time for parallelized workloads of the SPECSDM91 benchmark. The time is measured as a fraction of the time needed for serial execution of the workload.}
+\caption{Decomposition of the execution time for parallelized workloads of the SPECSDM91 benchmark. The time is measured as a fraction of the time needed for serial execution of the workload.}
 \label{fig:ovplot1}
 \end{figure}
 
