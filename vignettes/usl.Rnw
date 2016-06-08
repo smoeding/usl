@@ -65,7 +65,7 @@ opts_chunk$set(fig.path='usl-', small.mar=TRUE)
 The Universal Scalability Law is used to quantify the scalability of hardware
 or software systems. It uses sparse measurements from an existing system to
 predict the throughput for different loads and can be used to learn more about
-the scalability limitations of the system. This document introduces the `\usl'
+the scalability limitations of the system. This document introduces the \usl{}
 package for \R{} and shows how easily it can be used to perform the relevant
 calculations.
 \end{abstract}
@@ -76,7 +76,7 @@ calculations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Version}
 
-This document describes version \Sexpr{packageVersion("usl")} of the `\usl'
+This document describes version \Sexpr{packageVersion("usl")} of the \usl{}
 package.
 
 
@@ -157,7 +157,7 @@ and $\kappa$ using a sparse set of measurements for the throughput $X_i$ at
 different loads $N_i$. The computations used to solve the equation for the
 measured values are discussed in \cite{Gun07}.
 
-The `\usl' package has been created to subsume the computation into one simple
+The \usl{} package has been created to subsume the computation into one simple
 function call. This greatly reduces the manual work that previously was needed
 to perform the scalability analysis.
 
@@ -166,20 +166,20 @@ the analyst with the data quality of the measurements.
 
 Note that in \cite{Gun07} the coefficients are called $\sigma$ and $\kappa$
 when hardware scalability is evaluated but $\alpha$ and $\beta$ when software
-scalability is analyzed. The `\usl' package only uses \texttt{sigma} and
+scalability is analyzed. The \usl{} package only uses \texttt{sigma} and
 \texttt{kappa} as names of the coefficients.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Examples of Scalability Analysis}
 
-The following sections present some examples of how the `\usl' package can
+The following sections present some examples of how the \usl{} package can
 be used when performing a scalability analysis. They also explain typical
 function calls and their arguments.
 
 \subsection{Case Study: Hardware Scalability}
 
-The `\usl' package contains a demo dataset with benchmark measurements from a
+The \usl{} package contains a demo dataset with benchmark measurements from a
 raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}.
 The data was gathered on an SGI~Origin~2000 with 64 R12000 processors running
 at 300~MHz.
@@ -194,7 +194,7 @@ constant. So when $k$ application processes were used for the $N$ processor
 benchmark then $2k$ processes must be used to get the result for $2N$
 processors.
 
-Start the analysis by loading the `\usl' package and look at the supplied
+Start the analysis by loading the \usl{} package and look at the supplied
 dataset.
 
 <<>>=
@@ -301,7 +301,7 @@ by calling the \kbd{confint()} function.
 confint(usl.model, level = 0.95)
 @
 
-Earlier releases of the `\usl' package used bootstrapping to estmate the
+Earlier releases of the \usl{} package used bootstrapping to estmate the
 confidence intervals. This has been changed since bootstrapping with a small
 sample size may not give the desired accuracy. Currently the confidence
 intervals are calculated from the standard errors of the parameters.
@@ -662,7 +662,7 @@ plot(usl.oracle, add=TRUE)
 @
 
 We use the \texttt{nlxb} method here because the data does not include a value
-for exactly one average active session. Current versions of the `\usl' package
+for exactly one average active session. Current versions of the \usl{} package
 will automatically switch to the \texttt{nlxb} method if the data does not
 provide the required measurements for the \texttt{default} method. So you may
 omit this option usually.
