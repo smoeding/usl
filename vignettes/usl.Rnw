@@ -8,15 +8,15 @@
 \title{Analyze System Scalability in R with the Universal Scalability Law}
 \author{Stefan M\"oding}
 
-% Encoding, fonts & language
-\usepackage[scaled=.88]{beramono}
-\usepackage[scaled=.86]{berasans}
-\usepackage{mathpazo}
-\linespread{1.05}\selectfont
-
+% Fonts, encoding & language
+\usepackage[utopia]{mathdesign}
+\usepackage{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+
+% Adobe Helvetica
+\renewcommand{\sfdefault}{phv}
 
 \usepackage{amsmath}
 \usepackage{microtype}
@@ -34,28 +34,29 @@
 \newcommand{\usl}{{\normalfont\textsf{usl}}}
 \newcommand{\kbd}[1]{{\normalfont\textit{\texttt{#1}}}}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{document}
-<<options, echo=FALSE>>=
+<<echo=FALSE>>=
 library(knitr)
 
-# set global chunk options
+options(prompt="R> ", scipen=4, digits=4, width=78)
+options(str=strOptions(strict.width='cut'), show.signif.stars=FALSE)
+
 opts_knit$set(progress=FALSE, verbose=FALSE)
-opts_chunk$set(prompt=TRUE, comment=NA, tidy=FALSE, warning=FALSE)
-opts_chunk$set(size='footnotesize', out.width='0.97\\textwidth')
-opts_chunk$set(fig.width=7, fig.height=4.0, fig.align='center')
 
 knit_hooks$set(small.mar=function(before, options, envir) {
 if (before && options$fig.show != 'none')
   par(mar=c(4.1, 4.1, 1.1, 2.1))
 })
 
-options(prompt="R> ", scipen=4, digits=4, width=78)
-options(str=strOptions(strict.width='cut'), show.signif.stars=FALSE)
+opts_chunk$set(prompt=TRUE, comment=NA, tidy=FALSE, warning=FALSE)
+opts_chunk$set(size='footnotesize', out.width='0.97\\textwidth')
+opts_chunk$set(fig.width=7, fig.height=3.6, fig.align='center')
+opts_chunk$set(small.mar=TRUE)
 
-set.seed(42, kind = "default", normal.kind = "default")
 @
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
 
 \maketitle
 
@@ -208,24 +209,19 @@ the gain for upgrading from 48 to 64 processors.
 
 Create a simple scatterplot to get a grip on the data.
 
-<<rtplot1,fig.keep='none'>>=
+<<'rtplot1', fig.show='hide'>>=
 plot(throughput ~ processors, data = raytracer)
 @
 
-\autoref{fig:rtplot1} shows the throughput of the system for the different
+\autoref{fig:rtplot2} shows the throughput of the system for the different
 number of processors. This plot is a typical example for the effects of
 \emph{diminishing returns}\label{dimret}, because it clearly shows how the
 benefit of adding more processors to the system gets smaller for higher
 numbers of processors.
 
-\begin{figure}[hbt]
-\centering
-<<echo=FALSE,small.mar=TRUE>>=
+<<'rtplot2', echo=FALSE, fig.cap='Measured throughput of a raytracing software in relation to the number of available processors'>>=
 <<rtplot1>>
 @
-\caption{Measured throughput of a raytracing software in relation to the number of available processors}
-\label{fig:rtplot1}
-\end{figure}
 
 Our next step builds the USL model from the dataset. The \kbd{usl()}
 function creates an S4 object that encapsulates the computation.
@@ -282,18 +278,9 @@ A bar plot is useful to visually compare the decreasing efficiencies for the
 configurations with an increasing number of processors. \autoref{fig:rtbarplot}
 shows the output diagram.
 
-<<rtbarplot,fig.keep='none'>>=
+<<'rtbarplot', fig.cap='Rate of efficiency per processor for different numbers of processors running the raytracing software'>>=
 barplot(efficiency(usl.model), ylab = "efficiency / processor", xlab = "processors")
 @
-
-\begin{figure}[hbt]
-\centering
-<<echo=FALSE,small.mar=TRUE>>=
-<<rtbarplot>>
-@
-\caption{Rate of efficiency per processor for different numbers of processors running the raytracing software}
-\label{fig:rtbarplot}
-\end{figure}
 
 The efficiency can be used for a first validation and sanity check of the
 measured values. Values larger than $1.0$ usually need a closer investigation.
@@ -320,22 +307,13 @@ intervals are calculated from the standard errors of the parameters.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the
-calculated scalability function as a solid line. \autoref{fig:rtplot2} has the
+calculated scalability function as a solid line. \autoref{fig:rtplot3} has the
 result of that plot.
 
-<<rtplot2,fig.keep='none'>>=
+<<'rtplot3', fig.cap='Throughput of a raytracing software using different numbers of processors'>>=
 plot(throughput ~ processors, data = raytracer, pch = 16)
 plot(usl.model, add = TRUE)
 @
-
-\begin{figure}[hbt]
-\centering
-<<echo=FALSE,small.mar=TRUE>>=
-<<rtplot2>>
-@
-\caption{Throughput of a raytracing software using different numbers of processors}
-\label{fig:rtplot2}
-\end{figure}
 
 SGI marketed the Origin 2000 with up to 128 processors. Let's assume that
 going from 64 to 128 processors does not introduce any additional limitations
@@ -459,7 +437,7 @@ original data points and the derived scalability functions. To completely
 include the scalability of the hypothetical system, we have to increase the
 range of the plotted values with the first command.
 
-<<spplot1,fig.keep='none'>>=
+<<'spplot1', fig.show='hide'>>=
 plot(specsdm91, pch = 16, ylim = c(0,2500))
 plot(usl.model, add = TRUE)
 cache.scale <- scalability(usl.model, kappa = 0.00005)
@@ -471,19 +449,14 @@ order function returning a function and not just a single value. That makes
 it possible to use the \kbd{curve()} function to plot the values over the
 specific range.
 
-\autoref{fig:spplot1} shows the measured throughput in scripts per hour for a
+\autoref{fig:spplot2} shows the measured throughput in scripts per hour for a
 given load, i.e., the number of simulated users. The solid line indicates the
 derived USL model while the dashed line resembles our hypothetical system using
 the proposed optimization.
 
-\begin{figure}[hbt]
-\centering
-<<echo=FALSE,small.mar=TRUE>>=
+<<'spplot2', echo=FALSE, fig.cap='The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 (dots) together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)'>>=
 <<spplot1>>
 @
-\caption{The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 (dots) together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)}
-\label{fig:spplot1}
-\end{figure}
 
 From the figure we can see that the scalability really peaks at one point.
 Increasing the load beyond that point leads to retrograde behavior, i.e.,
@@ -534,9 +507,10 @@ usl.polygon <- matrix(c(load[, 1], rev(load[, 1]), fit[, 'lwr'], rev(fit[, 'upr'
 The plot is composed from multiple single plots. The first plot initializes the
 canvas and creates the axis. Then the polygon is plotted using a gray area. In
 the next step the measured values are added as points. Finally a solid line is
-plotted to indicate the fitted scalability function.
+plotted to indicate the fitted scalability function. See \autoref{fig:ciplot1}
+for the entire plot.
 
-<<ciplot1,fig.keep='none'>>=
+<<'ciplot1', fig.cap='The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\\% level'>>=
 # Create empty plot (define canvas size, axis, ...)
 plot(specsdm91, xlab = names(specsdm91)[1], ylab = names(specsdm91)[2], 
       ylim = c(0, 2000), type = "n")
@@ -550,17 +524,6 @@ points(specsdm91, pch = 16)
 # Plot the fit
 lines(load[, 1], fit[, 'fit'])
 @
-
-See \autoref{fig:ciplot1} for the entire plot.
-
-\begin{figure}[hbt]
-\centering
-<<echo=FALSE,small.mar=TRUE>>=
-<<ciplot1>>
-@
-\caption{The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\% level}
-\label{fig:ciplot1}
-\end{figure}
 
 Another way to illustrate the impact of the parameters $\sigma$ and $\kappa$ on
 the scalability is by looking at the achievable speedup when a fixed load is
@@ -624,19 +587,9 @@ A stacked barplot can be used to visualize how the different effects change
 with an increasing degree of parallelism. Note that the result matrix must be
 transposed to match the format needed for for the \kbd{barplot()} command.
 
-<<ovplot1,fig.keep='none'>>=
-barplot(height = t(ovhd), names.arg = load[, 1], xlab = names(load),
-         legend.text = TRUE)
+<<'ovplot1', fig.cap='Decomposition of the execution time for parallelized workloads of the SPECSDM91 benchmark. The time is measured as a fraction of the time needed for serial execution of the workload.'>>=
+barplot(height = t(ovhd), names.arg = load[, 1], xlab = names(load), legend.text = TRUE)
 @
-
-\begin{figure}[hbt]
-\centering
-<<echo=FALSE,small.mar=TRUE>>=
-<<ovplot1>>
-@
-\caption{Decomposition of the execution time for parallelized workloads of the SPECSDM91 benchmark. The time is measured as a fraction of the time needed for serial execution of the workload.}
-\label{fig:ovplot1}
-\end{figure}
 
 \autoref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease
 in ideal execution time when the degree of parallelism is increased. It also
@@ -647,10 +600,100 @@ parallel jobs effectively has no effect on the total execution time.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Case Study: Multivalued Data}
+\subsection{Case Study: Multivalued Data}
 
-%TODO
+It is very common to receive multivalued data at the start of a scalability
+analysis. These measurements are often taken from a live system and may include
+many data points for similar load values. But the measurements for these
+similar load values are often very different. Normally this is the result of a
+non-homogeneous workload and the analyst has to decide how to take that into
+account.
 
+The following data shows a subset of performance data gathered from an Oracle
+database system providing a login service for multiple web applications. For 
+the analysis we focus on just two of the available metrics:
+
+\begin{labeling}{\texttt{txn\_rate}:}
+\item[\texttt{db\_time}:] The average time spent inside the database either
+  working on a CPU or waiting for resources (I/O, row locks, buffers \dots).
+  The time is expressed as seconds per second, so two sessions working for
+  exactly one second each will contribute a total of two seconds per second.
+  In Oracle this value is also known as \emph{Average Active Sessions} (AAS).
+\item[\texttt{txn\_rate}:] The average number of processed database
+  transactions. This metric is given as transactions per second.  
+\end{labeling}
+
+Let's have a look at the first couple of data points in our data set. For each
+time interval of two minutes there is a corresponding value for the average
+database time per seconds and for the average number of transactions per
+second in this time interval.
+
+<<>>=
+data(oracledb)
+head(subset(oracledb, select=c(timestamp, db_time, txn_rate)))
+@
+
+A naive approch would be to plot this data as a time series. See the plot for
+the transaction rate in \autoref{fig:oraplot1}. It shows the familiar pattern
+of an OLTP application that is mostly used during office hours. Unfortunately
+this type of plot is pretty much useless when performing a scalability analysis.
+
+<<'oraplot1', echo=FALSE, fig.cap='Transaction rates of an Oracle database system during the day of January 19th, 2012'>>=
+plot(txn_rate ~ timestamp, oracledb, pch = 20, xlab = "Time of day", ylab = "Txn / sec")
+@
+
+The Universal Scalability Law relates a throughput to a load. In this case the
+throughput is clearly given by the number of transactions. For the load the
+database time is a useful metric. The definition above states that the time
+spent -- either running on a CPU or waiting -- is a measurement of the average
+number of active sessions. So we can use that to express the load on the 
+database system.
+
+As usual we use the \kbd{usl()} function to carry out the analysis. See
+\autoref{fig:orausl1} for the scatterplot of the data including the plot of the
+estimated scalability function.
+
+<<'orausl1', fig.cap='Relationship between the transaction rate and the number of average active sessions in an Oracle database system'>>=
+plot(txn_rate ~ db_time, oracledb,
+      xlab = "Average active sessions", ylab = "Transactions per second")
+usl.oracle <- usl(txn_rate ~ db_time, oracledb, method = "nlxb")
+plot(usl.oracle, add=TRUE)
+@
+
+We use the \texttt{nlxb} method here because the data does not include a value
+for exactly one average active session. Current versions of the `\usl' package
+will automatically switch to the \texttt{nlxb} method if the data does not
+provide the required measurements for the \texttt{default} method. So you may
+omit this option usually.
+
+Now we can easily retrieve the coefficients for this model.
+
+<<>>=
+coef(usl.oracle)
+@
+
+Our $\sigma$ here is about an order of magnitude bigger than what we have seen
+in the previous sections. This indicates a major issue with some kind of
+serialization or queueing that severely limits the scalability of this database
+system.
+
+The calculted confidence interval for $\sigma$ confirms that there is only a
+small uncertainty about the value being so high.
+
+<<>>=
+confint(usl.oracle, level = 0.95)
+@
+
+This analysis shows how we can use some of the default metrics provided by a
+live Oracle database system to gain insight in the scalability. Neither the
+Oracle software nor the application needed any additional instrumentation to
+collect this data.
+
+%Looking at the plot of the scalability function in \autoref{fig:orausl1} we
+%could argue, that the function seems to be too pessimistic. There are obviously
+%many data points showing a much higher transaction rate than the scalability
+%function suggests. Numerically this is caused by using the \emph{least squares}
+%method which tries to treat all data points equally.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{alpha}
