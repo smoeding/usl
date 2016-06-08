@@ -5,8 +5,6 @@ r:
   - oldrel
   - release
   - devel
-r_binary_packages:
-  - knitr
 r_build_args: "--no-build-vignettes --no-manual"
 r_check_args: "--no-build-vignettes --no-manual --as-cran"
 warnings_are_errors: false
