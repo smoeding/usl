@@ -5,17 +5,15 @@ r:
   - oldrel
   - release
   - devel
-#r_build_args: "--no-build-vignettes --no-manual"
-#r_check_args: "--no-build-vignettes --no-manual --as-cran"
+r_build_args: "--no-build-vignettes --no-manual"
+r_check_args: "--no-build-vignettes --no-manual --as-cran"
 warnings_are_errors: false
 addons:
   apt:
     packages:
       - texlive-base
-      - texlive-extra-utils
-      - texlive-font-utils
+      - texlive-latex-base
+      - texlive-latex-recommended
+      - texlive-latex-extra
       - texlive-fonts-extra
       - texlive-fonts-recommended
-      - texlive-latex-base
-      - texlive-latex-extra
-      - texlive-latex-recommended
