@@ -11,6 +11,11 @@ warnings_are_errors: false
 addons:
   apt:
     packages:
-      - texlive-fonts-extra
-      - texlive-latex-base
       - texlive-base
+      - texlive-extra-utils
+      - texlive-font-utils
+      - texlive-fonts-extra
+      - texlive-fonts-recommended
+      - texlive-latex-base
+      - texlive-latex-extra
+      - texlive-latex-recommended
