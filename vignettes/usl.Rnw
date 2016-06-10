@@ -676,26 +676,64 @@ coef(usl.oracle)
 
 Our $\sigma$ here is about an order of magnitude bigger than what we have seen
 in the previous sections. This indicates a major issue with some kind of
-serialization or queueing that severely limits the scalability of this database
-system.
+serialization or queueing that severely limits the scalability of this system.
+In fact it is so bad that the impact is already visible with only a few active
+sessions working at the same time: according to the model the peak throughput
+is reached at about $\Sexpr{signif(peak.scalability(usl.oracle), 2)}$ sessions.
+
+<<>>=
+peak.scalability(usl.oracle)
+@
 
 The calculted confidence interval for $\sigma$ confirms that there is only a
-small uncertainty about the value being so high.
+small uncertainty about the calculated coefficients.
 
 <<>>=
 confint(usl.oracle, level = 0.95)
 @
 
 This analysis shows how we can use some of the default metrics provided by a
-live Oracle database system to gain insight in the scalability. Neither the
-Oracle software nor the application needed any additional instrumentation to
-collect this data.
+live Oracle database system to learn about the scalability. Note that neither
+the Oracle software nor the application needed any additional instrumentation
+to collect this data. Also the analysis was done without any internal knowledge
+about the way the application was using the database.
 
-%Looking at the plot of the scalability function in \autoref{fig:orausl1} we
-%could argue, that the function seems to be too pessimistic. There are obviously
-%many data points showing a much higher transaction rate than the scalability
-%function suggests. Numerically this is caused by using the \emph{least squares}
-%method which tries to treat all data points equally.
+% Looking at the plot of the scalability function in \autoref{fig:orausl1} we
+% could argue that the estimated function seems to be too pessimistic. There are
+% many data points showing a much higher transaction rate than the scalability
+% function suggests. Numerically this is caused by using the \emph{least squares}
+% method which tries to treat all data points equally.
+
+%' <<echo=FALSE, fig.cap='Foo'>>=
+%' p <- with(oracledb, data.frame(db_time, txn_rate))
+%' 
+%' # Plot all points
+%' plot(txn_rate ~ db_time, p, xlab = "Average active sessions", ylab = "Transactions per second")
+%' 
+%' # Calculate convex hull
+%' idx <- chull(cbind(p$db_time, p$txn_rate))
+%' pts <- p[idx, ]
+%' 
+%' # Plot points on convex hull
+%' points(pts, pch=16)
+%' 
+%' # Get point with smallest abscissa
+%' p1 <- which.min(pts$db_time)
+%' x1 <- pts[p1, 1]
+%' y1 <- pts[p1, 2]
+%' 
+%' # Get point with largest abscissa
+%' p2 <- which.max(pts$db_time)
+%' x2 <- pts[p2, 1]
+%' y2 <- pts[p2, 2]
+%' 
+%' # Slope–intercept form
+%' m <- (y2 - y1) / (x2 - x1)
+%' b <- (-x1 * m) + y1
+%' 
+%' abline(b, m)
+%' @
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{alpha}
