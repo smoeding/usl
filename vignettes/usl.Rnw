@@ -31,6 +31,9 @@
 
 \hypersetup{pdfkeywords={Scalability,Universal Scalability Law,USL,R}}
 
+% Package cleveref (after hyperref)
+\usepackage{cleveref}
+
 % Define shortcut commands
 \newcommand{\R}{{\normalfont\textsf{R}}}
 \newcommand{\usl}{{\normalfont\textsf{usl}}}
@@ -116,7 +119,7 @@ system can be described by a common rational function. This function is
 \emph{universal} in the sense that it does not assume any specific type
 of software, hardware or system architecture.
 
-\autoref{eqn:usl} has the Universal Scalability Law where $C(N) = X(N) / X(1)$
+\Cref{eqn:usl} has the Universal Scalability Law where $C(N) = X(N) / X(1)$
 is the relative capacity given by the ratio of the measured throughput $X(N)$
 for load $N$ to the throughput $X(1)$ for load $1$.
 
@@ -149,7 +152,7 @@ Due to the quadratic characteristic of the coherency term there will be a
 point where the throughput of the system will start to go retrograde, i.e.,
 will start to decrease with further increasing load.
 
-In \cite{Gun07} Dr.~Gunther proves that \autoref{eqn:usl} is reduced to
+In \cite{Gun07} Dr.~Gunther proves that \cref{eqn:usl} is reduced to
 Amdahl's Law for $\kappa = 0$. Therefore the Universal Scalability Law can be
 seen as a generalization of Amdahl's Law for speedup in parallel computing.
 
@@ -215,7 +218,7 @@ Create a simple scatterplot to get a grip on the data.
 plot(throughput ~ processors, data = raytracer)
 @
 
-\autoref{fig:rtplot2} shows the throughput of the system for the different
+\Cref{fig:rtplot2} shows the throughput of the system for the different
 number of processors. This plot is a typical example for the effects of
 \emph{diminishing returns}\label{dimret}, because it clearly shows how the
 benefit of adding more processors to the system gets smaller for higher
@@ -277,7 +280,7 @@ efficiency(usl.model)
 @
 
 A bar plot is useful to visually compare the decreasing efficiencies for the
-configurations with an increasing number of processors. \autoref{fig:rtbarplot}
+configurations with an increasing number of processors. \Cref{fig:rtbarplot}
 shows the output diagram.
 
 <<'rtbarplot', fig.cap='Rate of efficiency per processor for different numbers of processors running the raytracing software'>>=
@@ -309,7 +312,7 @@ intervals are calculated from the standard errors of the parameters.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the
-calculated scalability function as a solid line. \autoref{fig:rtplot3} has the
+calculated scalability function as a solid line. \Cref{fig:rtplot3} has the
 result of that plot.
 
 <<'rtplot3', fig.cap='Throughput of a raytracing software using different numbers of processors'>>=
@@ -451,7 +454,7 @@ order function returning a function and not just a single value. That makes
 it possible to use the \kbd{curve()} function to plot the values over the
 specific range.
 
-\autoref{fig:spplot2} shows the measured throughput in scripts per hour for a
+\Cref{fig:spplot2} shows the measured throughput in scripts per hour for a
 given load, i.e., the number of simulated users. The solid line indicates the
 derived USL model while the dashed line resembles our hypothetical system using
 the proposed optimization.
@@ -509,7 +512,7 @@ usl.polygon <- matrix(c(load[, 1], rev(load[, 1]), fit[, 'lwr'], rev(fit[, 'upr'
 The plot is composed from multiple single plots. The first plot initializes the
 canvas and creates the axis. Then the polygon is plotted using a gray area. In
 the next step the measured values are added as points. Finally a solid line is
-plotted to indicate the fitted scalability function. See \autoref{fig:ciplot1}
+plotted to indicate the fitted scalability function. See \cref{fig:ciplot1}
 for the entire plot.
 
 <<'ciplot1', fig.cap='The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\\% level'>>=
@@ -536,7 +539,7 @@ Unfortunately it doesn't work this way. In general there is a range where
 doubling the parallelization will actually improve the execution time. But the
 improvement will get smaller and smaller when the degree of parallelism is
 increased further. This is also an effect of \emph{diminishing returns} as
-already seen in \autoref{dimret}. The real execution time is in fact the sum
+already seen in \cref{dimret}. The real execution time is in fact the sum
 of the ideal execution time and the overhead for dealing with contention and
 coherency delays.
 
@@ -579,8 +582,8 @@ This gives a total of $\Sexpr{100*signif(sum(ovhd[1,]), 4)}\%$. So with $10$
 jobs in parallel we are only about $\Sexpr{signif(1/sum(ovhd[1,]), 2)}$ times
 faster than running the same workload in a serial way.
 
-\autoref{eqn:contention} shows that the percentage of time spent on dealing
-with contention will converge to the value of $\sigma$. \autoref{eqn:coherency}
+\Cref{eqn:contention} shows that the percentage of time spent on dealing
+with contention will converge to the value of $\sigma$. \Cref{eqn:coherency}
 explains that coherency delays will grow beyond any limit if the degree of
 parallelism is large enough. This corresponds to the observation that adding
 more parallelism will sometimes make performance worse.
@@ -593,7 +596,7 @@ transposed to match the format needed for for the \kbd{barplot()} command.
 barplot(height = t(ovhd), names.arg = load[, 1], xlab = names(load), legend.text = TRUE)
 @
 
-\autoref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease
+\Cref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease
 in ideal execution time when the degree of parallelism is increased. It also
 shows how initially almost only contention contributes to the total execution
 time. For higher degrees of parallelism the impact of coherency delays grows.
@@ -636,7 +639,7 @@ head(subset(oracledb, select=c(timestamp, db_time, txn_rate)))
 @
 
 A naive approch would be to plot this data as a time series. See the plot for
-the transaction rate in \autoref{fig:oraplot1}. It shows the familiar pattern
+the transaction rate in \cref{fig:oraplot1}. It shows the familiar pattern
 of an OLTP application that is mostly used during office hours. Unfortunately
 this type of plot is pretty much useless when performing a scalability analysis.
 
@@ -652,7 +655,7 @@ number of active sessions. So we can use that to express the load on the
 database system.
 
 As usual we use the \kbd{usl()} function to carry out the analysis. See
-\autoref{fig:orausl1} for the scatterplot of the data including the plot of the
+\cref{fig:orausl1} for the scatterplot of the data including the plot of the
 estimated scalability function.
 
 <<'orausl1', fig.cap='Relationship between the transaction rate and the number of average active sessions in an Oracle database system'>>=
@@ -698,7 +701,7 @@ the Oracle software nor the application needed any additional instrumentation
 to collect this data. Also the analysis was done without any internal knowledge
 about the way the application was using the database.
 
-% Looking at the plot of the scalability function in \autoref{fig:orausl1} we
+% Looking at the plot of the scalability function in \cref{fig:orausl1} we
 % could argue that the estimated function seems to be too pessimistic. There are
 % many data points showing a much higher transaction rate than the scalability
 % function suggests. Numerically this is caused by using the \emph{least squares}
