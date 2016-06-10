@@ -615,13 +615,13 @@ database system providing a login service for multiple web applications. For
 the analysis we focus on just two of the available metrics:
 
 \begin{labeling}{\texttt{txn\_rate}:}
+\item[\texttt{txn\_rate}:] The average number of processed database
+  transactions. This metric is given as transactions per second.
 \item[\texttt{db\_time}:] The average time spent inside the database either
   working on a CPU or waiting for resources (I/O, row locks, buffers \dots).
   The time is expressed as seconds per second, so two sessions working for
   exactly one second each will contribute a total of two seconds per second.
   In Oracle this value is also known as \emph{Average Active Sessions} (AAS).
-\item[\texttt{txn\_rate}:] The average number of processed database
-  transactions. This metric is given as transactions per second.  
 \end{labeling}
 
 Let's have a look at the first couple of data points in our data set. For each
