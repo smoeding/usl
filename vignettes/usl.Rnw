@@ -3,6 +3,7 @@
 %\VignetteIndexEntry{Using the USL Package to Analyze System Scalability}
 %\VignetteDepends{usl}
 %\VignetteKeyword{usl}
+%\VignetteKeyword{scalability}
 %\VignettePackage{usl}
 
 \subject{Using the usl package}
