@@ -11,7 +11,7 @@
 
 % Fonts, encoding & language
 \usepackage[utopia]{mathdesign}
-\usepackage{beramono}
+\usepackage[scaled=0.85]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
