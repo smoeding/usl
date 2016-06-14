@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 Stefan Moeding
+# Copyright (c) 2013-2016 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -37,8 +37,6 @@
 #'   intervals, either a vector of numbers or a vector of names. If missing,
 #'   all parameters are considered.
 #' @param level The confidence level required.
-#' @param type This parameter is no longer used and will be removed in the next
-#'   version.
 #'
 #' @return A matrix (or vector) with columns giving lower and upper confidence
 #'   limits for each parameter. These will be labelled as (1-level)/2 and
@@ -62,7 +60,7 @@
 setMethod(
   f = "confint",
   signature = "USL",
-  definition = function(object, parm, level = 0.95, type) {
+  definition = function(object, parm, level = 0.95) {
     ci.value <- NULL # vector with confidence interval values
     
     # Degree of freedom for Student t distribution
@@ -71,11 +69,6 @@ setMethod(
     # Vectors to collect column and row names of result matrix
     col.name <- paste(formatC(100 * c((1-level)/2, 1-(1-level)/2)), "%")
     row.name <- NULL
-    
-    # Warn about old parameter usage
-    if (!missing(type)) {
-      warning("parameter 'type' is no longer used")
-    }
 
     # Return confidence intervals for both parameters if 'parm' is unset
     if (missing(parm)) parm <- object@coef.names
