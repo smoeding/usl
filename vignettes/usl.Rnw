@@ -68,10 +68,10 @@ opts_chunk$set(fig.path='usl-', small.mar=TRUE)
 \begin{abstract}\noindent
 The Universal Scalability Law is used to quantify the scalability of hardware
 or software systems. It uses sparse measurements from an existing system to
-predict the throughput for different loads and can be used to learn more about
-the scalability limitations of the system. This document introduces the \usl{}
-package for \R{} and shows how easily it can be used to perform the relevant
-calculations.
+predict the throughput for different loads and can be used to learn more
+about the scalability limitations of the system. This document introduces the
+\usl{} package for \R{} and shows how easily it can be used to perform the
+relevant calculations.
 \end{abstract}
 
 \tableofcontents
@@ -92,8 +92,8 @@ that meets the requirements. A critical point during the design is the
 scalability of the system.
 
 Informally scalability can be defined as the ability to support a growing
-amount of work. A system is said to scale if it handles the changing demand or
-hardware environment in a reasonable efficient and practical way.
+amount of work. A system is said to scale if it handles the changing demand
+or hardware environment in a reasonable efficient and practical way.
 
 Scalability can have two facets with respect to a computer system. On the one
 hand, there is software scalability where the focus is about how the system
@@ -107,8 +107,8 @@ to allow the quantification of scalability for the purpose of capacity
 planning. It provides an analytic model for the scalability of a computer
 system.
 
-A comprehensive introduction to the Universal Scalability Law
-including the mathematical grounding has been published in \cite{Gun07}.
+A comprehensive introduction to the Universal Scalability Law including the
+mathematical grounding has been published in \cite{Gun07}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -116,8 +116,8 @@ including the mathematical grounding has been published in \cite{Gun07}.
 
 Dr.~Gunther shows in \cite{Gun07} how the scalability of every computer
 system can be described by a common rational function. This function is
-\emph{universal} in the sense that it does not assume any specific type
-of software, hardware or system architecture.
+\emph{universal} in the sense that it does not assume any specific type of
+software, hardware or system architecture.
 
 \Cref{eqn:usl} has the Universal Scalability Law where $C(N) = X(N) / X(1)$
 is the relative capacity given by the ratio of the measured throughput $X(N)$
@@ -131,12 +131,12 @@ The denominator consists of three terms that all have a specific physical
 interpretation:
 
 \begin{labeling}{Concurrency:}
-\item[Concurrency:] The first term models linear scalability that would
-  exist if the different parts of the system (processors, threads \dots)
-  could work without any interference caused by their interaction.
-\item[Contention:] The second term of the denominator refers to the contention
-  between different parts of the system. Most common are issues caused by
-  serialization or queueing effects.
+\item[Concurrency:] The first term models linear scalability that would exist
+  if the different parts of the system (processors, threads \dots) could work
+  without any interference caused by their interaction.
+\item[Contention:] The second term of the denominator refers to the
+  contention between different parts of the system. Most common are issues
+  caused by serialization or queueing effects.
 \item[Coherency:] The last term represents the delay induced by keeping the
   system in a coherent and consistent state. This is necessary when writable
   data is shared in different parts of the system. Predominant factors for
@@ -152,18 +152,18 @@ Due to the quadratic characteristic of the coherency term there will be a
 point where the throughput of the system will start to go retrograde, i.e.,
 will start to decrease with further increasing load.
 
-In \cite{Gun07} Dr.~Gunther proves that \cref{eqn:usl} is reduced to
-Amdahl's Law for $\kappa = 0$. Therefore the Universal Scalability Law can be
-seen as a generalization of Amdahl's Law for speedup in parallel computing.
+In \cite{Gun07} Dr.~Gunther proves that \cref{eqn:usl} is reduced to Amdahl's
+Law for $\kappa = 0$. Therefore the Universal Scalability Law can be seen as
+a generalization of Amdahl's Law for speedup in parallel computing.
 
 We could solve this nonlinear equation to estimate the coefficients $\sigma$
 and $\kappa$ using a sparse set of measurements for the throughput $X_i$ at
 different loads $N_i$. The computations used to solve the equation for the
 measured values are discussed in \cite{Gun07}.
 
-The \usl{} package has been created to subsume the computation into one simple
-function call. This greatly reduces the manual work that previously was needed
-to perform the scalability analysis.
+The \usl{} package has been created to subsume the computation into one
+simple function call. This greatly reduces the manual work that previously
+was needed to perform the scalability analysis.
 
 The function provided by the package also includes some sanity checks to help
 the analyst with the data quality of the measurements.
@@ -177,8 +177,8 @@ scalability is analyzed. The \usl{} package only uses \texttt{sigma} and
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Examples of Scalability Analysis}
 
-The following sections present some examples of how the \usl{} package can
-be used when performing a scalability analysis. They also explain typical
+The following sections present some examples of how the \usl{} package can be
+used when performing a scalability analysis. They also explain typical
 function calls and their arguments.
 
 \subsection{Case Study: Hardware Scalability}
@@ -188,15 +188,16 @@ raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}.
 The data was gathered on an SGI~Origin~2000 with 64 R12000 processors running
 at 300~MHz.
 
-A number of reference images with different levels of complexity were computed
-for the benchmark. The measurements contain the average number of calculated
-ray-geometry intersections per second for the number of used processors.
-
-It is important to note that with changing hardware configurations the relative
-number of \emph{homogeneous} application processes per processor is to be held
-constant. So when $k$ application processes were used for the $N$ processor
-benchmark then $2k$ processes must be used to get the result for $2N$
+A number of reference images with different levels of complexity were
+computed for the benchmark. The measurements contain the average number of
+calculated ray-geometry intersections per second for the number of used
 processors.
+
+It is important to note that with changing hardware configurations the
+relative number of \emph{homogeneous} application processes per processor is
+to be held constant. So when $k$ application processes were used for the $N$
+processor benchmark then $2k$ processes must be used to get the result for
+$2N$ processors.
 
 Start the analysis by loading the \usl{} package and look at the supplied
 dataset.
@@ -209,8 +210,8 @@ raytracer
 
 The data shows the throughput for different hardware configurations covering
 the available range from one to 64 processors. We can easily see that the
-benefit for switching from one processor to four processors is much larger than
-the gain for upgrading from 48 to 64 processors.
+benefit for switching from one processor to four processors is much larger
+than the gain for upgrading from 48 to 64 processors.
 
 Create a simple scatterplot to get a grip on the data.
 
@@ -228,8 +229,8 @@ numbers of processors.
 <<rtplot1>>
 @
 
-Our next step builds the USL model from the dataset. The \kbd{usl()}
-function creates an S4 object that encapsulates the computation.
+Our next step builds the USL model from the dataset. The \kbd{usl()} function
+creates an S4 object that encapsulates the computation.
 
 The first argument is a formula with a symbolic description of the model we
 want to analyze. In this case we would like to analyze how the ``throughput''
@@ -254,15 +255,16 @@ information.
 \item It also includes the scale factor used for normalization. The scale
   factor is used internally to adjust the measured values to a common scale.
   It is equal to the value $X(1)$ of the measurements.
-\item The efficiency tells us something about the ratio of useful work that is
-  performed per processor. It is obvious that two processors might be able to
-  handle twice the work of one processor but not more. Calculating the ratio of
-  the workload per processor should therefore always be less or equal to $1$.
-  In order to verify this, we can use the distribution of the efficiency values
-  shown in the summary.
-\item We are performing a regression on the data to calculate the coefficients
-  and therefore we determine the residuals for the fitted values. The
-  distribution of the residuals is also given as part of the summary.
+\item The efficiency tells us something about the ratio of useful work that
+  is performed per processor. It is obvious that two processors might be able
+  to handle twice the work of one processor but not more. Calculating the
+  ratio of the workload per processor should therefore always be less or
+  equal to $1$. In order to verify this, we can use the distribution of the
+  efficiency values shown in the summary.
+\item We are performing a regression on the data to calculate the
+  coefficients and therefore we determine the residuals for the fitted
+  values. The distribution of the residuals is also given as part of the
+  summary.
 \item The coefficients $\sigma$ and $\kappa$ are the result that we are
   essentially interested in. They tell us the magnitude of the contention and
   coherency effects within the system.
@@ -271,8 +273,8 @@ information.
   \Sexpr{floor(100*summary(usl.model)$r.squared)} percent of the data.
 \end{itemize}
 
-The function \kbd{efficiency()} extracts the efficiency values from the
-model and allows us to have a closer look at the specific efficiencies of the
+The function \kbd{efficiency()} extracts the efficiency values from the model
+and allows us to have a closer look at the specific efficiencies of the
 different processor configurations.
 
 <<>>=
@@ -288,8 +290,9 @@ barplot(efficiency(usl.model), ylab = "efficiency / processor", xlab = "processo
 @
 
 The efficiency can be used for a first validation and sanity check of the
-measured values. Values larger than $1.0$ usually need a closer investigation.
-It is also suspicious if the efficiency gets bigger when the load increases.
+measured values. Values larger than $1.0$ usually need a closer
+investigation. It is also suspicious if the efficiency gets bigger when the
+load increases.
 
 The model coefficients $\sigma$ and $\kappa$ can be retrieved with the
 \kbd{coef()} function.
@@ -298,8 +301,8 @@ The model coefficients $\sigma$ and $\kappa$ can be retrieved with the
 coef(usl.model)
 @
 
-The corresponding confidence intervals for the model coefficients are returned
-by calling the \kbd{confint()} function.
+The corresponding confidence intervals for the model coefficients are
+returned by calling the \kbd{confint()} function.
 
 <<>>=
 confint(usl.model, level = 0.95)
@@ -351,7 +354,8 @@ In this section we will perform an analysis of a SPEC benchmark. A Sun
 SPARCcenter 2000 with 16 CPUs was used in October 1994 for the SDM91
 benchmark\footnote{\url{http://www.spec.org/osg/sdm91/results/results.html}}.
 The benchmark simulates a number of users working on a UNIX server (editing
-files, compiling \dots) and measures the number of script executions per hour.
+files, compiling \dots) and measures the number of script executions per
+hour.
 
 First, select the demo dataset with the data from the SPEC SDM91 benchmark.
 
@@ -382,22 +386,23 @@ There are currently three possible values for the \texttt{method} parameter:
   degree polynomial. It can only be used if the data set contains a value for
   the normalization where the ``throughput'' equals $1$ for one measurement.
   This is the original procedure introduced in chapter 5.2.3 of \cite{Gun07}.
-\item[\texttt{nls}:] This method uses the \kbd{nls()} function of the
-  stats package for a nonlinear regression model. It estimates not only
-  the coefficients $\sigma$ and $\kappa$ but also the scale factor for the
+\item[\texttt{nls}:] This method uses the \kbd{nls()} function of the stats
+  package for a nonlinear regression model. It estimates not only the
+  coefficients $\sigma$ and $\kappa$ but also the scale factor for the
   normalization. The nonlinear regression uses constraints for its parameters
   which means the ``port'' algorithm is used internally to solve the model.
   So all restrictions of the ``port'' algorithm apply.
 \item[\texttt{nlxb}:] A nonlinear regression model is also used in this case.
   But instead of the \kbd{nls()} function it uses the \kbd{nlxb()} function
-  from the nlmrt package (see \cite{R:nlmrt}). This method also estimates both
-  coefficients and the normalization factor. It is expected to be more robust
-  than the \texttt{nls} method.
+  from the nlmrt package (see \cite{R:nlmrt}). This method also estimates
+  both coefficients and the normalization factor. It is expected to be more
+  robust than the \texttt{nls} method.
 \end{labeling}
 
-Keep in mind that if there is no measurement where ``load'' equals $1$ then the
-default method does not work and a warning message will be printed. In this case
-the \kbd{usl()} function will automatically apply the \texttt{nlxb} method.
+Keep in mind that if there is no measurement where ``load'' equals $1$ then
+the default method does not work and a warning message will be printed. In
+this case the \kbd{usl()} function will automatically apply the \texttt{nlxb}
+method.
 
 We also use the \kbd{summary()} function to look at the details for the
 analysis.
@@ -408,15 +413,15 @@ summary(usl.model)
 
 Looking at the coefficients we notice that $\sigma$ is about
 \Sexpr{signif(coef(usl.model)[['sigma']], 2)} and $\kappa$ is about
-\Sexpr{signif(coef(usl.model)[['kappa']], 1)}. The parameter $\sigma$ indicates
-that about \Sexpr{signif(100*coef(usl.model)[['sigma']], 2)} percent of the
-execution time is strictly serial. Note that this serial fraction is also
-recognized in Amdahl's Law.
+\Sexpr{signif(coef(usl.model)[['kappa']], 1)}. The parameter $\sigma$
+indicates that about \Sexpr{signif(100*coef(usl.model)[['sigma']], 2)}
+percent of the execution time is strictly serial. Note that this serial
+fraction is also recognized in Amdahl's Law.
 
 We hypothesize that a proposed change to the system --- maybe a redesign of
-the cache architecture or the elimination of a point to point communication ---
-could reduce $\kappa$ by half and want to predict how the scalability of the
-system would change.
+the cache architecture or the elimination of a point to point communication
+--- could reduce $\kappa$ by half and want to predict how the scalability of
+the system would change.
 
 We can calculate the point of maximum scalability for the current system and
 for the hypothetical system with the \kbd{peak.scalability()} function.
@@ -426,15 +431,15 @@ peak.scalability(usl.model)
 peak.scalability(usl.model, kappa = 0.00005)
 @
 
-The function accepts the optional arguments \texttt{sigma} and \texttt{kappa}.
-They are useful to do a what-if analysis. Setting these parameters override
-the calculated model parameters and show how the system would behave with a
-different contention or coherency coefficient.
+The function accepts the optional arguments \texttt{sigma} and
+\texttt{kappa}. They are useful to do a what-if analysis. Setting these
+parameters override the calculated model parameters and show how the system
+would behave with a different contention or coherency coefficient.
 
 In this case we learn that the point of peak scalability would move from
 around \Sexpr{signif(peak.scalability(usl.model), 3)} to about
-\Sexpr{signif(peak.scalability(usl.model, kappa=0.00005), 3)} if we would
-be able to actually build the system with the assumed optimization.
+\Sexpr{signif(peak.scalability(usl.model, kappa=0.00005), 3)} if we would be
+able to actually build the system with the assumed optimization.
 
 Both calculated scalability functions can be plotted using the \kbd{plot()}
 or \kbd{curve()} functions. The following commands create a graph of the
@@ -456,16 +461,16 @@ specific range.
 
 \Cref{fig:spplot2} shows the measured throughput in scripts per hour for a
 given load, i.e., the number of simulated users. The solid line indicates the
-derived USL model while the dashed line resembles our hypothetical system using
-the proposed optimization.
+derived USL model while the dashed line resembles our hypothetical system
+using the proposed optimization.
 
 <<'spplot2', echo=FALSE, fig.cap='The result of the SPEC SDM91 benchmark for a SPARCcenter 2000 (dots) together with the calculated scalability function (solid line) and a hypothetical scalability function (dashed line)'>>=
 <<spplot1>>
 @
 
 From the figure we can see that the scalability really peaks at one point.
-Increasing the load beyond that point leads to retrograde behavior, i.e.,
-the throughput decreases again. As we have calculated earlier, the measured
+Increasing the load beyond that point leads to retrograde behavior, i.e., the
+throughput decreases again. As we have calculated earlier, the measured
 system will reach this point sooner than the hypothetical system.
 
 We can combine the \kbd{scalability()} and the \kbd{peak.scalability()}
@@ -500,20 +505,20 @@ fit <- predict(usl.model, newdata = load, interval = "confidence", level = 0.95)
 @
 
 The matrix is used to define the coordinates of a polygon containing the area
-between the lower and the upper bounds. The polygon connects the points of the
-lower bounds from lower to higher values and then back using the points of the
-upper bounds.
+between the lower and the upper bounds. The polygon connects the points of
+the lower bounds from lower to higher values and then back using the points
+of the upper bounds.
 
 <<>>=
 usl.polygon <- matrix(c(load[, 1], rev(load[, 1]), fit[, 'lwr'], rev(fit[, 'upr'])),
                        nrow = 2 * nrow(load))
 @
 
-The plot is composed from multiple single plots. The first plot initializes the
-canvas and creates the axis. Then the polygon is plotted using a gray area. In
-the next step the measured values are added as points. Finally a solid line is
-plotted to indicate the fitted scalability function. See \cref{fig:ciplot1}
-for the entire plot.
+The plot is composed from multiple single plots. The first plot initializes
+the canvas and creates the axis. Then the polygon is plotted using a gray
+area. In the next step the measured values are added as points. Finally a
+solid line is plotted to indicate the fitted scalability function. See
+\cref{fig:ciplot1} for the entire plot.
 
 <<'ciplot1', fig.cap='The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\\% level'>>=
 # Create empty plot (define canvas size, axis, ...)
@@ -530,25 +535,25 @@ points(specsdm91, pch = 16)
 lines(load[, 1], fit[, 'fit'])
 @
 
-Another way to illustrate the impact of the parameters $\sigma$ and $\kappa$ on
-the scalability is by looking at the achievable speedup when a fixed load is
-parallelized. A naive estimation would be that doubling the degree of
+Another way to illustrate the impact of the parameters $\sigma$ and $\kappa$
+on the scalability is by looking at the achievable speedup when a fixed load
+is parallelized. A naive estimation would be that doubling the degree of
 parallelization should cut the execution time in halve.
 
 Unfortunately it doesn't work this way. In general there is a range where
-doubling the parallelization will actually improve the execution time. But the
-improvement will get smaller and smaller when the degree of parallelism is
-increased further. This is also an effect of \emph{diminishing returns} as
-already seen in \cref{dimret}. The real execution time is in fact the sum
-of the ideal execution time and the overhead for dealing with contention and
+doubling the parallelization will actually improve the execution time. But
+the improvement will get smaller and smaller when the degree of parallelism
+is increased further. This is also an effect of \emph{diminishing returns} as
+already seen in \cref{dimret}. The real execution time is in fact the sum of
+the ideal execution time and the overhead for dealing with contention and
 coherency delays.
 
 Dr.~Gunther shows in \cite{DBLP:journals/corr/abs-0808-1431} how the total
-execution time of a parallelized workload depends on the degree of parallelism
-$p$ and the coefficients $\sigma$ and $\kappa$ of the associated USL model.
-Equation 26 in his paper identifies the magnitude of the three components
---- given as fractions of the serial execution time $T_1$ --- that account for
-the total execution time of the parallelized workload.
+execution time of a parallelized workload depends on the degree of
+parallelism $p$ and the coefficients $\sigma$ and $\kappa$ of the associated
+USL model. Equation 26 in his paper identifies the magnitude of the three
+components --- given as fractions of the serial execution time $T_1$ --- that
+account for the total execution time of the parallelized workload.
 
 \begin{align}
 T_{ideal}      &= \frac{1}{p} T_1\label{eqn:ideal}\\
@@ -577,13 +582,13 @@ We can see that the ideal execution time for running $10$ jobs in parallel is
 $\nicefrac{1}{10}$ of the execution time of running the jobs unparallelized.
 To get the total fraction we have to add the overhead for contention
 ($\Sexpr{100*signif(ovhd[1,'contention'], 2)}\%$) and for coherency delays
-($\Sexpr{100*signif(ovhd[1,'coherency'], 2)}\%$).
-This gives a total of $\Sexpr{100*signif(sum(ovhd[1,]), 4)}\%$. So with $10$
-jobs in parallel we are only about $\Sexpr{signif(1/sum(ovhd[1,]), 2)}$ times
-faster than running the same workload in a serial way.
+($\Sexpr{100*signif(ovhd[1,'coherency'], 2)}\%$). This gives a total of
+$\Sexpr{100*signif(sum(ovhd[1,]), 4)}\%$. So with $10$ jobs in parallel we
+are only about $\Sexpr{signif(1/sum(ovhd[1,]), 2)}$ times faster than running
+the same workload in a serial way.
 
-\Cref{eqn:contention} shows that the percentage of time spent on dealing
-with contention will converge to the value of $\sigma$. \Cref{eqn:coherency}
+\Cref{eqn:contention} shows that the percentage of time spent on dealing with
+contention will converge to the value of $\sigma$. \Cref{eqn:coherency}
 explains that coherency delays will grow beyond any limit if the degree of
 parallelism is large enough. This corresponds to the observation that adding
 more parallelism will sometimes make performance worse.
@@ -596,8 +601,8 @@ transposed to match the format needed for for the \kbd{barplot()} command.
 barplot(height = t(ovhd), names.arg = load[, 1], xlab = names(load), legend.text = TRUE)
 @
 
-\Cref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease
-in ideal execution time when the degree of parallelism is increased. It also
+\Cref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease in
+ideal execution time when the degree of parallelism is increased. It also
 shows how initially almost only contention contributes to the total execution
 time. For higher degrees of parallelism the impact of coherency delays grows.
 Note how the difference in ideal execution time between $100$ and $200$
@@ -623,14 +628,15 @@ the analysis we focus on only two of the available metrics:
 \item[\texttt{db\_time}:] The average time spent inside the database either
   working on a CPU or waiting for resources (I/O, locks, buffers \dots). The
   time is expressed as seconds per second, so two sessions working for
-  exactly one second will contribute a total of two seconds per second. Oracle
-  has coined the term \emph{Average Active Sessions} (AAS) for this metric.
+  exactly one second will contribute a total of two seconds per second.
+  Oracle has coined the term \emph{Average Active Sessions} (AAS) for this
+  metric.
 \end{labeling}
 
-Let's have a look at the first couple of data points in our data set. For each
-time interval of two minutes there is a corresponding value for the average
-database time per seconds and for the average number of transactions per
-second in this interval.
+Let's have a look at the first couple of data points in our data set. For
+each time interval of two minutes there is a corresponding value for the
+average database time per seconds and for the average number of transactions
+per second in this interval.
 
 <<>>=
 data(oracledb)
@@ -648,10 +654,10 @@ plot(txn_rate ~ timestamp, oracledb, pch = 20, xlab = "Time of day", ylab = "Txn
 
 The Universal Scalability Law correlates a throughput with a load. In this
 case the throughput is clearly given by the transaction rate and the database
-time is a taken as the load metric. The definition above states that the total
-time spent -- either running on a CPU or waiting -- is a measurement for the
-average number of active sessions. So we use that to express the load on the
-database system.
+time is a taken as the load metric. The definition above states that the
+total time spent --- either running on a CPU or waiting --- is a measurement
+for the average number of active sessions. So we use that to express the load
+on the database system.
 
 As usual, we call the \kbd{usl()} function to carry out the analysis. See
 \cref{fig:orausl1} for the scatterplot of the data including the plot of the
@@ -675,12 +681,12 @@ Now we can retrieve the coefficients for this model.
 coef(usl.oracle)
 @
 
-Our $\sigma$ here is about an order of magnitude bigger than what we have seen
-in the previous sections. This indicates a major issue with some kind of
-serialization or queueing that severely limits the scalability of this system.
-In fact it is so bad that the impact is already visible with only a few active
-sessions working at the same time: according to the model the peak throughput
-is reached at about $\Sexpr{signif(peak.scalability(usl.oracle), 2)}$ sessions.
+Our $\sigma$ here is about an order of magnitude bigger than what we have
+seen in the previous sections. This indicates a major issue with some kind of
+serialization or queueing that severely limits the scalability. In fact it is
+so bad that the impact is already visible with only a few active sessions
+working at the same time: according to the model the peak throughput is
+reached at about $\Sexpr{signif(peak.scalability(usl.oracle), 2)}$ sessions.
 
 <<>>=
 peak.scalability(usl.oracle)
@@ -705,9 +711,9 @@ about the way the application was using the database.
 % scalability function suggests. Numerically this is caused by using the
 % \emph{least squares} method which considers all data points equally.
 
-% Let's estimate the scalability when only the alleged \emph{good} data points
-% are taken into account. Here is a constructive description to isolate the
-% points that make up the upper boundary of the comprising area.
+% Let's estimate the scalability when only the alleged \emph{good} data
+% points are taken into account. Here is a constructive description to
+% isolate the points that make up the upper boundary of the comprising area.
 
 % \begin{enumerate}
 % \item Determine the convex hull of the data points
@@ -758,10 +764,10 @@ about the way the application was using the database.
 % hull. The dashed line, defined by the coordinates
 % $\left(\Sexpr{signif(x1,2)},\Sexpr{signif(y1,2)}\right)$ and
 % $\left(\Sexpr{signif(x2,2)},\Sexpr{signif(y2,2)}\right)$, is the boundary
-% between the lower and the upper part. 
+% between the lower and the upper part.
 
-% We will now use only the data points on the upper part of the convex hull for
-% an additional analysis.
+% We will now use only the data points on the upper part of the convex hull
+% for an additional analysis.
 
 % <<>>=
 % usl.oracle2 <- usl(txn_rate ~ db_time, top, method = "nlxb")
