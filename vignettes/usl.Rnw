@@ -517,7 +517,7 @@ for the entire plot.
 
 <<'ciplot1', fig.cap='The result of the SPEC SDM91 benchmark with confidence bands for the scalability function at the 95\\% level'>>=
 # Create empty plot (define canvas size, axis, ...)
-plot(specsdm91, xlab = names(specsdm91)[1], ylab = names(specsdm91)[2], 
+plot(specsdm91, xlab = names(specsdm91)[1], ylab = names(specsdm91)[2],
       ylim = c(0, 2000), type = "n")
 
 # Plot gray polygon indicating the confidence interval
@@ -532,7 +532,7 @@ lines(load[, 1], fit[, 'fit'])
 
 Another way to illustrate the impact of the parameters $\sigma$ and $\kappa$ on
 the scalability is by looking at the achievable speedup when a fixed load is
-parallelized. A naive estimation would be that doubling the degree of 
+parallelized. A naive estimation would be that doubling the degree of
 parallelization should cut the execution time in halve.
 
 Unfortunately it doesn't work this way. In general there is a range where
@@ -577,7 +577,7 @@ We can see that the ideal execution time for running $10$ jobs in parallel is
 $\nicefrac{1}{10}$ of the execution time of running the jobs unparallelized.
 To get the total fraction we have to add the overhead for contention
 ($\Sexpr{100*signif(ovhd[1,'contention'], 2)}\%$) and for coherency delays
-($\Sexpr{100*signif(ovhd[1,'coherency'], 2)}\%$). 
+($\Sexpr{100*signif(ovhd[1,'coherency'], 2)}\%$).
 This gives a total of $\Sexpr{100*signif(sum(ovhd[1,]), 4)}\%$. So with $10$
 jobs in parallel we are only about $\Sexpr{signif(1/sum(ovhd[1,]), 2)}$ times
 faster than running the same workload in a serial way.
@@ -607,71 +607,69 @@ parallel jobs effectively has no effect on the total execution time.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Case Study: Multivalued Data}
 
-It is very common to receive multivalued data at the start of a scalability
-analysis. These measurements are often taken from a live system and may include
-many data points for similar load values. But the measurements for these
-similar load values are often very different. Normally this is the result of a
-non-homogeneous workload and the analyst has to decide how to take that into
-account.
+It is very common to use multivalued data for a scalability analysis. These
+measurements are often taken from a live system and may include many data
+points for similar load values. But the measurements for similar load values
+are often very different. This could be the result of a non-homogeneous
+workload and the analyst has to decide how to take that into account.
 
 The following data shows a subset of performance data gathered from an Oracle
-database system providing a login service for multiple web applications. For 
-the analysis we focus on just two of the available metrics:
+database system providing a login service for multiple web applications. For
+the analysis we focus on only two of the available metrics:
 
 \begin{labeling}{\texttt{txn\_rate}:}
 \item[\texttt{txn\_rate}:] The average number of processed database
   transactions. This metric is given as transactions per second.
 \item[\texttt{db\_time}:] The average time spent inside the database either
-  working on a CPU or waiting for resources (I/O, row locks, buffers \dots).
-  The time is expressed as seconds per second, so two sessions working for
-  exactly one second each will contribute a total of two seconds per second.
-  In Oracle this value is also known as \emph{Average Active Sessions} (AAS).
+  working on a CPU or waiting for resources (I/O, locks, buffers \dots). The
+  time is expressed as seconds per second, so two sessions working for
+  exactly one second will contribute a total of two seconds per second. Oracle
+  has coined the term \emph{Average Active Sessions} (AAS) for this metric.
 \end{labeling}
 
 Let's have a look at the first couple of data points in our data set. For each
 time interval of two minutes there is a corresponding value for the average
 database time per seconds and for the average number of transactions per
-second in this time interval.
+second in this interval.
 
 <<>>=
 data(oracledb)
 head(subset(oracledb, select=c(timestamp, db_time, txn_rate)))
 @
 
-A naive approch would be to plot this data as a time series. See the plot for
-the transaction rate in \cref{fig:oraplot1}. It shows the familiar pattern
-of an OLTP application that is mostly used during office hours. Unfortunately
-this type of plot is pretty much useless when performing a scalability analysis.
+A naive approch would be to plot this data as a time series (see
+\cref{fig:oraplot1}). This plot shows the familiar pattern of an OLTP
+application that is mostly used during office hours. Unfortunately this type
+of plot is pretty much useless when performing a scalability analysis.
 
 <<'oraplot1', echo=FALSE, fig.cap='Transaction rates of an Oracle database system during the day of January 19th, 2012'>>=
 plot(txn_rate ~ timestamp, oracledb, pch = 20, xlab = "Time of day", ylab = "Txn / sec")
 @
 
-The Universal Scalability Law relates a throughput to a load. In this case the
-throughput is clearly given by the number of transactions. For the load the
-database time is a useful metric. The definition above states that the time
-spent -- either running on a CPU or waiting -- is a measurement of the average
-number of active sessions. So we can use that to express the load on the 
+The Universal Scalability Law correlates a throughput with a load. In this
+case the throughput is clearly given by the transaction rate and the database
+time is a taken as the load metric. The definition above states that the total
+time spent -- either running on a CPU or waiting -- is a measurement for the
+average number of active sessions. So we use that to express the load on the
 database system.
 
-As usual we use the \kbd{usl()} function to carry out the analysis. See
+As usual, we call the \kbd{usl()} function to carry out the analysis. See
 \cref{fig:orausl1} for the scatterplot of the data including the plot of the
 estimated scalability function.
 
 <<'orausl1', fig.cap='Relationship between the transaction rate and the number of average active sessions in an Oracle database system'>>=
-plot(txn_rate ~ db_time, oracledb,
-      xlab = "Average active sessions", ylab = "Transactions per second")
+plot(txn_rate ~ db_time, oracledb, xlab = "Average active sessions", ylab = "txn/sec")
 usl.oracle <- usl(txn_rate ~ db_time, oracledb, method = "nlxb")
-plot(usl.oracle, add=TRUE)
+plot(usl.oracle, add = TRUE)
 @
 
-We use the \texttt{nlxb} method here because the data does not include a value
-for exactly one average active session. Current versions of the \usl{} package
-will automatically switch to the \texttt{nlxb} method if the data does not
-provide the required measurements for the \texttt{default} method. So you may
-omit this option usually.
+We use the \texttt{nlxb} method here because the data does not include a
+value for exactly one average active session. Current versions of the \usl{}
+package will automatically switch to the \texttt{nlxb} method if the data
+does not provide the required measurements for the \texttt{default} method.
+So normally you may omit this option.
 
-Now we can easily retrieve the coefficients for this model.
+Now we can retrieve the coefficients for this model.
 
 <<>>=
 coef(usl.oracle)
@@ -688,55 +686,89 @@ is reached at about $\Sexpr{signif(peak.scalability(usl.oracle), 2)}$ sessions.
 peak.scalability(usl.oracle)
 @
 
-The calculted confidence interval for $\sigma$ confirms that there is only a
-small uncertainty about the calculated coefficients.
+The confidence interval for $\sigma$ confirms that there is only a small
+uncertainty about the magnitude of the calculated coefficients.
 
 <<>>=
-confint(usl.oracle, level = 0.95)
+confint(usl.oracle)
 @
 
-This analysis shows how we can use some of the default metrics provided by a
-live Oracle database system to learn about the scalability. Note that neither
-the Oracle software nor the application needed any additional instrumentation
-to collect this data. Also the analysis was done without any internal knowledge
+This analysis shows how we can use some of the metrics provided by a live
+Oracle database system to learn about the scalability. Note that neither the
+Oracle software nor the application needed any additional instrumentation to
+collect this data. Also the analysis was done without any internal knowledge
 about the way the application was using the database.
 
-% Looking at the plot of the scalability function in \cref{fig:orausl1} we
-% could argue that the estimated function seems to be too pessimistic. There are
-% many data points showing a much higher transaction rate than the scalability
-% function suggests. Numerically this is caused by using the \emph{least squares}
-% method which tries to treat all data points equally.
+% Looking at the plot of the scalability function in \cref{fig:orausl1}, we
+% could argue that the estimated function seems to be too pessimistic. There
+% are many data points showing a much higher transaction rate than the
+% scalability function suggests. Numerically this is caused by using the
+% \emph{least squares} method which considers all data points equally.
 
-%' <<echo=FALSE, fig.cap='Foo'>>=
-%' p <- with(oracledb, data.frame(db_time, txn_rate))
-%' 
-%' # Plot all points
-%' plot(txn_rate ~ db_time, p, xlab = "Average active sessions", ylab = "Transactions per second")
-%' 
-%' # Calculate convex hull
-%' idx <- chull(cbind(p$db_time, p$txn_rate))
-%' pts <- p[idx, ]
-%' 
-%' # Plot points on convex hull
-%' points(pts, pch=16)
-%' 
-%' # Get point with smallest abscissa
-%' p1 <- which.min(pts$db_time)
-%' x1 <- pts[p1, 1]
-%' y1 <- pts[p1, 2]
-%' 
-%' # Get point with largest abscissa
-%' p2 <- which.max(pts$db_time)
-%' x2 <- pts[p2, 1]
-%' y2 <- pts[p2, 2]
-%' 
-%' # Slope–intercept form
-%' m <- (y2 - y1) / (x2 - x1)
-%' b <- (-x1 * m) + y1
-%' 
-%' abline(b, m)
-%' @
+% Let's estimate the scalability when only the alleged \emph{good} data points
+% are taken into account. Here is a constructive description to isolate the
+% points that make up the upper boundary of the comprising area.
 
+% \begin{enumerate}
+% \item Determine the convex hull of the data points
+% \item Locate the data points with the smallest and the largest abscissa
+% \item Find the straight line passing through these two points
+% \item Use only the data points on the convex hull that are located on or above
+%   this line
+% \end{enumerate}
+
+% <<'orausl2', echo=FALSE, fig.cap='Using the convex hull to set the boundary between upper and lower data points'>>=
+% p <- with(oracledb, data.frame(db_time, txn_rate))
+
+% # Plot all points
+% plot(txn_rate ~ db_time, p,
+%      xlab = "Average active sessions", ylab = "Transactions per second")
+
+% # Calculate convex hull
+% idx <- chull(cbind(p$db_time, p$txn_rate))
+% pts <- p[idx, ]
+
+% # Get point with smallest abscissa
+% p1 <- which.min(pts$db_time)
+% x1 <- pts[p1, 1]
+% y1 <- pts[p1, 2]
+
+% # Get point with largest abscissa
+% p2 <- which.max(pts$db_time)
+% x2 <- pts[p2, 1]
+% y2 <- pts[p2, 2]
+
+% # Slope–intercept equation: y=mx+b
+% m <- (y2 - y1) / (x2 - x1)
+% b <- (-x1 * m) + y1
+
+% # Plot points on convex hull
+% points(pts, pch = 16)
+
+% # Remove points below the line and sort ascending by db_time
+% top <- subset(pts, txn_rate >= (m * db_time) + b)
+% top <- top[order(top$db_time), ]
+
+% lines(top$db_time, top$txn_rate, lty = 1)
+
+% abline(b, m, lty = 2)
+% @
+
+% \Cref{fig:orausl2} uses solid black points to mark the points of the convex
+% hull. The dashed line, defined by the coordinates
+% $\left(\Sexpr{signif(x1,2)},\Sexpr{signif(y1,2)}\right)$ and
+% $\left(\Sexpr{signif(x2,2)},\Sexpr{signif(y2,2)}\right)$, is the boundary
+% between the lower and the upper part. 
+
+% We will now use only the data points on the upper part of the convex hull for
+% an additional analysis.
+
+% <<>>=
+% usl.oracle2 <- usl(txn_rate ~ db_time, top, method = "nlxb")
+
+% coef(usl.oracle2)
+% confint(usl.oracle2)
+% @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{alpha}
