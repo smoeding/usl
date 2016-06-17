@@ -613,10 +613,11 @@ parallel jobs effectively has no effect on the total execution time.
 \subsection{Case Study: Multivalued Data}
 
 It is very common to use multivalued data for a scalability analysis. These
-measurements are often taken from a live system and may include many data
-points for similar load values. But the measurements for similar load values
-are often very different. This could be the result of a non-homogeneous
-workload and the analyst has to decide how to take that into account.
+measurements are often taken from a live system and may include many
+different data points for similar load values. This could be the result of a
+non-homogeneous workload and an analyst has to decide how to take that into
+account. But for a production system there is usually no feasible way to
+create a homogeneous workload.
 
 The following data shows a subset of performance data gathered from an Oracle
 database system providing a login service for multiple web applications. For
@@ -628,9 +629,9 @@ the analysis we focus on only two of the available metrics:
 \item[\texttt{db\_time}:] The average time spent inside the database either
   working on a CPU or waiting for resources (I/O, locks, buffers \dots). The
   time is expressed as seconds per second, so two sessions working for
-  exactly one second will contribute a total of two seconds per second.
-  Oracle has coined the term \emph{Average Active Sessions} (AAS) for this
-  metric.
+  exactly one quarter of a second each will contribute a total of half a
+  second for that second. Oracle has coined the term \emph{Average Active
+  Sessions} (AAS) for this metric.
 \end{labeling}
 
 Let's have a look at the first couple of data points in our data set. For
@@ -640,10 +641,10 @@ per second in this interval.
 
 <<>>=
 data(oracledb)
-head(subset(oracledb, select=c(timestamp, db_time, txn_rate)))
+head(subset(oracledb, select = c(timestamp, db_time, txn_rate)))
 @
 
-A naive approch would be to plot this data as a time series (see
+A naive approch would be a plot of the data as a time series (see
 \cref{fig:oraplot1}). This plot shows the familiar pattern of an OLTP
 application that is mostly used during office hours. Unfortunately this type
 of plot is pretty much useless when performing a scalability analysis.
@@ -664,8 +665,9 @@ As usual, we call the \kbd{usl()} function to carry out the analysis. See
 estimated scalability function.
 
 <<'orausl1', fig.cap='Relationship between the transaction rate and the number of average active sessions in an Oracle database system'>>=
-plot(txn_rate ~ db_time, oracledb, xlab = "Average active sessions", ylab = "txn/sec")
 usl.oracle <- usl(txn_rate ~ db_time, oracledb, method = "nlxb")
+
+plot(txn_rate ~ db_time, oracledb, xlab = "Average active sessions", ylab = "Txn / sec")
 plot(usl.oracle, add = TRUE)
 @
 
