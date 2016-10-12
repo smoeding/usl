@@ -78,9 +78,7 @@ setMethod(
 
     para.mat <- matrix(para, nrow = 2, dimnames = list(rows, cols))
 
-    # Print only estimate & std error for now
-    print.default(format(para.mat[ ,1:2], digits = digits),
-                  print.gap = 2, quote = FALSE)
+    printCoefmat(para.mat, digits = digits, print.gap = 2)
 
     se <- if (x@df.residual > 0) sqrt(sum(x@residuals ^ 2) / x@df.residual) else NaN
 

@@ -1,6 +1,6 @@
 
-R version 3.2.2 (2015-08-14) -- "Fire Safety"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R version 3.3.0 (2016-05-03) -- "Supposedly Educational"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -40,9 +40,11 @@ Residuals:
 -17.482  -1.870   0.211   5.074   8.881 
 
 Coefficients:
-       Estimate   Std. Error
-sigma  0.0418302  0.0119952 
-kappa  0.0004091  0.0005017 
+        Estimate  Std. Error  t value  Pr(>|t|)   
+sigma  0.0418302   0.0119952    3.487     0.013  *
+kappa  0.0004091   0.0005017    0.815     0.446   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 8.859 on 6 degrees of freedom
 Multiple R-squared: 0.9683,	Adjusted R-squared: 0.963
@@ -52,4 +54,4 @@ In usl(reqrate ~ clients, d) :
 > 
 > proc.time()
    user  system elapsed 
-  0.428   0.057   0.464 
+  0.380   0.056   0.417 

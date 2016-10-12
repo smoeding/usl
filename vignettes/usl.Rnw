@@ -44,7 +44,7 @@
 library(knitr)
 
 options(prompt="R> ", scipen=4, digits=4, width=78)
-options(str=strOptions(strict.width='cut'), show.signif.stars=FALSE)
+options(str=strOptions(strict.width='cut'), show.signif.stars=TRUE)
 
 opts_knit$set(progress=FALSE, verbose=FALSE)
 

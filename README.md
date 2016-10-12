@@ -51,9 +51,11 @@ Residuals:
 -70.89 -23.59  19.39  86.14 274.88
 
 Coefficients:
-	   Estimate   Std. Error
-sigma  1.705e-02  3.318e-03
-kappa  7.892e-05  2.492e-05
+       Estimate Std. Error t value Pr(>|t|)
+sigma 1.705e-02  3.318e-03   5.137  0.00365 **
+kappa 7.892e-05  2.492e-05   3.167  0.02489 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 140.6 on 5 degrees of freedom
 Multiple R-squared: 0.9624,  Adjusted R-squared: 0.9549
