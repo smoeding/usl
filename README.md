@@ -81,4 +81,4 @@ In addition to the package documentation there is also a package vignette availa
 vignette("usl")
 ```
 
-The vignette is also available from CRAN: <https://cran.r-project.org/web/packages/usl/vignettes/usl.pdf>
+The vignette is also available from CRAN: <https://CRAN.R-project.org/package=usl/vignettes/usl.pdf>
