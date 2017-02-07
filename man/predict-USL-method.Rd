@@ -69,4 +69,3 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 \code{\link{usl}}, \code{\link{scalability,USL-method}},
   \code{\link{USL-class}}
 }
-

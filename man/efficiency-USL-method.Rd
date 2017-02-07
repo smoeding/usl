@@ -2,8 +2,8 @@
 % Please edit documentation in R/efficiency.R
 \docType{methods}
 \name{efficiency,USL-method}
-\alias{efficiency}
 \alias{efficiency,USL-method}
+\alias{efficiency}
 \title{Efficiency of the system}
 \usage{
 \S4method{efficiency}{USL}(object)
@@ -41,4 +41,3 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 \seealso{
 \code{\link{usl}}
 }
-

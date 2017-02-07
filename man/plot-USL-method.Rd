@@ -70,4 +70,3 @@ plot(usl(throughput ~ processors, raytracer))
 \seealso{
 \code{\link{usl}}, \code{\link{plot.function}}
 }
-

@@ -30,4 +30,3 @@ summary(usl(throughput ~ processors, raytracer))$coefficients
 \seealso{
 \code{\link{usl}}, \code{\link{USL-class}}
 }
-

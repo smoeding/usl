@@ -44,4 +44,3 @@ confint(usl.model)
 \seealso{
 \code{\link{usl}}
 }
-

@@ -116,4 +116,3 @@ John C. Nash. nlmrt: Functions for nonlinear least squares
   \code{\link{residuals}},
   \code{\link{df.residual}}
 }
-

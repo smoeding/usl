@@ -2,8 +2,8 @@
 % Please edit documentation in R/scalability.R
 \docType{methods}
 \name{peak.scalability,USL-method}
-\alias{peak.scalability}
 \alias{peak.scalability,USL-method}
+\alias{peak.scalability}
 \title{Peak scalability value of a USL model}
 \usage{
 \S4method{peak.scalability}{USL}(object, sigma, kappa)
@@ -53,4 +53,3 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 \seealso{
 \code{\link{usl}}, \code{\link{scalability,USL-method}}
 }
-

@@ -26,4 +26,3 @@ The data frame contains the following variables:
 }
 }
 \keyword{datasets}
-

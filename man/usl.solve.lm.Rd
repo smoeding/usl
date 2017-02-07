@@ -28,4 +28,3 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 \code{\link{usl}}
 }
 \keyword{internal}
-

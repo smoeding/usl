@@ -28,4 +28,3 @@ John C. Nash. nlmrt: Functions for nonlinear least squares
 \code{\link{usl}}
 }
 \keyword{internal}
-

@@ -20,4 +20,3 @@ output of the \code{\link{deriv}} function.
 \code{\link{usl}}
 }
 \keyword{internal}
-

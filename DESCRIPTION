@@ -21,4 +21,4 @@ Description: The Universal Scalability Law is a model to predict hardware and
     software scalability. It uses system capacity as a function of load to
     forecast the scalability for the system.
 License: BSD_2_clause + file LICENSE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0

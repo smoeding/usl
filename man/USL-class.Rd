@@ -41,7 +41,7 @@ This class encapsulates the Universal Scalability Law. Use the function
 
 \item{\code{na.action}}{The \code{na.action} used by the model.}
 }}
+
 \seealso{
 \code{\link{usl}}
 }
-

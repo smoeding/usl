@@ -2,8 +2,8 @@
 % Please edit documentation in R/overhead.R
 \docType{methods}
 \name{overhead,USL-method}
-\alias{overhead}
 \alias{overhead,USL-method}
+\alias{overhead}
 \title{Overhead method for Universal Scalability Law models}
 \usage{
 \S4method{overhead}{USL}(object, newdata)
@@ -65,4 +65,3 @@ Neil J. Gunther. A General Theory of Computational Scalability
 \seealso{
 \code{\link{usl}}, \code{\link{USL-class}}
 }
-

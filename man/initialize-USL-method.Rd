@@ -34,4 +34,3 @@ An object of the specific type.
 Initialize the object.
 }
 \keyword{internal}
-

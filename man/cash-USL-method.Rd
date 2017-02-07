@@ -33,4 +33,3 @@ usl.model$coefficients
 \code{\link{USL-class}}, \code{\link{Extract}}
 }
 \keyword{internal}
-

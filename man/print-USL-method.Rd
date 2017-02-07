@@ -34,4 +34,3 @@ print(usl(throughput ~ processors, raytracer))
 \seealso{
 \code{\link{usl}}, \code{\link{USL-class}}
 }
-
