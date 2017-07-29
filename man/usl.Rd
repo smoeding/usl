@@ -55,7 +55,7 @@ model:
     with the "\code{port}" algorithm is used internally to solve the
     model. So all restrictions of the "\code{port}" algorithm apply.
   \item "\code{nlxb}" for a nonliner regression model using the function
-    \code{\link{nlxb}} from the \code{\link{nlmrt}} package. This method
+    \code{\link{nlxb}} from the \code{\link{nlsr}} package. This method
     also estimates both coefficients and the normalization factor. It is
     expected to be more robust than the \code{nls} method.
 }
@@ -100,8 +100,8 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
   Approach to Planning for Highly Scalable Applications and Services.
   Springer, Heidelberg, Germany, 1st edition, 2007.
 
-John C. Nash. nlmrt: Functions for nonlinear least squares
-  solutions, 2013. R package version 2013-8.10.
+John C. Nash. nlsr: Functions for nonlinear least squares
+  solutions, 2017. R package version 2017.6.18.
 }
 \seealso{
 \code{\link{efficiency,USL-method}},

@@ -394,7 +394,7 @@ There are currently three possible values for the \texttt{method} parameter:
   So all restrictions of the ``port'' algorithm apply.
 \item[\texttt{nlxb}:] A nonlinear regression model is also used in this case.
   But instead of the \kbd{nls()} function it uses the \kbd{nlxb()} function
-  from the nlmrt package (see \cite{R:nlmrt}). This method also estimates
+  from the nlsr package (see \cite{R:nlsr}). This method also estimates
   both coefficients and the normalization factor. It is expected to be more
   robust than the \texttt{nls} method.
 \end{labeling}

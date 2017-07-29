@@ -1,8 +1,8 @@
 Package: usl
 Type: Package
 Title: Analyze System Scalability with the Universal Scalability Law
-Version: 1.7.0
-Date: 2016-10-13
+Version: 1.8.0
+Date: 2017-07-29
 Authors@R: c(person(given="Neil J.", family="Gunther", role
     = "aut"), person(given="Stefan", family="Moeding", role
     = c("aut", "cre"), email = "stm@moeding.net"))
@@ -13,7 +13,7 @@ Depends:
 Imports:
     graphics,
     stats,
-    nlmrt
+    nlsr
 Suggests:
     knitr
 VignetteBuilder: knitr
@@ -21,4 +21,4 @@ Description: The Universal Scalability Law is a model to predict hardware and
     software scalability. It uses system capacity as a function of load to
     forecast the scalability for the system.
 License: BSD_2_clause + file LICENSE
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1

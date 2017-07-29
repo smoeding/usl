@@ -17,12 +17,12 @@ A list containing three elements: the scale.factor of the model,
 }
 \description{
 This function solves a USL model using non linear regression with least
-squares. It uses the function \code{\link{nlxb}} from the \pkg{nlmrt}
+squares. It uses the function \code{\link{nlxb}} from the \pkg{nlsr}
 package to perform the calculation.
 }
 \references{
-John C. Nash. nlmrt: Functions for nonlinear least squares
-  solutions, 2013. R package version 2013-8.10.
+John C. Nash. nlsr: Functions for nonlinear least squares
+  solutions, 2017. R package version 2017.6.18.
 }
 \seealso{
 \code{\link{usl}}

@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2016 Stefan Moeding
+# Copyright (c) 2013-2017 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -117,7 +117,7 @@ usl.solve.nls <- function(model) {
 #' Solve a USL model using non linear regression
 #'
 #' This function solves a USL model using non linear regression with least
-#' squares. It uses the function \code{\link{nlxb}} from the \pkg{nlmrt}
+#' squares. It uses the function \code{\link{nlxb}} from the \pkg{nlsr}
 #' package to perform the calculation.
 #'
 #' @param model A data frame with two columns containing the values of the
@@ -129,10 +129,11 @@ usl.solve.nls <- function(model) {
 #'
 #' @seealso \code{\link{usl}}
 #'
-#' @references John C. Nash. nlmrt: Functions for nonlinear least squares
-#'   solutions, 2013. R package version 2013-8.10.
+#' @references John C. Nash. nlsr: Functions for nonlinear least squares
+#'   solutions, 2017. R package version 2017.6.18.
 #'
-#' @importFrom nlmrt nlxb
+#' @importFrom nlsr nlxb
+#' @importFrom utils capture.output
 #' @keywords internal
 #'
 usl.solve.nlxb <- function(model) {
@@ -141,12 +142,14 @@ usl.solve.nlxb <- function(model) {
   # Lower bound for scale.factor?
   sf.max <- max(model$y / model$x)
 
-  model.fit <- nlxb(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)),
-                    data = model,
-                    start = c(X1 = sf.max, sigma = 0.1, kappa = 0.01),
-                    lower = c(X1 = 0, sigma = 0, kappa = 0),
-                    upper = c(X1 = Inf, sigma = 1, kappa = 1))
-
+  log <- capture.output({
+    model.fit <- nlxb(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)),
+                      data = model,
+                      start = c(X1 = sf.max, sigma = 0.1, kappa = 0.01),
+                      lower = c(X1 = 0, sigma = 0, kappa = 0),
+                      upper = c(X1 = Inf, sigma = 1, kappa = 1))
+  })
+  
   scale.factor = model.fit$coefficients[['X1']]
   sigma = model.fit$coefficients[['sigma']]
   kappa = model.fit$coefficients[['kappa']]
@@ -188,7 +191,7 @@ usl.solve.nlxb <- function(model) {
 #'     with the "\code{port}" algorithm is used internally to solve the
 #'     model. So all restrictions of the "\code{port}" algorithm apply.
 #'   \item "\code{nlxb}" for a nonliner regression model using the function
-#'     \code{\link{nlxb}} from the \code{\link{nlmrt}} package. This method
+#'     \code{\link{nlxb}} from the \code{\link{nlsr}} package. This method
 #'     also estimates both coefficients and the normalization factor. It is
 #'     expected to be more robust than the \code{nls} method.
 #' }
@@ -232,8 +235,8 @@ usl.solve.nlxb <- function(model) {
 #'   Approach to Planning for Highly Scalable Applications and Services.
 #'   Springer, Heidelberg, Germany, 1st edition, 2007.
 #'
-#' @references John C. Nash. nlmrt: Functions for nonlinear least squares
-#'   solutions, 2013. R package version 2013-8.10.
+#' @references John C. Nash. nlsr: Functions for nonlinear least squares
+#'   solutions, 2017. R package version 2017.6.18.
 #'
 #' @examples
 #' require(usl)
