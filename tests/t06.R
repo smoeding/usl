@@ -1,5 +1,5 @@
 #
-# Test import of package nlmrt
+# Test import of package nlsr
 #
 
 library(usl)

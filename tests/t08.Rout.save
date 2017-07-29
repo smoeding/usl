@@ -1,7 +1,7 @@
 
-R version 3.3.0 (2016-05-03) -- "Supposedly Educational"
-Copyright (C) 2016 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.4.0 (64-bit)
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -52,4 +52,4 @@ Multiple R-squared: 0.9624,	Adjusted R-squared: 0.9549
 > 
 > proc.time()
    user  system elapsed 
-  0.381   0.060   0.419 
+  0.448   0.069   0.503 
