@@ -1,3 +1,9 @@
+CHANGES in `usl' VERSION 1.8.0 (2017-08-07)
+
+* The `nlsr` package will replace the older `nlmrt` package. The package has
+  been updated accordingly.
+
+
 CHANGES in `usl' VERSION 1.7.0 (2016-10-13)
 
 * The `summary()' command now shows the t-value and the two sided p-value for
