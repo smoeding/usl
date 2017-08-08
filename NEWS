@@ -1,3 +1,8 @@
+CHANGES in `usl' VERSION x.x.x (xxxx-xx-xx)
+
+* Add DOI reference in DESCRIPTION file.
+
+
 CHANGES in `usl' VERSION 1.8.0 (2017-08-07)
 
 * The `nlsr` package will replace the older `nlmrt` package. The package has
