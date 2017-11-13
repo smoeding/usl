@@ -7,6 +7,10 @@ r:
   - devel
 r_build_args: "--no-build-vignettes --no-manual"
 r_check_args: "--no-build-vignettes --no-manual --as-cran"
+r_packages:
+  - covr
+after_success:
+  - Rscript -e 'library(covr); codecov()'
 warnings_are_errors: false
 addons:
   apt:
