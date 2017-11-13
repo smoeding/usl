@@ -15,37 +15,43 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> #
-> # Test functions coef, fitted, residuals, df.residual, efficiency
-> #
+> # confint.R --- Test function confint
 > 
 > library(usl)
 > 
-> data(specsdm91)
+> data(raytracer)
 > 
-> options(digits=3)
+> options(digits=3, scipen=6)
 > 
-> u <- usl(throughput ~ load, specsdm91)
+> set.seed(1103, kind = "default", normal.kind = "default")
+> 
+> u <- usl(throughput ~ processors, data = raytracer)
 > 
 > coef(u)
-   sigma    kappa 
-1.70e-02 7.89e-05 
+     sigma      kappa 
+0.05002394 0.00000471 
 > 
-> fitted(u)
-     1      2      3      4      5      6      7 
-  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
+> confint(u, parm=1)
+       2.5 % 97.5 %
+sigma 0.0442 0.0558
+> confint(u, parm="sigma")
+       2.5 % 97.5 %
+sigma 0.0442 0.0558
 > 
-> residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
+> confint(u, parm=2)
+          2.5 %  97.5 %
+kappa -0.000121 0.00013
+> confint(u, parm="kappa")
+          2.5 %  97.5 %
+kappa -0.000121 0.00013
 > 
-> df.residual(u)
-[1] 5
-> 
-> efficiency(u)
-    1    18    36    72   108   144   216 
-1.000 0.853 0.707 0.397 0.261 0.190 0.121 
+> confint(u, parm=3)
+     2.5 % 97.5 %
+<NA>    NA     NA
+> confint(u, parm="none")
+     2.5 % 97.5 %
+<NA>    NA     NA
 > 
 > proc.time()
    user  system elapsed 
-  0.442   0.070   0.502 
+  0.512   0.071   0.566 

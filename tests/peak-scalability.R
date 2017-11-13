@@ -1,6 +1,4 @@
-#
-# Test function peak.scalability
-#
+# peak-scalability.R --- Test function peak.scalability
 
 library(usl)
 

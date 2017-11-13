@@ -15,22 +15,19 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> #
-> # Test function coef
-> #
+> # df-residual.R --- Test function df.residual
 > 
 > library(usl)
 > 
-> dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10), 
-+                   tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
+> data(specsdm91)
 > 
-> u <- usl(tput ~ load, dfr)
+> options(digits=3)
 > 
-> signif(coef(u)[['sigma']], 3)
-[1] 0.02
-> signif(coef(u)[['kappa']], 3)
-[1] 0.02
+> u <- usl(throughput ~ load, specsdm91)
+> 
+> df.residual(u)
+[1] 5
 > 
 > proc.time()
    user  system elapsed 
-  0.421   0.061   0.465 
+  0.442   0.070   0.502 

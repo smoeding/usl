@@ -15,20 +15,30 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> #
-> # Test function peak.scalability
-> #
+> # predict.R --- Test function predict
 > 
 > library(usl)
+> 
+> options(digits = 3)
 > 
 > data(specsdm91)
 > 
 > u <- usl(throughput ~ load, specsdm91)
 > 
-> # Calculate where peak scalability is reached
-> signif(peak.scalability(u), 2)
-[1] 110
+> predict(u)
+     1      2      3      4      5      6      7 
+  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
+> 
+> predict(u, interval = "confidence")
+     fit  lwr  upr
+1   64.9 -185  314
+2  889.1  640 1139
+3 1377.5 1128 1627
+4 1787.7 1538 2037
+5 1876.1 1627 2126
+6 1845.9 1596 2095
+7 1682.8 1433 1932
 > 
 > proc.time()
    user  system elapsed 
-  0.437   0.069   0.493 
+  0.567   0.072   0.631 

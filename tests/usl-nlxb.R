@@ -1,6 +1,4 @@
-#
-# Test import of package nlsr
-#
+# usl-nlxb.R --- Test method nlxb
 
 library(usl)
 

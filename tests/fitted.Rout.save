@@ -15,25 +15,20 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> #
-> # Test when data frame is not ordered
-> #
+> # fitted.R --- Test function fitted
 > 
 > library(usl)
 > 
+> data(specsdm91)
+> 
 > options(digits=3)
 > 
-> dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10), 
-+                   tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
+> u <- usl(throughput ~ load, specsdm91)
 > 
-> dfr <- dfr[order(-dfr[1]), ]
-> 
-> try(u <- usl(tput ~ load, data=dfr))
-> 
-> coef(u)
-sigma kappa 
- 0.02  0.02 
+> fitted(u)
+     1      2      3      4      5      6      7 
+  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
 > 
 > proc.time()
    user  system elapsed 
-  0.422   0.063   0.466 
+  0.442   0.070   0.502 

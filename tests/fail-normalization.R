@@ -1,6 +1,4 @@
-#
-# Test warning when normalization is not possible
-#
+# fail-normalization.R --- Test warning when normalization is not possible
 
 library(usl)
 

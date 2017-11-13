@@ -1,6 +1,4 @@
-#
-# Test function predict
-#
+# predict.R --- Test function predict
 
 library(usl)
 

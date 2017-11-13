@@ -1,6 +1,4 @@
-#
-# Test method nls
-#
+# usl-nls.R --- Test method nls
 
 library(usl)
 

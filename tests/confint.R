@@ -1,6 +1,4 @@
-#
-# Test function confint
-#
+# confint.R --- Test function confint
 
 library(usl)
 

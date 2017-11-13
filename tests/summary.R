@@ -1,6 +1,4 @@
-#
-# Test function plot
-#
+# summary.R --- Test function summary
 
 library(usl)
 
@@ -8,4 +6,4 @@ data(specsdm91)
 
 u <- usl(throughput ~ load, specsdm91)
 
-plot(u, ylim=c(0, 3000), bounds=TRUE)
+summary(u, digits=3)

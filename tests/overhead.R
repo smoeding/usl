@@ -1,6 +1,4 @@
-#
-# Test function overhead
-#
+# overhead.R --- Test function overhead
 
 library(usl)
 

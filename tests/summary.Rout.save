@@ -15,32 +15,39 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> #
-> # Test function predict
-> #
+> # summary.R --- Test function summary
 > 
 > library(usl)
-> 
-> options(digits = 3)
 > 
 > data(specsdm91)
 > 
 > u <- usl(throughput ~ load, specsdm91)
 > 
-> predict(u)
-     1      2      3      4      5      6      7 
-  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
-> 
-> predict(u, interval = "confidence")
-     fit  lwr  upr
-1   64.9 -185  314
-2  889.1  640 1139
-3 1377.5 1128 1627
-4 1787.7 1538 2037
-5 1876.1 1627 2126
-6 1845.9 1596 2095
-7 1682.8 1433 1932
+> summary(u, digits=3)
+
+Call:
+usl(formula = throughput ~ load, data = specsdm91)
+
+Scale Factor for normalization: 64.9 
+
+Efficiency:
+   Min     1Q Median     3Q    Max 
+0.1214 0.2254 0.3966 0.7799 1.0000 
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-70.89 -23.59  19.39  86.14 274.88 
+
+Coefficients:
+        Estimate  Std. Error  t value  Pr(>|t|)    
+sigma  1.705e-02   3.318e-03    5.137   0.00365  **
+kappa  7.892e-05   2.492e-05    3.167   0.02489  * 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 140.6 on 5 degrees of freedom
+Multiple R-squared: 0.9624,	Adjusted R-squared: 0.9549
 > 
 > proc.time()
    user  system elapsed 
-  0.567   0.072   0.631 
+  0.448   0.069   0.503 

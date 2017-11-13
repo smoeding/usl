@@ -15,18 +15,23 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> #
-> # Test function plot
-> #
->
+> # usl-unordered.R --- Test when data frame is not ordered
+> 
 > library(usl)
->
-> data(specsdm91)
->
-> u <- usl(throughput ~ load, specsdm91)
->
-> plot(u, ylim=c(0, 3000), bounds=TRUE)
->
+> 
+> options(digits=3)
+> 
+> dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10), 
++                   tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
+> 
+> dfr <- dfr[order(-dfr[1]), ]
+> 
+> try(u <- usl(tput ~ load, data=dfr))
+> 
+> coef(u)
+sigma kappa 
+ 0.02  0.02 
+> 
 > proc.time()
-   user  system elapsed
-  0.448   0.069   0.503
+   user  system elapsed 
+  0.422   0.063   0.466 

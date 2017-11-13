@@ -15,23 +15,26 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> #
-> # Test method nls
-> #
->
+> # coef.R --- Test function coef
+> 
 > library(usl)
->
-> options(digits=3)
->
-> dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10),
+> 
+> dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10), 
 +                   tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
->
-> try(u <- usl(tput ~ load, data=dfr, method="nls"))
->
+> 
+> u <- usl(tput ~ load, dfr)
+> 
+> signif(coef(u)[['sigma']], 3)
+[1] 0.02
+> signif(coef(u)[['kappa']], 3)
+[1] 0.02
+> 
+> options(digits=3)
+> 
 > coef(u)
-sigma kappa
- 0.02  0.02
->
+sigma kappa 
+ 0.02  0.02 
+> 
 > proc.time()
-   user  system elapsed
-  0.422   0.063   0.466
+   user  system elapsed 
+  0.421   0.061   0.465 
