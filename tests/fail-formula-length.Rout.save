@@ -15,20 +15,16 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> # residuals.R --- Test function residuals
+> # fail-formula-length.R --- Fail if length of formula is wrong
 > 
 > library(usl)
 > 
-> data(specsdm91)
+> data(airquality)
 > 
-> options(digits=3)
-> 
-> u <- usl(throughput ~ load, specsdm91)
-> 
-> residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
+> try(usl(~ Wind + Temp, data=airquality))
+Error in usl(~Wind + Temp, data = airquality) : 
+  'formula' must be a 3-part formula
 > 
 > proc.time()
    user  system elapsed 
-  0.458   0.072   0.507 
+  0.442   0.070   0.487 

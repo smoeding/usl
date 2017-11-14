@@ -15,20 +15,16 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> # residuals.R --- Test function residuals
+> # fail-formula-varcount.R --- Fail if formula has wrong number of variables
 > 
 > library(usl)
 > 
-> data(specsdm91)
+> data(airquality)
 > 
-> options(digits=3)
-> 
-> u <- usl(throughput ~ load, specsdm91)
-> 
-> residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
+> try(usl(Ozone ~ Wind + Temp, data=airquality))
+Error in usl(Ozone ~ Wind + Temp, data = airquality) : 
+  'formula' must contain exactly 2 variables
 > 
 > proc.time()
    user  system elapsed 
-  0.458   0.072   0.507 
+  0.439   0.071   0.485 

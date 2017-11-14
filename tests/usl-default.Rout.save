@@ -15,20 +15,20 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> # residuals.R --- Test function residuals
+> # usl-default.R --- Test method default
 > 
 > library(usl)
 > 
-> data(specsdm91)
+> options(digits=1, scipen=7)
 > 
-> options(digits=3)
+> data(raytracer)
 > 
-> u <- usl(throughput ~ load, specsdm91)
+> u <- try(usl(throughput ~ processors, data=raytracer))
 > 
-> residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
+> coef(u)
+   sigma    kappa 
+0.050024 0.000005 
 > 
 > proc.time()
    user  system elapsed 
-  0.458   0.072   0.507 
+   0.45    0.07    0.50 

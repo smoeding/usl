@@ -15,20 +15,25 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> # residuals.R --- Test function residuals
+> # warn-accuracy.R --- Warn if not enough data
 > 
 > library(usl)
 > 
-> data(specsdm91)
+> options(digits=1, scipen=7)
 > 
-> options(digits=3)
+> data(raytracer)
 > 
-> u <- usl(throughput ~ load, specsdm91)
+> r <- raytracer[1:5, ]
 > 
-> residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
+> u <- usl(throughput ~ processors, data=r)
+Warning message:
+In usl(throughput ~ processors, data = r) :
+  'data' has only a few values; the result might not be accurate
+> 
+> coef(u)
+sigma kappa 
+0.013 0.002 
 > 
 > proc.time()
    user  system elapsed 
-  0.458   0.072   0.507 
+   0.45    0.07    0.50 

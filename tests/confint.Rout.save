@@ -1,5 +1,5 @@
 
-R version 3.4.1 (2017-06-30) -- "Single Candle"
+R version 3.4.2 (2017-09-28) -- "Short Summer"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
@@ -54,4 +54,4 @@ kappa -0.000121 0.00013
 > 
 > proc.time()
    user  system elapsed 
-  0.512   0.071   0.566 
+  0.527   0.079   0.581 

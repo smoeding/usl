@@ -15,20 +15,16 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> # residuals.R --- Test function residuals
+> # fail-data-frame.R --- Fail if argument is not a data frame
 > 
 > library(usl)
 > 
-> data(specsdm91)
+> data(AirPassengers)
 > 
-> options(digits=3)
-> 
-> u <- usl(throughput ~ load, specsdm91)
-> 
-> residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
+> try(usl(Jan ~ Feb + Mar, data=AirPassengers))
+Error in usl(Jan ~ Feb + Mar, data = AirPassengers) : 
+  'data' must be a data frame or an environment
 > 
 > proc.time()
    user  system elapsed 
-  0.458   0.072   0.507 
+  0.444   0.070   0.491 

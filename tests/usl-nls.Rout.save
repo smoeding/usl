@@ -1,5 +1,5 @@
 
-R version 3.4.1 (2017-06-30) -- "Single Candle"
+R version 3.4.2 (2017-09-28) -- "Short Summer"
 Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
@@ -16,20 +16,20 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # usl-nls.R --- Test method nls
->
+> 
 > library(usl)
->
+> 
 > options(digits=3)
->
+> 
 > dfr <- data.frame(load=c(1, 2,      4,      6,      8,      10),
 +                   tput=c(1, 1.8868, 3.0769, 3.5294, 3.5398, 3.3557))
->
+> 
 > try(u <- usl(tput ~ load, data=dfr, method="nls"))
->
+> 
 > coef(u)
-sigma kappa
- 0.02  0.02
->
+sigma kappa 
+ 0.02  0.02 
+> 
 > proc.time()
-   user  system elapsed
-  0.422   0.063   0.466
+   user  system elapsed 
+  0.436   0.067   0.483 
