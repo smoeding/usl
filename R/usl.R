@@ -46,9 +46,10 @@
 #'
 usl.solve.lm <- function(model) {
   # Verify that the scale factor for normalization is in the dataframe
-  if (all(model[ , 1] != 1)) {
+  # (not used anymore: usl() switches to method="nlxb" if this is detected)
+  if (all(model[ , 1] != 1)) { # nocov start
     stop(paste0("'data' must contain a row where '", names(model[1]), "' = 1"))
-  }
+  } # nocov end
 
   # Calculate scale factor: get throughput for entry where load=1
   scale.factor <- model[match(1, model[ , 1]), 2]
