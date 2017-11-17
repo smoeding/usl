@@ -7,7 +7,7 @@ This is an R package to analyze system performance data with the Universal Scala
 
 The Universal Scalability Law (USL) was developed by Dr. Neil J. Gunther. It can be used to analyze system performance data in order to learn more about the scalability limitations of the system.
 
-Details are presented in the book *Guerrilla Capacity Planning* and on the [authors website](http://www.perfdynamics.com/).
+Details are presented in the book *Guerrilla Capacity Planning* [<doi:10.1007/978-3-540-31010-5>](http://dx.doi.org/10.1007/978-3-540-31010-5) and on the [authors website](http://www.perfdynamics.com/).
 
 ## Example
 
