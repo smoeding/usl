@@ -22,4 +22,5 @@ Description: The Universal Scalability Law (Gunther 2007)
     software scalability. It uses system capacity as a function of load to
     forecast the scalability for the system.
 License: BSD_2_clause + file LICENSE
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+RoxygenNote: 6.1.1

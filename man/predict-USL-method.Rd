@@ -5,8 +5,8 @@
 \alias{predict,USL-method}
 \title{Predict method for Universal Scalability Law models}
 \usage{
-\S4method{predict}{USL}(object, newdata, sigma, kappa, interval = c("none",
-  "confidence"), level = 0.95)
+\S4method{predict}{USL}(object, newdata, sigma, kappa,
+  interval = c("none", "confidence"), level = 0.95)
 }
 \arguments{
 \item{object}{A USL model object for which prediction is desired.}
