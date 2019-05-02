@@ -5,7 +5,7 @@
 \alias{predict,USL-method}
 \title{Predict method for Universal Scalability Law models}
 \usage{
-\S4method{predict}{USL}(object, newdata, sigma, kappa,
+\S4method{predict}{USL}(object, newdata, alpha, beta,
   interval = c("none", "confidence"), level = 0.95)
 }
 \arguments{
@@ -14,10 +14,10 @@
 \item{newdata}{An optional data frame in which to look for variables
 with which to predict. If omitted, the fitted values are used.}
 
-\item{sigma}{Optional parameter to be used for evaluation instead of the
+\item{alpha}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 
-\item{kappa}{Optional parameter to be used for evaluation instead of the
+\item{beta}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 
 \item{interval}{Type of interval calculation. Default is to calculate no
@@ -39,7 +39,7 @@ requests the computation of confidence intervals at the specified
 \code{level}.
 }
 \details{
-The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+The parameters \code{alpha} or \code{beta} are useful to do a what-if
 analysis. Setting these parameters override the model parameters and show
 how the system would behave with a different contention or coherency delay
 parameter.

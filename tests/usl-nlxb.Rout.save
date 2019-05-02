@@ -38,8 +38,8 @@ Residuals:
 
 Coefficients:
         Estimate  Std. Error  t value  Pr(>|t|)     
-sigma  2.773e-02   2.183e-03   12.705  5.37e-05  ***
-kappa  1.044e-04   1.724e-05    6.052   0.00178  ** 
+alpha  2.773e-02   2.183e-03   12.705  5.37e-05  ***
+beta  1.044e-04   1.724e-05    6.052   0.00178  ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 

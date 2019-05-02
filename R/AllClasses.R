@@ -34,8 +34,8 @@
 #' @slot regr The name of the regressor variable.
 #' @slot resp The name of the response variable.
 #' @slot scale.factor The scale factor used to create the model.
-#' @slot coefficients The coefficients sigma and kappa of the model.
-#' @slot coef.std.err The standard errors for the coefficients sigma and kappa.
+#' @slot coefficients The coefficients alpha and beta of the model.
+#' @slot coef.std.err The standard errors for the coefficients alpha and beta.
 #' @slot coef.names A vector with the names of the coefficients.
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
@@ -65,7 +65,7 @@ setClass("USL",
                         adj.r.squared = "numeric",
                         efficiency    = "vector",
                         na.action     = "character"),
-         prototype(coef.names    = c("sigma", "kappa"),
+         prototype(coef.names    = c("alpha", "beta"),
                    df.residual   = 0L,
                    r.squared     = 0,
                    adj.r.squared = 0,
@@ -111,16 +111,16 @@ setClass("USL",
            #
            # Check validity of values according to Corollary 5.1, p. 81, GCaP
            #
-           sigma <- object@coefficients[['sigma']]
-           kappa <- object@coefficients[['kappa']]
+           alpha <- object@coefficients[['alpha']]
+           beta <- object@coefficients[['beta']]
 
-           if (kappa > sigma + kappa) {
-             msg <- "illegal coefficients: kappa > sigma + kappa"
+           if (beta > alpha + beta) {
+             msg <- "illegal coefficients: beta > alpha + beta"
              err <- c(err, msg)
            }
 
-           if (sigma + kappa >= kappa + 1) {
-             msg <- "illegal coefficients: sigma + kappa >= kappa + 1"
+           if (alpha + beta >= beta + 1) {
+             msg <- "illegal coefficients: alpha + beta >= beta + 1"
              err <- c(err, msg)
            }
 

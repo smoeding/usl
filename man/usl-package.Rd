@@ -13,8 +13,8 @@ scalability for the system.
 Use the function \code{\link{usl}} to create a model from a formula and
 a data frame.
 
-The USL model produces two coefficients as result: \code{sigma} models the
-contention and \code{kappa} the coherency delay of the system.
+The USL model produces two coefficients as result: \code{alpha} models the
+contention and \code{beta} the coherency delay of the system.
 
 The Universal Scalability Law has been created by Dr. Neil J. Gunther.
 }

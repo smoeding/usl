@@ -35,8 +35,8 @@ processes, threads, ...) and one dependent variable (e.g. throughput, ...).
 Therefore the model formula must be in the simple
 "\code{response ~ predictor}" format.
 
-The model produces two coefficients as result: \code{sigma} models the
-contention and \code{kappa} the coherency delay of the system. The
+The model produces two coefficients as result: \code{alpha} models the
+contention and \code{beta} the coherency delay of the system. The
 function \code{\link{coef}} extracts the coefficients from the model
 object.
 
@@ -50,7 +50,7 @@ model:
     "\code{1}" for one measurement. This is the algorithm introduced by
     Dr. Neil J. Gunther in the book \emph{Guerrilla Capacity Planning}.
   \item "\code{nls}" for a nonlinear regression model. This method
-    estimates not only the coefficients \code{sigma} and \code{kappa} but
+    estimates not only the coefficients \code{alpha} and \code{beta} but
     also the \code{scale.factor} for the normalization. \code{\link{nls}}
     with the "\code{port}" algorithm is used internally to solve the
     model. So all restrictions of the "\code{port}" algorithm apply.
@@ -68,7 +68,7 @@ The Universal Scalability Law can be expressed with following formula.
 \code{C(N)} predicts the relative capacity of the system for a given
 load \code{N}:
 
-\deqn{C(N) = \frac{N}{1 + \sigma (N - 1) + \kappa N (N - 1)}}{C(N) = N / (1 + \sigma * (N - 1) + \kappa * N * (N - 1))}
+\deqn{C(N) = \frac{N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = N / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
 }
 \examples{
 require(usl)

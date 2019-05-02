@@ -38,25 +38,25 @@
 #' @keywords internal
 #'
 gradient.usl <- function(x) {
-  sigma = x@coefficients['sigma']
-  kappa = x@coefficients['kappa']
+  alpha = x@coefficients['alpha']
+  beta = x@coefficients['beta']
   scale.factor = x@scale.factor
   n = x@frame[, x@regr, drop = TRUE]
   
   # Based on the output of:
-  # deriv(~ X0 * n / (1 + (sigma * (n-1)) + (kappa * n * (n-1))), # rhs
-  #       c('sigma', 'kappa'),                                    # params
-  #       function(sigma, kappa, n, X0){}                         # args
+  # deriv(~ X0 * n / (1 + (alpha * (n-1)) + (beta * n * (n-1))), # rhs
+  #       c('alpha', 'beta'),                                    # params
+  #       function(alpha, beta, n, X0){}                         # args
   
   term1 <- n - 1
-  term2 <- 1 + (sigma * term1) + (kappa * n * term1)
+  term2 <- 1 + (alpha * term1) + (beta * n * term1)
   term3 <- n * term1
   term4 <- term2 ^ 2
   
-  grad.sigma <- -(scale.factor * term3 / term4)
-  grad.kappa <- -(scale.factor * (n * term3) / term4)
+  grad.alpha <- -(scale.factor * term3 / term4)
+  grad.beta <- -(scale.factor * (n * term3) / term4)
   
-  matrix(c(grad.sigma, grad.kappa),
+  matrix(c(grad.alpha, grad.beta),
          nrow = length(n), 
          dimnames = list(1:length(n), x@coef.names))
 }

@@ -34,7 +34,7 @@
 #'   variable in the second column.
 #'
 #' @return A list containing three elements: the scale.factor of the model,
-#'   the model coefficients sigma and kappa.
+#'   the model coefficients alpha and beta.
 #'
 #' @seealso \code{\link{usl}}
 #'
@@ -67,11 +67,11 @@ usl.solve.lm <- function(model) {
   # Solve quadratic model without intercept
   model.fit <- lm(y ~ I(x^2) + x - 1, data = model)
 
-  # Calculate coefficients sigma & kappa used by the USL model
-  sigma <- coef(model.fit)[[2]] - coef(model.fit)[[1]]
-  kappa <- coef(model.fit)[[1]]
+  # Calculate coefficients alpha & beta used by the USL model
+  alpha <- coef(model.fit)[[2]] - coef(model.fit)[[1]]
+  beta <- coef(model.fit)[[1]]
 
-  return(list(scale.factor = scale.factor, sigma = sigma, kappa = kappa))
+  return(list(scale.factor = scale.factor, alpha = alpha, beta = beta))
 }
 
 
@@ -88,7 +88,7 @@ usl.solve.lm <- function(model) {
 #'   variable in the second column.
 #'
 #' @return A list containing three elements: the scale.factor of the model,
-#'   the model coefficients sigma and kappa.
+#'   the model coefficients alpha and beta.
 #'
 #' @seealso \code{\link{usl}}
 #' @keywords internal
@@ -99,18 +99,18 @@ usl.solve.nls <- function(model) {
   # Lower bound for scale.factor?
   sf.max <- max(model$y / model$x)
 
-  model.fit <- nls(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)),
+  model.fit <- nls(y ~ X1 * x/(1 + alpha * (x-1) + beta * x * (x-1)),
                    data = model,
-                   start = c(X1 = sf.max, sigma = 0.1, kappa = 0.01),
+                   start = c(X1 = sf.max, alpha = 0.1, beta = 0.01),
                    algorithm = "port",
-                   lower = c(X1 = 0, sigma = 0, kappa = 0),
-                   upper = c(X1 = Inf, sigma = 1, kappa = 1))
+                   lower = c(X1 = 0, alpha = 0, beta = 0),
+                   upper = c(X1 = Inf, alpha = 1, beta = 1))
 
   scale.factor = coef(model.fit)[['X1']]
-  sigma = coef(model.fit)[['sigma']]
-  kappa = coef(model.fit)[['kappa']]
+  alpha = coef(model.fit)[['alpha']]
+  beta = coef(model.fit)[['beta']]
 
-  return(list(scale.factor = scale.factor, sigma = sigma, kappa = kappa))
+  return(list(scale.factor = scale.factor, alpha = alpha, beta = beta))
 }
 
 
@@ -126,7 +126,7 @@ usl.solve.nls <- function(model) {
 #'   variable in the second column.
 #'
 #' @return A list containing three elements: the scale.factor of the model,
-#'   the model coefficients sigma and kappa.
+#'   the model coefficients alpha and beta.
 #'
 #' @seealso \code{\link{usl}}
 #'
@@ -144,18 +144,18 @@ usl.solve.nlxb <- function(model) {
   sf.max <- max(model$y / model$x)
 
   log <- capture.output({
-    model.fit <- nlxb(y ~ X1 * x/(1 + sigma * (x-1) + kappa * x * (x-1)),
+    model.fit <- nlxb(y ~ X1 * x/(1 + alpha * (x-1) + beta * x * (x-1)),
                       data = model,
-                      start = c(X1 = sf.max, sigma = 0.1, kappa = 0.01),
-                      lower = c(X1 = 0, sigma = 0, kappa = 0),
-                      upper = c(X1 = Inf, sigma = 1, kappa = 1))
+                      start = c(X1 = sf.max, alpha = 0.1, beta = 0.01),
+                      lower = c(X1 = 0, alpha = 0, beta = 0),
+                      upper = c(X1 = Inf, alpha = 1, beta = 1))
   })
   
   scale.factor = model.fit$coefficients[['X1']]
-  sigma = model.fit$coefficients[['sigma']]
-  kappa = model.fit$coefficients[['kappa']]
+  alpha = model.fit$coefficients[['alpha']]
+  beta = model.fit$coefficients[['beta']]
 
-  return(list(scale.factor = scale.factor, sigma = sigma, kappa = kappa))
+  return(list(scale.factor = scale.factor, alpha = alpha, beta = beta))
 }
 
 
@@ -172,8 +172,8 @@ usl.solve.nlxb <- function(model) {
 #' Therefore the model formula must be in the simple
 #' "\code{response ~ predictor}" format.
 #'
-#' The model produces two coefficients as result: \code{sigma} models the
-#' contention and \code{kappa} the coherency delay of the system. The
+#' The model produces two coefficients as result: \code{alpha} models the
+#' contention and \code{beta} the coherency delay of the system. The
 #' function \code{\link{coef}} extracts the coefficients from the model
 #' object.
 #'
@@ -187,7 +187,7 @@ usl.solve.nlxb <- function(model) {
 #'     "\code{1}" for one measurement. This is the algorithm introduced by
 #'     Dr. Neil J. Gunther in the book \emph{Guerrilla Capacity Planning}.
 #'   \item "\code{nls}" for a nonlinear regression model. This method
-#'     estimates not only the coefficients \code{sigma} and \code{kappa} but
+#'     estimates not only the coefficients \code{alpha} and \code{beta} but
 #'     also the \code{scale.factor} for the normalization. \code{\link{nls}}
 #'     with the "\code{port}" algorithm is used internally to solve the
 #'     model. So all restrictions of the "\code{port}" algorithm apply.
@@ -205,7 +205,7 @@ usl.solve.nlxb <- function(model) {
 #' \code{C(N)} predicts the relative capacity of the system for a given
 #' load \code{N}:
 #'
-#' \deqn{C(N) = \frac{N}{1 + \sigma (N - 1) + \kappa N (N - 1)}}{C(N) = N / (1 + \sigma * (N - 1) + \kappa * N * (N - 1))}
+#' \deqn{C(N) = \frac{N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = N / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
 #'
 #' @param formula An object of class "\code{\link{formula}}" (or one that
 #'   can be coerced to that class): a symbolic description of the model to be
@@ -325,7 +325,7 @@ usl <- function(formula, data, method = "default") {
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
                  model.result[['scale.factor']],
-                 model.result[['sigma']], model.result[['kappa']])
+                 model.result[['alpha']], model.result[['beta']])
 
   # Finish building the USL object
   nam <- row.names(frame)

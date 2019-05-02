@@ -40,7 +40,7 @@
 #'
 #' Doubling the capacity will cut the ideal processing time in half but
 #' increase the overhead percentages. The increase of the overhead depends on
-#' the values of the parameters \code{sigma} and \code{kappa} estimated by
+#' the values of the parameters \code{alpha} and \code{beta} estimated by
 #' \code{\link{usl}}.
 #'
 #' The calculation is based on \emph{A General Theory of Computational
@@ -90,8 +90,8 @@ setMethod(
     x <- newdata[, object@regr, drop=TRUE]
 
     y.ideal      <- 1 / x
-    y.contention <- coef(object)[['sigma']] * (x - 1) / x
-    y.coherency  <- coef(object)[['kappa']] * (1/2) * (x - 1)
+    y.contention <- coef(object)[['alpha']] * (x - 1) / x
+    y.coherency  <- coef(object)[['beta']] * (1/2) * (x - 1)
 
     col.names <-  c("ideal", "contention", "coherency")
 

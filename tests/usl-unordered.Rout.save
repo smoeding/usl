@@ -29,7 +29,7 @@ Type 'q()' to quit R.
 > try(u <- usl(tput ~ load, data=dfr))
 > 
 > coef(u)
-sigma kappa 
+alpha beta 
  0.02  0.02 
 > 
 > proc.time()

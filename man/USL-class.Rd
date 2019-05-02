@@ -21,9 +21,9 @@ This class encapsulates the Universal Scalability Law. Use the function
 
 \item{\code{scale.factor}}{The scale factor used to create the model.}
 
-\item{\code{coefficients}}{The coefficients sigma and kappa of the model.}
+\item{\code{coefficients}}{The coefficients alpha and beta of the model.}
 
-\item{\code{coef.std.err}}{The standard errors for the coefficients sigma and kappa.}
+\item{\code{coef.std.err}}{The standard errors for the coefficients alpha and beta.}
 
 \item{\code{coef.names}}{A vector with the names of the coefficients.}
 

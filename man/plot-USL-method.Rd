@@ -6,7 +6,7 @@
 \title{Plot the scalability function from a USL model}
 \usage{
 \S4method{plot}{USL}(x, from = NULL, to = NULL, xlab = NULL,
-  ylab = NULL, bounds = FALSE, sigma, kappa, ...)
+  ylab = NULL, bounds = FALSE, alpha, beta, ...)
 }
 \arguments{
 \item{x}{The USL object to plot.}
@@ -23,10 +23,10 @@ will be plotted.}
 
 \item{bounds}{Add the bounds of scalability to the plot.}
 
-\item{sigma}{Optional parameter to be used for evaluation instead of the
+\item{alpha}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 
-\item{kappa}{Optional parameter to be used for evaluation instead of the
+\item{beta}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 
 \item{...}{Other graphical parameters passed to plot
@@ -53,7 +53,7 @@ shows dotted lines for the theoretical bounds of scalability. These are
 the linear scalability for small loads and Amdahl's asymptote for the
 limit of scalability as load approaches infinity.
 
-The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+The parameters \code{alpha} or \code{beta} are useful to do a what-if
 analysis. Setting these parameters override the model parameters and show
 how the system would behave with a different contention or coherency delay
 parameter.

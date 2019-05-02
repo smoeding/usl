@@ -6,15 +6,15 @@
 \alias{peak.scalability}
 \title{Peak scalability value of a USL model}
 \usage{
-\S4method{peak.scalability}{USL}(object, sigma, kappa)
+\S4method{peak.scalability}{USL}(object, alpha, beta)
 }
 \arguments{
 \item{object}{A USL object.}
 
-\item{sigma}{Optional parameter to be used for evaluation instead of the
+\item{alpha}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 
-\item{kappa}{Optional parameter to be used for evaluation instead of the
+\item{beta}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 }
 \value{
@@ -29,7 +29,7 @@ The peak scalability is the point where the throughput of the
 system starts to go retrograde, i.e., starts to decrease with
 increasing load.
 
-The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+The parameters \code{alpha} or \code{beta} are useful to do a what-if
 analysis. Setting these parameters override the model parameters and show
 how the system would behave with a different contention or coherency delay
 parameter.

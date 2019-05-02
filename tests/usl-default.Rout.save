@@ -26,7 +26,7 @@ Type 'q()' to quit R.
 > u <- try(usl(throughput ~ processors, data=raytracer))
 > 
 > coef(u)
-   sigma    kappa 
+   alpha    beta 
 0.050024 0.000005 
 > 
 > proc.time()

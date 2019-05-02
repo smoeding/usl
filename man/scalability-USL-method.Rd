@@ -6,15 +6,15 @@
 \alias{scalability}
 \title{Scalability function of a USL model}
 \usage{
-\S4method{scalability}{USL}(object, sigma, kappa)
+\S4method{scalability}{USL}(object, alpha, beta)
 }
 \arguments{
 \item{object}{A USL object.}
 
-\item{sigma}{Optional parameter to be used for evaluation instead of the
+\item{alpha}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 
-\item{kappa}{Optional parameter to be used for evaluation instead of the
+\item{beta}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 }
 \value{
@@ -29,7 +29,7 @@ calculate the scalability for the specific USL model.
 The returned function can be used to calculate specific values once the
 model for a system has been created.
 
-The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+The parameters \code{alpha} or \code{beta} are useful to do a what-if
 analysis. Setting these parameters override the model parameters and show
 how the system would behave with a different contention or coherency delay
 parameter.

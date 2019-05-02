@@ -13,7 +13,7 @@ variable in the second column.}
 }
 \value{
 A list containing three elements: the scale.factor of the model,
-  the model coefficients sigma and kappa.
+  the model coefficients alpha and beta.
 }
 \description{
 This function solves a USL model using non linear regression with least

@@ -33,7 +33,7 @@
 #' requests the computation of confidence intervals at the specified
 #' \code{level}.
 #'
-#' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+#' The parameters \code{alpha} or \code{beta} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show
 #' how the system would behave with a different contention or coherency delay
 #' parameter.
@@ -44,9 +44,9 @@
 #' @param object A USL model object for which prediction is desired.
 #' @param newdata An optional data frame in which to look for variables
 #'   with which to predict. If omitted, the fitted values are used.
-#' @param sigma Optional parameter to be used for evaluation instead of the
+#' @param alpha Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
-#' @param kappa Optional parameter to be used for evaluation instead of the
+#' @param beta Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
 #' @param interval Type of interval calculation. Default is to calculate no
 #'   confidence interval.
@@ -80,15 +80,15 @@
 setMethod(
   f = "predict",
   signature = "USL",
-  definition = function(object, newdata, sigma, kappa,
+  definition = function(object, newdata, alpha, beta,
                         interval = c("none", "confidence"),
                         level = 0.95) {
     # Predict for the initial data used to create the model
     # if no data frame 'newdata' is given as parameter
     if (missing(newdata)) newdata <- object@frame
 
-    if (missing(sigma)) sigma <- coef(object)[['sigma']]
-    if (missing(kappa)) kappa <- coef(object)[['kappa']]
+    if (missing(alpha)) alpha <- coef(object)[['alpha']]
+    if (missing(beta)) beta <- coef(object)[['beta']]
 
     if (missing(interval)) interval <- "none"
 
@@ -96,7 +96,7 @@ setMethod(
     x <- newdata[, object@regr, drop=TRUE]
 
     # Calculate values (ignore NA)
-    y <- scalability(object, sigma, kappa)(x)
+    y <- scalability(object, alpha, beta)(x)
 
     fit <- structure(y, names=row.names(newdata))
 

@@ -38,7 +38,7 @@ for contention and coherency will always be zero.
 
 Doubling the capacity will cut the ideal processing time in half but
 increase the overhead percentages. The increase of the overhead depends on
-the values of the parameters \code{sigma} and \code{kappa} estimated by
+the values of the parameters \code{alpha} and \code{beta} estimated by
 \code{\link{usl}}.
 
 The calculation is based on \emph{A General Theory of Computational

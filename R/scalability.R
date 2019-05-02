@@ -32,15 +32,15 @@
 #' The returned function can be used to calculate specific values once the
 #' model for a system has been created.
 #'
-#' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+#' The parameters \code{alpha} or \code{beta} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show
 #' how the system would behave with a different contention or coherency delay
 #' parameter.
 #'
 #' @param object A USL object.
-#' @param sigma Optional parameter to be used for evaluation instead of the
+#' @param alpha Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
-#' @param kappa Optional parameter to be used for evaluation instead of the
+#' @param beta Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
 #'
 #' @return A function with parameter \code{x} that calculates the
@@ -72,13 +72,13 @@
 setMethod(
   f = "scalability",
   signature = "USL",
-  definition = function(object, sigma, kappa) {
-    if (missing(sigma)) sigma <- coef(object)[['sigma']]
-    if (missing(kappa)) kappa <- coef(object)[['kappa']]
+  definition = function(object, alpha, beta) {
+    if (missing(alpha)) alpha <- coef(object)[['alpha']]
+    if (missing(beta)) beta <- coef(object)[['beta']]
 
     .func <- function(x) {
       # Formula (4.31) on page 57 of GCaP:
-      cap <- x / (1 + (sigma * (x-1)) + (kappa * x * (x-1)))
+      cap <- x / (1 + (alpha * (x-1)) + (beta * x * (x-1)))
 
       # Scale it to the measurements
       return(object@scale.factor * cap)
@@ -99,7 +99,7 @@ setMethod(
 #' system starts to go retrograde, i.e., starts to decrease with
 #' increasing load.
 #'
-#' The parameters \code{sigma} or \code{kappa} are useful to do a what-if
+#' The parameters \code{alpha} or \code{beta} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show
 #' how the system would behave with a different contention or coherency delay
 #' parameter.
@@ -107,9 +107,9 @@ setMethod(
 #' See formula (4.33) in \emph{Guerilla Capacity Planning}.
 #'
 #' @param object A USL object.
-#' @param sigma Optional parameter to be used for evaluation instead of the
+#' @param alpha Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
-#' @param kappa Optional parameter to be used for evaluation instead of the
+#' @param beta Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
 #'
 #' @return A numeric value for the point where peak scalability will be
@@ -135,10 +135,10 @@ setMethod(
 setMethod(
   f = "peak.scalability",
   signature = "USL",
-  definition = function(object, sigma, kappa) {
-    if (missing(sigma)) sigma <- coef(object)[['sigma']]
-    if (missing(kappa)) kappa <- coef(object)[['kappa']]
+  definition = function(object, alpha, beta) {
+    if (missing(alpha)) alpha <- coef(object)[['alpha']]
+    if (missing(beta)) beta <- coef(object)[['beta']]
 
-    return(sqrt((1 - sigma) / kappa))
+    return(sqrt((1 - alpha) / beta))
   }
 )

@@ -24,15 +24,15 @@ Type 'q()' to quit R.
 > 
 > u <- usl(tput ~ load, dfr)
 > 
-> signif(coef(u)[['sigma']], 3)
+> signif(coef(u)[['alpha']], 3)
 [1] 0.02
-> signif(coef(u)[['kappa']], 3)
+> signif(coef(u)[['beta']], 3)
 [1] 0.02
 > 
 > options(digits=3)
 > 
 > coef(u)
-sigma kappa 
+alpha beta 
  0.02  0.02 
 > 
 > proc.time()

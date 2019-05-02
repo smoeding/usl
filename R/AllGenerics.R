@@ -33,9 +33,9 @@ setGeneric("confint", function(object, parm, level) standardGeneric("confint"))
 # USL specific methods
 #
 setGeneric("scalability",
-           function(object, sigma, kappa) standardGeneric("scalability"))
+           function(object, alpha, beta) standardGeneric("scalability"))
 setGeneric("peak.scalability",
-           function(object, sigma, kappa) standardGeneric("peak.scalability"))
+           function(object, alpha, beta) standardGeneric("peak.scalability"))
 setGeneric("efficiency",
            function(object) standardGeneric("efficiency"))
 setGeneric("overhead",

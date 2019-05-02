@@ -36,8 +36,8 @@
 #' @param scale.factor A numeric value for the scale of the model. This is the
 #'     factor by which the model values have been reduced to get a normalized
 #'     model.
-#' @param sigma The contention parameter of the model.
-#' @param kappa The coherency delay parameter of the model.
+#' @param alpha The contention parameter of the model.
+#' @param beta The coherency delay parameter of the model.
 #'
 #' @return An object of the specific type.
 #'
@@ -46,9 +46,9 @@
 setMethod(
   f = "initialize",
   signature = "USL",
-  definition = function(.Object, call, frame, regr, resp, scale.factor, sigma, kappa) {
+  definition = function(.Object, call, frame, regr, resp, scale.factor, alpha, beta) {
     .Object@call         <- call
-    .Object@coefficients <- structure(c(sigma, kappa), names = .Object@coef.names)
+    .Object@coefficients <- structure(c(alpha, beta), names = .Object@coef.names)
     .Object@frame        <- frame
     .Object@regr         <- regr
     .Object@resp         <- resp

@@ -124,7 +124,7 @@ is the relative capacity given by the ratio of the measured throughput $X(N)$
 for load $N$ to the throughput $X(1)$ for load $1$.
 
 \begin{equation}\label{eqn:usl}
-C(N) = \frac{N}{1 + \sigma (N - 1) + \kappa N (N - 1)}
+C(N) = \frac{N}{1 + \alpha (N - 1) + \beta N (N - 1)}
 \end{equation}
 
 The denominator consists of three terms that all have a specific physical
@@ -143,7 +143,7 @@ interpretation:
   such a delay are caches implemented in software and hardware.
 \end{labeling}
 
-In other words: $\sigma$ and $\kappa$ represent two concrete physical issues
+In other words: $\alpha$ and $\beta$ represent two concrete physical issues
 that limit the achievable speedup for parallel execution. Note that the
 contention and coherency terms grow linearly respectively quadratically with
 $N$. As a consequence their influence becomes larger with an increasing $N$.
@@ -153,11 +153,11 @@ point where the throughput of the system will start to go retrograde, i.e.,
 will start to decrease with further increasing load.
 
 In \cite{Gun07} Dr.~Gunther proves that \cref{eqn:usl} is reduced to Amdahl's
-Law for $\kappa = 0$. Therefore the Universal Scalability Law can be seen as
+Law for $\beta = 0$. Therefore the Universal Scalability Law can be seen as
 a generalization of Amdahl's Law for speedup in parallel computing.
 
-We could solve this nonlinear equation to estimate the coefficients $\sigma$
-and $\kappa$ using a sparse set of measurements for the throughput $X_i$ at
+We could solve this nonlinear equation to estimate the coefficients $\alpha$
+and $\beta$ using a sparse set of measurements for the throughput $X_i$ at
 different loads $N_i$. The computations used to solve the equation for the
 measured values are discussed in \cite{Gun07}.
 
@@ -170,8 +170,11 @@ the analyst with the data quality of the measurements.
 
 Note that in \cite{Gun07} the coefficients are called $\sigma$ and $\kappa$
 when hardware scalability is evaluated but $\alpha$ and $\beta$ when software
-scalability is analyzed. The \usl{} package only uses \texttt{sigma} and
-\texttt{kappa} as names of the coefficients.
+scalability is analyzed. Up to version 1.8.0 the \usl{} package always used
+\texttt{sigma} and \texttt{kappa} as coefficients. This has been changed
+starting with the 2.0.0 release of the \usl{} package. Now the package will
+also use \texttt{alpha} and \texttt{beta} as coefficient names to follow
+Dr.~Gunther's nomenclature.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -265,7 +268,7 @@ information.
   coefficients and therefore we determine the residuals for the fitted
   values. The distribution of the residuals is also given as part of the
   summary.
-\item The coefficients $\sigma$ and $\kappa$ are the result that we are
+\item The coefficients $\alpha$ and $\beta$ are the result that we are
   essentially interested in. They tell us the magnitude of the contention and
   coherency effects within the system.
 \item Finally $R^2$ estimates how well the model fits the data. We can see
@@ -294,7 +297,7 @@ measured values. Values larger than $1.0$ usually need a closer
 investigation. It is also suspicious if the efficiency gets bigger when the
 load increases.
 
-The model coefficients $\sigma$ and $\kappa$ can be retrieved with the
+The model coefficients $\alpha$ and $\beta$ can be retrieved with the
 \kbd{coef()} function.
 
 <<>>=
@@ -388,7 +391,7 @@ There are currently three possible values for the \texttt{method} parameter:
   This is the original procedure introduced in chapter 5.2.3 of \cite{Gun07}.
 \item[\texttt{nls}:] This method uses the \kbd{nls()} function of the stats
   package for a nonlinear regression model. It estimates not only the
-  coefficients $\sigma$ and $\kappa$ but also the scale factor for the
+  coefficients $\alpha$ and $\beta$ but also the scale factor for the
   normalization. The nonlinear regression uses constraints for its parameters
   which means the ``port'' algorithm is used internally to solve the model.
   So all restrictions of the ``port'' algorithm apply.
@@ -411,16 +414,16 @@ analysis.
 summary(usl.model)
 @
 
-Looking at the coefficients we notice that $\sigma$ is about
-\Sexpr{signif(coef(usl.model)[['sigma']], 2)} and $\kappa$ is about
-\Sexpr{signif(coef(usl.model)[['kappa']], 1)}. The parameter $\sigma$
-indicates that about \Sexpr{signif(100*coef(usl.model)[['sigma']], 2)}
+Looking at the coefficients we notice that $\alpha$ is about
+\Sexpr{signif(coef(usl.model)[['alpha']], 2)} and $\beta$ is about
+\Sexpr{signif(coef(usl.model)[['beta']], 1)}. The parameter $\alpha$
+indicates that about \Sexpr{signif(100*coef(usl.model)[['alpha']], 2)}
 percent of the execution time is strictly serial. Note that this serial
 fraction is also recognized in Amdahl's Law.
 
 We hypothesize that a proposed change to the system --- maybe a redesign of
 the cache architecture or the elimination of a point to point communication
---- could reduce $\kappa$ by half and want to predict how the scalability of
+--- could reduce $\beta$ by half and want to predict how the scalability of
 the system would change.
 
 We can calculate the point of maximum scalability for the current system and
@@ -428,17 +431,17 @@ for the hypothetical system with the \kbd{peak.scalability()} function.
 
 <<>>=
 peak.scalability(usl.model)
-peak.scalability(usl.model, kappa = 0.00005)
+peak.scalability(usl.model, beta = 0.00005)
 @
 
-The function accepts the optional arguments \texttt{sigma} and
-\texttt{kappa}. They are useful to do a what-if analysis. Setting these
+The function accepts the optional arguments \texttt{alpha} and
+\texttt{beta}. They are useful to do a what-if analysis. Setting these
 parameters override the calculated model parameters and show how the system
 would behave with a different contention or coherency coefficient.
 
 In this case we learn that the point of peak scalability would move from
 around \Sexpr{signif(peak.scalability(usl.model), 3)} to about
-\Sexpr{signif(peak.scalability(usl.model, kappa=0.00005), 3)} if we would be
+\Sexpr{signif(peak.scalability(usl.model, beta=0.00005), 3)} if we would be
 able to actually build the system with the assumed optimization.
 
 Both calculated scalability functions can be plotted using the \kbd{plot()}
@@ -450,7 +453,7 @@ range of the plotted values with the first command.
 <<'spplot1', fig.show='hide'>>=
 plot(specsdm91, pch = 16, ylim = c(0,2500))
 plot(usl.model, add = TRUE)
-cache.scale <- scalability(usl.model, kappa = 0.00005)
+cache.scale <- scalability(usl.model, beta = 0.00005)
 curve(cache.scale, lty = 2, add = TRUE)
 @
 
@@ -478,8 +481,8 @@ functions to get the predicted throughput values for the peak values.
 
 <<>>=
 scalability(usl.model)(peak.scalability(usl.model))
-scf <- scalability(usl.model, kappa = 0.00005)
-scf(peak.scalability(usl.model, kappa = 0.00005))
+scf <- scalability(usl.model, beta = 0.00005)
+scf(peak.scalability(usl.model, beta = 0.00005))
 @
 
 This illustrates how the Universal Scalability Law can help to decide if the
@@ -535,7 +538,7 @@ points(specsdm91, pch = 16)
 lines(load[, 1], fit[, 'fit'])
 @
 
-Another way to illustrate the impact of the parameters $\sigma$ and $\kappa$
+Another way to illustrate the impact of the parameters $\alpha$ and $\beta$
 on the scalability is by looking at the achievable speedup when a fixed load
 is parallelized. A naive estimation would be that doubling the degree of
 parallelization should cut the execution time in halve.
@@ -550,15 +553,15 @@ coherency delays.
 
 Dr.~Gunther shows in \cite{DBLP:journals/corr/abs-0808-1431} how the total
 execution time of a parallelized workload depends on the degree of
-parallelism $p$ and the coefficients $\sigma$ and $\kappa$ of the associated
+parallelism $p$ and the coefficients $\alpha$ and $\beta$ of the associated
 USL model. Equation 26 in his paper identifies the magnitude of the three
 components --- given as fractions of the serial execution time $T_1$ --- that
 account for the total execution time of the parallelized workload.
 
 \begin{align}
 T_{ideal}      &= \frac{1}{p} T_1\label{eqn:ideal}\\
-T_{contention} &= \sigma \left(\frac{p-1}{p}\right) T_1\label{eqn:contention}\\
-T_{coherency}  &= \kappa \frac{1}{2} (p-1) T_1\label{eqn:coherency}
+T_{contention} &= \alpha \left(\frac{p-1}{p}\right) T_1\label{eqn:contention}\\
+T_{coherency}  &= \beta \frac{1}{2} (p-1) T_1\label{eqn:coherency}
 \end{align}
 
 The function \kbd{overhead()} can be used to calculate the correspondent
@@ -588,7 +591,7 @@ are only about $\Sexpr{signif(1/sum(ovhd[1,]), 2)}$ times faster than running
 the same workload in a serial way.
 
 \Cref{eqn:contention} shows that the percentage of time spent on dealing with
-contention will converge to the value of $\sigma$. \Cref{eqn:coherency}
+contention will converge to the value of $\alpha$. \Cref{eqn:coherency}
 explains that coherency delays will grow beyond any limit if the degree of
 parallelism is large enough. This corresponds to the observation that adding
 more parallelism will sometimes make performance worse.
@@ -683,7 +686,7 @@ Now we can retrieve the coefficients for this model.
 coef(usl.oracle)
 @
 
-Our $\sigma$ here is about an order of magnitude bigger than what we have
+Our $\alpha$ here is about an order of magnitude bigger than what we have
 seen in the previous sections. This indicates a major issue with some kind of
 serialization or queueing that severely limits the scalability. In fact it is
 so bad that the impact is already visible with only a few active sessions
@@ -694,7 +697,7 @@ reached at about $\Sexpr{signif(peak.scalability(usl.oracle), 2)}$ sessions.
 peak.scalability(usl.oracle)
 @
 
-The confidence interval for $\sigma$ confirms that there is only a small
+The confidence interval for $\alpha$ confirms that there is only a small
 uncertainty about the magnitude of the calculated coefficients.
 
 <<>>=

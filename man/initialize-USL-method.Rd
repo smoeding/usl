@@ -6,7 +6,7 @@
 \title{Generate an object from the "\code{USL}" class}
 \usage{
 \S4method{initialize}{USL}(.Object, call, frame, regr, resp, scale.factor,
-  sigma, kappa)
+  alpha, beta)
 }
 \arguments{
 \item{.Object}{The object to initialize.}
@@ -23,9 +23,9 @@
 factor by which the model values have been reduced to get a normalized
 model.}
 
-\item{sigma}{The contention parameter of the model.}
+\item{alpha}{The contention parameter of the model.}
 
-\item{kappa}{The coherency delay parameter of the model.}
+\item{beta}{The coherency delay parameter of the model.}
 }
 \value{
 An object of the specific type.
