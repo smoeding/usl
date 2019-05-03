@@ -16,40 +16,37 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # fail-normalization.R --- Test warning when normalization is not possible
-> 
+>
 > library(usl)
-> 
+>
 > d <- data.frame(clients=c(   2,    4,    8,    12,    16,    20,    24,    30),
 +                 reqrate=c(22.7, 45.4, 76.9, 109.3, 100.0, 137.6, 143.2, 145.3))
-> 
+>
 > try(usl(reqrate ~ clients, d))
 
 Call:
 usl(formula = reqrate ~ clients, data = d)
 
-Scale Factor for normalization: 12.67 
+Scale Factor for normalization: 12.67
 
 Efficiency:
-   Min     1Q Median     3Q    Max 
-0.3822 0.4877 0.6309 0.7929 0.8958 
+   Min     1Q Median     3Q    Max
+0.3822 0.4877 0.6309 0.7929 0.8958
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--17.482  -1.870   0.211   5.074   8.881 
+    Min      1Q  Median      3Q     Max
+-17.482  -1.870   0.211   5.074   8.881
 
 Coefficients:
-        Estimate  Std. Error  t value  Pr(>|t|)   
+        Estimate  Std. Error  t value  Pr(>|t|)
 alpha  0.0418302   0.0119952    3.487     0.013  *
-beta  0.0004091   0.0005017    0.815     0.446   
+beta  0.0004091   0.0005017    0.815     0.446
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 8.859 on 6 degrees of freedom
 Multiple R-squared: 0.9683,	Adjusted R-squared: 0.963
-Warning message:
-In usl(reqrate ~ clients, d) :
-  'data' has no row where 'clients' = 1; switching method from 'default' to 'nlxb'
-> 
+>
 > proc.time()
-   user  system elapsed 
-  0.461   0.072   0.510 
+   user  system elapsed
+  0.461   0.072   0.510

@@ -32,7 +32,7 @@ In usl(throughput ~ processors, data = r) :
 > 
 > coef(u)
 alpha beta 
-0.013 0.002 
+0.028 0.001
 > 
 > proc.time()
    user  system elapsed 

@@ -16,47 +16,47 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # confint.R --- Test function confint
-> 
+>
 > library(usl)
-> 
+>
 > data(raytracer)
-> 
+>
 > options(digits=3, scipen=6)
-> 
+>
 > set.seed(1103, kind = "default", normal.kind = "default")
-> 
+>
 > u <- usl(throughput ~ processors, data = raytracer)
-> 
+>
 > coef(u)
-     alpha      beta 
-0.05002394 0.00000471 
-> 
+     alpha      beta
+0.0578 0.0000
+>
 > confint(u)
           2.5 %  97.5 %
-alpha  0.044207 0.05584
-beta  -0.000121 0.00013
+alpha  0.052201 0.063345
+beta  -0.000122 0.000122
 >
 > confint(u, parm=1)
        2.5 % 97.5 %
-alpha 0.0442 0.0558
+alpha 0.0522 0.0633
 > confint(u, parm="alpha")
        2.5 % 97.5 %
-alpha 0.0442 0.0558
-> 
+alpha 0.0522 0.0633
+>
 > confint(u, parm=2)
           2.5 %  97.5 %
-beta -0.000121 0.00013
+beta -0.000122 0.000122
 > confint(u, parm="beta")
           2.5 %  97.5 %
-beta -0.000121 0.00013
-> 
+beta -0.000122 0.000122
+>
 > confint(u, parm=3)
      2.5 % 97.5 %
 <NA>    NA     NA
 > confint(u, parm="none")
      2.5 % 97.5 %
 <NA>    NA     NA
-> 
+>
 > proc.time()
-   user  system elapsed 
-  0.527   0.079   0.581 
+   user  system elapsed
+  0.527   0.079   0.581

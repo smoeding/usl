@@ -16,29 +16,29 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # predict.R --- Test function predict
-> 
+>
 > library(usl)
-> 
+>
 > options(digits = 3)
-> 
+>
 > data(specsdm91)
-> 
+>
 > u <- usl(throughput ~ load, specsdm91)
-> 
+>
 > predict(u)
-     1      2      3      4      5      6      7 
-  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
-> 
+     1      2      3      4      5      6      7
+  90 1078 1541 1850 1879 1822 1646
+>
 > predict(u, interval = "confidence")
      fit  lwr  upr
-1   64.9 -185  314
-2  889.1  640 1139
-3 1377.5 1128 1627
-4 1787.7 1538 2037
-5 1876.1 1627 2126
-6 1845.9 1596 2095
-7 1682.8 1433 1932
-> 
+1   90  -41.4  221
+2 1078  946.1 1209
+3 1541 1409.9 1673
+4 1850 1718.7 1982
+5 1879 1747.4 2010
+6 1822 1690.2 1953
+7 1646 1514.8 1778
+>
 > proc.time()
-   user  system elapsed 
-  0.592   0.083   0.653 
+   user  system elapsed
+  0.592   0.083   0.653

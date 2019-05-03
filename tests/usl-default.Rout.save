@@ -26,8 +26,8 @@ Type 'q()' to quit R.
 > u <- try(usl(throughput ~ processors, data=raytracer))
 > 
 > coef(u)
-   alpha    beta 
-0.050024 0.000005 
+alpha  beta 
+ 0.06  0.00 
 > 
 > proc.time()
    user  system elapsed 

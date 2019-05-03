@@ -309,9 +309,9 @@ usl <- function(formula, data, method = "default") {
   model.input <- data.frame(frame[regr], frame[resp])
 
   # Choose solver function
-  sel <- switch(method, nls=2, nlxb=3, 1)
+  sel <- switch(method, nls=2, nlxb=3, 3)
   usl.solve <- switch(sel, usl.solve.lm, usl.solve.nls, usl.solve.nlxb)
-  
+
   # Use method 'nlxb' as fallback if scale factor is missing in data
   if ((sel == 1)  && (all(frame[regr] != 1))) {
     usl.solve <- usl.solve.nlxb

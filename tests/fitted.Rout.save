@@ -16,19 +16,19 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # fitted.R --- Test function fitted
-> 
+>
 > library(usl)
-> 
+>
 > data(specsdm91)
-> 
+>
 > options(digits=3)
-> 
+>
 > u <- usl(throughput ~ load, specsdm91)
-> 
+>
 > fitted(u)
-     1      2      3      4      5      6      7 
-  64.9  889.1 1377.5 1787.7 1876.1 1845.9 1682.8 
-> 
+     1      2      3      4      5      6      7
+  90 1078 1541 1850 1879 1822 1646
+>
 > proc.time()
-   user  system elapsed 
-  0.458   0.073   0.506 
+   user  system elapsed
+  0.458   0.073   0.506

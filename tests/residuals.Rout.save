@@ -16,19 +16,19 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # residuals.R --- Test function residuals
-> 
+>
 > library(usl)
-> 
+>
 > data(specsdm91)
-> 
+>
 > options(digits=3)
-> 
+>
 > u <- usl(throughput ~ load, specsdm91)
-> 
+>
 > residuals(u)
-    1     2     3     4     5     6     7 
-  0.0 106.8 274.9  65.5 -47.2 -70.9  19.4 
-> 
+    1     2     3     4     5     6     7
+-25.10 -81.66 111.10   3.06 -49.99 -46.60  55.98
+>
 > proc.time()
-   user  system elapsed 
-  0.458   0.072   0.507 
+   user  system elapsed
+  0.458   0.072   0.507
