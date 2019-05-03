@@ -12,6 +12,8 @@ u <- usl(throughput ~ processors, data = raytracer)
 
 coef(u)
 
+confint(u)
+
 confint(u, parm=1)
 confint(u, parm="alpha")
 
