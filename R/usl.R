@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2017 Stefan Moeding
+# Copyright (c) 2013-2019 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -21,58 +21,6 @@
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
-
-
-##############################################################################
-#' Solve a USL model using a transformation to a 2nd degree polynom
-#'
-#' This function solves a USL model using the transformation introduced in
-#' sections 5.5.1 - 5.5.3 of \emph{Guerrilla Capacity Planning}.
-#'
-#' @param model A data frame with two columns containing the values of the
-#'   predictor variable in the first column and the values of the response
-#'   variable in the second column.
-#'
-#' @return A list containing three elements: the scale.factor of the model,
-#'   the model coefficients alpha and beta.
-#'
-#' @seealso \code{\link{usl}}
-#'
-#' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
-#'   Approach to Planning for Highly Scalable Applications and Services.
-#'   Springer, Heidelberg, Germany, 1st edition, 2007.
-#'
-#' @keywords internal
-#'
-usl.solve.lm <- function(model) {
-  # Verify that the scale factor for normalization is in the dataframe
-  # (not used anymore: usl() switches to method="nlxb" if this is detected)
-  if (all(model[ , 1] != 1)) { # nocov start
-    stop(paste0("'data' must contain a row where '", names(model[1]), "' = 1"))
-  } # nocov end
-
-  # Calculate scale factor: get throughput for entry where load=1
-  scale.factor <- model[match(1, model[ , 1]), 2]
-
-  # Rename columns
-  names(model) <- c("load", "throughput")
-
-  # normalize data (cf. GCaP chapter 5.4)
-  model$capacity <- model$throughput / scale.factor
-
-  # compute deviations from linearity (cf. GCaP chapter 5.5.2)
-  model$x <- model$load - 1
-  model$y <- (model$load / model$capacity) - 1
-
-  # Solve quadratic model without intercept
-  model.fit <- lm(y ~ I(x^2) + x - 1, data = model)
-
-  # Calculate coefficients alpha & beta used by the USL model
-  alpha <- coef(model.fit)[[2]] - coef(model.fit)[[1]]
-  beta <- coef(model.fit)[[1]]
-
-  return(list(scale.factor = scale.factor, alpha = alpha, beta = beta))
-}
 
 
 ##############################################################################
@@ -309,15 +257,8 @@ usl <- function(formula, data, method = "default") {
   model.input <- data.frame(frame[regr], frame[resp])
 
   # Choose solver function
-  sel <- switch(method, nls=2, nlxb=3, 3)
-  usl.solve <- switch(sel, usl.solve.lm, usl.solve.nls, usl.solve.nlxb)
-
-  # Use method 'nlxb' as fallback if scale factor is missing in data
-  if ((sel == 1)  && (all(frame[regr] != 1))) {
-    usl.solve <- usl.solve.nlxb
-    warning(paste0("'data' has no row where '", regr, "' = 1; ",
-                   "switching method from 'default' to 'nlxb'"))
-  }
+  sel <- switch(method, nls=2, 1)
+  usl.solve <- switch(sel, usl.solve.nlxb, usl.solve.nls)
 
   # Solve the model for the model frame
   model.result <- usl.solve(model.input)
