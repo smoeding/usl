@@ -1,6 +1,6 @@
 
-R version 3.4.2 (2017-09-28) -- "Short Summer"
-Copyright (C) 2017 The R Foundation for Statistical Computing
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -41,5 +41,5 @@ Type 'q()' to quit R.
 3  0.25     0.0208 0.0001565
 >
 > proc.time()
-   user  system elapsed
-  0.769   0.085   0.831
+   user  system elapsed 
+  0.530   0.112   0.631 
