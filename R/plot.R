@@ -43,8 +43,8 @@
 #' If the parameter \code{bounds} is set to \code{TRUE} then the plot also
 #' shows dotted lines for the theoretical bounds of scalability. These are
 #' the linear scalability for small loads and Amdahl's asymptote for the
-#' limit of scalability as load approaches infinity. 
-#' 
+#' limit of scalability as load approaches infinity.
+#'
 #' The parameters \code{alpha} or \code{beta} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show
 #' how the system would behave with a different contention or coherency delay
@@ -57,7 +57,7 @@
 #'   will be plotted.
 #' @param xlab A title for the x axis: see \code{\link{title}}.
 #' @param ylab A title for the y axis: see \code{\link{title}}.
-#' @param bounds Add the bounds of scalability to the plot. 
+#' @param bounds Add the bounds of scalability to the plot.
 #' @param alpha Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
 #' @param beta Optional parameter to be used for evaluation instead of the
@@ -99,12 +99,12 @@ setMethod(
 
     # Plot the scalability function
     plot(x = .func, from = from, to = to, xlab = xlab, ylab = ylab, ...)
-    
+
     # Add theoretical bounds of scalability to the plot
     if (bounds) {
       # Bound 1: linear scalability
       abline(a = 0, b = x@scale.factor, lty = "dotted")
-      
+
       # Bound 2: Amdahl's asymptote
       if (alpha > 0) {
         abline(h = 1/alpha * x@scale.factor, lty = "dotted")
