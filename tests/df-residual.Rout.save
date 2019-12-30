@@ -26,7 +26,7 @@ Type 'q()' to quit R.
 > u <- usl(throughput ~ load, specsdm91)
 > 
 > df.residual(u)
-[1] 5
+[1] 4
 > 
 > proc.time()
    user  system elapsed 

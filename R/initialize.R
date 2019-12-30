@@ -54,7 +54,7 @@ setMethod(
     .Object@resp         <- resp
     .Object@efficiency   <- structure(frame[[resp]] / gamma / frame[[regr]],
                                       names = frame[, regr])
-    .Object@df.residual  <- length(frame[[resp]]) - 2L
+    .Object@df.residual  <- length(frame[[resp]]) - length(.Object@coef.names)
 
     # Call inspector
     validObject(.Object)

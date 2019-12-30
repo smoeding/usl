@@ -44,7 +44,7 @@ gamma  9.000e+01   1.421e+01    6.332   0.00318  **
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 74.1 on 5 degrees of freedom
+Residual standard error: 82.85 on 4 degrees of freedom
 Multiple R-squared: 0.9896,	Adjusted R-squared: 0.9875
 >
 > proc.time()
