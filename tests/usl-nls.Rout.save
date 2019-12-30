@@ -27,8 +27,8 @@ Type 'q()' to quit R.
 > try(u <- usl(tput ~ load, data=dfr, method="nls"))
 > 
 > coef(u)
-alpha  beta 
- 0.02  0.02 
+alpha  beta gamma 
+ 0.02  0.02  1.00
 > 
 > proc.time()
    user  system elapsed 

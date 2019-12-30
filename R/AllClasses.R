@@ -33,8 +33,7 @@
 #' @slot call The call used to create the model.
 #' @slot regr The name of the regressor variable.
 #' @slot resp The name of the response variable.
-#' @slot coefficients The coefficients alpha and beta of the model.
-#' @slot gamma The coefficient gamma of the model.
+#' @slot coefficients The coefficients alpha, beta and gamma of the model.
 #' @slot coef.std.err The standard errors for the coefficients alpha and beta.
 #' @slot coef.names A vector with the names of the coefficients.
 #' @slot fitted The fitted values of the model. This is a vector.
@@ -55,7 +54,6 @@ setClass("USL",
                         regr          = "character",
                         resp          = "character",
                         coefficients  = "vector",
-                        gamma         = "numeric",
                         coef.std.err  = "vector",
                         coef.names    = "vector",
                         fitted        = "vector",
@@ -65,7 +63,7 @@ setClass("USL",
                         adj.r.squared = "numeric",
                         efficiency    = "vector",
                         na.action     = "character"),
-         prototype(coef.names    = c("alpha", "beta"),
+         prototype(coef.names    = c("alpha", "beta", "gamma"),
                    df.residual   = 0L,
                    r.squared     = 0,
                    adj.r.squared = 0,
@@ -88,10 +86,10 @@ setClass("USL",
              err <- c(err, msg)
            }
 
-           if (any(object@coefficients > 1)) {
-             msg <- "all coefficients must be <= 1"
-             err <- c(err, msg)
-           }
+           # if (any(object@coefficients > 1)) {
+           #   msg <- "all coefficients must be <= 1"
+           #   err <- c(err, msg)
+           # }
 
            if ((object@r.squared < 0) || (object@r.squared > 1)) {
              msg <- "r.squared must be 0 <= r.squared <= 1"

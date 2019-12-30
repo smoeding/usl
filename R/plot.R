@@ -103,11 +103,11 @@ setMethod(
     # Add theoretical bounds of scalability to the plot
     if (bounds) {
       # Bound 1: linear scalability
-      abline(a = 0, b = x@gamma, lty = "dotted")
+      abline(a = 0, b = coef(x)[['gamma']], lty = "dotted")
 
       # Bound 2: Amdahl's asymptote
       if (alpha > 0) {
-        abline(h = 1/alpha * x@gamma, lty = "dotted")
+        abline(h = 1/alpha * coef(x)[['gamma']], lty = "dotted")
       }
     }
   }

@@ -28,27 +28,28 @@ Type 'q()' to quit R.
 > u <- usl(throughput ~ processors, data = raytracer)
 >
 > coef(u)
-     alpha      beta
-0.0578 0.0000
+ alpha    beta   gamma
+0.0578  0.0000 21.8488 
 >
 > confint(u)
           2.5 %  97.5 %
-alpha  0.052199 0.063343
-beta  -0.000122 0.000122
+alpha  0.033677  0.081864
+beta  -0.000214  0.000214
+gamma 17.868380 25.829306
 >
 > confint(u, parm=1)
        2.5 % 97.5 %
-alpha 0.0522 0.0633
+alpha 0.0337 0.0819
 > confint(u, parm="alpha")
        2.5 % 97.5 %
-alpha 0.0522 0.0633
+alpha 0.0337 0.0819
 >
 > confint(u, parm=2)
           2.5 %  97.5 %
-beta -0.000122 0.000122
+beta -0.000214 0.000214
 > confint(u, parm="beta")
           2.5 %  97.5 %
-beta -0.000122 0.000122
+beta -0.000214 0.000214
 >
 > confint(u, parm=3)
      2.5 % 97.5 %

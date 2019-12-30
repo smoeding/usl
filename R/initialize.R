@@ -48,8 +48,7 @@ setMethod(
   signature = "USL",
   definition = function(.Object, call, frame, regr, resp, alpha, beta, gamma) {
     .Object@call         <- call
-    .Object@coefficients <- structure(c(alpha, beta), names = .Object@coef.names)
-    .Object@gamma        <- gamma
+    .Object@coefficients <- structure(c(alpha, beta, gamma), names = .Object@coef.names)
     .Object@frame        <- frame
     .Object@regr         <- regr
     .Object@resp         <- resp

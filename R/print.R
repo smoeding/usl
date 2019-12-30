@@ -73,7 +73,7 @@ setMethod(
     rows <- attributes(x@coefficients)$names
     cols <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
 
-    para.mat <- matrix(para, nrow = 2, dimnames = list(rows, cols))
+    para.mat <- matrix(para, nrow = length(x@coef.names), dimnames = list(rows, cols))
 
     printCoefmat(para.mat, digits = digits, print.gap = 2)
 

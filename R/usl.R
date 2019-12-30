@@ -44,14 +44,13 @@
 usl.solve.nls <- function(model) {
   names(model) <- c("x", "y")
 
-  # Lower bound for scale.factor?
-  sf.max <- max(model$y / model$x)
+  gamma.start <- max(model$y / model$x)
 
   model.fit <- nls(y ~ (gamma * x)/(1 + alpha * (x-1) + beta * x * (x-1)),
                    data = model,
-                   start = c(gamma = sf.max, alpha = 0.1, beta = 0.01),
+                   start = c(gamma = gamma.start, alpha = 0.01, beta = 0.0001),
                    algorithm = "port",
-                   lower = c(gamma = 0, alpha = 0, beta = 0),
+                   lower = c(gamma = 1, alpha = 0, beta = 0),
                    upper = c(gamma = Inf, alpha = 1, beta = 1))
 
   alpha = coef(model.fit)[['alpha']]
@@ -88,14 +87,13 @@ usl.solve.nls <- function(model) {
 usl.solve.nlxb <- function(model) {
   names(model) <- c("x", "y")
 
-  # Lower bound for scale.factor?
-  sf.max <- max(model$y / model$x)
+  gamma.start <- max(model$y / model$x)
 
   log <- capture.output({
     model.fit <- nlxb(y ~ (gamma * x)/(1 + alpha * (x-1) + beta * x * (x-1)),
                       data = model,
-                      start = c(gamma = sf.max, alpha = 0.1, beta = 0.01),
-                      lower = c(gamma = 0, alpha = 0, beta = 0),
+                      start = c(gamma = gamma.start, alpha = 0.01, beta = 0.0001),
+                      lower = c(gamma = 1, alpha = 0, beta = 0),
                       upper = c(gamma = Inf, alpha = 1, beta = 1))
   })
   

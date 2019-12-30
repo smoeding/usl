@@ -32,8 +32,8 @@ Type 'q()' to quit R.
 > options(digits=3)
 > 
 > coef(u)
-alpha beta 
- 0.02  0.02 
+alpha  beta gamma 
+ 0.02  0.02  1.00
 > 
 > proc.time()
    user  system elapsed 
