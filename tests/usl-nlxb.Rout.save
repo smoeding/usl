@@ -19,6 +19,8 @@ Type 'q()' to quit R.
 > 
 > library(usl)
 > 
+> options(digits=3, scipen=9)
+> 
 > data(specsdm91)
 > 
 > usl(throughput ~ load, specsdm91, method = "nlxb")
@@ -29,22 +31,22 @@ usl(formula = throughput ~ load, data = specsdm91, method = "nlxb")
 Scale Factor for normalization: 90 
 
 Efficiency:
-    Min      1Q  Median      3Q     Max 
-0.08757 0.16257 0.28600 0.56240 0.72114 
+   Min     1Q Median     3Q    Max 
+0.0876 0.1626 0.2860 0.5624 0.7211 
 
 Residuals:
    Min     1Q Median     3Q    Max 
--81.66 -48.29 -25.10  29.52 111.10 
+ -81.7  -48.3  -25.1   29.5  111.1 
 
 Coefficients:
         Estimate  Std. Error  t value  Pr(>|t|)     
-alpha  2.773e-02   2.183e-03   12.705  5.37e-05  ***
-beta  1.044e-04   1.724e-05    6.052   0.00178  ** 
+alpha  0.0277285   0.0021826    12.70  0.000054  ***
+beta   0.0001044   0.0000172     6.05    0.0018  ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 74.1 on 5 degrees of freedom
-Multiple R-squared: 0.9896,	Adjusted R-squared: 0.9875
+Multiple R-squared: 0.99,	Adjusted R-squared: 0.987
 > 
 > proc.time()
    user  system elapsed 

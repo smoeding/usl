@@ -33,7 +33,7 @@ Type 'q()' to quit R.
 >
 > confint(u)
           2.5 %  97.5 %
-alpha  0.052201 0.063345
+alpha  0.052199 0.063343
 beta  -0.000122 0.000122
 >
 > confint(u, parm=1)

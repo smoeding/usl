@@ -32,11 +32,11 @@ Scale Factor for normalization: 90
 
 Efficiency:
    Min     1Q Median     3Q    Max
-0.08757 0.16257 0.28600 0.56240 0.72114
+0.08757 0.16257 0.28600 0.56241 0.72115
 
 Residuals:
    Min     1Q Median     3Q    Max
--81.66 -48.29 -25.10  29.52 111.10
+-81.66 -48.29 -25.09  29.52 111.09
 
 Coefficients:
         Estimate  Std. Error  t value  Pr(>|t|)
