@@ -19,9 +19,9 @@ This class encapsulates the Universal Scalability Law. Use the function
 
 \item{\code{resp}}{The name of the response variable.}
 
-\item{\code{scale.factor}}{The scale factor used to create the model.}
-
 \item{\code{coefficients}}{The coefficients alpha and beta of the model.}
+
+\item{\code{gamma}}{The coefficient gamma of the model.}
 
 \item{\code{coef.std.err}}{The standard errors for the coefficients alpha and beta.}
 

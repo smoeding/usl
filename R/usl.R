@@ -35,8 +35,8 @@
 #'   predictor variable in the first column and the values of the response
 #'   variable in the second column.
 #'
-#' @return A list containing three elements: the scale.factor of the model,
-#'   the model coefficients alpha and beta.
+#' @return A list containing three elements: the model coefficients alpha,
+#'   beta and gamma.
 #'
 #' @seealso \code{\link{usl}}
 #' @keywords internal
@@ -47,18 +47,18 @@ usl.solve.nls <- function(model) {
   # Lower bound for scale.factor?
   sf.max <- max(model$y / model$x)
 
-  model.fit <- nls(y ~ X1 * x/(1 + alpha * (x-1) + beta * x * (x-1)),
+  model.fit <- nls(y ~ (gamma * x)/(1 + alpha * (x-1) + beta * x * (x-1)),
                    data = model,
-                   start = c(X1 = sf.max, alpha = 0.1, beta = 0.01),
+                   start = c(gamma = sf.max, alpha = 0.1, beta = 0.01),
                    algorithm = "port",
-                   lower = c(X1 = 0, alpha = 0, beta = 0),
-                   upper = c(X1 = Inf, alpha = 1, beta = 1))
+                   lower = c(gamma = 0, alpha = 0, beta = 0),
+                   upper = c(gamma = Inf, alpha = 1, beta = 1))
 
-  scale.factor = coef(model.fit)[['X1']]
   alpha = coef(model.fit)[['alpha']]
-  beta = coef(model.fit)[['beta']]
-
-  return(list(scale.factor = scale.factor, alpha = alpha, beta = beta))
+  beta  = coef(model.fit)[['beta']]
+  gamma = coef(model.fit)[['gamma']]
+  
+  return(list(alpha = alpha, beta = beta, gamma = gamma))
 }
 
 
@@ -73,8 +73,8 @@ usl.solve.nls <- function(model) {
 #'   predictor variable in the first column and the values of the response
 #'   variable in the second column.
 #'
-#' @return A list containing three elements: the scale.factor of the model,
-#'   the model coefficients alpha and beta.
+#' @return A list containing three elements: the model coefficients alpha,
+#'   beta and gamma.
 #'
 #' @seealso \code{\link{usl}}
 #'
@@ -92,18 +92,18 @@ usl.solve.nlxb <- function(model) {
   sf.max <- max(model$y / model$x)
 
   log <- capture.output({
-    model.fit <- nlxb(y ~ X1 * x/(1 + alpha * (x-1) + beta * x * (x-1)),
+    model.fit <- nlxb(y ~ (gamma * x)/(1 + alpha * (x-1) + beta * x * (x-1)),
                       data = model,
-                      start = c(X1 = sf.max, alpha = 0.1, beta = 0.01),
-                      lower = c(X1 = 0, alpha = 0, beta = 0),
-                      upper = c(X1 = Inf, alpha = 1, beta = 1))
+                      start = c(gamma = sf.max, alpha = 0.1, beta = 0.01),
+                      lower = c(gamma = 0, alpha = 0, beta = 0),
+                      upper = c(gamma = Inf, alpha = 1, beta = 1))
   })
   
-  scale.factor = model.fit$coefficients[['X1']]
   alpha = model.fit$coefficients[['alpha']]
-  beta = model.fit$coefficients[['beta']]
-
-  return(list(scale.factor = scale.factor, alpha = alpha, beta = beta))
+  beta  = model.fit$coefficients[['beta']]
+  gamma = model.fit$coefficients[['gamma']]
+  
+  return(list(alpha = alpha, beta = beta, gamma = gamma))
 }
 
 
@@ -265,8 +265,9 @@ usl <- function(formula, data, method = "default") {
 
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
-                 model.result[['scale.factor']],
-                 model.result[['alpha']], model.result[['beta']])
+                 model.result[['alpha']],
+                 model.result[['beta']], 
+                 model.result[['gamma']])
 
   # Finish building the USL object
   nam <- row.names(frame)

@@ -28,8 +28,6 @@ Type 'q()' to quit R.
 Call:
 usl(formula = throughput ~ load, data = specsdm91)
 
-Scale Factor for normalization: 90
-
 Efficiency:
    Min     1Q Median     3Q    Max
 0.08757 0.16257 0.28600 0.56241 0.72115

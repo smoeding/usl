@@ -33,8 +33,8 @@
 #' @slot call The call used to create the model.
 #' @slot regr The name of the regressor variable.
 #' @slot resp The name of the response variable.
-#' @slot scale.factor The scale factor used to create the model.
 #' @slot coefficients The coefficients alpha and beta of the model.
+#' @slot gamma The coefficient gamma of the model.
 #' @slot coef.std.err The standard errors for the coefficients alpha and beta.
 #' @slot coef.names A vector with the names of the coefficients.
 #' @slot fitted The fitted values of the model. This is a vector.
@@ -54,8 +54,8 @@ setClass("USL",
                         call          = "call",
                         regr          = "character",
                         resp          = "character",
-                        scale.factor  = "numeric",
                         coefficients  = "vector",
+                        gamma         = "numeric",
                         coef.std.err  = "vector",
                         coef.names    = "vector",
                         fitted        = "vector",
@@ -80,11 +80,6 @@ setClass("USL",
 
            if (length(object@resp) == 0) {
              msg <- "name of regsponse variable cannot be empty"
-             err <- c(err, msg)
-           }
-
-           if (object@scale.factor <= 0) {
-             msg <- "scale factor must be > 0"
              err <- c(err, msg)
            }
 

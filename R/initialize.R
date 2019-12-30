@@ -33,11 +33,11 @@
 #' @param frame The model frame containing the variables in the model.
 #' @param regr The name of the regressor variable in the model.
 #' @param resp The name of the response variable in the model.
-#' @param scale.factor A numeric value for the scale of the model. This is the
-#'     factor by which the model values have been reduced to get a normalized
-#'     model.
 #' @param alpha The contention parameter of the model.
 #' @param beta The coherency delay parameter of the model.
+#' @param gamma The slope of the ideal parallel scaling of the three parameter
+#'     model. This parameter used to be the scale.factor in the two parameter
+#'     model where normalization was required.
 #'
 #' @return An object of the specific type.
 #'
@@ -46,14 +46,14 @@
 setMethod(
   f = "initialize",
   signature = "USL",
-  definition = function(.Object, call, frame, regr, resp, scale.factor, alpha, beta) {
+  definition = function(.Object, call, frame, regr, resp, alpha, beta, gamma) {
     .Object@call         <- call
     .Object@coefficients <- structure(c(alpha, beta), names = .Object@coef.names)
+    .Object@gamma        <- gamma
     .Object@frame        <- frame
     .Object@regr         <- regr
     .Object@resp         <- resp
-    .Object@scale.factor <- scale.factor
-    .Object@efficiency   <- structure(frame[[resp]] / scale.factor / frame[[regr]],
+    .Object@efficiency   <- structure(frame[[resp]] / gamma / frame[[regr]],
                                       names = frame[, regr])
     .Object@df.residual  <- length(frame[[resp]]) - 2L
 

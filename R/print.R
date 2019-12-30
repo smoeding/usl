@@ -57,9 +57,6 @@ setMethod(
     cat("\nCall:\n",
         paste(deparse(x@call), sep = "\n", collapse = "\n"), "\n", sep = "")
 
-    cat("\nScale Factor for normalization:",
-        formatC(x@scale.factor, digits = digits, width = 1), "\n")
-
     cat("\nEfficiency:\n")
     zz <- zapsmall(quantile(x@efficiency), digits + 1)
     print(structure(zz, names = qnames), digits = digits, ...)

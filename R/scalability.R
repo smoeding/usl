@@ -81,7 +81,7 @@ setMethod(
       cap <- x / (1 + (alpha * (x-1)) + (beta * x * (x-1)))
 
       # Scale it to the measurements
-      return(object@scale.factor * cap)
+      return(object@gamma * cap)
     }
 
     # Return the usl function (lexically scoped)

@@ -4,7 +4,7 @@
 \alias{initialize,USL-method}
 \title{Generate an object from the "\code{USL}" class}
 \usage{
-\S4method{initialize}{USL}(.Object, call, frame, regr, resp, scale.factor, alpha, beta)
+\S4method{initialize}{USL}(.Object, call, frame, regr, resp, alpha, beta, gamma)
 }
 \arguments{
 \item{.Object}{The object to initialize.}
@@ -17,13 +17,13 @@
 
 \item{resp}{The name of the response variable in the model.}
 
-\item{scale.factor}{A numeric value for the scale of the model. This is the
-factor by which the model values have been reduced to get a normalized
-model.}
-
 \item{alpha}{The contention parameter of the model.}
 
 \item{beta}{The coherency delay parameter of the model.}
+
+\item{gamma}{The slope of the ideal parallel scaling of the three parameter
+model. This parameter used to be the scale.factor in the two parameter
+model where normalization was required.}
 }
 \value{
 An object of the specific type.

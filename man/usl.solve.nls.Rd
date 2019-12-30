@@ -12,8 +12,8 @@ predictor variable in the first column and the values of the response
 variable in the second column.}
 }
 \value{
-A list containing three elements: the scale.factor of the model,
-  the model coefficients alpha and beta.
+A list containing three elements: the model coefficients alpha,
+  beta and gamma.
 }
 \description{
 This function solves a USL model using non linear regression with least
