@@ -79,6 +79,7 @@ setMethod(
 
       parm <- gsub("1", "alpha", parm, ignore.case = TRUE)
       parm <- gsub("2", "beta", parm, ignore.case = TRUE)
+      parm <- gsub("3", "gamma", parm, ignore.case = TRUE)
     }
 
     # Calculate confidence intervals for the given level

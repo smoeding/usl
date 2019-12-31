@@ -21,4 +21,7 @@ confint(u, parm=2)
 confint(u, parm="beta")
 
 confint(u, parm=3)
+confint(u, parm="gamma")
+
+confint(u, parm=4)
 confint(u, parm="none")

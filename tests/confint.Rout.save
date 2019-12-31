@@ -52,6 +52,13 @@ beta -0.000214 0.000214
 beta -0.000214 0.000214
 >
 > confint(u, parm=3)
+          2.5 %  97.5 %
+gamma  17.9   25.8
+> confint(u, parm="gamma")
+          2.5 %  97.5 %
+gamma  17.9   25.8
+>
+> confint(u, parm=4)
      2.5 % 97.5 %
 <NA>    NA     NA
 > confint(u, parm="none")
