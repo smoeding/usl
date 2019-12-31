@@ -56,7 +56,7 @@ usl.solve.nls <- function(model) {
   alpha = coef(model.fit)[['alpha']]
   beta  = coef(model.fit)[['beta']]
   gamma = coef(model.fit)[['gamma']]
-  
+
   return(list(alpha = alpha, beta = beta, gamma = gamma))
 }
 
@@ -96,11 +96,11 @@ usl.solve.nlxb <- function(model) {
                       lower = c(gamma = 1, alpha = 0, beta = 0),
                       upper = c(gamma = Inf, alpha = 1, beta = 1))
   })
-  
+
   alpha = model.fit$coefficients[['alpha']]
   beta  = model.fit$coefficients[['beta']]
   gamma = model.fit$coefficients[['gamma']]
-  
+
   return(list(alpha = alpha, beta = beta, gamma = gamma))
 }
 
@@ -264,7 +264,7 @@ usl <- function(formula, data, method = "default") {
   # Create object for class USL
   .Object <- new(Class = "USL", call, frame, regr, resp,
                  model.result[['alpha']],
-                 model.result[['beta']], 
+                 model.result[['beta']],
                  model.result[['gamma']])
 
   # Finish building the USL object

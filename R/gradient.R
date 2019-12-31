@@ -30,7 +30,7 @@
 #' output of the \code{\link{deriv}} function.
 #'
 #' @param x The USL object.
-#' 
+#'
 #' @return The gradient matrix.
 #'
 #' @seealso \code{\link{usl}}
@@ -58,6 +58,6 @@ gradient.usl <- function(x) {
   grad.gamma <- n / expr3
 
   matrix(c(grad.alpha, grad.beta, grad.gamma),
-         nrow = length(n), 
+         nrow = length(n),
          dimnames = list(1:length(n), x@coef.names))
 }

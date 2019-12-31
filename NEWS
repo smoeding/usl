@@ -27,7 +27,7 @@ CHANGES in `usl' VERSION 1.5.0 (2016-02-25)
 * Use method `nlxb' as fallback if the value for the scale factor is missing
   in the data and the `default' method is used. A warning message is printed
   in this case. This is more user-friendly than the error message given
-  before. 
+  before.
 
 * Remove unused parameter `R' from the signature of the `usl()' function.
 
@@ -57,7 +57,7 @@ CHANGES in `usl' VERSION 1.3.0 (2014-06-02)
   Bootstrapping is no longer used for the calculation. Therefore the argument
   `R' for the `usl()' function and the argument `type' for the `confint()'
   function have been deprecated. The arguments will be removed in the next
-  release. 
+  release.
 
 * Added coefficient standard errors and residual standard error to the summary
   output.
