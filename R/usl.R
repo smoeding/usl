@@ -118,40 +118,41 @@ usl.solve.nlxb <- function(model) {
 #' Therefore the model formula must be in the simple
 #' "\code{response ~ predictor}" format.
 #'
-#' The model produces two coefficients as result: \code{alpha} models the
-#' contention and \code{beta} the coherency delay of the system. The
-#' function \code{\link{coef}} extracts the coefficients from the model
+#' The model produces two main coefficients as result: \code{alpha} models the
+#' contention and \code{beta} the coherency delay of the system. The third
+#' coefficient \code{gamma} estimates the value of the dependent variable
+#' (e.g. throughput) for the single user/process/thread case. It therefore
+#' corresponds to the scale factor calculated in previous versions of the
+#' \code{usl} package.
+#'
+#' The function \code{\link{coef}} extracts the coefficients from the model
 #' object.
 #'
 #' The argument \code{method} selects which solver is used to solve the
 #' model:
 #'
 #' \itemize{
-#'   \item "\code{default}" for the default method using a transformation
-#'     into a 2nd degree polynom. It can only be used if the model frame
-#'     contains a value for the normalization where the predictor equals
-#'     "\code{1}" for one measurement. This is the algorithm introduced by
-#'     Dr. Neil J. Gunther in the book \emph{Guerrilla Capacity Planning}.
 #'   \item "\code{nls}" for a nonlinear regression model. This method
-#'     estimates not only the coefficients \code{alpha} and \code{beta} but
-#'     also the \code{scale.factor} for the normalization. \code{\link{nls}}
-#'     with the "\code{port}" algorithm is used internally to solve the
-#'     model. So all restrictions of the "\code{port}" algorithm apply.
+#'     estimates all coefficients \code{alpha}, \code{beta} and \code{gamma}.
+#'     The R base function \code{\link{nls}} with the "\code{port}" algorithm
+#'     is used internally to solve the model. So all restrictions of the
+#'     "\code{port}" algorithm apply.
 #'   \item "\code{nlxb}" for a nonliner regression model using the function
 #'     \code{\link{nlxb}} from the \code{\link{nlsr}} package. This method
-#'     also estimates both coefficients and the normalization factor. It is
-#'     expected to be more robust than the \code{nls} method.
+#'     also estimates all three coefficients. It is expected to be more robust
+#'     than the \code{nls} method.
+#'   \item "\code{default}" for the default method using a transformation
+#'     into a 2nd degree polynom has been removed with the implementation
+#'     of the model using three coefficients in the \pkg{usl} package 2.0.0.
+#'     Calling the "\code{default}" method will internally dispatch to the
+#'     "\code{nlxb}" solver instead.
 #' }
-#'
-#' The "\code{nlxb}" solver is used as fallback if the "\code{default}"
-#' method is selected and a predictor equal "\code{1}" is missing. A warning
-#' message will be printed in this case.
 #'
 #' The Universal Scalability Law can be expressed with following formula.
 #' \code{C(N)} predicts the relative capacity of the system for a given
 #' load \code{N}:
 #'
-#' \deqn{C(N) = \frac{N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = N / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
+#' \deqn{C(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = N / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
 #'
 #' @param formula An object of class "\code{\link{formula}}" (or one that
 #'   can be coerced to that class): a symbolic description of the model to be

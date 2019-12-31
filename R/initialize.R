@@ -36,8 +36,8 @@
 #' @param alpha The contention parameter of the model.
 #' @param beta The coherency delay parameter of the model.
 #' @param gamma The slope of the ideal parallel scaling of the three parameter
-#'     model. This parameter used to be the scale.factor in the two parameter
-#'     model where normalization was required.
+#'     model. This parameter corrsponds to the scale.factor parameter of the
+#'     two parameter model.
 #'
 #' @return An object of the specific type.
 #'
