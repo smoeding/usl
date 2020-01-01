@@ -81,16 +81,6 @@ setClass("USL",
              err <- c(err, msg)
            }
 
-           if (any(object@coefficients < 0)) {
-             msg <- "all coefficients must be >= 0"
-             err <- c(err, msg)
-           }
-
-           # if (any(object@coefficients > 1)) {
-           #   msg <- "all coefficients must be <= 1"
-           #   err <- c(err, msg)
-           # }
-
            if ((object@r.squared < 0) || (object@r.squared > 1)) {
              msg <- "r.squared must be 0 <= r.squared <= 1"
              err <- c(err, msg)
@@ -99,29 +89,6 @@ setClass("USL",
            if ((object@adj.r.squared < 0) || (object@adj.r.squared > 1)) {
              msg <- "adj.r.squared must be 0 <= adj.r.squared <= 1"
              err <- c(err, msg)
-           }
-
-           #
-           # Check validity of values according to Corollary 5.1, p. 81, GCaP
-           #
-           alpha <- object@coefficients[['alpha']]
-           beta <- object@coefficients[['beta']]
-
-           if (beta > alpha + beta) {
-             msg <- "illegal coefficients: beta > alpha + beta"
-             err <- c(err, msg)
-           }
-
-           if (alpha + beta >= beta + 1) {
-             msg <- "illegal coefficients: alpha + beta >= beta + 1"
-             err <- c(err, msg)
-           }
-
-           if (any(object@efficiency > 1)) {
-             # Capacity grows more than load: can this really be?
-             warning("'data' shows efficiency > 1; ",
-                     "this looks almost too good to be true",
-                     call. = FALSE)
            }
 
            if (length(err) == 0) return(TRUE) else return(err)
