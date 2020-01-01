@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2019 Stefan Moeding
+# Copyright (c) 2013-2020 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
