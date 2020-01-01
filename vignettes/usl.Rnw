@@ -1,4 +1,4 @@
-\documentclass[pagesize=auto,parskip=half,toc=bib]{scrartcl}
+\documentclass[english,pagesize=auto,parskip=half,toc=bib]{scrartcl}
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Using the USL Package to Analyze System Scalability}
 %\VignetteDepends{usl}
@@ -10,29 +10,25 @@
 \title{Analyze System Scalability in R with the Universal Scalability Law}
 \author{Stefan M\"oding}
 
-% Fonts, encoding & language
+% Fonts, encoding & language support
 \usepackage[utopia]{mathdesign}
-\usepackage[scaled=0.85]{beramono}
+\usepackage[varqu,varl,var0,scaled=0.97]{inconsolata}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-
-% Adobe Helvetica
-\renewcommand{\sfdefault}{phv}
+\usepackage{babel}
 
 \usepackage{amsmath}
 \usepackage{microtype}
 \usepackage{nicefrac}
 \usepackage[all]{nowidow}
+\usepackage[hang,marginal]{footmisc}
 
-% Package hyperref
+% Cross references
 \usepackage[pdfusetitle,hidelinks]{hyperref}
+\usepackage{cleveref}
 \usepackage[all]{hypcap}
 
 \hypersetup{pdfkeywords={Scalability,Universal Scalability Law,USL,R}}
-
-% Package cleveref (after hyperref)
-\usepackage{cleveref}
 
 % Define shortcut commands
 \newcommand{\R}{{\normalfont\textsf{R}}}
