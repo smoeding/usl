@@ -50,7 +50,7 @@ usl.solve.nls <- function(model) {
                    data = model,
                    start = c(gamma = gamma.start, alpha = 0.01, beta = 0.0001),
                    algorithm = "port",
-                   lower = c(gamma = 1, alpha = 0, beta = 0),
+                   lower = c(gamma = 0, alpha = 0, beta = 0),
                    upper = c(gamma = Inf, alpha = 1, beta = 1))
 
   alpha = coef(model.fit)[['alpha']]
@@ -93,7 +93,7 @@ usl.solve.nlxb <- function(model) {
     model.fit <- nlxb(y ~ (gamma * x)/(1 + alpha * (x-1) + beta * x * (x-1)),
                       data = model,
                       start = c(gamma = gamma.start, alpha = 0.01, beta = 0.0001),
-                      lower = c(gamma = 1, alpha = 0, beta = 0),
+                      lower = c(gamma = 0, alpha = 0, beta = 0),
                       upper = c(gamma = Inf, alpha = 1, beta = 1))
   })
 
