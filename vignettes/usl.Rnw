@@ -11,8 +11,8 @@
 \author{Stefan M\"oding}
 
 % Fonts, encoding & language support
+\usepackage{lmodern}
 \usepackage[utopia]{mathdesign}
-\usepackage[varqu,varl,var0,scaled=0.97]{inconsolata}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
@@ -22,6 +22,7 @@
 \usepackage{nicefrac}
 \usepackage[all]{nowidow}
 \usepackage[hang,marginal]{footmisc}
+\usepackage[super]{nth}
 
 % Cross references
 \usepackage[pdfusetitle,hidelinks]{hyperref}
@@ -33,7 +34,7 @@
 % Define shortcut commands
 \newcommand{\R}{{\normalfont\textsf{R}}}
 \newcommand{\usl}{{\normalfont\textsf{usl}}}
-\newcommand{\kbd}[1]{{\normalfont\textit{\texttt{#1}}}}
+\newcommand{\kbd}[1]{{\normalfont\texttt{#1}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<echo=FALSE>>=
@@ -115,11 +116,11 @@ system can be described by a common rational function. This function is
 \emph{universal} in the sense that it does not assume any specific type of
 software, hardware or system architecture.
 
-\Cref{eqn:usl} has the Universal Scalability Law where $C(N) = X(N) / X(1)$
+\Cref{eqn:usl2} has the Universal Scalability Law where $C(N) = X(N) / X(1)$
 is the relative capacity given by the ratio of the measured throughput $X(N)$
 for load $N$ to the throughput $X(1)$ for load $1$.
 
-\begin{equation}\label{eqn:usl}
+\begin{equation}\label{eqn:usl2}
 C(N) = \frac{N}{1 + \alpha (N - 1) + \beta N (N - 1)}
 \end{equation}
 
@@ -148,7 +149,7 @@ Due to the quadratic characteristic of the coherency term there will be a
 point where the throughput of the system will start to go retrograde, i.e.,
 will start to decrease with further increasing load.
 
-In \cite{Gun07} Dr.~Gunther proves that \cref{eqn:usl} is reduced to Amdahl's
+In \cite{Gun07} Dr.~Gunther proves that \cref{eqn:usl2} is reduced to Amdahl's
 Law for $\beta = 0$. Therefore the Universal Scalability Law can be seen as
 a generalization of Amdahl's Law for speedup in parallel computing.
 
@@ -157,12 +158,25 @@ and $\beta$ using a sparse set of measurements for the throughput $X_i$ at
 different loads $N_i$. The computations used to solve the equation for the
 measured values are discussed in \cite{Gun07}.
 
+Initially the Unversal Scalabilty Law normalized the measurements using the
+throughput $X(1)$ for load $1$ as the point of reference. This placed an
+additional burden on the performance analyst who needed to either measure the
+value or find a smart way to estimate it.
+
+It was then discovered that a third coefficient $\gamma$ can be added to the
+formula to represent the missing point of reference. \Cref{eqn:usl3} shows the
+updated Universal Scalability Law using three parameters.
+
+\begin{equation}\label{eqn:usl3}
+X(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}
+\end{equation}
+
+A nonlinear regression will solve this equation and find best-fit values for
+all three parameters $\alpha$, $\beta$ and $\gamma$.
+
 The \usl{} package has been created to subsume the computation into one
 simple function call. This greatly reduces the manual work that previously
 was needed to perform the scalability analysis.
-
-The function provided by the package also includes some sanity checks to help
-the analyst with the data quality of the measurements.
 
 Note that in \cite{Gun07} the coefficients are called $\sigma$ and $\kappa$
 when hardware scalability is evaluated but $\alpha$ and $\beta$ when software
@@ -251,15 +265,13 @@ information.
 
 \begin{itemize}
 \item First of all it includes the call we used to create the model.
-\item It also includes the scale factor used for normalization. The scale
-  factor is used internally to adjust the measured values to a common scale.
-  It is equal to the value $X(1)$ of the measurements.
 \item The efficiency tells us something about the ratio of useful work that
   is performed per processor. It is obvious that two processors might be able
   to handle twice the work of one processor but not more. Calculating the
-  ratio of the workload per processor should therefore always be less or
-  equal to $1$. In order to verify this, we can use the distribution of the
-  efficiency values shown in the summary.
+  ratio of the workload per processor should usually be less or equal to $1$.
+  But often the maximum of the distribution is not exactly $1$. This is caused
+  by the regression model when the expected value differs slightly from the
+  measured value.
 \item We are performing a regression on the data to calculate the
   coefficients and therefore we determine the residuals for the fitted
   values. The distribution of the residuals is also given as part of the
@@ -267,8 +279,13 @@ information.
 \item The coefficients $\alpha$ and $\beta$ are the result that we are
   essentially interested in. They tell us the magnitude of the contention and
   coherency effects within the system.
+\item The third coefficient $\gamma$ estimates the throughput for a single
+  processor. In this case we actually have a measurement for the single
+  processor case but for a real-world analysis this value if often unknown or
+  can't be measured. The difference between the value of $\gamma$ and the
+  measurement is also caused by the regression.
 \item Finally $R^2$ estimates how well the model fits the data. We can see
-  that the model is able to explain more than
+  that the model is able to explain about
   \Sexpr{floor(100*summary(usl.model)$r.squared)} percent of the data.
 \end{itemize}
 
@@ -293,24 +310,49 @@ measured values. Values larger than $1.0$ usually need a closer
 investigation. It is also suspicious if the efficiency gets bigger when the
 load increases.
 
-The model coefficients $\alpha$ and $\beta$ can be retrieved with the
-\kbd{coef()} function.
+The model coefficients can be retrieved with the \kbd{coef()} function.
 
 <<>>=
 coef(usl.model)
 @
 
-The corresponding confidence intervals for the model coefficients are
-returned by calling the \kbd{confint()} function.
+We can see that the model estimates the contention parameter to be about
+$\Sexpr{signif(100 * coef(usl.model)[['alpha']], 2)}$ percent and the coherency
+parameter to be $\Sexpr{signif(coef(usl.model)[['beta']], 2)}$.
+
+With $\beta = 0$ the model indicates no coherency penalty for the system. In
+this case the throughput will asymptotically approach an upper bound $X_{max}$
+as the number of processors is increased. This bound can be calculated using
+\cref{eqn:amdahl}.
+
+\begin{equation}\label{eqn:amdahl}
+X_{max} = \gamma \alpha^{-1}
+\end{equation}
+
+The model predicts a limit of
+$\Sexpr{signif((1/coef(usl.model)[['alpha']]) * coef(usl.model)[['gamma']], 3)}$
+as the upper bound for the maximal achievable throughput. According to the
+model there is no way to increase the throughput that number, no matter how
+many processors are available whatsoever.
+
+The corresponding confidence intervals\footnotemark{} for the model coefficients
+are returned by calling the \kbd{confint()} function.
+
+\footnotetext{Earlier releases of the \usl{} package used bootstrapping to
+estmate the confidence intervals. This has been changed since bootstrapping
+with a small sample size may not give the desired accuracy. Now the confidence
+intervals are calculated from the standard errors of the parameters.}
 
 <<>>=
 confint(usl.model, level = 0.95)
 @
 
-Earlier releases of the \usl{} package used bootstrapping to estmate the
-confidence intervals. This has been changed since bootstrapping with a small
-sample size may not give the desired accuracy. Currently the confidence
-intervals are calculated from the standard errors of the parameters.
+The confidence interval shows the range that the true value is expected lies in
+for the given confidence level. We can see that the true $\beta$ might in fact
+not really be exactly zero. One reason is that all measurements contain
+measurement/observation errors. The other reason is that such a small $\beta$
+might only cause a measuable effect when a much higher number of processors are
+used.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the
@@ -332,19 +374,9 @@ the system throughput for other numbers like 96 and 128 processors using the
 predict(usl.model, data.frame(processors = c(96, 128)))
 @
 
-We can see from the prediction that there is still an increase in throughput
-achievable with that number of processors. So we use the
-\kbd{peak.scalability()} function now to determine the point where the
-maximum throughput is reached.
-
-<<>>=
-peak.scalability(usl.model)
-@
-
-According to the model, the system would achieve its highest throughput with
-\Sexpr{floor(peak.scalability(usl.model))} processors. This is certainly a
-result that could not easily be deduced from the original dataset.
-
+We can see from the prediction that the throughput will reach
+$\Sexpr{signif(predict(usl.model, data.frame(processors = c(128)))[[1]], 4)}$
+for 128 processors.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Case Study: Software Scalability}
@@ -375,33 +407,28 @@ dataset with the measurements. But this time we choose a different method for
 the analysis.
 
 <<>>=
-usl.model <- usl(throughput ~ load, specsdm91, method = "nlxb")
+usl.model <- usl(throughput ~ load, specsdm91, method = "nls")
 @
 
 There are currently three possible values for the \texttt{method} parameter:
 
 \begin{labeling}{\texttt{default}:}
-\item[\texttt{default}:] The default method uses a transformation into a 2nd
-  degree polynomial. It can only be used if the data set contains a value for
-  the normalization where the ``throughput'' equals $1$ for one measurement.
-  This is the original procedure introduced in chapter 5.2.3 of \cite{Gun07}.
 \item[\texttt{nls}:] This method uses the \kbd{nls()} function of the stats
-  package for a nonlinear regression model. It estimates not only the
-  coefficients $\alpha$ and $\beta$ but also the scale factor for the
-  normalization. The nonlinear regression uses constraints for its parameters
-  which means the ``port'' algorithm is used internally to solve the model.
-  So all restrictions of the ``port'' algorithm apply.
+  package for a nonlinear regression model. It estimates the coefficients
+  $\alpha$, $\beta$ and $\gamma$. The nonlinear regression uses constraints
+  for its parameters which means the ``port'' algorithm is used internally
+  to solve the model. So all restrictions of the ``port'' algorithm apply.
 \item[\texttt{nlxb}:] A nonlinear regression model is also used in this case.
   But instead of the \kbd{nls()} function it uses the \kbd{nlxb()} function
-  from the nlsr package (see \cite{R:nlsr}). This method also estimates
-  both coefficients and the normalization factor. It is expected to be more
-  robust than the \texttt{nls} method.
+  from the nlsr package (see \cite{R:nlsr}). It is expected to be more robust
+  than the \texttt{nls} method.
+\item[\texttt{default}:] The default method traditionally used a transformation
+  into a \nth{2} degree polynomial and required the data to be normalized. This
+  was the original algorithm for the two-parameter Universal Scalability Law
+  introduced in chapter 5.2.3 of \cite{Gun07}. Starting with version 2.0.0 of
+  the \usl{} package this algorithm is no longer available. The \kbd{nlxb()}
+  function is used instead.
 \end{labeling}
-
-Keep in mind that if there is no measurement where ``load'' equals $1$ then
-the default method does not work and a warning message will be printed. In
-this case the \kbd{usl()} function will automatically apply the \texttt{nlxb}
-method.
 
 We also use the \kbd{summary()} function to look at the details for the
 analysis.
@@ -419,7 +446,7 @@ fraction is also recognized in Amdahl's Law.
 
 We hypothesize that a proposed change to the system --- maybe a redesign of
 the cache architecture or the elimination of a point to point communication
---- could reduce $\beta$ by half and want to predict how the scalability of
+--- could reduce $\beta$ by half. Now we want to predict how the scalability of
 the system would change.
 
 We can calculate the point of maximum scalability for the current system and
@@ -437,8 +464,8 @@ would behave with a different contention or coherency coefficient.
 
 In this case we learn that the point of peak scalability would move from
 around \Sexpr{signif(peak.scalability(usl.model), 3)} to about
-\Sexpr{signif(peak.scalability(usl.model, beta=0.00005), 3)} if we would be
-able to actually build the system with the assumed optimization.
+\Sexpr{signif(peak.scalability(usl.model, beta=0.00005), 3)} virtual users if
+we would be able to actually build the system with the assumed optimization.
 
 Both calculated scalability functions can be plotted using the \kbd{plot()}
 or \kbd{curve()} functions. The following commands create a graph of the
@@ -597,7 +624,8 @@ with an increasing degree of parallelism. Note that the result matrix must be
 transposed to match the format needed for for the \kbd{barplot()} command.
 
 <<'ovplot1', fig.cap='Decomposition of the execution time for parallelized workloads of the SPECSDM91 benchmark. The time is measured as a fraction of the time needed for serial execution of the workload.'>>=
-barplot(height = t(ovhd), names.arg = load[, 1], xlab = names(load), legend.text = TRUE)
+barplot(height = t(ovhd), names.arg = load[, 1],
+         xlab = names(load), legend.text = TRUE)
 @
 
 \Cref{fig:ovplot1} shows the resulting plot. It clearly shows the decrease in
@@ -664,17 +692,12 @@ As usual, we call the \kbd{usl()} function to carry out the analysis. See
 estimated scalability function.
 
 <<'orausl1', fig.cap='Relationship between the transaction rate and the number of average active sessions in an Oracle database system'>>=
-usl.oracle <- usl(txn_rate ~ db_time, oracledb, method = "nlxb")
+plot(txn_rate ~ db_time, oracledb,
+      xlab = "Average active sessions", ylab = "Txn / sec")
 
-plot(txn_rate ~ db_time, oracledb, xlab = "Average active sessions", ylab = "Txn / sec")
+usl.oracle <- usl(txn_rate ~ db_time, oracledb)
 plot(usl.oracle, add = TRUE)
 @
-
-We use the \texttt{nlxb} method here because the data does not include a
-value for exactly one average active session. Current versions of the \usl{}
-package will automatically switch to the \texttt{nlxb} method if the data
-does not provide the required measurements for the \texttt{default} method.
-So normally you may omit this option.
 
 Now we can retrieve the coefficients for this model.
 
