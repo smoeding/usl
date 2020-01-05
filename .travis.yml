@@ -1,22 +1,16 @@
 language: r
 cache: packages
 r:
-  - oldrel
   - release
-  - devel
 #r_build_args: "--no-build-vignettes --no-manual"
 #r_check_args: "--no-build-vignettes --no-manual --as-cran"
 r_packages:
   - covr
+before_install:
+  - tlmgr install amsmath
+  - tlmgr install footmisc
+  - tlmgr install mathdesign
+  - tlmgr install nowidow
 after_success:
   - Rscript -e 'library(covr); codecov()'
 warnings_are_errors: false
-addons:
-  apt:
-    packages:
-      - texlive-base
-      - texlive-latex-base
-      - texlive-latex-recommended
-      - texlive-latex-extra
-      - texlive-fonts-extra
-      - texlive-fonts-recommended
