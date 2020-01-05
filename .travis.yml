@@ -10,6 +10,7 @@ before_install:
   - tlmgr install amsmath
   - tlmgr install footmisc
   - tlmgr install genmisc
+  - tlmgr install ly1
   - tlmgr install mathdesign
   - tlmgr install nowidow
   - tlmgr install units
