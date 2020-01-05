@@ -9,6 +9,7 @@ r_packages:
 before_install:
   - tlmgr install amsmath
   - tlmgr install footmisc
+  - tlmgr install genmisc
   - tlmgr install mathdesign
   - tlmgr install nowidow
   - tlmgr install units
