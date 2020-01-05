@@ -11,7 +11,7 @@ before_install:
   - tlmgr install footmisc
   - tlmgr install genmisc
   - tlmgr install ly1
-  - tlmgr install mathdesign
+  - tlmgr install mathdesign utopia
   - tlmgr install nowidow
   - tlmgr install units
 after_success:
