@@ -7,19 +7,11 @@ matrix:
     - r: release
       after_success:
         - Rscript -e 'library(covr); codecov()'
-    - r: 3.5
-    - r: 3.4
-    - r: 3.3
-    - r: 3.2
+    - r: oldrel
 
 r_packages:
   - covr
 
 before_install:
-  - tlmgr install amsmath
-  - tlmgr install footmisc
-  - tlmgr install genmisc
-  - tlmgr install ly1
-  - tlmgr install mathdesign utopia
-  - tlmgr install nowidow
-  - tlmgr install units
+  - tlmgr install amsmath footmisc genmisc nowidow units
+  - tlmgr install ly1 mathdesign utopia
