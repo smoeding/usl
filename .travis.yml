@@ -15,3 +15,8 @@ r_packages:
 before_install:
   - tlmgr install amsmath footmisc genmisc nowidow units
   - tlmgr install ly1 mathdesign utopia
+
+addons:
+  apt:
+    packages:
+      - ghostscript
