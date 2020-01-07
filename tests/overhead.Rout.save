@@ -16,13 +16,13 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # overhead.R --- Test function overhead
->
+> 
 > library(usl)
->
+> 
 > options(digits = 3, scipen = 6)
->
+> 
 > data(specsdm91)
->
+> 
 > overhead(usl(throughput ~ load, specsdm91))
     ideal contention coherency
 1 1.00000     0.0000  0.000000
@@ -32,14 +32,14 @@ Type 'q()' to quit R.
 5 0.00926     0.0275  0.005584
 6 0.00694     0.0275  0.007462
 7 0.00463     0.0276  0.011219
->
+> 
 > overhead(usl(throughput ~ load, specsdm91),
 +          newdata = data.frame(load = c(1,2,4)))
   ideal contention coherency
 1  1.00     0.0000 0.0000000
 2  0.50     0.0139 0.0000522
 3  0.25     0.0208 0.0001565
->
+> 
 > proc.time()
    user  system elapsed 
-  0.530   0.112   0.631 
+  0.545   0.115   0.652 

@@ -27,4 +27,4 @@ Error in usl(~Wind + Temp, data = airquality) :
 > 
 > proc.time()
    user  system elapsed 
-  0.435   0.111   0.537 
+  0.429   0.107   0.528 

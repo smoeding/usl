@@ -31,9 +31,9 @@ In usl(throughput ~ processors, data = r) :
   'data' has only a few values; the result might not be accurate
 > 
 > coef(u)
-alpha   beta  gamma 
-0.028  0.001 21.059
+ alpha   beta  gamma 
+ 0.028  0.001 21.059 
 > 
 > proc.time()
    user  system elapsed 
-    0.5     0.1     0.6 
+    0.4     0.1     0.6 

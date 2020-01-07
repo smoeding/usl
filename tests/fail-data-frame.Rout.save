@@ -27,4 +27,4 @@ Error in usl(Jan ~ Feb + Mar, data = AirPassengers) :
 > 
 > proc.time()
    user  system elapsed 
-  0.428   0.105   0.530 
+  0.430   0.107   0.538 

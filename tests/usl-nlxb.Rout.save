@@ -37,7 +37,7 @@ Residuals:
  -81.7  -48.3  -25.1   29.5  111.1 
 
 Coefficients:
-        Estimate  Std. Error  t value  Pr(>|t|)     
+         Estimate  Std. Error  t value  Pr(>|t|)    
 alpha   0.0277285   0.0091217     3.04    0.0384  * 
 beta    0.0001044   0.0000199     5.25    0.0063  **
 gamma  89.9952330  14.2134894     6.33    0.0032  **
@@ -49,4 +49,4 @@ Multiple R-squared: 0.99,	Adjusted R-squared: 0.987
 > 
 > proc.time()
    user  system elapsed 
-  0.464   0.110   0.557 
+  0.454   0.107   0.539 

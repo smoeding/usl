@@ -16,28 +16,28 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > # summary.R --- Test function summary
->
+> 
 > library(usl)
->
+> 
 > data(specsdm91)
->
+> 
 > u <- usl(throughput ~ load, specsdm91)
->
+> 
 > summary(u, digits=3)
 
 Call:
 usl(formula = throughput ~ load, data = specsdm91)
 
 Efficiency:
-   Min     1Q Median     3Q    Max
-0.08757 0.16257 0.28600 0.56241 0.72115
+    Min      1Q  Median      3Q     Max 
+0.08757 0.16257 0.28600 0.56241 0.72115 
 
 Residuals:
-   Min     1Q Median     3Q    Max
--81.66 -48.29 -25.09  29.52 111.09
+   Min     1Q Median     3Q    Max 
+-81.66 -48.29 -25.09  29.52 111.09 
 
 Coefficients:
-        Estimate  Std. Error  t value  Pr(>|t|)
+        Estimate  Std. Error  t value  Pr(>|t|)    
 alpha  2.773e-02   9.122e-03    3.040   0.03841  * 
 beta   1.044e-04   1.988e-05    5.251   0.00629  **
 gamma  9.000e+01   1.421e+01    6.332   0.00318  **
@@ -46,7 +46,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 82.85 on 4 degrees of freedom
 Multiple R-squared: 0.9896,	Adjusted R-squared: 0.9875
->
+> 
 > proc.time()
    user  system elapsed 
-  0.449   0.111   0.542 
+  0.453   0.110   0.549 

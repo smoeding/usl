@@ -27,4 +27,4 @@ Error in usl(Ozone ~ Wind + Temp, data = airquality) :
 > 
 > proc.time()
    user  system elapsed 
-  0.430   0.106   0.522 
+  0.430   0.111   0.532 

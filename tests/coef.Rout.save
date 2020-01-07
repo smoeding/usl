@@ -33,8 +33,8 @@ Type 'q()' to quit R.
 > 
 > coef(u)
 alpha  beta gamma 
- 0.02  0.02  1.00
+ 0.02  0.02  1.00 
 > 
 > proc.time()
    user  system elapsed 
-  0.430   0.108   0.525 
+  0.440   0.111   0.579 
