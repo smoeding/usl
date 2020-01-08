@@ -11,12 +11,11 @@
 \author{Stefan M\"oding}
 
 % Fonts, encoding & language support
+\usepackage{lmodern}
 \usepackage[utopia]{mathdesign}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
-
-\renewcommand{\ttdefault}{lmtt}
 
 \usepackage{amsmath}
 \usepackage{microtype}
