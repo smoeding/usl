@@ -11,11 +11,12 @@
 \author{Stefan M\"oding}
 
 % Fonts, encoding & language support
-\usepackage{lmodern}
 \usepackage[utopia]{mathdesign}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
+
+\renewcommand{\ttdefault}{lmtt}
 
 \usepackage{amsmath}
 \usepackage{microtype}
@@ -116,9 +117,9 @@ system can be described by a common rational function. This function is
 \emph{universal} in the sense that it does not assume any specific type of
 software, hardware or system architecture.
 
-\Cref{eqn:usl2} has the Universal Scalability Law where $C(N) = X(N) / X(1)$
-is the relative capacity given by the ratio of the measured throughput $X(N)$
-for load $N$ to the throughput $X(1)$ for load $1$.
+\Cref{eqn:usl2} illustrates the original Universal Scalability Law where
+$C(N) = X(N) / X(1)$ is the relative capacity given by the ratio of the
+measured throughput $X(N)$ for load $N$ to the throughput $X(1)$ for load $1$.
 
 \begin{equation}\label{eqn:usl2}
 C(N) = \frac{N}{1 + \alpha (N - 1) + \beta N (N - 1)}
@@ -153,7 +154,7 @@ In \cite{Gun07} Dr.~Gunther proves that \cref{eqn:usl2} is reduced to Amdahl's
 Law for $\beta = 0$. Therefore the Universal Scalability Law can be seen as
 a generalization of Amdahl's Law for speedup in parallel computing.
 
-We could solve this nonlinear equation to estimate the coefficients $\alpha$
+We can solve this nonlinear equation to estimate the coefficients $\alpha$
 and $\beta$ using a sparse set of measurements for the throughput $X_i$ at
 different loads $N_i$. The computations used to solve the equation for the
 measured values are discussed in \cite{Gun07}.
@@ -164,8 +165,9 @@ additional burden on the performance analyst who needed to either measure the
 value or find a smart way to estimate it.
 
 It was then discovered that a third coefficient $\gamma$ can be added to the
-formula to represent the missing point of reference. \Cref{eqn:usl3} shows the
-updated Universal Scalability Law using three parameters.
+formula to represent the missing point of reference (\cite{Gun:usl3}).
+\Cref{eqn:usl3} shows the updated Universal Scalability Law using three
+parameters.
 
 \begin{equation}\label{eqn:usl3}
 X(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}
@@ -248,7 +250,8 @@ creates an S4 object that encapsulates the computation.
 The first argument is a formula with a symbolic description of the model we
 want to analyze. In this case we would like to analyze how the ``throughput''
 changes with regard to the number of ``processors'' in the system. The second
-argument is the dataset with the measured values.
+argument is the dataset with the measured values. Note how this call matches
+the syntax of the \kbd{plot()} function.
 
 <<>>=
 usl.model <- usl(throughput ~ processors, data = raytracer)
@@ -339,7 +342,7 @@ The corresponding confidence intervals\footnotemark{} for the model coefficients
 are returned by calling the \kbd{confint()} function.
 
 \footnotetext{Earlier releases of the \usl{} package used bootstrapping to
-estmate the confidence intervals. This has been changed since bootstrapping
+estimate the confidence intervals. This has been changed since bootstrapping
 with a small sample size may not give the desired accuracy. Now the confidence
 intervals are calculated from the standard errors of the parameters.}
 
@@ -347,12 +350,11 @@ intervals are calculated from the standard errors of the parameters.}
 confint(usl.model, level = 0.95)
 @
 
-The confidence interval shows the range that the true value is expected lies in
-for the given confidence level. We can see that the true $\beta$ might in fact
-not really be exactly zero. One reason is that all measurements contain
-measurement/observation errors. The other reason is that such a small $\beta$
-might only cause a measuable effect when a much higher number of processors are
-used.
+The confidence interval shows for a given confidence level the expected range
+that the true value lies in. We can see that the true $\beta$ might in fact not
+really be zero. One reason is that all measurements contain measurement and 
+observation errors. The other reason is that a very small $\beta$ might only
+cause a measurable effect when a much higher number of processors are used.
 
 To get an impression of the scalability function we can use the \kbd{plot()}
 function and create a combined graph with the original data as dots and the
