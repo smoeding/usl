@@ -1,6 +1,19 @@
-CHANGES in `usl' VERSION x.x.x (xxxx-xx-xx)
+CHANGES in `usl' VERSION 2.0.0 (2020-01-08)
 
-* Add DOI reference in DESCRIPTION file.
+* Version 2.0.0 is a major update that includes some breaking changes. The
+  Universal Scalability Law has evolved from the originial two coefficient
+  formula into a three coefficient formula to obviate the need for parameter
+  normalization. The following changes are made to align the package with
+  the current use:
+  - The previously used coefficients `sigma` and `kappa` are renamed to
+    `alpha` and `beta`.
+  - A new coefficient `gamma` is introduced. This coefficient corresponds
+    to the scale factor calculated in earlier versions when parameter
+    normalization was used.
+  - The `default` method of the `usl()` function is no longer a separate
+    solver method as normalization has been removed. Calling the function
+    with either no or the `default` value for the `method` parameter will
+    internally use the `nlxb` implementation.
 
 
 CHANGES in `usl' VERSION 1.8.0 (2017-08-07)
