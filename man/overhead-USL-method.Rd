@@ -46,10 +46,10 @@ Scalability Based on Rational Functions}, equation 26.
 \examples{
 require(usl)
 
-data(raytracer)
+data(specsdm91)
 
 ## Print overhead in processing time for demo dataset
-overhead(usl(throughput ~ processors, raytracer))
+overhead(usl(throughput ~ processors, specsdm91))
 
 }
 \references{

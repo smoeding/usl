@@ -38,10 +38,10 @@ See formula (4.33) in \emph{Guerilla Capacity Planning}.
 \examples{
 require(usl)
 
-data(raytracer)
+data(specsdm91)
 
-peak.scalability(usl(throughput ~ processors, raytracer))
-## Peak scalability will be reached just below 450 processors
+peak.scalability(usl(throughput ~ load, specsdm91))
+## Peak scalability will be reached at about 96 virtual users
 
 }
 \references{
