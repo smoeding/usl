@@ -172,8 +172,8 @@ parameters.
 X(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}
 \end{equation}
 
-A nonlinear regression will solve this equation and find best-fit values for
-all three parameters $\alpha$, $\beta$ and $\gamma$.
+Nonlinear regression will solve this equation and find best-fit values for
+the three parameters $\alpha$, $\beta$ and $\gamma$.
 
 The \usl{} package has been created to subsume the computation into one
 simple function call. This greatly reduces the manual work that previously
