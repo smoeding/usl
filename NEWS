@@ -1,7 +1,7 @@
 CHANGES in `usl' VERSION 2.0.0 (2020-01-08)
 
 * Version 2.0.0 is a major update that includes some breaking changes. The
-  Universal Scalability Law has evolved from the originial two coefficient
+  Universal Scalability Law has evolved from the original two coefficient
   formula into a three coefficient formula to obviate the need for parameter
   normalization. The following changes are made to align the package with
   the current use:
