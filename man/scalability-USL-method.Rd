@@ -5,7 +5,7 @@
 \alias{scalability}
 \title{Scalability function of a USL model}
 \usage{
-\S4method{scalability}{USL}(object, alpha, beta)
+\S4method{scalability}{USL}(object, alpha, beta, gamma)
 }
 \arguments{
 \item{object}{A USL object.}
@@ -14,6 +14,9 @@
 parameter computed for the model.}
 
 \item{beta}{Optional parameter to be used for evaluation instead of the
+parameter computed for the model.}
+
+\item{gamma}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 }
 \value{

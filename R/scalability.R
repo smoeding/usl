@@ -42,6 +42,8 @@
 #'   parameter computed for the model.
 #' @param beta Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
+#' @param gamma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
 #'
 #' @return A function with parameter \code{x} that calculates the
 #'   scalability value of the specific model.
@@ -72,16 +74,17 @@
 setMethod(
   f = "scalability",
   signature = "USL",
-  definition = function(object, alpha, beta) {
+  definition = function(object, alpha, beta, gamma) {
     if (missing(alpha)) alpha <- coef(object)[['alpha']]
-    if (missing(beta)) beta <- coef(object)[['beta']]
+    if (missing(beta))  beta  <- coef(object)[['beta']]
+    if (missing(gamma)) gamma <- coef(object)[['gamma']]
 
     .func <- function(x) {
       # Formula (4.31) on page 57 of GCaP:
       cap <- x / (1 + (alpha * (x-1)) + (beta * x * (x-1)))
 
       # Scale it to the measurements
-      return(coef(object)[['gamma']] * cap)
+      return(gamma * cap)
     }
 
     # Return the usl function (lexically scoped)
@@ -137,7 +140,7 @@ setMethod(
   signature = "USL",
   definition = function(object, alpha, beta) {
     if (missing(alpha)) alpha <- coef(object)[['alpha']]
-    if (missing(beta)) beta <- coef(object)[['beta']]
+    if (missing(beta))  beta  <- coef(object)[['beta']]
 
     return(sqrt((1 - alpha) / beta))
   }
