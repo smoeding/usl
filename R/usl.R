@@ -278,13 +278,6 @@ usl <- function(formula, data, method = "default") {
   .Object@fitted    <- structure(y.fit, names = nam)
   .Object@residuals <- structure(y.res, names = nam)
 
-  n <- length(y.obs) # sample size
-  p <- 1             # number of regressors
-
-  .Object@r.squared     <- 1 - (sum(y.res ^ 2) / sum((y.obs - mean(y.obs)) ^ 2))
-  .Object@adj.r.squared <- 1 - (1 - .Object@r.squared) * ((n-1) / (n-p-1))
-
-
   # The following estimation of the standard errors is based on the
   # source code of the nls() function in R base.
   # See also: Nonlinear Regression and Nonlinear Least Squares,

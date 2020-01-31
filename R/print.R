@@ -82,9 +82,6 @@ setMethod(
     cat("\nResidual standard error:",
         format(signif(se, digits)), "on", x@df.residual, "degrees of freedom")
 
-    cat("\nMultiple R-squared:", formatC(x@r.squared, digits = digits))
-    cat(",\tAdjusted R-squared:", formatC(x@adj.r.squared, digits = digits))
-
     cat("\n")
     invisible(x)
   }

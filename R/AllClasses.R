@@ -39,8 +39,6 @@
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
 #' @slot df.residual The degrees of freedom of the model.
-#' @slot r.squared Coefficient of determination of the model.
-#' @slot adj.r.squared Adjusted coefficient of determination.
 #' @slot efficiency The efficiency, e.g. speedup per processor.
 #' @slot na.action The \code{na.action} used by the model.
 #'
@@ -59,14 +57,10 @@ setClass("USL",
                         fitted        = "vector",
                         residuals     = "vector",
                         df.residual   = "integer",
-                        r.squared     = "numeric",
-                        adj.r.squared = "numeric",
                         efficiency    = "vector",
                         na.action     = "character"),
          prototype(coef.names    = c("alpha", "beta", "gamma"),
                    df.residual   = 0L,
-                   r.squared     = 0,
-                   adj.r.squared = 0,
                    na.action     = "na.omit"),
          validity = function(object) {
            err <- character()
@@ -78,16 +72,6 @@ setClass("USL",
 
            if (length(object@resp) == 0) {
              msg <- "name of regsponse variable cannot be empty"
-             err <- c(err, msg)
-           }
-
-           if ((object@r.squared < 0) || (object@r.squared > 1)) {
-             msg <- "r.squared must be 0 <= r.squared <= 1"
-             err <- c(err, msg)
-           }
-
-           if ((object@adj.r.squared < 0) || (object@adj.r.squared > 1)) {
-             msg <- "adj.r.squared must be 0 <= adj.r.squared <= 1"
              err <- c(err, msg)
            }
 
