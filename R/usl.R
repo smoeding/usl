@@ -171,6 +171,7 @@ usl.solve.nlxb <- function(model) {
 #'   \code{\link{scalability,USL-method}},
 #'   \code{\link{peak.scalability,USL-method}},
 #'   \code{\link{summary,USL-method}},
+#'   \code{\link{sigma,USL-method}}
 #'   \code{\link{predict,USL-method}},
 #'   \code{\link{overhead,USL-method}},
 #'   \code{\link{confint,USL-method}},
