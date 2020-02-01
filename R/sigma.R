@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2020 Stefan Moeding
+# Copyright (c) 2020 Stefan Moeding
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -23,21 +23,32 @@
 # SUCH DAMAGE.
 
 
-setGeneric("plot", function(x, y, ...) standardGeneric("plot"))
-setGeneric("print", function(x, ...) standardGeneric("print"))
-setGeneric("predict", function(object, ...) standardGeneric("predict"))
-setGeneric("summary", function(object, ...) standardGeneric("summary"))
-setGeneric("confint", function(object, parm, level) standardGeneric("confint"))
-setGeneric("sigma", function(object, ...) standardGeneric("sigma"))
-
-#
-# USL specific methods
-#
-setGeneric("scalability",
-           function(object, alpha, beta, gamma) standardGeneric("scalability"))
-setGeneric("peak.scalability",
-           function(object, alpha, beta) standardGeneric("peak.scalability"))
-setGeneric("efficiency",
-           function(object) standardGeneric("efficiency"))
-setGeneric("overhead",
-           function(object, newdata) standardGeneric("overhead"))
+##############################################################################
+#' Extract Residual Standard Deviation 'Sigma'
+#'
+#' \code{sigma} Extract Residual Standard Deviation 'Sigma'
+#'
+#' @param object An object from class \code{USL}.
+#' @param ... Other arguments passed to other methods.
+#'
+#' @return A single number.
+#'
+#' @seealso \code{\link{usl}}, \code{\link{USL-class}}
+#'
+#' @examples
+#' require(usl)
+#'
+#' data(raytracer)
+#'
+#' ## Print result from USL model for demo dataset
+#' print(sigma(usl(throughput ~ processors, raytracer)))
+#'
+#' @export
+#'
+setMethod(
+  f = "sigma",
+  signature = "USL",
+  definition = function(object, ...) {
+    return(object@sigma)
+  }
+)

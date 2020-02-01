@@ -286,9 +286,10 @@ information.
   processor case but for a real-world analysis this value if often unknown or
   can't be measured. The difference between the value of $\gamma$ and the
   measurement is also caused by the regression.
-%\item Finally $R^2$ estimates how well the model fits the data. We can see
-%  that the model is able to explain about
-%  \Sexpr{floor(100*summary(usl.model)$r.squared)} percent of the data.
+\item Finally the residual standard error estimates how well the model fits
+  the data. We can see that the difference between the model prediction and
+  the measured values is typically within $\Sexpr{signif(sigma(usl.model), 3)}$
+  ray-tracing operations.
 \end{itemize}
 
 The function \kbd{efficiency()} extracts the efficiency values from the model
