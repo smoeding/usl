@@ -31,6 +31,8 @@ This class encapsulates the Universal Scalability Law. Use the function
 
 \item{\code{df.residual}}{The degrees of freedom of the model.}
 
+\item{\code{sigma}}{The residual standard deviation of the model.}
+
 \item{\code{efficiency}}{The efficiency, e.g. speedup per processor.}
 
 \item{\code{na.action}}{The \code{na.action} used by the model.}

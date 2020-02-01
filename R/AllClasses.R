@@ -39,6 +39,7 @@
 #' @slot fitted The fitted values of the model. This is a vector.
 #' @slot residuals The residuals of the model. This is a vector.
 #' @slot df.residual The degrees of freedom of the model.
+#' @slot sigma The residual standard deviation of the model.
 #' @slot efficiency The efficiency, e.g. speedup per processor.
 #' @slot na.action The \code{na.action} used by the model.
 #'
@@ -57,6 +58,7 @@ setClass("USL",
                         fitted        = "vector",
                         residuals     = "vector",
                         df.residual   = "integer",
+                        sigma         = "numeric",
                         efficiency    = "vector",
                         na.action     = "character"),
          prototype(coef.names    = c("alpha", "beta", "gamma"),

@@ -77,10 +77,8 @@ setMethod(
 
     printCoefmat(para.mat, digits = digits, print.gap = 2)
 
-    se <- if (x@df.residual > 0) sqrt(sum(x@residuals ^ 2) / x@df.residual) else NaN
-
-    cat("\nResidual standard error:",
-        format(signif(se, digits)), "on", x@df.residual, "degrees of freedom")
+    cat("\nResidual standard error:", format(signif(x@sigma, digits)), 
+        "on", x@df.residual, "degrees of freedom")
 
     cat("\n")
     invisible(x)

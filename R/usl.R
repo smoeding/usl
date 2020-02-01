@@ -286,15 +286,18 @@ usl <- function(formula, data, method = "default") {
 
   # residual variance
   df <- df.residual(.Object)
-  resvar <- if(df <= 0) NaN else sum(y.res ^ 2) / df
+  rv <- ifelse(df <= 0, NaN, sum(y.res ^ 2) / df)
+  
+  # residual standard deviation
+  .Object@sigma <- sqrt(rv)
 
-  # Build gradient matrix
+  # gradient matrix
   grad <- gradient.usl(.Object)
 
   XtXinv <- solve(t(grad) %*% grad)
 
-  # Standard error of coefficients
-  .Object@coef.std.err <- sqrt(diag(XtXinv) * resvar)
+  # standard error of coefficients
+  .Object@coef.std.err <- sqrt(diag(XtXinv) * rv)
 
   return(.Object)
 }
