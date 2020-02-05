@@ -40,6 +40,8 @@
 #' @slot residuals The residuals of the model. This is a vector.
 #' @slot df.residual The degrees of freedom of the model.
 #' @slot sigma The residual standard deviation of the model.
+#' @slot limit The scalability limit as per Amdahl.
+#' @slot peak A vector with the predictor and response values of the peak.
 #' @slot efficiency The efficiency, e.g. speedup per processor.
 #' @slot na.action The \code{na.action} used by the model.
 #'
@@ -59,6 +61,8 @@ setClass("USL",
                         residuals     = "vector",
                         df.residual   = "integer",
                         sigma         = "numeric",
+                        limit         = "numeric",
+                        peak          = "vector",
                         efficiency    = "vector",
                         na.action     = "character"),
          prototype(coef.names    = c("alpha", "beta", "gamma"),

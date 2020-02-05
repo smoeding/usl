@@ -279,6 +279,18 @@ usl <- function(formula, data, method = "default") {
   .Object@fitted    <- structure(y.fit, names = nam)
   .Object@residuals <- structure(y.res, names = nam)
 
+  # Calculate the point where the curve has its peak.
+  Nmax <- sqrt((1 - model.result[['alpha']]) / model.result[['beta']])
+  Xmax <- model.result[['gamma']] * Nmax / (1 + model.result[['alpha']] * (Nmax - 1) + model.result[['beta']] * Nmax * (Nmax - 1))
+
+  .Object@peak <- structure(c(Nmax, Xmax), names = c(regr, resp))
+
+  # Calculate the scalability limit (Amdahl's asymptote)
+  Nopt <- abs(1 / model.result[['alpha']])
+  Xlim <- model.result[['gamma']] * Nopt
+
+  .Object@limit <- structure(c(Xlim), names = c(resp))
+
   # The following estimation of the standard errors is based on the
   # source code of the nls() function in R base.
   # See also: Nonlinear Regression and Nonlinear Least Squares,
@@ -288,7 +300,7 @@ usl <- function(formula, data, method = "default") {
   # residual variance
   df <- df.residual(.Object)
   rv <- ifelse(df <= 0, NaN, sum(y.res ^ 2) / df)
-  
+
   # residual standard deviation
   .Object@sigma <- sqrt(rv)
 

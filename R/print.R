@@ -77,8 +77,22 @@ setMethod(
 
     printCoefmat(para.mat, digits = digits, print.gap = 2)
 
-    cat("\nResidual standard error:", format(signif(x@sigma, digits)), 
-        "on", x@df.residual, "degrees of freedom")
+    cat("\nResidual standard error:", format(signif(x@sigma, digits)),
+        "on", x@df.residual, "degrees of freedom\n")
+
+    cat("\nScalability bounds:\n")
+
+    cat("limit: ")
+    cat(x@resp, signif(x@limit, digits = digits), "(Amdahl's asymptote)\n")
+
+    cat("max:   ")
+    if (x@coefficients[['beta']] > 0) {
+      cat(x@resp, signif(x@peak[2], digits = digits), "at ")
+      cat(x@regr, signif(x@peak[1], digits = digits), "\n")
+    }
+    else {
+      cat("none (beta=0)\n")
+    }
 
     cat("\n")
     invisible(x)

@@ -33,6 +33,10 @@ This class encapsulates the Universal Scalability Law. Use the function
 
 \item{\code{sigma}}{The residual standard deviation of the model.}
 
+\item{\code{limit}}{The scalability limit as per Amdahl.}
+
+\item{\code{peak}}{A vector with the predictor and response values of the peak.}
+
 \item{\code{efficiency}}{The efficiency, e.g. speedup per processor.}
 
 \item{\code{na.action}}{The \code{na.action} used by the model.}

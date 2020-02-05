@@ -58,6 +58,10 @@ gamma  89.9952330  14.2134894     6.33    0.0032  **
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 82.8 on 4 degrees of freedom
+
+Scalability bounds:
+limit: throughput 3246 (Amdahl's asymptote)
+max:   throughput 1884 at load 96.52
 ```
 
 The following image shows the plotted output:

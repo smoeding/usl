@@ -45,6 +45,11 @@ gamma  9.000e+01   1.421e+01    6.332   0.00318  **
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 82.85 on 4 degrees of freedom
+
+Scalability bounds:
+limit: throughput 3246 (Amdahl's asymptote)
+max:   throughput 1884 at load 96.52 
+
 > 
 > proc.time()
    user  system elapsed 
