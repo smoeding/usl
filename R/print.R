@@ -83,16 +83,20 @@ setMethod(
     cat("\nScalability bounds:\n")
 
     cat("limit: ")
-    cat(x@resp, signif(x@limit, digits = digits), "(Amdahl's asymptote)\n")
+    cat(x@resp, signif(x@limit, digits), "(Amdahl's asymptote)\n")
 
     cat("max:   ")
     if (x@coefficients[['beta']] > 0) {
-      cat(x@resp, signif(x@peak[2], digits = digits), "at ")
-      cat(x@regr, signif(x@peak[1], digits = digits), "\n")
+      cat(x@resp, signif(x@peak[2], digits), "at ")
+      cat(x@regr, signif(x@peak[1], digits), "\n")
     }
     else {
       cat("none (beta=0)\n")
     }
+
+    cat("opt:   ")
+    cat(x@resp, signif(x@optimal[2], digits), "at ")
+    cat(x@regr, signif(x@optimal[1], digits), "\n")
 
     cat("\n")
     invisible(x)

@@ -49,6 +49,7 @@ Residual standard error: 82.8 on 4 degrees of freedom
 Scalability bounds:
 limit: throughput 3250 (Amdahl's asymptote)
 max:   throughput 1880 at load 96.5 
+opt:   throughput 1540 at load 36.1 
 
 > 
 > proc.time()

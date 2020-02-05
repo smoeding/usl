@@ -42,6 +42,7 @@
 #' @slot sigma The residual standard deviation of the model.
 #' @slot limit The scalability limit as per Amdahl.
 #' @slot peak A vector with the predictor and response values of the peak.
+#' @slot optimal A vector with the optimal predictor and response values.
 #' @slot efficiency The efficiency, e.g. speedup per processor.
 #' @slot na.action The \code{na.action} used by the model.
 #'
@@ -63,6 +64,7 @@ setClass("USL",
                         sigma         = "numeric",
                         limit         = "numeric",
                         peak          = "vector",
+                        optimal       = "vector",
                         efficiency    = "vector",
                         na.action     = "character"),
          prototype(coef.names    = c("alpha", "beta", "gamma"),

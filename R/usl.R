@@ -279,14 +279,19 @@ usl <- function(formula, data, method = "default") {
   .Object@fitted    <- structure(y.fit, names = nam)
   .Object@residuals <- structure(y.res, names = nam)
 
-  # Calculate the point where the curve has its peak.
+  # Calculate the point where the curve has its peak
   Nmax <- sqrt((1 - model.result[['alpha']]) / model.result[['beta']])
   Xmax <- model.result[['gamma']] * Nmax / (1 + model.result[['alpha']] * (Nmax - 1) + model.result[['beta']] * Nmax * (Nmax - 1))
 
   .Object@peak <- structure(c(Nmax, Xmax), names = c(regr, resp))
 
-  # Calculate the scalability limit (Amdahl's asymptote)
+  # Calculate the optimal load
   Nopt <- abs(1 / model.result[['alpha']])
+  Xopt <- model.result[['gamma']] * Nopt / (1 + model.result[['alpha']] * (Nopt - 1) + model.result[['beta']] * Nopt * (Nopt - 1))
+
+  .Object@optimal <- structure(c(Nopt, Xopt), names = c(regr, resp))
+
+  # Calculate the scalability limit (Amdahl's asymptote)
   Xlim <- model.result[['gamma']] * Nopt
 
   .Object@limit <- structure(c(Xlim), names = c(resp))
