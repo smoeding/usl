@@ -47,7 +47,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Residual standard error: 82.8 on 4 degrees of freedom
 
 Scalability bounds:
-limit: throughput 3250 (Amdahl's asymptote)
+limit: throughput 3250 (Amdahl asymptote)
 max:   throughput 1880 at load 96.5 
 opt:   throughput 1540 at load 36.1 
 

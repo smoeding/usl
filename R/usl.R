@@ -291,7 +291,7 @@ usl <- function(formula, data, method = "default") {
 
   .Object@optimal <- structure(c(Nopt, Xopt), names = c(regr, resp))
 
-  # Calculate the scalability limit (Amdahl's asymptote)
+  # Calculate the scalability limit (Amdahl asymptote)
   Xlim <- model.result[['gamma']] * Nopt
 
   .Object@limit <- structure(c(Xlim), names = c(resp))

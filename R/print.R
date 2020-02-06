@@ -83,7 +83,7 @@ setMethod(
     cat("\nScalability bounds:\n")
 
     cat("limit: ")
-    cat(x@resp, signif(x@limit, digits), "(Amdahl's asymptote)\n")
+    cat(x@resp, signif(x@limit, digits), "(Amdahl asymptote)\n")
 
     cat("max:   ")
     if (x@coefficients[['beta']] > 0) {

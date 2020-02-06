@@ -42,7 +42,7 @@
 #'
 #' If the parameter \code{bounds} is set to \code{TRUE} then the plot also
 #' shows dotted lines for the theoretical bounds of scalability. These are
-#' the linear scalability for small loads and Amdahl's asymptote for the
+#' the linear scalability for small loads and the Amdahl asymptote for the
 #' limit of scalability as load approaches infinity.
 #'
 #' The parameters \code{alpha} or \code{beta} are useful to do a what-if
@@ -105,7 +105,7 @@ setMethod(
       # Bound 1: linear scalability
       abline(a = 0, b = coef(x)[['gamma']], lty = "dotted")
 
-      # Bound 2: Amdahl's asymptote
+      # Bound 2: Amdahl asymptote
       if (alpha > 0) {
         abline(h = 1/alpha * coef(x)[['gamma']], lty = "dotted")
       }

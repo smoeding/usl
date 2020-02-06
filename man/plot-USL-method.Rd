@@ -58,7 +58,7 @@ are the names of the regressor and response variables used in the model.
 
 If the parameter \code{bounds} is set to \code{TRUE} then the plot also
 shows dotted lines for the theoretical bounds of scalability. These are
-the linear scalability for small loads and Amdahl's asymptote for the
+the linear scalability for small loads and the Amdahl asymptote for the
 limit of scalability as load approaches infinity.
 
 The parameters \code{alpha} or \code{beta} are useful to do a what-if
