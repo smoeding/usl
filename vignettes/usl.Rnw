@@ -578,7 +578,7 @@ coherency delays.
 
 The total execution time of a parallelized workload depends on the degree of
 parallelism $p$ and the coefficients $\alpha$ and $\beta$ of the associated
-USL model. 
+USL model.
 
 The magnitude of the three components --- given as fractions of the serial
 execution time $T_1$ --- that account for the total execution time of the
@@ -586,8 +586,12 @@ parallelized workload can be calculated as follows
 (cf. \cite{DBLP:journals/corr/abs-0808-1431} eqn. 26).
 
 \begin{align}
-T_{ideal}      &= \frac{1}{p} T_1\label{eqn:ideal}\\
-T_{contention} &= \alpha \left(\frac{p-1}{p}\right) T_1\label{eqn:contention}\\
+T_{ideal}      &= \frac{1}{p} T_1\label{eqn:ideal}
+\end{align}
+\begin{align}
+T_{contention} &= \alpha \left(\frac{p-1}{p}\right) T_1\label{eqn:contention}
+\end{align}
+\begin{align}
 T_{coherency}  &= \beta \frac{1}{2} (p-1) T_1\label{eqn:coherency}
 \end{align}
 
