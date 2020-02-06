@@ -53,7 +53,7 @@ if (before && options$fig.show != 'none')
 opts_chunk$set(prompt=TRUE, comment=NA, tidy=FALSE, warning=FALSE)
 opts_chunk$set(size='footnotesize', out.width='0.97\\textwidth')
 opts_chunk$set(fig.width=7, fig.height=3.6, fig.align='center')
-opts_chunk$set(fig.path='usl-', small.mar=TRUE)
+opts_chunk$set(fig.path='usl-', fig.pos='htbp', small.mar=TRUE)
 
 @
 
