@@ -29,7 +29,15 @@ will be plotted.}
 
 \item{ylab}{A title for the y axis: see \code{\link{title}}.}
 
-\item{bounds}{Add the bounds of scalability to the plot.}
+\item{bounds}{Add the bounds of scalability to the plot. This always
+includes the linear scalability bound for low loads. If the contention
+coefficient \code{alpha} is a positive number, then the Amdahl asymptote
+for high loads will also be plotted. If the coherency coefficient
+\code{beta} is also a positive number, then the point of peak scalability
+will also be indicated. All bounds are show using dotted lines. Some
+bounds might not be shown using the default plot area. In this case the
+parameter \code{ylim} can be used to increase the visible plot area and
+include all bounds in the output.}
 
 \item{alpha}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
@@ -69,10 +77,10 @@ parameter.
 \examples{
 require(usl)
 
-data(raytracer)
+data(specsdm91)
 
 ## Plot result from USL model for demo dataset
-plot(usl(throughput ~ processors, raytracer))
+plot(usl(throughput ~ load, specsdm91), bounds = TRUE, ylim = c(0, 3500))
 
 }
 \seealso{

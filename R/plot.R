@@ -57,7 +57,15 @@
 #'   will be plotted.
 #' @param xlab A title for the x axis: see \code{\link{title}}.
 #' @param ylab A title for the y axis: see \code{\link{title}}.
-#' @param bounds Add the bounds of scalability to the plot.
+#' @param bounds Add the bounds of scalability to the plot. This always
+#'   includes the linear scalability bound for low loads. If the contention
+#'   coefficient \code{alpha} is a positive number, then the Amdahl asymptote
+#'   for high loads will also be plotted. If the coherency coefficient
+#'   \code{beta} is also a positive number, then the point of peak scalability
+#'   will also be indicated. All bounds are show using dotted lines. Some
+#'   bounds might not be shown using the default plot area. In this case the
+#'   parameter \code{ylim} can be used to increase the visible plot area and
+#'   include all bounds in the output.
 #' @param alpha Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
 #' @param beta Optional parameter to be used for evaluation instead of the
@@ -70,10 +78,10 @@
 #' @examples
 #' require(usl)
 #'
-#' data(raytracer)
+#' data(specsdm91)
 #'
 #' ## Plot result from USL model for demo dataset
-#' plot(usl(throughput ~ processors, raytracer))
+#' plot(usl(throughput ~ load, specsdm91), bounds = TRUE, ylim = c(0, 3500))
 #'
 #' @export
 #'
@@ -94,6 +102,9 @@ setMethod(
     if (missing(alpha)) alpha <- coef(x)[['alpha']]
     if (missing(beta)) beta <- coef(x)[['beta']]
 
+    # Use gamma from the model
+    gamma <- coef(x)[['gamma']]
+
     # Get the function to calculate scalability for the model
     .func <- scalability(x, alpha, beta)
 
@@ -103,11 +114,23 @@ setMethod(
     # Add theoretical bounds of scalability to the plot
     if (bounds) {
       # Bound 1: linear scalability
-      abline(a = 0, b = coef(x)[['gamma']], lty = "dotted")
+      abline(a = 0, b = gamma, lty = "dotted")
 
-      # Bound 2: Amdahl asymptote
       if (alpha > 0) {
-        abline(h = 1/alpha * coef(x)[['gamma']], lty = "dotted")
+        # Bound 2: Amdahl asymptote
+        abline(h = abs(1/alpha) * gamma, lty = "dotted")
+
+        if (beta > 0) {
+          # Point of peak scalability
+          Nmax <- sqrt((1 - alpha) / beta)
+          Xmax <- gamma * Nmax / (1 + alpha * (Nmax-1) + beta * Nmax * (Nmax-1))
+
+          abline(v = Nmax, lty = "dotted")
+          abline(h = Xmax, lty = "dotted")
+        }
+
+        # Point of optimal scalability
+        abline(v = abs(1/alpha), lty = "dotted")
       }
     }
   }
