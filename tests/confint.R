@@ -6,9 +6,9 @@ data(raytracer)
 
 options(digits=3, scipen=6)
 
-set.seed(1103, kind = "default", normal.kind = "default")
+r <- raytracer[1:6, ]
 
-u <- usl(throughput ~ processors, data = raytracer)
+u <- usl(throughput ~ processors, data = r)
 
 coef(u)
 
