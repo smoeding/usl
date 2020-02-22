@@ -184,7 +184,8 @@ is analyzed. Up to version 1.8.0 the \usl{} package always used \texttt{sigma}
 and \texttt{kappa} as coefficients. This has been changed starting with the
 2.0.0 release of the \usl{} package. Now the package will also use
 \texttt{alpha} and \texttt{beta} as coefficient names to follow Dr.~Gunther's
-nomenclature.
+nomenclature. Additionally the \texttt{gamma} parameter was added to implement
+the Universal Scalability Law with three parameters.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,11 +285,15 @@ information.
   processor. In this case we actually have a measurement for the single
   processor case but for a real-world analysis this value if often unknown or
   can't be measured. The difference between the value of $\gamma$ and the
-  measurement is also caused by the regression.
-\item Finally the residual standard error estimates how well the model fits
-  the data. We can see that the difference between the model prediction and
-  the measured values is typically within $\Sexpr{signif(sigma(usl.model), 3)}$
-  ray-tracing operations.
+  measurement is also caused by the regression. The difference should be small
+  if the regression finds a reasonable model.
+\item The residual standard error estimates how well the model fits the data.
+  We can see that the difference between the model prediction and the measured
+  values is typically within $\Sexpr{signif(sigma(usl.model), 3)}$ ray-tracing
+  operations per second.
+\item Finally the scalability bounds are printed. These bounds state important
+  limits of the scalability as defined by the model. We will look at the
+  meaning of these values shortly.
 \end{itemize}
 
 The function \kbd{efficiency()} extracts the efficiency values from the model
@@ -312,38 +317,57 @@ measured values. Values larger than $1.0$ usually need a closer
 investigation. It is also suspicious if the efficiency gets bigger when the
 load increases.
 
-The model coefficients can be retrieved with the \kbd{coef()} function.
+The model coefficients alone can be retrieved with the \kbd{coef()} function.
 
 <<>>=
 coef(usl.model)
 @
 
-We can see that the model estimates the contention parameter to be about
-$\Sexpr{signif(100 * coef(usl.model)[['alpha']], 2)}$ percent and the coherency
-parameter to be $\Sexpr{signif(coef(usl.model)[['beta']], 2)}$.
+We can see that the model estimates the contention parameter $\alpha$ to be
+about $\Sexpr{signif(100 * coef(usl.model)[['alpha']], 2)}$ percent and the
+coherency parameter $\beta$ to be $\Sexpr{signif(coef(usl.model)[['beta']], 2)}$.
 
 With $\beta = 0$ the model indicates no coherency penalty for the system. In
-this case the throughput will asymptotically approach an upper bound $X_{max}$
-as the number of processors is increased. This bound can be calculated using
-\cref{eqn:amdahl}.
+this case the throughput will asymptotically approach an upper bound as the
+number of processors is increased. The summary output above indicates a limit
+of $\Sexpr{signif(summary(usl.model)$limit, 3)}$ as the upper bound for the
+maximal achievable throughput. There is no way to increase the throughput
+beyond that number, no matter how many processors are available whatsoever.
 
-\begin{equation}\label{eqn:amdahl}
-X_{max} = \frac{\gamma}{\alpha}
-\end{equation}
+For $\beta = 0$ the predicted throughput never reaches a maximum. Theoretically
+the throughput could always be increased by adding more processors. At the
+same time it is limited as stated in the previous paragraph. So the improvement
+becomes infinitesimal for more and more processors.
 
-The model predicts a limit of
-$\Sexpr{signif((1/coef(usl.model)[['alpha']]) * coef(usl.model)[['gamma']], 3)}$
-as the upper bound for the maximal achievable throughput. According to the
-model there is no way to increase the throughput that number, no matter how
-many processors are available whatsoever.
+To get an impression of the scalability function we can use the \kbd{plot()}
+function and create a combined graph with the original data as dots and the
+calculated scalability function as a solid line. The scalability bounds are
+added as dotted lines to the output. \Cref{fig:rtplot3} has the result of that
+plot.
 
-The corresponding confidence intervals\footnotemark{} for the model coefficients
-are returned by calling the \kbd{confint()} function.
+<<'rtplot3', fig.cap='Throughput of a raytracing software using different numbers of processors'>>=
+plot(throughput ~ processors, data = raytracer, pch = 16, ylim = c(0, 400))
+plot(usl.model, add = TRUE, bounds = TRUE)
+@
 
-\footnotetext{Earlier releases of the \usl{} package used bootstrapping to
-estimate the confidence intervals. This has been changed since bootstrapping
-with a small sample size may not give the desired accuracy. Now the confidence
-intervals are calculated from the standard errors of the parameters.}
+The plot has dotted lines for the upper limit (here for a throughput of
+$\Sexpr{signif(usl.model$limit, 3)}$) and the linear scalability we strive to
+see in all our applications. Unfortunately the throughput falls away from the
+linear path quickly.
+
+Optimal scalability is reached at $\Sexpr{signif(usl.model$optimal[1], 3)}$
+processors performing $\Sexpr{signif(usl.model$optimal[2], 3)}$ ray-tracing
+operations per second. The value is defined as the point on the x-axis below
+the intersection of the linear scalability bound and the scalability limit
+defined by Amdahl's Law.
+
+Running a system below this point will underutilize already purchased capacity.
+But pushing the system above this point leads to \emph{diminishing returns}.
+The point of optimal scalability is also given in the output of the
+\kbd{summary()} function as shown before.
+
+The confidence intervals for the model coefficients are returned by calling the
+\kbd{confint()} function.
 
 <<>>=
 confint(usl.model, level = 0.95)
@@ -355,17 +379,7 @@ really be zero. One reason is that all measurements contain measurement and
 observation errors. The other reason is that a very small $\beta$ might only
 cause a measurable effect when a much higher number of processors are used.
 
-To get an impression of the scalability function we can use the \kbd{plot()}
-function and create a combined graph with the original data as dots and the
-calculated scalability function as a solid line. \Cref{fig:rtplot3} has the
-result of that plot.
-
-<<'rtplot3', fig.cap='Throughput of a raytracing software using different numbers of processors'>>=
-plot(throughput ~ processors, data = raytracer, pch = 16)
-plot(usl.model, add = TRUE)
-@
-
-SGI marketed the Origin 2000 with up to 128 processors. Let's assume that
+SGI marketed the Origin~2000 with up to 128 processors. Let's assume that
 going from 64 to 128 processors does not introduce any additional limitations
 to the system architecture. Then we can use the existing model and forecast
 the system throughput for other numbers like 96 and 128 processors using the
@@ -443,7 +457,7 @@ Looking at the coefficients we notice that $\alpha$ is about
 \Sexpr{signif(coef(usl.model)[['beta']], 1)}. The parameter $\alpha$ indicates
 that about \Sexpr{signif(100*coef(usl.model)[['alpha']], 2)} percent of the
 execution time is strictly serial. As a rule of thumb we can say that $3$
-percent is quiete a good value for a reasonable complex application. Note that
+percent is an excellent value for a reasonable complex application. Note that
 this serial fraction is also recognized in Amdahl's Law.
 
 We hypothesize that a proposed change to the system --- maybe a redesign of

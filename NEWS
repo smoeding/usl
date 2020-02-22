@@ -1,10 +1,11 @@
-CHANGES in `usl' VERSION 2.1.0 (2020-xx-xx)
+CHANGES in `usl' VERSION 3.0.0 (2020-xx-xx)
 
 * Extend `scalability()` function to accept additional parameter `gamma`.
 * Removed R-squared in `summary()` output as it is not valid for nonlinear
   regression.
 * Implemented method `sigma` to extract the residual standard deviation.
-* Print scalability bounds in `summary()` output.
+* Print scalability bounds in `summary()` output and optionally include these
+  bounds in the `plot()` output.
 
 
 CHANGES in `usl' VERSION 2.0.0 (2020-01-08)
