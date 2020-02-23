@@ -350,16 +350,21 @@ plot(throughput ~ processors, data = raytracer, pch = 16, ylim = c(0, 400))
 plot(usl.model, add = TRUE, bounds = TRUE)
 @
 
-The plot has dotted lines for the upper limit (here for a throughput of
-$\Sexpr{signif(usl.model$limit, 3)}$) and the linear scalability we strive to
-see in all our applications. Unfortunately the throughput falls away from the
-linear path quickly.
+<<'bounds', echo=FALSE>>=
+Xroof <- usl.model$limit
+Nopt  <- usl.model$optimal[1]
+Xopt  <- usl.model$optimal[2]
+@
 
-Optimal scalability is reached at $\Sexpr{signif(usl.model$optimal[1], 3)}$
-processors performing $\Sexpr{signif(usl.model$optimal[2], 3)}$ ray-tracing
-operations per second. The value is defined as the point on the x-axis below
-the intersection of the linear scalability bound and the scalability limit
-defined by Amdahl's Law.
+The plot has dotted lines for the upper limit defined by Amdahl (here for a
+throughput of $\Sexpr{signif(Xroof, 3)}$) and the linear scalability we strive
+to see in all our applications. Unfortunately the throughput falls away from
+the linear path quickly.
+
+Optimal scalability is reached at $\Sexpr{signif(Nopt, 3)}$ processors
+performing $\Sexpr{signif(Xopt, 3)}$ ray-tracing operations per second. The
+optimum is defined as the point on the x-axis below the intersection of the
+linear scalability bound and the scalability limit defined by Amdahl's Law.
 
 Running a system below this point will underutilize already purchased capacity.
 But pushing the system above this point leads to \emph{diminishing returns}.
