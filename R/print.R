@@ -85,7 +85,7 @@ setMethod(
     cat("limit: ")
     cat(x@resp, signif(x@limit, digits), "(Amdahl asymptote)\n")
 
-    cat("max:   ")
+    cat("peak:  ")
     if (x@coefficients[['beta']] > 0) {
       cat(x@resp, signif(x@peak[2], digits), "at ")
       cat(x@regr, signif(x@peak[1], digits), "\n")

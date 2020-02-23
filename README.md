@@ -61,7 +61,7 @@ Residual standard error: 82.8 on 4 degrees of freedom
 
 Scalability bounds:
 limit: throughput 3246 (Amdahl's asymptote)
-max:   throughput 1884 at load 96.52
+peak:  throughput 1884 at load 96.52
 opt:   throughput 1542 at load 36.06
 ```
 
