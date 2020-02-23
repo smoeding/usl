@@ -60,13 +60,13 @@
 #' data(raytracer)
 #'
 #' ## Compute the scalability function
-#' s <- scalability(usl(throughput ~ processors, raytracer))
+#' scf <- scalability(usl(throughput ~ processors, raytracer))
 #'
 #' ## Print scalability for 32 CPUs for the demo dataset
-#' print(s(32))
+#' print(scf(32))
 #'
 #' ## Plot scalability for the range from 1 to 64 CPUs
-#' plot(s, from=1, to=64)
+#' plot(scf, from=1, to=64)
 #'
 #' @aliases scalability
 #' @export
