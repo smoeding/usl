@@ -152,7 +152,7 @@ usl.solve.nlxb <- function(model) {
 #' \code{C(N)} predicts the relative capacity of the system for a given
 #' load \code{N}:
 #'
-#' \deqn{C(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = N / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
+#' \deqn{C(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = (\gamma N) / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
 #'
 #' @param formula An object of class "\code{\link{formula}}" (or one that
 #'   can be coerced to that class): a symbolic description of the model to be

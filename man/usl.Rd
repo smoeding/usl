@@ -69,7 +69,7 @@ The Universal Scalability Law can be expressed with following formula.
 \code{C(N)} predicts the relative capacity of the system for a given
 load \code{N}:
 
-\deqn{C(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = N / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
+\deqn{C(N) = \frac{\gamma N}{1 + \alpha (N - 1) + \beta N (N - 1)}}{C(N) = (\gamma N) / (1 + \alpha * (N - 1) + \beta * N * (N - 1))}
 }
 \examples{
 require(usl)
