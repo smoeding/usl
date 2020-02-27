@@ -31,7 +31,7 @@ calculate the scalability for the specific USL model.
 The returned function can be used to calculate specific values once the
 model for a system has been created.
 
-The parameters \code{alpha} or \code{beta} are useful to do a what-if
+The parameters \code{alpha} and \code{beta} are useful to do a what-if
 analysis. Setting these parameters override the model parameters and show
 how the system would behave with a different contention or coherency delay
 parameter.
@@ -57,5 +57,8 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
   Springer, Heidelberg, Germany, 1st edition, 2007.
 }
 \seealso{
-\code{\link{usl}}, \code{\link{peak.scalability,USL-method}}
+\code{\link{usl}},
+  \code{\link{peak.scalability,USL-method}}
+  \code{\link{optimal.scalability,USL-method}}
+  \code{\link{limit.scalability,USL-method}}
 }

@@ -3,9 +3,9 @@
 \name{peak.scalability,USL-method}
 \alias{peak.scalability,USL-method}
 \alias{peak.scalability}
-\title{Peak scalability value of a USL model}
+\title{Point of peak scalability of a USL model}
 \usage{
-\S4method{peak.scalability}{USL}(object, alpha, beta)
+\S4method{peak.scalability}{USL}(object, alpha, beta, gamma)
 }
 \arguments{
 \item{object}{A USL object.}
@@ -14,6 +14,9 @@
 parameter computed for the model.}
 
 \item{beta}{Optional parameter to be used for evaluation instead of the
+parameter computed for the model.}
+
+\item{gamma}{Optional parameter to be used for evaluation instead of the
 parameter computed for the model.}
 }
 \value{
@@ -24,16 +27,19 @@ A numeric value for the point where peak scalability will be
 Calculate the point of peak scalability for a specific model.
 }
 \details{
-The peak scalability is the point where the throughput of the
-system starts to go retrograde, i.e., starts to decrease with
-increasing load.
+The peak scalability is the point where the throughput of the system starts
+to go retrograde, i.e., starts to decrease with increasing load.
 
-The parameters \code{alpha} or \code{beta} are useful to do a what-if
-analysis. Setting these parameters override the model parameters and show
-how the system would behave with a different contention or coherency delay
-parameter.
+The parameters \code{alpha}, \code{beta} and \code{gamma} are useful to do a
+what-if analysis. Setting these parameters override the model parameters and
+show how the system would behave with a different contention or coherency
+delay parameter.
 
 See formula (4.33) in \emph{Guerilla Capacity Planning}.
+
+This function accepts an argument for \code{gamma} although the value is
+not required to perform the calculation. This is on purpose to provide a
+coherent interface.
 }
 \examples{
 require(usl)
@@ -50,5 +56,7 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
   Springer, Heidelberg, Germany, 1st edition, 2007.
 }
 \seealso{
-\code{\link{usl}}, \code{\link{scalability,USL-method}}
+\code{\link{usl}},
+  \code{\link{optimal.scalability,USL-method}}
+  \code{\link{limit.scalability,USL-method}}
 }

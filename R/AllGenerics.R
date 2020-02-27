@@ -35,8 +35,12 @@ setGeneric("sigma", function(object, ...) standardGeneric("sigma"))
 #
 setGeneric("scalability",
            function(object, alpha, beta, gamma) standardGeneric("scalability"))
+setGeneric("optimal.scalability",
+           function(object, alpha, beta, gamma) standardGeneric("optimal.scalability"))
 setGeneric("peak.scalability",
-           function(object, alpha, beta) standardGeneric("peak.scalability"))
+           function(object, alpha, beta, gamma) standardGeneric("peak.scalability"))
+setGeneric("limit.scalability",
+           function(object, alpha, beta, gamma) standardGeneric("limit.scalability"))
 setGeneric("efficiency",
            function(object) standardGeneric("efficiency"))
 setGeneric("overhead",

@@ -4,6 +4,7 @@ CHANGES in `usl' VERSION 3.0.0 (2020-xx-xx)
 * Removed R-squared in `summary()` output as it is not valid for nonlinear
   regression.
 * Implemented method `sigma` to extract the residual standard deviation.
+* Implemented methods `optimal.scalability()` and `limit.scalability()`.
 * Print scalability bounds in `summary()` output and optionally include these
   bounds in the `plot()` output.
 

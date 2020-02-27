@@ -32,7 +32,7 @@
 #' The returned function can be used to calculate specific values once the
 #' model for a system has been created.
 #'
-#' The parameters \code{alpha} or \code{beta} are useful to do a what-if
+#' The parameters \code{alpha} and \code{beta} are useful to do a what-if
 #' analysis. Setting these parameters override the model parameters and show
 #' how the system would behave with a different contention or coherency delay
 #' parameter.
@@ -48,7 +48,10 @@
 #' @return A function with parameter \code{x} that calculates the
 #'   scalability value of the specific model.
 #'
-#' @seealso \code{\link{usl}}, \code{\link{peak.scalability,USL-method}}
+#' @seealso \code{\link{usl}},
+#'   \code{\link{peak.scalability,USL-method}}
+#'   \code{\link{optimal.scalability,USL-method}}
+#'   \code{\link{limit.scalability,USL-method}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
@@ -94,31 +97,163 @@ setMethod(
 
 
 ##############################################################################
-#' Peak scalability value of a USL model
+#' Point of optimal scalability of a USL model
 #'
-#' Calculate the point of peak scalability for a specific model.
+#' Calculate the point of optimal scalability for a specific model.
 #'
-#' The peak scalability is the point where the throughput of the
-#' system starts to go retrograde, i.e., starts to decrease with
-#' increasing load.
+#' The point of optimal scalability is defined as:
+#' 
+#' \deqn{Nopt = \frac{1}{\alpha}}{Nopt = 1 / \alpha}
+#' 
+#' Below this point the existing capacity is underutilized. Beyond that point
+#' the effects of diminishing returns become visible more and more.
 #'
-#' The parameters \code{alpha} or \code{beta} are useful to do a what-if
-#' analysis. Setting these parameters override the model parameters and show
-#' how the system would behave with a different contention or coherency delay
-#' parameter.
+#' The value can be constructed graphically by projecting the intersection of
+#' the linear scalability bound and the Amdahl asymptote onto the x-axis.
 #'
-#' See formula (4.33) in \emph{Guerilla Capacity Planning}.
+#' The parameters \code{alpha}, \code{beta} and \code{gamma} are useful to do a
+#' what-if analysis. Setting these parameters override the model parameters and
+#' show how the system would behave with a different contention or coherency
+#' delay parameter.
+#'
+#' The point of optimal scalability is undefined if \code{alpha} is zero.
+#'
+#' This function accepts a arguments for \code{beta} and \code{gamma} although
+#' the values are not required to perform the calculation. This is on purpose
+#' to provide a coherent interface.
 #'
 #' @param object A USL object.
 #' @param alpha Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
 #' @param beta Optional parameter to be used for evaluation instead of the
 #'   parameter computed for the model.
+#' @param gamma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#'
+#' @return A numeric value for the load where optimal scalability will be
+#'   reached.
+#'
+#' @seealso \code{\link{usl}},
+#'   \code{\link{peak.scalability,USL-method}}
+#'   \code{\link{limit.scalability,USL-method}}
+#'
+#' @examples
+#' require(usl)
+#'
+#' data(specsdm91)
+#'
+#' optimal.scalability(usl(throughput ~ load, specsdm91))
+#' ## Optimal scalability will be reached at about 36 virtual users
+#'
+#' @aliases optimal.scalability
+#' @export
+#'
+setMethod(
+  f = "optimal.scalability",
+  signature = "USL",
+  definition = function(object, alpha, beta, gamma) {
+    if (missing(alpha)) alpha <- coef(object)[['alpha']]
+    if (missing(beta))  beta  <- coef(object)[['beta']]
+    if (missing(gamma)) gamma <- coef(object)[['gamma']]
+    
+    return(1 / alpha)
+  }
+)
+
+
+##############################################################################
+#' Scalability limit of a USL model
+#'
+#' Calculate the scalability limit for a specific model.
+#'
+#' The scalability limit is defined as:
+#'
+#'\deqn{Xroof = \frac{\gamma}{\alpha}}{Xroof = \gamma / \alpha}
+#'
+#' This is the upper bound (Amdahl asymptote) of system capacity.
+#'
+#' The parameters \code{alpha}, \code{beta} and \code{gamma} are useful to do a
+#' what-if analysis. Setting these parameters override the model parameters and
+#' show how the system would behave with a different contention or coherency
+#' delay parameter.
+#'
+#' The scalability limit is undefined if \code{alpha} is zero.
+#'
+#' This function accepts an argument for \code{beta} although the value is not
+#' required to perform the calculation. This is on purpose to provide a
+#' coherent interface.
+#'
+#' @param object A USL object.
+#' @param alpha Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param beta Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param gamma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#'
+#' @return A numeric value for the system capacity limit (e.g. throughput).
+#'
+#' @seealso \code{\link{usl}},
+#'   \code{\link{peak.scalability,USL-method}}
+#'   \code{\link{optimal.scalability,USL-method}}
+#'
+#' @examples
+#' require(usl)
+#'
+#' data(specsdm91)
+#'
+#' limit.scalability(usl(throughput ~ load, specsdm91))
+#' ## The throughput limit is about 3245
+#'
+#' @aliases limit.scalability
+#' @export
+#'
+setMethod(
+  f = "limit.scalability",
+  signature = "USL",
+  definition = function(object, alpha, beta, gamma) {
+    if (missing(alpha)) alpha <- coef(object)[['alpha']]
+    if (missing(beta))  beta  <- coef(object)[['beta']]
+    if (missing(gamma)) gamma <- coef(object)[['gamma']]
+    
+    return(gamma / alpha)
+  }
+)
+
+
+##############################################################################
+#' Point of peak scalability of a USL model
+#'
+#' Calculate the point of peak scalability for a specific model.
+#'
+#' The peak scalability is the point where the throughput of the system starts
+#' to go retrograde, i.e., starts to decrease with increasing load.
+#'
+#' The parameters \code{alpha}, \code{beta} and \code{gamma} are useful to do a
+#' what-if analysis. Setting these parameters override the model parameters and
+#' show how the system would behave with a different contention or coherency
+#' delay parameter.
+#'
+#' See formula (4.33) in \emph{Guerilla Capacity Planning}.
+#'
+#' This function accepts an argument for \code{gamma} although the value is
+#' not required to perform the calculation. This is on purpose to provide a
+#' coherent interface.
+#'
+#' @param object A USL object.
+#' @param alpha Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param beta Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
+#' @param gamma Optional parameter to be used for evaluation instead of the
+#'   parameter computed for the model.
 #'
 #' @return A numeric value for the point where peak scalability will be
 #'   reached.
 #'
-#' @seealso \code{\link{usl}}, \code{\link{scalability,USL-method}}
+#' @seealso \code{\link{usl}},
+#'   \code{\link{optimal.scalability,USL-method}}
+#'   \code{\link{limit.scalability,USL-method}}
 #'
 #' @references Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
@@ -138,10 +273,11 @@ setMethod(
 setMethod(
   f = "peak.scalability",
   signature = "USL",
-  definition = function(object, alpha, beta) {
+  definition = function(object, alpha, beta, gamma) {
     if (missing(alpha)) alpha <- coef(object)[['alpha']]
     if (missing(beta))  beta  <- coef(object)[['beta']]
-
+    if (missing(gamma)) gamma <- coef(object)[['gamma']]
+    
     return(sqrt((1 - alpha) / beta))
   }
 )
