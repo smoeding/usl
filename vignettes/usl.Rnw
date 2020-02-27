@@ -359,7 +359,7 @@ Xopt  <- usl.model$optimal[2]
 The plot has dotted lines for the upper limit defined by Amdahl (here for a
 throughput of $\Sexpr{signif(Xroof, 3)}$) and the linear scalability we strive
 to see in all our applications. Unfortunately the throughput falls away from
-the linear path quickly.
+the linear path rather quickly.
 
 Optimal scalability is reached at $\Sexpr{signif(Nopt, 3)}$ processors
 performing $\Sexpr{signif(Xopt, 3)}$ ray-tracing operations per second. The
@@ -497,14 +497,16 @@ range of the plotted values with the first command.
 <<'spplot1', fig.show='hide'>>=
 plot(specsdm91, pch = 16, ylim = c(0,2500))
 plot(usl.model, add = TRUE)
+
+# Create function cache.scale to perform calculations with the model
 cache.scale <- scalability(usl.model, beta = 0.00005)
 curve(cache.scale, lty = 2, add = TRUE)
 @
 
-We used the function \kbd{scalability()} here. This function is a higher
-order function returning a function and not just a single value. That makes
-it possible to use the \kbd{curve()} function to plot the values over the
-specific range.
+We used the function \kbd{scalability()} here. It is a higher order function
+returning a function and not just a single value. The return value is assigned
+to define \kbd{cache.scale}. That makes it possible to use the \kbd{curve()}
+function to plot the values over the specific range.
 
 \Cref{fig:spplot2} shows the measured throughput in scripts per hour for a
 given load, i.e., the number of simulated users. The solid line indicates the
@@ -520,13 +522,15 @@ Increasing the load beyond that point leads to retrograde behavior, i.e., the
 throughput decreases again. As we have calculated earlier, the measured
 system will reach this point sooner than the hypothetical system.
 
-We can combine the \kbd{scalability()} and the \kbd{peak.scalability()}
-functions to get the predicted throughput values for the peak values.
+We can combine the \kbd{cache.scale()} (defined before) and the
+\kbd{peak.scalability()} functions to get the predicted throughput values for
+the peak values.
 
 <<>>=
 scalability(usl.model)(peak.scalability(usl.model))
-scf <- scalability(usl.model, beta = 0.00005)
-scf(peak.scalability(usl.model, beta = 0.00005))
+
+# Use cache.scale function defined before
+cache.scale(peak.scalability(usl.model, beta = 0.00005))
 @
 
 This illustrates how the Universal Scalability Law can help to decide if the
