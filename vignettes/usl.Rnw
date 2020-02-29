@@ -51,7 +51,7 @@ if (before && options$fig.show != 'none')
 })
 
 opts_chunk$set(prompt=TRUE, comment=NA, tidy=FALSE, warning=FALSE)
-opts_chunk$set(size='footnotesize', out.width='0.97\\textwidth')
+opts_chunk$set(size='footnotesize', out.width='0.98\\textwidth')
 opts_chunk$set(fig.width=7, fig.height=3.6, fig.align='center')
 opts_chunk$set(fig.path='usl-', fig.pos='htbp', small.mar=TRUE)
 
@@ -105,7 +105,7 @@ planning. It provides an analytic model for the scalability of a computer
 system.
 
 A comprehensive introduction to the Universal Scalability Law including the
-mathematical grounding has been published by Dr.~Gunther (\cite{Gun07}).
+mathematical grounding has been published by Dr.~Gunther (cf. \cite{Gun07}).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -150,17 +150,15 @@ point where the throughput of the system will start to go retrograde, i.e.,
 will start to decrease with further increasing load.
 
 Dr.~Gunther proved that \cref{eqn:usl2} is reduced to Amdahl's Law for
-$\beta = 0$ (cf. \cite{Gun07}). Therefore the Universal Scalability Law can
-be seen as a generalization of Amdahl's Law for speedup in parallel
-computing.
+$\beta = 0$ (cf. \cite{Gun07}). Therefore the Universal Scalability Law can be
+seen as a generalization of Amdahl's Law for speedup in parallel computing.
 
-We can solve this nonlinear equation to estimate the coefficients $\alpha$
-and $\beta$ using a sparse set of measurements for the throughput $X_i$ at
+We can solve this nonlinear equation to estimate the coefficients $\alpha$ and
+$\beta$ using a sparse set of measurements for the throughput $X_i$ at
 different loads $N_i$. Initially the Unversal Scalabilty Law normalized the
-measurements using the throughput $X(1)$ for load $1$ as the point of
-reference (cf. \cite{Gun07}). This placed an additional burden on the
-performance analyst who needed to either measure the value or find a smart
-way to estimate it.
+measurements using the throughput $X(1)$ for load $1$ as the point of reference.
+This placed an additional burden on the performance analyst who needed to either
+measure the value or find a smart way to estimate it.
 
 It was then discovered that a third coefficient $\gamma$ can be added to the
 formula to represent the missing point of reference (cf. \cite{Gun:usl3}).
@@ -227,7 +225,7 @@ the available range from one to 64 processors. We can easily see that the
 benefit for switching from one processor to four processors is much larger
 than the gain for upgrading from 48 to 64 processors.
 
-Create a simple scatterplot to get a grip on the data.
+Create a simple scatterplot to visualize the raw data.
 
 <<'rtplot1', fig.show='hide'>>=
 plot(throughput ~ processors, data = raytracer)
@@ -522,7 +520,7 @@ Increasing the load beyond that point leads to retrograde behavior, i.e., the
 throughput decreases again. As we have calculated earlier, the measured
 system will reach this point sooner than the hypothetical system.
 
-We can combine the \kbd{cache.scale()} (defined before) and the
+We can combine the \kbd{cache.scale()} (defined before) and
 \kbd{peak.scalability()} functions to get the predicted throughput values for
 the peak values.
 
