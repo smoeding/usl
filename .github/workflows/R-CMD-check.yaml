@@ -25,7 +25,8 @@ jobs:
         run: |
           install.packages(c("remotes", "rcmdcheck", "tinytex"))
           remotes::install_deps(dependencies = TRUE)
-          tinytex::tlmgr_install(c("ly1", "koma-script", "babel-english", "mathdesign", "microtype", "footmisc", "cleveref", "units", "nowidow", "nth", "oberdiek", "bookmark"))
+          tinytex::tlmgr_install(c("koma-script", "babel-english", "mathdesign", "microtype", "footmisc", "cleveref", "units", "nowidow", "nth", "oberdiek", "bookmark"))
+          tinytex::tlmgr_install(c("ly1", "utopia"))
         shell: Rscript {0}
       - name: Check
         run: |
