@@ -1,6 +1,6 @@
 # Analyze system scalability with the Universal Scalability Law
 
-[![Build Status](https://travis-ci.org/smoeding/usl.svg?branch=master)](https://travis-ci.org/smoeding/usl)
+[![R-CMD-check](https://github.com/smoeding/usl/workflows/R-CMD-check/badge.svg)](https://github.com/smoeding/usl/actions)
 [![codecov](https://codecov.io/gh/smoeding/usl/branch/master/graph/badge.svg)](https://codecov.io/gh/smoeding/usl)
 
 This is an R package to analyze system performance data with the Universal Scalability Law.
