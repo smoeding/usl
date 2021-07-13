@@ -25,6 +25,8 @@ jobs:
         run: |
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
+          tlmgr_install('koma-script')
+          tlmgr_update()
         shell: Rscript {0}
       - name: Check
         run: |
