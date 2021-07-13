@@ -23,10 +23,9 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v1
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck"))
+          install.packages(c("remotes", "rcmdcheck", "tinytex"))
           remotes::install_deps(dependencies = TRUE)
-          tlmgr_install('koma-script')
-          tlmgr_update()
+          tinytex::tlmgr_install('koma-script')
         shell: Rscript {0}
       - name: Check
         run: |
