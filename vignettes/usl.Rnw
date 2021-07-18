@@ -155,7 +155,7 @@ seen as a generalization of Amdahl's Law for speedup in parallel computing.
 
 We can solve this nonlinear equation to estimate the coefficients $\alpha$ and
 $\beta$ using a sparse set of measurements for the throughput $X_i$ at
-different loads $N_i$. Initially the Unversal Scalabilty Law normalized the
+different loads $N_i$. Initially the Universal Scalability Law normalized the
 measurements using the throughput $X(1)$ for load $1$ as the point of reference.
 This placed an additional burden on the performance analyst who needed to either
 measure the value or find a smart way to estimate it.
@@ -196,7 +196,7 @@ function calls and their arguments.
 \subsection{Case Study: Hardware Scalability}
 
 The \usl{} package contains a demo dataset with benchmark measurements from a
-raytracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}.
+ray tracer software\footnote{\url{http://sourceforge.net/projects/brlcad/}}.
 The data was gathered on an SGI~Origin~2000 with 64 R12000 processors running
 at 300~MHz.
 
@@ -237,7 +237,7 @@ number of processors. This plot is a typical example for the effects of
 benefit of adding more processors to the system gets smaller for higher
 numbers of processors.
 
-<<'rtplot2', echo=FALSE, fig.cap='Measured throughput of a raytracing software in relation to the number of available processors'>>=
+<<'rtplot2', echo=FALSE, fig.cap='Measured throughput of a ray tracing software in relation to the number of available processors'>>=
 <<rtplot1>>
 @
 
@@ -306,7 +306,7 @@ A bar plot is useful to visually compare the decreasing efficiencies for the
 configurations with an increasing number of processors. \Cref{fig:rtbarplot}
 shows the output diagram.
 
-<<'rtbarplot', fig.cap='Rate of efficiency per processor for different numbers of processors running the raytracing software'>>=
+<<'rtbarplot', fig.cap='Rate of efficiency per processor for different numbers of processors running the ray tracing software'>>=
 barplot(efficiency(usl.model), ylab = "efficiency / processor", xlab = "processors")
 @
 
@@ -343,7 +343,7 @@ calculated scalability function as a solid line. The scalability bounds are
 added as dotted lines to the output. \Cref{fig:rtplot3} has the result of that
 plot.
 
-<<'rtplot3', fig.cap='Throughput of a raytracing software using different numbers of processors'>>=
+<<'rtplot3', fig.cap='Throughput of a ray tracing software using different numbers of processors'>>=
 plot(throughput ~ processors, data = raytracer, pch = 16, ylim = c(0, 400))
 plot(usl.model, add = TRUE, bounds = TRUE)
 @
@@ -650,7 +650,7 @@ more parallelism will sometimes make performance worse.
 
 A stacked barplot can be used to visualize how the different effects change
 with an increasing degree of parallelism. Note that the result matrix must be
-transposed to match the format needed for for the \kbd{barplot()} command.
+transposed to match the format needed for the \kbd{barplot()} command.
 
 <<'ovplot1', fig.cap='Decomposition of the execution time for parallelized workloads of the SPECSDM91 benchmark. The time is measured as a fraction of the time needed for serial execution of the workload.'>>=
 barplot(height = t(ovhd), names.arg = load[, 1],
@@ -700,7 +700,7 @@ data(oracledb)
 head(subset(oracledb, select = c(timestamp, db_time, txn_rate)))
 @
 
-A naive approch would be a plot of the data as a time series (see
+A naive approach would be a plot of the data as a time series (see
 \cref{fig:oraplot1}). This plot shows the familiar pattern of an OLTP
 application that is mostly used during office hours. Unfortunately this type
 of plot is pretty much useless when performing a scalability analysis.
