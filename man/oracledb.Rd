@@ -4,7 +4,9 @@
 \name{oracledb}
 \alias{oracledb}
 \title{Performance of an Oracle database used for online transaction processing}
-\format{A data frame with 360 rows on 8 variables}
+\format{
+A data frame with 360 rows on 8 variables
+}
 \description{
 A dataset containing performance data for an Oracle OLTP database measured
 between 8:00am and 8:00pm on January, 19th 2012. The measurements were

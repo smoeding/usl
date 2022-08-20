@@ -4,7 +4,9 @@
 \name{raytracer}
 \alias{raytracer}
 \title{Performance of a ray-tracing software on different hardware configurations}
-\format{A data frame with 11 rows on 2 variables}
+\format{
+A data frame with 11 rows on 2 variables
+}
 \source{
 Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
   Approach to Planning for Highly Scalable Applications and Services.

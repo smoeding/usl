@@ -4,7 +4,9 @@
 \name{specsdm91}
 \alias{specsdm91}
 \title{Performanced of a Sun SPARCcenter 2000 in the SPEC SDM91 benchmark}
-\format{A data frame with 7 rows on 2 variables}
+\format{
+A data frame with 7 rows on 2 variables
+}
 \source{
 Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
   Approach to Planning for Highly Scalable Applications and Services.
