@@ -1,4 +1,4 @@
-\documentclass[english,pagesize=auto,parskip=half,toc=bib]{scrartcl}
+\documentclass[english]{scrartcl}
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Using the USL Package to Analyze System Scalability}
 %\VignetteDepends{usl}
@@ -11,8 +11,9 @@
 \author{Stefan M\"oding}
 
 % Fonts, encoding & language support
-\usepackage{lmodern}
-\usepackage[utopia]{mathdesign}
+\usepackage{fourier}
+\usepackage[scaled]{helvet}
+\usepackage[scaled=0.76]{beramono}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{babel}
@@ -26,10 +27,15 @@
 
 % Cross references
 \usepackage[pdfusetitle,hidelinks]{hyperref}
-\usepackage{cleveref}
 \usepackage[all]{hypcap}
+\usepackage{bookmark}
+\usepackage{cleveref}
 
 \hypersetup{pdfkeywords={Scalability,Universal Scalability Law,USL,R}}
+
+% Layout
+\KOMAoption{DIV}{11}
+\KOMAoption{toc}{bib}
 
 % Define shortcut commands
 \newcommand{\R}{{\normalfont\textsf{R}}}
@@ -39,22 +45,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<echo=FALSE>>=
 library(knitr)
-
-options(prompt="R> ", scipen=4, digits=4, width=78)
-options(str=strOptions(strict.width='cut'), show.signif.stars=TRUE)
-
 opts_knit$set(progress=FALSE, verbose=FALSE)
 
 knit_hooks$set(small.mar=function(before, options, envir) {
 if (before && options$fig.show != 'none')
-  par(mar=c(4.1, 4.1, 1.1, 2.1))
+  par(mar=c(5.1, 4.1, 1.1, 1.1), family='Helvetica', ps=11)
 })
 
-opts_chunk$set(prompt=TRUE, comment=NA, tidy=FALSE, warning=FALSE)
-opts_chunk$set(size='footnotesize', out.width='0.98\\textwidth')
-opts_chunk$set(fig.width=7, fig.height=3.6, fig.align='center')
-opts_chunk$set(fig.path='usl-', fig.pos='htbp', small.mar=TRUE)
+opts_chunk$set(prompt=TRUE, comment=NA, tidy=FALSE)
+opts_chunk$set(out.width='\\textwidth', small.mar=TRUE)
+opts_chunk$set(fig.width=7, fig.height=3.6)
+opts_chunk$set(fig.align='center', fig.pos='htbp', fig.path='usl-')
 
+options(prompt='R> ', scipen=4, digits=4, width=78)
+options(digits.secs=3, show.signif.stars=TRUE)
+options(str=strOptions(strict.width='cut'))
 @
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -666,9 +671,9 @@ parallel jobs effectively has no effect on the total execution time.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Case Study: Multivalued Data}
+\subsection{Case Study: Multi-valued Data}
 
-It is very common to use multivalued data for a scalability analysis. These
+It is very common to use multi-valued data for a scalability analysis. These
 measurements are often taken from a live system and may include many
 different data points for similar load values. This could be the result of a
 non-homogeneous workload and an analyst has to decide how to take that into
@@ -734,7 +739,7 @@ Now we can retrieve the coefficients for this model.
 coef(usl.oracle)
 @
 
-Our $\alpha$ here is about an order of magnitude bigger than what we have
+Here our $\alpha$ is about an order of magnitude bigger than what we have
 seen in the previous sections. This indicates a major issue with some kind of
 serialization or queueing that severely limits the scalability. In fact it is
 so bad that the impact is already visible with only a few active sessions
