@@ -61,7 +61,7 @@ jobs:
 
       - name: Install additional LaTeX packages
         run: |
-           tlmgr install babel-english bera bookmark cleveref footmisc fourier koma-script ly1 microtype nowidow nth oberdiek units
+           tlmgr install babel-english bera bookmark cleveref footmisc fourier koma-script ly1 microtype nowidow nth oberdiek units utopia
            tlmgr list --only-installed
 
       # - name: Install additional R dependencies
