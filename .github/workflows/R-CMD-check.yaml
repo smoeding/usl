@@ -25,7 +25,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r@v2
 
-      - name: Install dependencies
+      - name: Install additional R dependencies
         run: |
           install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
@@ -64,16 +64,12 @@ jobs:
            tlmgr install babel-english bera bookmark cleveref footmisc fourier koma-script ly1 microtype nowidow nth oberdiek units
            tlmgr list --only-installed
 
-      - name: Install dependencies
+      - name: Install additional R dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "tinytex"))
+          install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
-          tinytex::tlmgr_install(c("koma-script", "babel-english", "bera", "fourier", "microtype", "footmisc", "cleveref", "units", "nowidow", "nth", "oberdiek", "bookmark"))
-          tinytex::tlmgr_install(c("ly1", "utopia"))
         shell: Rscript {0}
 
-      - name: Check
-        run: |
-          options(crayon.enabled = TRUE)
-          rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-        shell: Rscript {0}
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          error-on: error
