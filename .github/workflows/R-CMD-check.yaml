@@ -64,12 +64,6 @@ jobs:
            tlmgr install babel-english bera bookmark cleveref footmisc fourier koma-script ly1 microtype nowidow nth oberdiek units utopia
            tlmgr list --only-installed
 
-      # - name: Install additional R dependencies
-      #   run: |
-      #     install.packages(c("remotes"))
-      #     remotes::install_deps(dependencies = TRUE)
-      #   shell: Rscript {0}
-
       - uses: r-lib/actions/check-r-package@v2
         with:
           error-on: '"error"'
