@@ -58,6 +58,9 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/setup-tinytex@v2
+        run: |
+           tlmgr install babel-english bera bookmark cleveref footmisc fourier koma-script ly1 microtype nowidow nth oberdiek units
+           tlmgr list --only-installed
 
       - name: Install dependencies
         run: |
