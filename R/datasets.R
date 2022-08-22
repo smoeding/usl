@@ -47,7 +47,7 @@ NULL
 #' @source Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 #'   Approach to Planning for Highly Scalable Applications and Services.
 #'   Springer, Heidelberg, Germany, 1st edition, 2007.
-#'   Original dataset from \url{http://sourceforge.net/projects/brlcad/}
+#'   Original dataset from \url{https://sourceforge.net/projects/brlcad/}
 NULL
 
 
