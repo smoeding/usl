@@ -2,8 +2,12 @@
 
 library(usl)
 
-options(digits=3, scipen=9)
+options(scipen=9)
 
 data(specsdm91)
 
-usl(throughput ~ load, specsdm91, method = "nlxb")
+u <- usl(throughput ~ load, specsdm91, method = "nlxb")
+
+signif(coef(u)[['alpha']], 3)
+signif(coef(u)[['beta']], 3)
+signif(coef(u)[['gamma']], 3)

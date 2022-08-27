@@ -1,7 +1,7 @@
 
-R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
-Copyright (C) 2019 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -19,39 +19,19 @@ Type 'q()' to quit R.
 > 
 > library(usl)
 > 
-> options(digits=3, scipen=9)
+> options(scipen=9)
 > 
 > data(specsdm91)
 > 
-> usl(throughput ~ load, specsdm91, method = "nlxb")
-
-Call:
-usl(formula = throughput ~ load, data = specsdm91, method = "nlxb")
-
-Efficiency:
-   Min     1Q Median     3Q    Max 
-0.0876 0.1626 0.2860 0.5624 0.7211 
-
-Residuals:
-   Min     1Q Median     3Q    Max 
- -81.7  -48.3  -25.1   29.5  111.1 
-
-Coefficients:
-         Estimate  Std. Error  t value  Pr(>|t|)    
-alpha   0.0277285   0.0091217     3.04    0.0384  * 
-beta    0.0001044   0.0000199     5.25    0.0063  **
-gamma  89.9952304  14.2134888     6.33    0.0032  **
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 82.8 on 4 degrees of freedom
-
-Scalability bounds:
-limit: throughput 3250 (Amdahl asymptote)
-peak:  throughput 1880 at load 96.5 
-opt:   throughput 1540 at load 36.1 
-
+> u <- usl(throughput ~ load, specsdm91, method = "nlxb")
+> 
+> signif(coef(u)[['alpha']], 3)
+[1] 0.0277
+> signif(coef(u)[['beta']], 3)
+[1] 0.000104
+> signif(coef(u)[['gamma']], 3)
+[1] 90
 > 
 > proc.time()
    user  system elapsed 
-  0.454   0.107   0.539 
+  0.189   0.039   0.219 
