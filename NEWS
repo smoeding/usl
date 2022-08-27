@@ -1,3 +1,8 @@
+CHANGES in `usl' VERSION 3.0.3 (2022-08-27)
+
+* No functional changes; only unit tests were updated.
+
+
 CHANGES in `usl' VERSION 3.0.0 (2020-02-29)
 
 * Extend `scalability()` function to accept additional parameter `gamma`.
