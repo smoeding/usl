@@ -25,11 +25,11 @@ Type 'q()' to quit R.
 > 
 > u <- usl(throughput ~ load, specsdm91, method = "nlxb")
 > 
-> signif(coef(u)[['alpha']], 3)
-[1] 0.0277
-> signif(coef(u)[['beta']], 3)
-[1] 0.000104
-> signif(coef(u)[['gamma']], 3)
+> signif(coef(u)[['alpha']], 2)
+[1] 0.028
+> signif(coef(u)[['beta']], 2)
+[1] 0.0001
+> signif(coef(u)[['gamma']], 2)
 [1] 90
 > 
 > proc.time()
