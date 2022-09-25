@@ -67,7 +67,7 @@ opt:   throughput 1542 at load 36.06
 
 The following image shows the plotted output:
 
-![SPEC SDM91 scalability function](http://download.moeding.net/gfx/usl-package/specsdm91.png "SPEC SDM91 scalability function")
+![SPEC SDM91 scalability function](https://i.postimg.cc/mkRctbLw/specsdm91.png "SPEC SDM91 scalability function")
 
 ## Installation
 
