@@ -1,6 +1,9 @@
 # R-CMD-check.yaml ---
 ---
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * 1'
   push:
     branches:
       - main
