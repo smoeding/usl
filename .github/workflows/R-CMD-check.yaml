@@ -70,7 +70,7 @@ jobs:
       - name: Install additional LaTeX packages
         run: |
            tlmgr update --self
-           tlmgr install babel-english bera bookmark cleveref footmisc fourier koma-script ly1 microtype nowidow nth oberdiek units utopia
+           tlmgr install babel-english bera bookmark cleveref footmisc fourier hypcap koma-script ly1 microtype nowidow nth oberdiek units utopia
            tlmgr list --only-installed
 
       - uses: r-lib/actions/check-r-package@v2
