@@ -65,7 +65,7 @@ usl.solve.nls <- function(model) {
 #' Solve a USL model using non linear regression
 #'
 #' This function solves a USL model using non linear regression with least
-#' squares. It uses the function \code{\link{nlxb}} from the \pkg{nlsr}
+#' squares. It uses the function \code{\link[nlsr]{nlxb}} from the \pkg{nlsr}
 #' package to perform the calculation.
 #'
 #' @param model A data frame with two columns containing the values of the
@@ -138,7 +138,7 @@ usl.solve.nlxb <- function(model) {
 #'     is used internally to solve the model. So all restrictions of the
 #'     "\code{port}" algorithm apply.
 #'   \item "\code{nlxb}" for a nonliner regression model using the function
-#'     \code{\link{nlxb}} from the \code{\link{nlsr}} package. This method
+#'     \code{\link[nlsr]{nlxb}} from the \pkg{nlsr} package. This method
 #'     also estimates all three coefficients. It is expected to be more robust
 #'     than the \code{nls} method.
 #'   \item "\code{default}" for the default method using a transformation

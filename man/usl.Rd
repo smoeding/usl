@@ -55,7 +55,7 @@ model:
     is used internally to solve the model. So all restrictions of the
     "\code{port}" algorithm apply.
   \item "\code{nlxb}" for a nonliner regression model using the function
-    \code{\link{nlxb}} from the \code{\link{nlsr}} package. This method
+    \code{\link[nlsr]{nlxb}} from the \pkg{nlsr} package. This method
     also estimates all three coefficients. It is expected to be more robust
     than the \code{nls} method.
   \item "\code{default}" for the default method using a transformation

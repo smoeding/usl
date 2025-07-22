@@ -26,3 +26,12 @@ Neil J. Gunther. Guerrilla Capacity Planning: A Tactical
 \seealso{
 \code{\link{usl}}
 }
+\author{
+\strong{Maintainer}: Stefan Moeding \email{stm@moeding.net}
+
+Authors:
+\itemize{
+  \item Neil J. Gunther
+}
+
+}

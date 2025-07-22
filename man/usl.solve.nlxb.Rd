@@ -17,7 +17,7 @@ A list containing three elements: the model coefficients alpha,
 }
 \description{
 This function solves a USL model using non linear regression with least
-squares. It uses the function \code{\link{nlxb}} from the \pkg{nlsr}
+squares. It uses the function \code{\link[nlsr]{nlxb}} from the \pkg{nlsr}
 package to perform the calculation.
 }
 \references{
