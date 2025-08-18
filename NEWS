@@ -1,3 +1,8 @@
+CHANGES in `usl' VERSION 3.0.4 (2025-08-18)
+
+* No functional changes; only package anchors for \link{} targets were added.
+
+
 CHANGES in `usl' VERSION 3.0.3 (2022-08-27)
 
 * No functional changes; only unit tests were updated.
